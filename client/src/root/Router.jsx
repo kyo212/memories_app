@@ -2,16 +2,15 @@ import { memo } from "react";
 // パッケージ
 import { Routes, Route } from "react-router-dom";
 // コンポーネント
-import { Home } from "./page/Home";
-import { Login } from "./page/Login";
-import { MyBooks } from "./page/MyBooks";
-import { Register } from "./page/Register";
-import { Book } from "./page/category/Book";
+import { Home } from "../components/pages/Home";
+import { Login } from "../components/pages/Login";
+import { MyBooks } from "../components/pages/MyBooks";
+import { Register } from "../components/pages/Register";
+import { Book } from "../components/pages/category/Book";
 
 export const Router = memo(() => {
   return (
-    <>
-      <div className="bg-gray-300">ヘッダー</div>
+    <div className="h-screen w-screen bg-gray-200">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
@@ -20,6 +19,6 @@ export const Router = memo(() => {
         <Route path="/book" element={<Book />} />
       </Routes>
       <div className="bg-gray-300">フッター</div>
-    </>
+    </div>
   );
 });
