@@ -10,7 +10,7 @@ import { Book } from "../components/pages/category/Book";
 
 export const Router = memo(() => {
   return (
-    <div className="h-screen w-screen bg-gray-200">
+    <div className="h-screen w-screen bg-slate-100">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
@@ -18,7 +18,6 @@ export const Router = memo(() => {
         <Route path="/mybooks" element={<MyBooks />} />
         <Route path="/book" element={<Book />} />
       </Routes>
-      <div className="bg-gray-300">フッター</div>
     </div>
   );
 });

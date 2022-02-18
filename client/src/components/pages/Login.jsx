@@ -9,9 +9,9 @@ export const Login = memo(() => {
       <Header>
         <HeaderRegBtn />
       </Header>
-      <div className="pt-14">
+      <>
         <>ログイン画面</>
-      </div>
+      </>
     </>
   );
 });

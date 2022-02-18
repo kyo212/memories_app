@@ -9,10 +9,9 @@ export const Register = memo(() => {
       <Header>
         <HeaderLoginBtn />
       </Header>
-
-      <div className="pt-14">
+      <>
         <>新規登録画面</>
-      </div>
+      </>
     </>
   );
 });
