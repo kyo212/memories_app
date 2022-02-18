@@ -1,9 +1,9 @@
 export const HeaderRegBtn = () => {
   return (
-    <button>
+    <button className="outline-none">
       <a
         href="/register"
-        className="transform py-4 text-sm transition-all hover:bg-slate-400 hover:bg-opacity-20"
+        className="transform rounded-full border border-sky-700 bg-white bg-opacity-60 p-2 text-[12px] transition-all hover:bg-slate-400 hover:bg-opacity-20"
       >
         新規登録
       </a>

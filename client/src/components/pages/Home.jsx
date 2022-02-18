@@ -19,9 +19,10 @@ export const Home = memo(() => {
           <div className="bg-bg-image flex h-[105%] justify-center bg-cover pt-14 sm:h-full">
             <div className="w-[90%]">
               {/* bg-white */}
-              <div className="mt-4 flex h-56 w-full flex-col items-center justify-center space-y-2 rounded-md bg-white bg-opacity-80 text-center shadow-md">
-                <h1 className="my-2 border-b text-2xl font-bold ">memories</h1>
-                <h2 className="space-y-2 px-4 text-sm font-thin">
+              <div className="mt-4 flex h-56 w-full flex-col items-center justify-center space-y-2 text-center ">
+                <h1 className="mt-2 text-2xl font-bold ">memories</h1>
+                <label className="mb-4 text-sm">メモリーズ</label>
+                <h2 className="space-y-2 px-4 text-sm">
                   <p>
                     memoriesはデジタルな
                     <span className="border-b">フォトブック</span>。
@@ -31,23 +32,25 @@ export const Home = memo(() => {
                   </p>
                 </h2>
               </div>
-              <div className="mt-[76px] space-y-3 text-center font-bold text-slate-800">
-                <p>
-                  思い出を
-                  <span className="ml-1 text-pink-600">"残す"</span>
-                </p>
-                <p>
-                  思い出を
-                  <span className="ml-1 text-blue-600">"振り返る"</span>
-                </p>
-                <p>
-                  思い出を
-                  <span className=" ml-1 text-amber-600">"共有する"</span>
-                </p>
-                <p>
-                  思い出を
-                  <span className=" ml-1 text-green-600">"知る"</span>
-                </p>
+              <div className="flex justify-center mt-[70px] w-full font-serif font-bold text-slate-800">
+                <div className="space-y-3">
+                  <p>
+                    思い出を
+                    <span className="ml-1 text-pink-600">残す</span>
+                  </p>
+                  <p>
+                    思い出を
+                    <span className="ml-1 text-blue-600">"振り返る"</span>
+                  </p>
+                  <p>
+                    思い出を
+                    <span className=" ml-1 text-amber-600">"共有する"</span>
+                  </p>
+                  <p>
+                    思い出を
+                    <span className=" ml-1 text-green-600">"知る"</span>
+                  </p>
+                </div>
               </div>
             </div>
           </div>
