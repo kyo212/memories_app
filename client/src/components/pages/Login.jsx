@@ -15,13 +15,11 @@ export const Login = memo(() => {
         title={"ログインする"}
         text={"まだ新規登録がお済みでない場合は"}
         rootText={"新規登録"}
+        button={"はじめる"}
       >
         <a href="/password-change" className="text-sm text-blue-800">
           パスワードを忘れた場合
         </a>
-        <button className="my-6 rounded-md bg-sky-600 p-2 px-4 font-bold text-white shadow-md">
-          始める
-        </button>
       </LoginRegThema>
     </>
   );

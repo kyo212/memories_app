@@ -16,7 +16,7 @@ export const Home = memo(() => {
         </Header>
         <div className="h-full w-full text-slate-800">
           {/* bg-image */}
-          <div className="bg-bg-image flex h-[105%] justify-center bg-cover pt-14 sm:h-full">
+          <div className="bg-bg-image flex h-screen justify-center bg-cover pt-14 sm:h-full">
             <div className="w-[90%]">
               {/* bg-white */}
               <div className="mt-4 flex h-56 w-full flex-col items-center justify-center space-y-2 text-center ">
@@ -32,11 +32,11 @@ export const Home = memo(() => {
                   </p>
                 </h2>
               </div>
-              <div className="flex justify-center mt-[70px] w-full font-serif font-bold text-slate-800">
+              <div className="flex justify-center mt-[50px] w-full font-serif font-bold text-slate-800">
                 <div className="space-y-3">
                   <p>
                     思い出を
-                    <span className="ml-1 text-pink-600">残す</span>
+                    <span className="ml-1 text-pink-600">"残す"</span>
                   </p>
                   <p>
                     思い出を

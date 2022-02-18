@@ -3,7 +3,7 @@ export const HeaderRegBtn = () => {
     <button className="outline-none">
       <a
         href="/register"
-        className="transform rounded-full border border-sky-700 bg-white bg-opacity-60 p-2 text-[12px] transition-all hover:bg-slate-400 hover:bg-opacity-20"
+        className="transform rounded-full border border-sky-700 font-bold p-2 text-[12px] text-sky-700 transition-all hover:bg-sky-700 hover:text-white"
       >
         新規登録
       </a>

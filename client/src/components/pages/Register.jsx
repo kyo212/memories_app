@@ -15,6 +15,7 @@ export const Register = memo(() => {
         title={"新規登録をする"}
         text={"新規登録がお済みの方は"}
         rootText={"ログイン"}
+        button={"登録してはじめる"}
       >
         <div className="my-4 space-y-2 text-sm text-slate-800">
           <div className="flex items-center">

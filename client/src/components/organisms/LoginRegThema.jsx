@@ -1,6 +1,13 @@
 import { useState } from "react";
 
-export const LoginRegThema = ({ root, text, rootText, title, children }) => {
+export const LoginRegThema = ({
+  root,
+  text,
+  rootText,
+  title,
+  button,
+  children,
+}) => {
   const [passToggle, setPassToggle] = useState(false);
 
   return (
@@ -38,6 +45,9 @@ export const LoginRegThema = ({ root, text, rootText, title, children }) => {
           </div>
         </form>
         {children}
+        <button className="my-6 rounded-md bg-sky-600 p-2 px-4 font-bold text-white shadow-md">
+          {button}
+        </button>
       </div>
     </div>
   );

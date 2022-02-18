@@ -1,13 +1,12 @@
 export const HeaderLoginBtn = () => {
   return (
-    <button className="outline-none">
+    <button className="relative outline-none">
       <a
         href="/login"
-        className="transform rounded-full bg-sky-700 p-2 text-[12px] font-bold text-white transition-all"
+        className="transform rounded-full border border-blue-700 bg-sky-700 p-2 text-[12px] font-bold text-white transition-all hover:bg-white hover:text-blue-700"
       >
         はじめる
       </a>
-      {/* <span className="absolute bg-black p-2 "></span> */}
     </button>
   );
 };
