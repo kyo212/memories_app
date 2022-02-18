@@ -1,4 +1,7 @@
 import { useState } from "react";
+// サードパーティ
+import { BsFillEyeFill } from "react-icons/bs";
+import { BsFillEyeSlashFill } from "react-icons/bs";
 
 export const LoginRegThema = ({
   root,
@@ -24,25 +27,24 @@ export const LoginRegThema = ({
           </a>
           から
         </p>
-        <form className="relative mt-8 mb-2 w-full space-y-2 text-center">
+        <form className="relative mt-8 mb-2 w-[210px] space-y-2 text-center">
           <input
             type="text"
             autoFocus
             placeholder="ユーザーネーム"
             className="rounded border border-slate-400 px-4 py-2 outline-none"
           />
-          <div className="relative">
-            <input
-              type={passToggle ? "text" : "password"}
-              placeholder="パスワード"
-              className="rounded border border-slate-400 px-4 py-2 outline-none"
-            />
-            <div className="absolute top-2 right-20">
-              <span onClick={() => setPassToggle(!passToggle)}>
-                {passToggle ? <>O</> : <>X</>}
-              </span>
-            </div>
-          </div>
+          <input
+            type={passToggle ? "text" : "password"}
+            placeholder="パスワード"
+            className="rounded border border-slate-400 px-4 py-2 outline-none"
+          />
+          <span
+            onClick={() => setPassToggle(!passToggle)}
+            className="absolute right-2 top-[50px] text-2xl text-slate-600"
+          >
+            {passToggle ? <BsFillEyeFill /> : <BsFillEyeSlashFill className="text-slate-400"/>}
+          </span>
         </form>
         {children}
         <button className="my-6 rounded-md bg-sky-600 p-2 px-4 font-bold text-white shadow-md">
