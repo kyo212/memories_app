@@ -1,54 +1,66 @@
 import { memo, useState } from "react";
+// カスタムフック
+import { useStyle } from "../../custom/useStyle";
 
 export const Tab = memo(() => {
   const [tabStyle, setTabStyle] = useState(1);
-  const classes = {
-    base: "rounded-full w-[76px] h-[76px] leading-[76px] border bg-white shadow-lg text-indigo-900 ",
-    selected:
-      "rounded-full w-[76px] h-[76px] leading-[76px] border bg-white shadow-inner translate-y-1 transition-all transform font-bold text-slate-600 bg-slate-200",
-  };
+  const { tabAnimation } = useStyle();
 
   return (
     <>
       <ul className="my-10 flex flex-wrap items-center justify-center space-x-1 text-center">
         <li
-          className={[tabStyle !== 1 ? classes.base : classes.selected]}
+          className={[
+            tabStyle !== 1 ? tabAnimation.base : tabAnimation.selected,
+          ]}
           onClick={() => setTabStyle(1)}
         >
           <a href="#page1">家族</a>
         </li>
         <li
-          className={[tabStyle !== 2 ? classes.base : classes.selected]}
+          className={[
+            tabStyle !== 2 ? tabAnimation.base : tabAnimation.selected,
+          ]}
           onClick={() => setTabStyle(2)}
         >
           <a href="#page2">子供</a>
         </li>
         <li
-          className={[tabStyle !== 3 ? classes.base : classes.selected]}
+          className={[
+            tabStyle !== 3 ? tabAnimation.base : tabAnimation.selected,
+          ]}
           onClick={() => setTabStyle(3)}
         >
           <a href="#page2">ペット</a>
         </li>
         <li
-          className={[tabStyle !== 4 ? classes.base : classes.selected]}
+          className={[
+            tabStyle !== 4 ? tabAnimation.base : tabAnimation.selected,
+          ]}
           onClick={() => setTabStyle(4)}
         >
           <a href="#page3">趣味</a>
         </li>
         <li
-          className={[tabStyle !== 5 ? classes.base : classes.selected]}
+          className={[
+            tabStyle !== 5 ? tabAnimation.base : tabAnimation.selected,
+          ]}
           onClick={() => setTabStyle(5)}
         >
           <a href="#page4">友達</a>
         </li>
         <li
-          className={[tabStyle !== 6 ? classes.base : classes.selected]}
+          className={[
+            tabStyle !== 6 ? tabAnimation.base : tabAnimation.selected,
+          ]}
           onClick={() => setTabStyle(6)}
         >
           <a href="#page5">恋人</a>
         </li>
         <li
-          className={[tabStyle !== 7 ? classes.base : classes.selected]}
+          className={[
+            tabStyle !== 7 ? tabAnimation.base : tabAnimation.selected,
+          ]}
           onClick={() => setTabStyle(7)}
         >
           <a href="#page5">旅行</a>
