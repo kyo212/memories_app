@@ -8,7 +8,7 @@ import { LoginRegThema } from "../organisms/LoginRegThema";
 export const Register = memo(() => {
   return (
     <>
-      <Header>
+      <Header root={"/"}>
         <HeaderLoginBtn />
       </Header>
       <LoginRegThema

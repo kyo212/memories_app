@@ -6,14 +6,14 @@ import { FooterTab } from "../molecles/tabs/FooterTab";
 import { Header } from "../organisms/Header";
 
 export const MyBooks = memo(() => {
-  const [arry, setArry] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+  const [arry, setArry] = useState([1]);
   // 追加したカテゴリタグがfamiryだった場合、famiryルートへ遷移
   return (
     <>
-      <Header>
+      <Header root={"/mybooks"}>
         <HeaderLogoutBtn />
       </Header>
-      <div className="w-screen py-20">
+      <div className="w-screen py-24">
         {/* 選んだタグの名前をパスに入れる */}
         <div className="my-0 mx-auto flex w-[90%] flex-wrap justify-between">
           {arry.map((item) => {
@@ -31,7 +31,12 @@ export const MyBooks = memo(() => {
                     </label>
                   </div>
                   <label className="h-[60%] w-[90%] border shadow-inner">
-                    <input type="file" accept="image/*" className="hidden" />
+                    <input
+                      type="file"
+                      onClick={() => window.confirm("変更しますか？")}
+                      accept="image/*"
+                      className="hidden"
+                    />
                     {item}
                   </label>
                 </div>
