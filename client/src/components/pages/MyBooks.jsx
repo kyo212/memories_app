@@ -5,7 +5,7 @@ import { FooterTab } from "../molecles/tabs/FooterTab";
 import { Header } from "../organisms/Header";
 
 export const MyBooks = memo(() => {
-  const [arry, setArry] = useState([1, 2, 3, 4, 5, 6, 7]);
+  const [arry, setArry] = useState([1]);
   // 追加したカテゴリタグがfamiryだった場合、famiryルートへ遷移
   return (
     <>
