@@ -22,31 +22,28 @@ export const Home = memo(() => {
               <div className="mt-4 flex h-56 w-full flex-col items-center justify-center space-y-2 text-center ">
                 <h1 className="mt-2 text-2xl font-bold ">memories</h1>
                 <label className="mb-4 text-sm">メモリーズ</label>
-                <h2 className="space-y-2 px-4 text-sm">
+                <h2 className="space-y-2 text-sm font-bold rounded-md py-2 px-4">
                   <p>
-                    memoriesはデジタルな
-                    <span className="border-b">フォトブック</span>。
-                  </p>
-                  <p>
-                    アナログなフォトブックでは伝えきれない情報は、memoriesで解決します。
+                    デジタルな
+                    <span>フォトブック</span>に思い出を<br/>自由に残そう。
                   </p>
                 </h2>
               </div>
-              <div className="flex justify-center mt-[50px] w-full font-serif font-bold text-slate-800">
-                <div className="space-y-3">
-                  <p>
+              <div className="flex justify-center mt-[50px] w-full font-bold text-slate-800">
+                <div className="space-y-3 w-40">
+                  <p className="text-center">
                     思い出を
                     <span className="ml-1 text-pink-600">"残す"</span>
                   </p>
-                  <p>
+                  <p className="text-right">
                     思い出を
                     <span className="ml-1 text-blue-600">"振り返る"</span>
                   </p>
-                  <p>
+                  <p className="text-left">
                     思い出を
                     <span className=" ml-1 text-amber-600">"共有する"</span>
                   </p>
-                  <p>
+                  <p className="text-center">
                     思い出を
                     <span className=" ml-1 text-green-600">"知る"</span>
                   </p>
