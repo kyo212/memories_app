@@ -1,8 +1,8 @@
 import { memo } from "react";
 // コンポーネント
-import { HeaderLoginBtn } from "../atoms/HeaderLoginBtn";
-import { HeaderRegBtn } from "../atoms/HeaderRegBtn";
-import { Tab } from "../molecles/Tab";
+import { HeaderLoginBtn } from "../atoms/button/HeaderLoginBtn";
+import { HeaderRegBtn } from "../atoms/button/HeaderRegBtn";
+import { Tab } from "../molecles/tabs/Tab";
 import { Footer } from "../organisms/Footer";
 import { Header } from "../organisms/Header";
 
@@ -62,6 +62,7 @@ export const Home = memo(() => {
               <h2 className="mt-10 border-b text-xl font-bold text-slate-800">
                 カテゴリーを活用しよう。
               </h2>
+              {/* タブ */}
               <Tab />
             </div>
           </div>

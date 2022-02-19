@@ -43,12 +43,16 @@ export const LoginRegThema = ({
             onClick={() => setPassToggle(!passToggle)}
             className="absolute right-2 top-[50px] text-2xl text-slate-600"
           >
-            {passToggle ? <BsFillEyeFill /> : <BsFillEyeSlashFill className="text-slate-400"/>}
+            {passToggle ? (
+              <BsFillEyeFill />
+            ) : (
+              <BsFillEyeSlashFill className="text-slate-400" />
+            )}
           </span>
         </form>
         {children}
         <button className="my-6 rounded-md bg-sky-600 p-2 px-4 font-bold text-white shadow-md">
-          {button}
+          <a href="/mybooks">{button}</a>
         </button>
       </div>
     </div>

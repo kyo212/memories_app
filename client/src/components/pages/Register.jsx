@@ -1,6 +1,7 @@
 import { memo } from "react";
 // コンポーネント
-import { HeaderLoginBtn } from "../atoms/HeaderLoginBtn";
+import { HeaderLoginBtn } from "../atoms/button/HeaderLoginBtn";
+import { Footer } from "../organisms/Footer";
 import { Header } from "../organisms/Header";
 import { LoginRegThema } from "../organisms/LoginRegThema";
 
@@ -33,6 +34,7 @@ export const Register = memo(() => {
           </div>
         </div>
       </LoginRegThema>
+      <Footer />
     </>
   );
 });

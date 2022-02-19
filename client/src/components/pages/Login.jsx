@@ -1,6 +1,7 @@
 import { memo } from "react";
 // コンポーネント
-import { HeaderRegBtn } from "../atoms/HeaderRegBtn";
+import { HeaderRegBtn } from "../atoms/button/HeaderRegBtn";
+import { Footer } from "../organisms/Footer";
 import { Header } from "../organisms/Header";
 import { LoginRegThema } from "../organisms/LoginRegThema";
 
@@ -21,6 +22,7 @@ export const Login = memo(() => {
           パスワードを忘れた場合
         </a>
       </LoginRegThema>
+      <Footer />
     </>
   );
 });
