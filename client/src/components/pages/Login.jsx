@@ -101,18 +101,18 @@ export const Login = memo(() => {
           <a href="/password-change" className="text-sm text-blue-800">
             パスワードを忘れた場合
           </a>
-          <a href="/mybooks" className="text-sm text-blue-800">
-            ゲストユーザーでログイン
-          </a>
           <button
             type="submit"
             onClick={() => login()}
             className={
-              "my-6 rounded-md bg-sky-600 p-2 px-4 font-bold text-white shadow-md"
+              "mt-6 mb-4 rounded-md bg-sky-600 p-2 px-4 font-bold text-white shadow-md"
             }
           >
             はじめる
           </button>
+          <a href="/mybooks" className="text-sm text-blue-800">
+            ゲストユーザーでログイン
+          </a>
         </div>
       </div>
       <Footer />

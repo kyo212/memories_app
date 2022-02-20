@@ -4,13 +4,14 @@ import Axios from "axios";
 export const HeaderLogoutBtn = () => {
   const navigate = useNavigate();
   const logout = async () => {
-    await Axios.post(`http://${process.env.REACT_APP_PUBLIC_IP}/logout`).then(
-      (response) => {
+    window.confirm("ログアウトしますか？") &&
+      (await Axios.post(
+        `http://${process.env.REACT_APP_PUBLIC_IP}/logout`
+      ).then((response) => {
         if (!response.data.loggedIn) {
           navigate("/");
         }
-      }
-    );
+      }));
   };
 
   return (
