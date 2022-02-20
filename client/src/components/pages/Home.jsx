@@ -1,4 +1,6 @@
-import { memo } from "react";
+import { memo, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import Axios from "axios";
 // コンポーネント
 import { HeaderLoginBtn } from "../atoms/button/HeaderLoginBtn";
 import { HeaderRegBtn } from "../atoms/button/HeaderRegBtn";
@@ -9,8 +11,21 @@ import { Header } from "../organisms/Header";
 import { useStyle } from "../custom/useStyle";
 
 export const Home = memo(() => {
+  const navigate = useNavigate();
   const { tabs } = useStyle();
   const { tabAnimation } = tabs;
+
+  useEffect(() => {
+    const getLoginState = async () => {
+      await Axios.post(
+        `http://${process.env.REACT_APP_PUBLIC_IP}/loginState`
+      ).then((response) => {
+        const { loggedIn } = response.data;
+        loggedIn ? navigate(`/mybooks`) : navigate("/");
+      });
+    };
+    getLoginState();
+  }, []);
 
   return (
     <>
