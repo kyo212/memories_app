@@ -1,6 +1,8 @@
 const express = require("express");
 const path = require("path");
 require("dotenv").config();
+// コンポーネント
+
 const app = express();
 
 const PORT = process.env.PORT;
