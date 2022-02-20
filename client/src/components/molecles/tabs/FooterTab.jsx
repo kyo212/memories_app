@@ -1,5 +1,5 @@
 // サードパーティ
-import { BsFilter } from "react-icons/bs";
+
 
 export const FooterTab = () => {
   return (
@@ -7,8 +7,7 @@ export const FooterTab = () => {
       <div className="flex h-full w-full items-center justify-center space-x-2">
         <p>共有画面</p>
         <p className="">検索</p>
-        <p>ソート</p>
-        <BsFilter />
+        {/* 検索だけフッター */}
       </div>
     </div>
   );

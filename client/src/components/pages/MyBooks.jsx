@@ -1,17 +1,26 @@
 import { memo, useState } from "react";
-import { AddBookBtn } from "../atoms/button/AddBookBtn";
+// サードパーティsa-dopa
+import { IoIosHelpCircleOutline } from "react-icons/io";
 // コンポーネント
+import { AddBookBtn } from "../atoms/button/AddBookBtn";
 import { HeaderLogoutBtn } from "../atoms/button/HeaderLogoutBtn";
+import { MenuOpenModal } from "../molecles/modal/MenuOpenModal";
 import { FooterTab } from "../molecles/tabs/FooterTab";
 import { Header } from "../organisms/Header";
 
 export const MyBooks = memo(() => {
-  const [arry, setArry] = useState([1]);
+  const [arry, setArry] = useState([1, 2]);
   // 追加したカテゴリタグがfamiryだった場合、famiryルートへ遷移
   return (
     <>
       <Header root={"/mybooks"}>
-        <HeaderLogoutBtn />
+        <div className="flex">
+          <span className="mx-2 flex space-x-2">
+            <IoIosHelpCircleOutline className="text-2xl text-slate-600" />
+            <MenuOpenModal />
+          </span>
+          <HeaderLogoutBtn />
+        </div>
       </Header>
       <div className="w-screen py-24">
         {/* 選んだタグの名前をパスに入れる */}
@@ -46,7 +55,6 @@ export const MyBooks = memo(() => {
         </div>
       </div>
       {/* フッタータブ */}
-
       <AddBookBtn />
       <FooterTab />
     </>

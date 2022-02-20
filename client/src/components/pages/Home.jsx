@@ -9,7 +9,8 @@ import { Header } from "../organisms/Header";
 import { useStyle } from "../custom/useStyle";
 
 export const Home = memo(() => {
-  const { tabAnimation } = useStyle();
+  const { tabs } = useStyle();
+  const { tabAnimation } = tabs;
 
   return (
     <>

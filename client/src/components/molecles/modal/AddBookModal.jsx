@@ -9,8 +9,8 @@ import { Tab } from "../tabs/Tab";
 export const AddBookModal = memo(({ toggle }) => {
   const [fileUrl, setFileUrl] = useState("");
   const { modalToggle, setModalToggle } = toggle;
-  const { modalAnimation, modalWindowAnimation, modalTabAnimation } =
-    useStyle();
+  const { modals } = useStyle();
+  const { modalAnimation, modalWindowAnimation, modalTabAnimation } = modals;
 
   const processImage = (e) => {
     const imageFile = e.target.files[0];
@@ -35,6 +35,7 @@ export const AddBookModal = memo(({ toggle }) => {
               </p>
               <input
                 type="text"
+                autoFocus
                 placeholder="本のタイトルを入力"
                 className="w-full rounded-md border p-2 outline-none"
               />
