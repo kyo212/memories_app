@@ -7,10 +7,12 @@ import { HeaderLogoutBtn } from "../atoms/button/HeaderLogoutBtn";
 import { MenuOpenModal } from "../molecles/modal/MenuOpenModal";
 import { FooterTab } from "../molecles/tabs/FooterTab";
 import { Header } from "../organisms/Header";
+import { ImageUrlCreate } from "../organisms/ImageUrlCreate";
 
 export const MyBooks = memo(() => {
   const [arry, setArry] = useState([1, 2]);
   // 追加したカテゴリタグがfamiryだった場合、famiryルートへ遷移
+
   return (
     <>
       <Header root={"/mybooks"}>
@@ -39,15 +41,9 @@ export const MyBooks = memo(() => {
                       カテゴリー
                     </label>
                   </div>
-                  <label className="h-[60%] w-[90%] border shadow-inner">
-                    <input
-                      type="file"
-                      onClick={() => window.confirm("変更しますか？")}
-                      accept="image/*"
-                      className="hidden"
-                    />
-                    {item}
-                  </label>
+                  <ImageUrlCreate
+                    className={"h-[60%] w-[90%] border shadow-inner"}
+                  />
                 </div>
               </div>
             );

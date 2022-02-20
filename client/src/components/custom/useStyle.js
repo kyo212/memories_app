@@ -37,9 +37,16 @@ export const useStyle = () => {
         "fixed top-14 h-40 w-32 transform space-y-2 rounded-md border bg-white py-4 px-3 text-sm text-slate-700 shadow-md transition-all duration-500",
     },
   };
+  // search
+  const searchOpen = {
+    base: "w-0 transform rounded-sm py-1 opacity-0 outline-none transition-all",
+    showed:
+      "w-[116px] transform rounded-sm bg-slate-100 px-2 py-1 opacity-100 outline-none transition-all",
+  };
   return {
     tabs,
     modals,
     menuOpens,
+    searchOpen,
   };
 };

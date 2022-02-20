@@ -1,22 +1,16 @@
-import { memo, useState } from "react";
+import { memo } from "react";
 // カスタムフック
 import { useStyle } from "../../custom/useStyle";
 // サードパーティ
 import { AiOutlinePlus } from "react-icons/ai";
 // コンポーネント
 import { Tab } from "../tabs/Tab";
+import { ImageUrlCreate } from "../../organisms/ImageUrlCreate";
 
 export const AddBookModal = memo(({ toggle }) => {
-  const [fileUrl, setFileUrl] = useState("");
   const { modalToggle, setModalToggle } = toggle;
   const { modals } = useStyle();
   const { modalAnimation, modalWindowAnimation, modalTabAnimation } = modals;
-
-  const processImage = (e) => {
-    const imageFile = e.target.files[0];
-    const imageUrl = URL.createObjectURL(imageFile);
-    setFileUrl(imageUrl);
-  };
 
   return (
     <div
@@ -44,19 +38,9 @@ export const AddBookModal = memo(({ toggle }) => {
               <p className="mb-2 border-b text-lg font-bold text-slate-700">
                 表紙
               </p>
-              <label className="inline-block h-52 w-full bg-gray-100">
-                <input
-                  type="file"
-                  onChange={(e) => processImage(e)}
-                  className="hidden"
-                />
-                <img
-                  src={fileUrl}
-                  onError={(e) => (e.target.value = "OK")}
-                  alt="表紙の画像"
-                  className="h-full w-full object-cover"
-                />
-              </label>
+              <ImageUrlCreate
+                className={"inline-block h-52 w-full bg-gray-100"}
+              />
             </div>
             <div>
               <p className="border-b text-lg font-bold text-slate-700">

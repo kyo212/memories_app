@@ -16,19 +16,20 @@ export const MenuOpenModal = () => {
           modalToggle ? menuOpenBtnAnimation.showed : menuOpenBtnAnimation.base,
         ]}
       />
-      {modalToggle ? (
-        <div className={menuOpenAnimation.showed}>
-          <button onClick={() => setModalToggle(false)} className="space-y-2 text-left">
+        <div
+          className={[
+            modalToggle ? menuOpenAnimation.showed : menuOpenAnimation.base,
+          ]}
+        >
+          <button
+            onClick={() => setModalToggle(false)}
+            className="space-y-2 text-left"
+          >
             <p>並び替え</p>
             <p>フィルタを適用</p>
           </button>
         </div>
-      ) : (
-        <div className={menuOpenAnimation.base}>
-          <button>並び替え</button>
-          <button>フィルタを適用</button>
-        </div>
-      )}
+
     </>
   );
 };
