@@ -12,10 +12,10 @@ export const Books = memo(({ category, Items }) => {
         <span className="absolute top-7 right-4 mx-4 inline-block w-28 border-b" />
       </h1>
       <div className="flex h-[460px] w-full snap-x items-center overflow-x-scroll">
-        {Items.map((item) => {
+        {Items.map((item, index) => {
           return (
             <div
-              key={item.num}
+              key={item.book_num}
               className="relative mx-6 snap-start scroll-mx-6"
             >
               {/* 本の淵のUI */}
@@ -25,18 +25,18 @@ export const Books = memo(({ category, Items }) => {
               <span className="absolute -top-[5px] left-0 -z-10 h-[4px] w-[13px] -rotate-45 transform rounded-md border border-slate-300 bg-white"></span>
               {/* 表紙 */}
               <div className="z-10 flex h-[400px] w-80 flex-col  items-center rounded-sm border border-slate-300 bg-white text-slate-700 shadow-md">
-                <div className="text-bold flax mt-3 flex-col text-center text-lg">
-                  <p className="border-b">{item.title}</p>
-                  <label className="text-[6px] text-slate-400">
+                <div className="text-bold flax mt-8 mb-4 flex-col text-center text-lg">
+                  <p className="border-b">{item.book_name}</p>
+                  <label className="text-[12px] text-slate-400">
                     {item.category}
                   </label>
                 </div>
                 <ImageUrlCreate
-                  className={"h-[70%] w-[80%] border shadow-inner"}
+                  className={"h-[70%] w-[88%] border shadow-inner"}
                 />
               </div>
               <p className="my-2 space-x-1 text-sm text-slate-400">
-                -{item.num}-
+                -<span className="mx-2 font-bold">{index + 1}</span>-
               </p>
             </div>
           );
