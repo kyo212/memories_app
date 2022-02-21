@@ -1,19 +1,19 @@
 import { memo, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
+
 // コンポーネント
 import { HeaderLoginBtn } from "../atoms/button/HeaderLoginBtn";
 import { Footer } from "../organisms/Footer";
 import { Header } from "../organisms/Header";
+import { MsgWindow } from "../atoms/message/MsgWindow";
 // サードパーティ
 import { BsFillEyeFill } from "react-icons/bs";
 import { BsFillEyeSlashFill } from "react-icons/bs";
-import { useStyle } from "../custom/useStyle";
 
 export const Register = memo(() => {
   const navigate = useNavigate();
-  const { messageWindow } = useStyle();
-  const { errorMsg } = messageWindow;
+
   const [passToggle, setPassToggle] = useState(false);
   const [checkBoxFirst, setCheckBoxFirst] = useState(false);
   const [checkBoxSecond, setCheckBoxSecond] = useState(false);
@@ -39,16 +39,18 @@ export const Register = memo(() => {
 
   const login = async () => {
     await Axios.post(`http://${process.env.REACT_APP_PUBLIC_IP}/login`, {
-      username: username,
-      password: password,
+      username,
+      password,
     }).then((response) => {
       const { auth, token, result, msg } = response.data;
       console.log({ auth, token, result, msg });
+      setResponseMsg(msg);
+      setResponseMsgShow(true);
       Axios.post(`http://${process.env.REACT_APP_PUBLIC_IP}/isUserAuth`).then(
         (response) => {
           const { auth, msg } = response.data;
           console.log({ auth, msg });
-          result && navigate("/mybooks");
+          auth && navigate(`/mybooks`);
         }
       );
     });
@@ -160,9 +162,7 @@ export const Register = memo(() => {
           >
             登録してはじめる
           </button>
-          <p className={[responseMsgShow ? errorMsg.showed : errorMsg.base]}>
-            <span className="font-bold">注意 :</span> {responseMsg}
-          </p>
+          <MsgWindow MsgShow={{ responseMsg, responseMsgShow }} />
         </div>
       </div>
       <Footer />

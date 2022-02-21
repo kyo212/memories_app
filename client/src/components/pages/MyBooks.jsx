@@ -1,6 +1,7 @@
 import { memo, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
+// カスタムフック
 // サードパーティ
 import { IoIosHelpCircleOutline } from "react-icons/io";
 // コンポーネント
@@ -10,9 +11,12 @@ import { MenuOpenModal } from "../molecles/modal/MenuOpenModal";
 import { FooterTab } from "../molecles/tabs/FooterTab";
 import { Header } from "../organisms/Header";
 import { ImageUrlCreate } from "../organisms/ImageUrlCreate";
+import { useStyle } from "../custom/useStyle";
 
 export const MyBooks = memo(() => {
   const navigate = useNavigate();
+  const { messageWindow } = useStyle();
+  const { successMsg } = messageWindow;
   const [arry, setArry] = useState([1, 2]);
   const [isAuth, setIsAuth] = useState(false);
   // 追加したカテゴリタグがfamiryだった場合、famiryルートへ遷移
@@ -34,6 +38,7 @@ export const MyBooks = memo(() => {
     };
     getAuth();
   }, []);
+
   return (
     <div>
       {isAuth && (

@@ -1,10 +1,12 @@
 import { memo, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
+// カスタムフック
 // コンポーネント
 import { HeaderRegBtn } from "../atoms/button/HeaderRegBtn";
 import { Footer } from "../organisms/Footer";
 import { Header } from "../organisms/Header";
+import { MsgWindow } from "../atoms/message/MsgWindow";
 // サードパーティ
 import { BsFillEyeFill } from "react-icons/bs";
 import { BsFillEyeSlashFill } from "react-icons/bs";
@@ -15,6 +17,9 @@ export const Login = memo(() => {
   // 情報
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  // メッセージ
+  const [responseMsg, setResponseMsg] = useState("");
+  const [responseMsgShow, setResponseMsgShow] = useState(false);
 
   // セッション情報によってルートを制限する
   useEffect(() => {
@@ -29,6 +34,7 @@ export const Login = memo(() => {
     getLoginState();
   }, []);
 
+  // registerのlogin関数と共通化
   const login = async () => {
     await Axios.post(`http://${process.env.REACT_APP_PUBLIC_IP}/login`, {
       username,
@@ -36,6 +42,8 @@ export const Login = memo(() => {
     }).then((response) => {
       const { auth, token, result, msg } = response.data;
       console.log({ auth, token, result, msg });
+      setResponseMsg(msg);
+      setResponseMsgShow(true);
       Axios.post(`http://${process.env.REACT_APP_PUBLIC_IP}/isUserAuth`).then(
         (response) => {
           const { auth, msg } = response.data;
@@ -73,6 +81,7 @@ export const Login = memo(() => {
               value={username}
               onChange={(e) => {
                 setUsername(e.target.value);
+                setResponseMsgShow(false);
               }}
               autoFocus
               placeholder="ユーザーネーム"
@@ -83,6 +92,7 @@ export const Login = memo(() => {
               value={password}
               onChange={(e) => {
                 setPassword(e.target.value);
+                setResponseMsgShow(false);
               }}
               placeholder="パスワード"
               className="rounded border border-slate-400 px-4 py-2 outline-none"
@@ -113,6 +123,7 @@ export const Login = memo(() => {
           <a href="/mybooks" className="text-sm text-blue-800">
             ゲストユーザーでログイン
           </a>
+          <MsgWindow MsgShow={{ responseMsg, responseMsgShow }} />
         </div>
       </div>
       <Footer />

@@ -50,6 +50,11 @@ export const useStyle = () => {
       showed:
         "border-b border-red-800 fixed bottom-10 bg-red-600 bg-opacity-10 px-4 py-2 text-sm text-red-800 opacity-100 transition-all duration-500",
     },
+    successMsg: {
+      base: "translate-y-10 transform fixed bottom-10 opacity-0 transition-all",
+      showed:
+        "border-b border-green-800 fixed bottom-10 bg-green-600 bg-opacity-10 px-4 py-2 text-sm text-green-800 opacity-100 transition-all duration-500",
+    },
   };
 
   return {

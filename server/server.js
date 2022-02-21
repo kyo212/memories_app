@@ -36,10 +36,10 @@ app.use(
     credentials: true,
   })
 );
-const corsOptions = {
-  origin: `http://${process.env.PUBLIC_IP}:${process.env.PORT}`,
-  optionsSuccessStatus: 200,
-};
+// const corsOptions = {
+//   origin: `http://${process.env.PUBLIC_IP}:3000`,
+//   optionsSuccessStatus: 200,
+// };
 app.use(cookieParser());
 app.use(
   session({
@@ -55,7 +55,7 @@ app.use(
 );
 
 // routes
-app.post("/register", cors(corsOptions), (req, res) => {
+app.post("/register", (req, res) => {
   const { username, password } = req.body;
   if (username === "" || password === "") {
     res.json({ result: false, msg: "入力してください" });
@@ -84,7 +84,7 @@ app.post("/register", cors(corsOptions), (req, res) => {
 });
 
 // jwt検証
-app.post("/isUserAuth", cors(corsOptions), verifyJWT, (req, res) => {
+app.post("/isUserAuth", verifyJWT, (req, res) => {
   res.json({ auth: true, msg: "トークンは有効です" });
 });
 
@@ -100,7 +100,7 @@ app.post("/loginState", (req, res) => {
   }
 });
 
-app.post("/logout", cors(corsOptions), (req, res) => {
+app.post("/logout", (req, res) => {
   req.session.destroy((err) => {
     console.log(err);
   });
@@ -110,7 +110,7 @@ app.post("/logout", cors(corsOptions), (req, res) => {
   });
 });
 
-app.post("/login", cors(corsOptions), (req, res) => {
+app.post("/login", (req, res) => {
   const { username, password } = req.body;
   console.log(username, password);
   const sqlSelect = "SELECT * FROM users WHERE username = ?";
