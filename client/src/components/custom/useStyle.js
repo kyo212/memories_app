@@ -32,9 +32,9 @@ export const useStyle = () => {
       showed: "rotate-180 transform text-2xl text-slate-600 transition-all",
     },
     menuOpenAnimation: {
-      base: "fixed top-14 h-0 w-32 transform rounded-md border bg-white px-3 text-sm text-slate-700 opacity-0 shadow-md transition-all ease-in",
+      base: "fixed top-14 right-6 h-0 w-32 transform rounded-md border bg-white px-3 text-sm text-slate-700 opacity-0 shadow-md transition-all ease-in",
       showed:
-        "fixed top-14 h-40 w-32 transform space-y-2 rounded-md border bg-white py-4 px-3 text-sm text-slate-700 shadow-md transition-all duration-500",
+        "fixed top-14 right-6 h-40 w-32 transform space-y-2 rounded-md border bg-white py-4 px-3 text-sm text-slate-700 shadow-md transition-all duration-500",
     },
   };
   // search

@@ -4,7 +4,6 @@ import { TabInform } from "./TabInform";
 
 export const Tab = memo(({ animation, hidden }) => {
   const [tabListIndex, setTabListIndex] = useState("家族");
-  console.log(tabListIndex);
   const tabList = ["家族", "子供", "ペット", "趣味", "友達", "恋人", "旅行"];
 
   return (

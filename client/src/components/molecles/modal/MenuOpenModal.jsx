@@ -27,6 +27,7 @@ export const MenuOpenModal = () => {
           >
             <p>並び替え</p>
             <p>フィルタを適用</p>
+            <p>ヘルプ</p>
           </button>
         </div>
 
