@@ -16,6 +16,7 @@ export const MyBooks = memo(() => {
   const [arry, setArry] = useState([
     { title: "赤ちゃん", category: "family", num: 1 },
     { title: "こども", category: "family", num: 2 },
+    { title: "こども", category: "family", num: 3 },
   ]);
 
   useEffect(() => {
@@ -25,7 +26,7 @@ export const MyBooks = memo(() => {
       ).then((response) => {
         const { loggedIn } = response.data;
         if (!loggedIn) {
-          navigate("/session");
+          // navigate("/session");
         } else {
           setIsAuth(loggedIn);
         }
@@ -36,7 +37,7 @@ export const MyBooks = memo(() => {
 
   return (
     <div>
-      {isAuth && (
+      {!isAuth && (
         <>
           <Header root={"/mybooks"}>
             <div className="flex space-x-2">
