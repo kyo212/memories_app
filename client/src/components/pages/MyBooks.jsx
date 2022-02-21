@@ -11,12 +11,10 @@ import { MenuOpenModal } from "../molecles/modal/MenuOpenModal";
 import { FooterTab } from "../molecles/tabs/FooterTab";
 import { Header } from "../organisms/Header";
 import { ImageUrlCreate } from "../organisms/ImageUrlCreate";
-import { useStyle } from "../custom/useStyle";
 
 export const MyBooks = memo(() => {
   const navigate = useNavigate();
-  const { messageWindow } = useStyle();
-  const { successMsg } = messageWindow;
+
   const [arry, setArry] = useState([1, 2]);
   const [isAuth, setIsAuth] = useState(false);
   // 追加したカテゴリタグがfamiryだった場合、famiryルートへ遷移
@@ -30,7 +28,7 @@ export const MyBooks = memo(() => {
         if (!loggedIn) {
           // ログインがfalseならルートに遷移
           console.log("home");
-          navigate("/session");
+          // navigate("/session");
         } else {
           setIsAuth(loggedIn);
         }
@@ -41,7 +39,7 @@ export const MyBooks = memo(() => {
 
   return (
     <div>
-      {isAuth && (
+      {!isAuth && (
         <>
           <Header root={"/mybooks"}>
             <div className="flex">

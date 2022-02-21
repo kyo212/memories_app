@@ -45,9 +45,8 @@ export const Home = memo(() => {
                 <h2 className="space-y-2 rounded-md py-2 px-4 text-sm font-bold">
                   <p>
                     デジタルな
-                    <span>フォトブック</span>に思い出を
-                    <br />
-                    自由に残そう。
+                    <span>フォトブック</span>に<br />
+                    思い出を自由に残そう。
                   </p>
                 </h2>
               </div>
