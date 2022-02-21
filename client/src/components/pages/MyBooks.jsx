@@ -17,6 +17,9 @@ export const MyBooks = memo(() => {
     { title: "赤ちゃん", category: "family", num: 1 },
     { title: "こども", category: "family", num: 2 },
     { title: "こども", category: "family", num: 3 },
+    { title: "赤ちゃん", category: "family", num: 4 },
+    { title: "こども", category: "family", num: 5 },
+    { title: "こども", category: "family", num: 6 },
   ]);
 
   useEffect(() => {
