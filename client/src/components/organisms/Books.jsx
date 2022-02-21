@@ -4,6 +4,7 @@ import { BookRibbon } from "../atoms/style/BookRibbon";
 import { ImageUrlCreate } from "./ImageUrlCreate";
 
 export const Books = memo(({ category, Items }) => {
+  console.log(category);
   return (
     <div>
       <h1 className="relative py-4 font-serif text-xl font-bold text-slate-600">

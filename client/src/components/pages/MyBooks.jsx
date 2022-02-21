@@ -18,52 +18,52 @@ export const MyBooks = memo(() => {
   const [bookItems, setBookItems] = useState([
     {
       book_name: "家族との思い出",
-      category: "family",
+      category: "家族",
       book_num: 1,
       favorite: 0,
     },
     {
       book_name: "こどもの成長日記",
-      category: "child",
+      category: "子供",
       book_num: 2,
       favorite: 1,
     },
     {
       book_name: "タローの成長日記",
-      category: "pet",
+      category: "ペット",
       book_num: 3,
       favorite: 0,
     },
-    { book_name: "ラテの成長日記", category: "pet", book_num: 4, favorite: 0 },
-    { book_name: "カフェ巡り記", category: "hoby", book_num: 5, favorite: 0 },
+    { book_name: "ラテの成長日記", category: "ペット", book_num: 4, favorite: 0 },
+    { book_name: "カフェ巡り記", category: "趣味", book_num: 5, favorite: 0 },
     // {
     //   book_name: "友達とパーティ",
-    //   category: "friend",
+    //   category: "友達",
     //   book_num: 6,
     //   favorite: 1,
     // },
     {
       book_name: "恋人とクリスマスデート",
-      category: "lover",
+      category: "恋人",
       book_num: 7,
       favorite: 1,
     },
     {
       book_name: "京都旅行の日記",
-      category: "travel",
+      category: "旅行",
       book_num: 8,
       favorite: 0,
     },
   ]);
 
   // カテゴリごとにデータを抽出
-  const familyArry = bookItems.filter((item) => item.category === "family");
-  const childArry = bookItems.filter((item) => item.category === "child");
-  const petArry = bookItems.filter((item) => item.category === "pet");
-  const hobyArry = bookItems.filter((item) => item.category === "hoby");
-  const friendArry = bookItems.filter((item) => item.category === "friend");
-  const loverArry = bookItems.filter((item) => item.category === "lover");
-  const travelArry = bookItems.filter((item) => item.category === "travel");
+  const familyArry = bookItems.filter((item) => item.category === "家族");
+  const childArry = bookItems.filter((item) => item.category === "子供");
+  const petArry = bookItems.filter((item) => item.category === "ペット");
+  const hobyArry = bookItems.filter((item) => item.category === "趣味");
+  const friendArry = bookItems.filter((item) => item.category === "友達");
+  const loverArry = bookItems.filter((item) => item.category === "恋人");
+  const travelArry = bookItems.filter((item) => item.category === "旅行");
 
   const categoryArrays = [
     familyArry,
@@ -106,14 +106,15 @@ export const MyBooks = memo(() => {
           {/* メインコンテンツ */}
           <div className="flex w-screen flex-col py-20 text-center">
             {bookItems.length > 0 ? (
-              // bookItemsの中の配列の中にデータが存在しない場合は"まだ何もありません"を表示
+              // bookItems(bookの情報を格納している配列)の中の配列の中にデータが存在しない場合(0の場合)は"まだ何もありません"を表示
               <>
                 {categoryArrays.map((array, index) => {
-                  // categoryArraysの中の配列の中にデータが存在しない場合は非表示にさせる
+                  // categoryArrays(カテゴリごとに分けた配列をまとめた配列)の中の配列の中にデータが存在しない場合は下記コンポーネントを表示させない
+                  console.log(array[0]);
                   return (
                     array.length > 0 && (
                       <div key={index}>
-                        <Books category={"家族"} Items={array} />
+                        <Books category={array[0].category} Items={array} />
                       </div>
                     )
                   );
