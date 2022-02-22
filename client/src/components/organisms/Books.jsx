@@ -4,7 +4,6 @@ import { BookRibbon } from "../atoms/style/BookRibbon";
 import { ImageUrlCreate } from "./ImageUrlCreate";
 
 export const Books = memo(({ category, Items }) => {
-  console.log(category);
   return (
     <div>
       <h1 className="relative py-4 font-serif text-xl font-bold text-slate-600">
@@ -29,7 +28,7 @@ export const Books = memo(({ category, Items }) => {
                 <div className="text-bold flax mt-8 mb-4 flex-col text-center text-lg">
                   <p className="border-b">{item.bookName}</p>
                   <label className="text-[12px] text-slate-400">
-                    <span className="mx-2 font-bold">作成日:{item.createDate}</span>
+                    <span className="mx-2 font-bold">作成日:{item.date}</span>
                   </label>
                 </div>
                 <ImageUrlCreate
@@ -37,7 +36,7 @@ export const Books = memo(({ category, Items }) => {
                 />
               </div>
               <p className="my-2 space-x-1 text-sm text-slate-400">
-                  -<span className="mx-2 font-bold">{index + 1}</span>-
+                -<span className="mx-2 font-bold">{index + 1}</span>-
               </p>
             </div>
           );

@@ -8,18 +8,23 @@ import { AiOutlinePlus } from "react-icons/ai";
 // コンポーネント
 import { Tab } from "../tabs/Tab";
 import { ImageUrlCreate } from "../../organisms/ImageUrlCreate";
+import { MsgWindow } from "../../atoms/message/MsgWindow";
 
 export const AddBookModal = memo(({ toggle }) => {
   // 情報
-  const [loginUser, setLoginUser] = useState("gest");
+  const [loginUser, setLoginUser] = useState("gestuser");
   const [bookName, setBookName] = useState("");
   const [coverImage, setCoverImage] = useState("");
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState("家族");
+  // メッセージ
+  const [responseMsg, setResponseMsg] = useState("");
+  const [responseMsgShow, setResponseMsgShow] = useState(false);
   // カスタムフック
   const [update, { setUpdate }] = useForceUpdate();
   const { modalToggle, setModalToggle } = toggle;
-  const { modals } = useStyle();
+  const { modals, messageWindow } = useStyle();
   const { modalAnimation, modalWindowAnimation, modalTabAnimation } = modals;
+  const { errorBorderMsg } = messageWindow;
 
   useEffect(() => {
     // ユーザーネームをセッションから取得
@@ -36,17 +41,23 @@ export const AddBookModal = memo(({ toggle }) => {
 
   // 入力した情報をDBに追加
   const insertItem = async () => {
-    await Axios.post(`http://${process.env.REACT_APP_PUBLIC_IP}/insert`, {
-      username: loginUser,
-      bookName,
-      coverImage,
-      category,
-    }).then((response) => {
-      const { result, err } = response.data;
-      console.log({ result, err });
-      setCoverImage(!update);
-      setModalToggle(false);
-    });
+    //  coverImage === "" || 追加
+    if (bookName !== "" && category !== "") {
+      await Axios.post(`http://${process.env.REACT_APP_PUBLIC_IP}/insert`, {
+        username: loginUser,
+        bookName,
+        coverImage,
+        category,
+      }).then((response) => {
+        const { result, err } = response.data;
+        console.log({ result, err });
+        setCoverImage(!update);
+        setModalToggle(false);
+      });
+    } else {
+      setResponseMsgShow(true);
+      setResponseMsg("入力してください");
+    }
   };
 
   return (
@@ -68,8 +79,13 @@ export const AddBookModal = memo(({ toggle }) => {
                 type="text"
                 autoFocus
                 placeholder="本のタイトルを入力"
-                onChange={(e) => setBookName(e.target.value)}
-                className="w-full rounded-md border p-2 outline-none"
+                onChange={(e) => {
+                  setBookName(e.target.value);
+                  setResponseMsgShow(false);
+                }}
+                className={[
+                  responseMsgShow ? errorBorderMsg.showed : errorBorderMsg.base,
+                ]}
               />
             </div>
             <div className="mb-4">
@@ -101,13 +117,14 @@ export const AddBookModal = memo(({ toggle }) => {
         onClick={insertItem}
         className="absolute bottom-3 rounded-sm bg-blue-600 bg-opacity-80 px-3 py-2 font-bold text-white"
       >
-        追加する
+        本を追加する
       </button>
       {/* 閉じるボタン */}
       <span
         className="absolute bottom-0 right-0 inline-block p-4 text-4xl text-white hover:bg-white hover:bg-opacity-40"
         onClick={() => {
           setModalToggle(false);
+          setResponseMsgShow(false);
         }}
       >
         <AiOutlinePlus className="rotate-45 transform" />

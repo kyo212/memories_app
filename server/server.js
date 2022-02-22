@@ -182,14 +182,17 @@ app.post("/insert", (req, res) => {
 
   const sqlInsert =
     "INSERT INTO book_list (username,bookName,coverImage,category,date,favorite) VALUES (?,?,?,?,?,?)";
-  // usernameは自動で入力される。dateとfavoriteはデフォルト値を設定
-  db.query(
-    sqlInsert,
-    [username, bookName, coverImage, category, date, (favorite = 0)],
-    (err, result) => {
-      res.json({ result: result, err: err });
-    }
-  );
+    // usernameは自動で入力される。dateとfavoriteはデフォルト値を設定
+    // coverImage === "" || 追加
+  if (bookName !== "") {
+    db.query(
+      sqlInsert,
+      [username, bookName, coverImage, category, date, (favorite = 0)],
+      (err, result) => {
+        res.json({ result: result, err: err });
+      }
+    );
+  }
 });
 
 app.listen(PORT);

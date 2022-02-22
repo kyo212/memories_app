@@ -11,7 +11,7 @@ import { Books } from "../organisms/Books";
 
 export const Content = memo(() => {
   // const navigate = useNavigate();
-  const [loginUser, setLoginUser] = useState("gest");
+  const [loginUser, setLoginUser] = useState("gestuser");
   const [bookItems, setBookItems] = useState([]);
 
   useEffect(() => {
@@ -67,7 +67,7 @@ export const Content = memo(() => {
       {/* ヘッダー */}
       <Header root={"/mybooks"}>
         <div className="flex space-x-2">
-          <span className="mx-2 border-b font-bold text-slate-700">
+          <span className="mx-2 border-b text-[10px] font-bold text-slate-700">
             {loginUser}
           </span>
           <MenuOpenModal />
