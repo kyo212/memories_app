@@ -17,7 +17,7 @@ export const Books = memo(({ category, Items }) => {
           return (
             <div
               key={item.book_num}
-              className="relative mx-6 snap-start scroll-mx-6"
+              className="relative mx-6 snap-start scroll-mx-10"
             >
               {/* 本の淵のUI */}
               <BookRibbon />

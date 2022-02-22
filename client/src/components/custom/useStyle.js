@@ -15,14 +15,16 @@ export const useStyle = () => {
         "rounded-full w-16 h-10 leading-10 border bg-white shadow-inner translate-y-1 transition-all transform font-bold text-slate-600 bg-slate-200",
     },
     modalAnimation: {
-      base: "fixed transform transition-all -translate-x-full  top-0 left-0 z-40 h-screen w-screen opacity-0 bg-black bg-opacity-80 flex items-center justify-center",
+      // 黒背景
+      base: "fixed transform transition-all -translate-y-full duration-300 top-0 left-0 z-40 h-screen w-screen opacity-0 bg-black bg-opacity-80 flex items-center justify-center",
       showed:
-        "fixed transform transition-all ease-in top-0 left-0 z-40 h-screen w-screen bg-black bg-opacity-80 flex items-center justify-center",
+        "fixed transform transition-all ease-in top-0 left-0 z-40 duration-300 h-screen w-screen bg-black bg-opacity-80 flex items-center justify-center",
     },
     modalWindowAnimation: {
-      base: "flex h-[70%] w-[65%] items-center opacity-0 justify-center rounded-md bg-white transform transition-all",
+      // 白背景
+      base: "flex h-[70%] w-[95%] items-center opacity-0 justify-center rounded-sm bg-white transform transition-all",
       showed:
-        "flex h-[70%] w-[85%] items-center opacity-100 transform transition-all delay-100 duration-1000 justify-center rounded-md bg-white overflow-scroll",
+        "flex h-[80%] w-[95%] items-center opacity-100 transform transition-all delay-100 duration-1000 justify-center rounded-sm bg-white overflow-scroll",
     },
   };
   // menu-open

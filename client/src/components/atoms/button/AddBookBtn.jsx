@@ -12,12 +12,12 @@ export const AddBookBtn = memo(() => {
       {/* モーダル */}
       <AddBookModal toggle={{ modalToggle, setModalToggle }} />
       <div className="fixed bottom-1 left-40 z-10">
-        <label className="flex h-12 w-12 items-center justify-center rounded-full border-2 bg-white">
+        <label className="flex h-12 w-12 items-center justify-center rounded-full bg-white">
           <button
             onClick={() => {
               setModalToggle(true);
             }}
-            className="text-2xl font-bold text-slate-400"
+            className="text-3xl font-bold text-slate-700"
           >
             <AiOutlinePlus className="hover:rotate-45 transform transition-transform duration-700" />
           </button>

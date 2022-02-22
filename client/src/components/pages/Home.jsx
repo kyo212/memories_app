@@ -81,7 +81,11 @@ export const Home = memo(() => {
                 カテゴリーを活用しよう。
               </h2>
               {/* タブ */}
-              <Tab hidden={"block"} animation={tabAnimation} />
+              <Tab
+                hidden={"block"}
+                animation={tabAnimation}
+                ulClass={"my-10 space-x-1"}
+              />
             </div>
           </div>
           <Footer />

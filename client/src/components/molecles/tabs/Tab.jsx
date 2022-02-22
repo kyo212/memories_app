@@ -2,13 +2,15 @@ import { memo, useState } from "react";
 // カスタムフック
 import { TabInform } from "./TabInform";
 
-export const Tab = memo(({ animation, hidden }) => {
+export const Tab = memo(({ animation, hidden, ulClass }) => {
   const [tabListIndex, setTabListIndex] = useState("家族");
   const tabList = ["家族", "子供", "ペット", "趣味", "友達", "恋人", "旅行"];
 
   return (
     <>
-      <ul className="my-10 flex flex-wrap items-center justify-center space-x-1 text-center">
+      <ul
+        className={`${ulClass} flex flex-wrap items-center justify-center text-center `}
+      >
         {tabList.map((tab, index) => (
           <li
             key={index}

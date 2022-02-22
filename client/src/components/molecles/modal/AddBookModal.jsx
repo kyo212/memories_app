@@ -24,7 +24,7 @@ export const AddBookModal = memo(({ toggle }) => {
         <div className="flex h-[98%] w-[80%] flex-col items-center">
           <div className="my-10 flex flex-col">
             <div className="mb-4">
-              <p className="mb-2 border-b text-lg font-bold text-slate-700">
+              <p className="mb-2 border-b text-lg font-bold text-slate-500">
                 本のタイトル
               </p>
               <input
@@ -35,7 +35,7 @@ export const AddBookModal = memo(({ toggle }) => {
               />
             </div>
             <div className="mb-4">
-              <p className="mb-2 border-b text-lg font-bold text-slate-700">
+              <p className="mb-2 border-b text-lg font-bold text-slate-500">
                 表紙
               </p>
               <ImageUrlCreate
@@ -43,10 +43,18 @@ export const AddBookModal = memo(({ toggle }) => {
               />
             </div>
             <div>
-              <p className="border-b text-lg font-bold text-slate-700">
+              <p className="border-b text-lg font-bold text-slate-500">
                 カテゴリー
               </p>
-              <Tab hidden={"hidden"} animation={modalTabAnimation} />
+              <div className="mt-4 mb-10">
+                <Tab
+                  hidden={"hidden"}
+                  animation={modalTabAnimation}
+                  ulClass={
+                    "my-2 space-x-2 space-y-2"
+                  }
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -54,7 +62,7 @@ export const AddBookModal = memo(({ toggle }) => {
       {/* 追加ボタン */}
       <button
         onClick={() => setModalToggle(false)}
-        className="absolute bottom-10 rounded-md bg-green-600 px-3 py-2 font-bold text-white"
+        className="absolute bottom-3 rounded-sm bg-blue-600 bg-opacity-80 px-3 py-2 font-bold text-white"
       >
         追加する
       </button>

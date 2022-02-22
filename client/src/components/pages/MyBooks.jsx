@@ -110,7 +110,6 @@ export const MyBooks = memo(() => {
               <>
                 {categoryArrays.map((array, index) => {
                   // categoryArrays(カテゴリごとに分けた配列をまとめた配列)の中の配列の中にデータが存在しない場合は下記コンポーネントを表示させない
-                  console.log(array[0]);
                   return (
                     array.length > 0 && (
                       <div key={index}>
