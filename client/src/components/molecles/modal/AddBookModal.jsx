@@ -1,6 +1,8 @@
-import { memo } from "react";
+import { memo, useEffect, useState } from "react";
+import Axios from "axios";
 // カスタムフック
 import { useStyle } from "../../custom/useStyle";
+import { useForceUpdate } from "../../custom/useForceUpdate";
 // サードパーティ
 import { AiOutlinePlus } from "react-icons/ai";
 // コンポーネント
@@ -8,9 +10,44 @@ import { Tab } from "../tabs/Tab";
 import { ImageUrlCreate } from "../../organisms/ImageUrlCreate";
 
 export const AddBookModal = memo(({ toggle }) => {
+  // 情報
+  const [loginUser, setLoginUser] = useState("gest");
+  const [bookName, setBookName] = useState("");
+  const [coverImage, setCoverImage] = useState("");
+  const [category, setCategory] = useState("");
+  // カスタムフック
+  const [update, { setUpdate }] = useForceUpdate();
   const { modalToggle, setModalToggle } = toggle;
   const { modals } = useStyle();
   const { modalAnimation, modalWindowAnimation, modalTabAnimation } = modals;
+
+  useEffect(() => {
+    // ユーザーネームをセッションから取得
+    const getUsername = async () => {
+      await Axios.post(
+        `http://${process.env.REACT_APP_PUBLIC_IP}/loginState`
+      ).then((response) => {
+        const { user } = response.data;
+        setLoginUser(user[0].username); // セッションに格納されているユーザー情報
+      });
+    };
+    getUsername();
+  }, []);
+
+  // 入力した情報をDBに追加
+  const insertItem = async () => {
+    await Axios.post(`http://${process.env.REACT_APP_PUBLIC_IP}/insert`, {
+      username: loginUser,
+      bookName,
+      coverImage,
+      category,
+    }).then((response) => {
+      const { result, err } = response.data;
+      console.log({ result, err });
+      setCoverImage(!update);
+      setModalToggle(false);
+    });
+  };
 
   return (
     <div
@@ -31,6 +68,7 @@ export const AddBookModal = memo(({ toggle }) => {
                 type="text"
                 autoFocus
                 placeholder="本のタイトルを入力"
+                onChange={(e) => setBookName(e.target.value)}
                 className="w-full rounded-md border p-2 outline-none"
               />
             </div>
@@ -50,9 +88,8 @@ export const AddBookModal = memo(({ toggle }) => {
                 <Tab
                   hidden={"hidden"}
                   animation={modalTabAnimation}
-                  ulClass={
-                    "my-2 space-x-2 space-y-2"
-                  }
+                  ulClass={"my-2 space-x-2 space-y-2"}
+                  setCategory={setCategory}
                 />
               </div>
             </div>
@@ -61,7 +98,7 @@ export const AddBookModal = memo(({ toggle }) => {
       </div>
       {/* 追加ボタン */}
       <button
-        onClick={() => setModalToggle(false)}
+        onClick={insertItem}
         className="absolute bottom-3 rounded-sm bg-blue-600 bg-opacity-80 px-3 py-2 font-bold text-white"
       >
         追加する

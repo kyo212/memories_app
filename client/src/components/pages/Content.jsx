@@ -11,17 +11,17 @@ import { Books } from "../organisms/Books";
 
 export const Content = memo(() => {
   // const navigate = useNavigate();
-  const [loginUser, setLoginUser] = useState("kyo");
+  const [loginUser, setLoginUser] = useState("gest");
   const [bookItems, setBookItems] = useState([]);
 
   useEffect(() => {
-    // ログイン状態を取得
+    // ユーザーネームをセッションから取得
     const getUsername = async () => {
       await Axios.post(
         `http://${process.env.REACT_APP_PUBLIC_IP}/loginState`
       ).then((response) => {
         const { user } = response.data;
-        setLoginUser(user[0].username);
+        setLoginUser(user[0].username); // セッションに格納されているユーザー情報
       });
     };
     getUsername();
@@ -34,7 +34,7 @@ export const Content = memo(() => {
         username: loginUser,
       }).then((response) => {
         const { result, err } = response.data;
-        setBookItems(result);
+        setBookItems(result); 
         console.log({ result: result, err: err });
       });
     };

@@ -171,4 +171,25 @@ app.post("/getItems", (req, res) => {
   });
 });
 
+app.post("/insert", (req, res) => {
+  const { username, bookName, coverImage, category } = req.body;
+
+  // date
+  const createYear = new Date().getFullYear();
+  const createDay = new Date().getDay();
+  const createDate = new Date().getDate();
+  const date = `${createYear}/${createDay}/${createDate}`;
+
+  const sqlInsert =
+    "INSERT INTO book_list (username,bookName,coverImage,category,date,favorite) VALUES (?,?,?,?,?,?)";
+  // usernameは自動で入力される。dateとfavoriteはデフォルト値を設定
+  db.query(
+    sqlInsert,
+    [username, bookName, coverImage, category, date, (favorite = 0)],
+    (err, result) => {
+      res.json({ result: result, err: err });
+    }
+  );
+});
+
 app.listen(PORT);
