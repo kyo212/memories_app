@@ -17,7 +17,7 @@ export const MyBooks = memo(() => {
       ).then((response) => {
         const { loggedIn } = response.data;
         if (!loggedIn) {
-          // navigate("/session");
+          navigate("/session");
         } else {
           setIsAuth(loggedIn);
         }
@@ -27,5 +27,5 @@ export const MyBooks = memo(() => {
   }, []);
 
   // ログイン中である時、下記を表示
-  return <div>{!isAuth && <Content />}</div>;
+  return <div>{isAuth && <Content />}</div>;
 });
