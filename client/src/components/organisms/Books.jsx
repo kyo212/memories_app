@@ -7,9 +7,9 @@ export const Books = memo(({ category, Items }) => {
   return (
     <div>
       <h1 className="relative py-4 font-serif text-xl font-bold text-slate-600">
-        <span className="absolute top-7 left-4 mx-4 inline-block w-28 border-b" />
+        <span className="absolute top-7 left-10 mx-4 inline-block w-20 border-b" />
         {category}
-        <span className="absolute top-7 right-4 mx-4 inline-block w-28 border-b" />
+        <span className="absolute top-7 right-10 mx-4 inline-block w-20 border-b" />
       </h1>
       <div className="flex h-[460px] w-full snap-x items-center overflow-x-scroll">
         {Items.map((item, index) => {
@@ -18,6 +18,7 @@ export const Books = memo(({ category, Items }) => {
               key={item.bookNum}
               className="relative mx-6 snap-start scroll-mx-10"
             >
+              <p className="absolute left-32"></p>
               {/* 本の淵のUI */}
               <BookRibbon favorite={item.favorite} />
               <div className="absolute -right-2 -top-2 -z-10 flex h-[400px] w-80 rounded-sm border border-slate-300 bg-slate-100 text-slate-700"></div>
@@ -36,7 +37,13 @@ export const Books = memo(({ category, Items }) => {
                 />
               </div>
               <p className="my-2 space-x-1 text-sm text-slate-400">
-                -<span className="mx-2 font-bold">{index + 1}</span>-
+                -
+                {/* index → オブジェクトごとの数字 */}
+                {/* Items.length → Items配列の中のオブジェクトの総数 */}
+                <span className="mx-2 font-bold">{`${index + 1} / ${
+                  Items.length
+                }`}</span>
+                -
               </p>
             </div>
           );
