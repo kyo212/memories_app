@@ -12,15 +12,26 @@ import { Books } from "../organisms/Books";
 export const Content = memo(() => {
   // const navigate = useNavigate();
   const [loginUser, setLoginUser] = useState("kyo");
-  // DBに格納されているbook_listの情報をusenameを元に取得して格納する配列（POSTリクエスト）
-  // 擬似的な配列↓
   const [bookItems, setBookItems] = useState([]);
-  console.log(bookItems);
 
+  useEffect(() => {
+    // ログイン状態を取得
+    const getUsername = async () => {
+      await Axios.post(
+        `http://${process.env.REACT_APP_PUBLIC_IP}/loginState`
+      ).then((response) => {
+        const { user } = response.data;
+        setLoginUser(user[0].username);
+      });
+    };
+    getUsername();
+  }, []);
+
+  // ログインしているユーザーを元にデータを取得
   useEffect(() => {
     const getItems = async () => {
       await Axios.post(`http://${process.env.REACT_APP_PUBLIC_IP}/getItems`, {
-        username: loginUser, // ログインしているユーザーを元にデータを取得
+        username: loginUser,
       }).then((response) => {
         const { result, err } = response.data;
         setBookItems(result);
@@ -28,7 +39,7 @@ export const Content = memo(() => {
       });
     };
     getItems();
-  }, []);
+  }, [loginUser]);
 
   // カテゴリごとにデータを抽出して新しい配列に格納
   const familyArry = bookItems.filter((item) => item.category === "家族");
@@ -50,19 +61,6 @@ export const Content = memo(() => {
     loverArry,
     travelArry,
   ];
-
-  useEffect(() => {
-    // ログイン状態を取得
-    const getUsername = async () => {
-      await Axios.post(
-        `http://${process.env.REACT_APP_PUBLIC_IP}/loginState`
-      ).then((response) => {
-        const { user } = response.data;
-        setLoginUser(user[0].username);
-      });
-    };
-    getUsername();
-  }, []);
 
   return (
     <>

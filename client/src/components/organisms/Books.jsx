@@ -29,7 +29,7 @@ export const Books = memo(({ category, Items }) => {
                 <div className="text-bold flax mt-8 mb-4 flex-col text-center text-lg">
                   <p className="border-b">{item.bookName}</p>
                   <label className="text-[12px] text-slate-400">
-                    {item.category}
+                    <span className="mx-2 font-bold">作成日:{item.createDate}</span>
                   </label>
                 </div>
                 <ImageUrlCreate
@@ -37,8 +37,7 @@ export const Books = memo(({ category, Items }) => {
                 />
               </div>
               <p className="my-2 space-x-1 text-sm text-slate-400">
-                -<span className="mx-2 font-bold">{index + 1}</span>- -
-                <span className="mx-2 font-bold">{item.createDate}</span>-
+                  -<span className="mx-2 font-bold">{index + 1}</span>-
               </p>
             </div>
           );
