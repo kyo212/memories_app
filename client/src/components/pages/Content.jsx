@@ -1,18 +1,32 @@
 import { memo, useState, useEffect } from "react";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Axios from "axios";
-// コンポーネント
-import { AddBookBtn } from "../atoms/button/AddBookBtn";
-import { HeaderLogoutBtn } from "../atoms/button/HeaderLogoutBtn";
-import { MenuOpenModal } from "../molecles/modal/MenuOpenModal";
+// コンポーネント UI系
 import { FooterTab } from "../molecles/tabs/FooterTab";
 import { Header } from "../organisms/Header";
 import { Books } from "../organisms/Books";
+// コンポーネント 処理系
+import { MenuOpenModal } from "../molecles/modal/MenuOpenModal";
+import { AddBookBtn } from "../atoms/button/AddBookBtn";
+import { HeaderLogoutBtn } from "../atoms/button/HeaderLogoutBtn";
+import { AddBookModal } from "../molecles/modal/AddBookModal";
+// カスタムフック
+import { useForceUpdate } from "../custom/useForceUpdate";
 
 export const Content = memo(() => {
-  // const navigate = useNavigate();
-  const [loginUser, setLoginUser] = useState("gestuser");
+  const navigate = useNavigate();
+  const [loginUser, setLoginUser] = useState("gestuser"); // ログイン中のusername
   const [bookItems, setBookItems] = useState([]);
+  // Toggle
+  const [modalToggle, setModalToggle] = useState(false);
+  // メッセージ
+  const [responseMsgShow, setResponseMsgShow] = useState(false);
+  // カスタムフック
+  const [update, { setUpdate }] = useForceUpdate();
+  // 情報
+  const [bookName, setBookName] = useState("");
+  const [coverImage, setCoverImage] = useState("");
+  const [category, setCategory] = useState("家族");
 
   useEffect(() => {
     // ユーザーネームをセッションから取得
@@ -39,7 +53,7 @@ export const Content = memo(() => {
       });
     };
     getItems();
-  }, [loginUser]);
+  }, [loginUser, update]);
 
   // カテゴリごとにデータを抽出して新しい配列に格納
   const familyArry = bookItems.filter((item) => item.category === "家族");
@@ -51,7 +65,7 @@ export const Content = memo(() => {
   const travelArry = bookItems.filter((item) => item.category === "旅行");
 
   // カテゴリごとに抽出したデータの配列を一つの配列にまとめる
-  // 構造 → 配列の中に配列、その中にオブジェクト [[{},{}],[{},{}]]
+  // 構造 → 配列の中に配列、その中にオブジェクト // [[{},{}],[{},{}]]
   const categoryArrays = [
     familyArry,
     childArry,
@@ -61,6 +75,28 @@ export const Content = memo(() => {
     loverArry,
     travelArry,
   ];
+
+  // 入力した情報をDBに追加
+  const insertItem = async () => {
+    //  coverImage === "" || 追加
+    if (bookName !== "" && category !== "") {
+      await Axios.post(`http://${process.env.REACT_APP_PUBLIC_IP}/insert`, {
+        username: loginUser,
+        bookName,
+        coverImage,
+        category,
+      }).then((response) => {
+        const { result, err } = response.data;
+        console.log({ result, err });
+        setUpdate(!update); // getUsernameを更新する
+        setModalToggle(false); // モーダルを閉じる
+        setBookName(""); // デフォルト値に戻す
+        setCategory("家族"); // デフォルト値に戻す
+      });
+    } else {
+      setResponseMsgShow(true);
+    }
+  };
 
   return (
     <>
@@ -91,8 +127,16 @@ export const Content = memo(() => {
           <p className="text-bold text-slate-700">まだ何もありません</p>
         )}
       </div>
-      {/* フッタータブ */}
-      <AddBookBtn />
+      {/* モーダル出現ボタン */}
+      <AddBookBtn setModalToggle={setModalToggle} />
+      {/* モーダルウィンドウ */}
+      <AddBookModal
+        bookListItems={{ bookName, coverImage, category }}
+        setBookListItems={{ setBookName, setCoverImage, setCategory }}
+        toggle={{ modalToggle, setModalToggle }}
+        insertItem={insertItem}
+        responseMsg={{ responseMsgShow, setResponseMsgShow }}
+      />
       <FooterTab />
     </>
   );

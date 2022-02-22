@@ -2,15 +2,12 @@ import { memo, useState } from "react";
 // サードパーティ
 import { AiOutlinePlus } from "react-icons/ai";
 // コンポーネント
-import { AddBookModal } from "../../molecles/modal/AddBookModal";
 
-export const AddBookBtn = memo(() => {
-  const [modalToggle, setModalToggle] = useState(false);
 
+export const AddBookBtn = memo(({setModalToggle}) => {
   return (
     <div>
-      {/* モーダル */}
-      <AddBookModal toggle={{ modalToggle, setModalToggle }} />
+   
       <div className="fixed bottom-1 left-40 z-10">
         <label className="flex h-12 w-12 items-center justify-center rounded-full bg-white">
           <button
