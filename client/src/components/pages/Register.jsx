@@ -10,6 +10,8 @@ import { MsgWindow } from "../atoms/message/MsgWindow";
 // サードパーティ
 import { BsFillEyeFill } from "react-icons/bs";
 import { BsFillEyeSlashFill } from "react-icons/bs";
+import { useStyle } from "../custom/useStyle";
+// カスタムフック
 
 export const Register = memo(() => {
   const navigate = useNavigate();
@@ -23,6 +25,9 @@ export const Register = memo(() => {
   // メッセージ
   const [responseMsg, setResponseMsg] = useState("");
   const [responseMsgShow, setResponseMsgShow] = useState(false);
+  // カスタムフック
+  const { messageWindow } = useStyle();
+  const { errorBorderMsg } = messageWindow;
 
   // セッション情報によってルートを制限する
   useEffect(() => {
@@ -107,7 +112,9 @@ export const Register = memo(() => {
               }}
               autoFocus
               placeholder="ユーザーネーム"
-              className="rounded border border-slate-400 px-4 py-2 outline-none"
+              className={
+                responseMsgShow ? errorBorderMsg.showed : errorBorderMsg.base
+              }
             />
             <input
               type={passToggle ? "text" : "password"}
@@ -117,7 +124,9 @@ export const Register = memo(() => {
                 setResponseMsgShow(false);
               }}
               placeholder="パスワード"
-              className="rounded border border-slate-400 px-4 py-2 outline-none"
+              className={
+                responseMsgShow ? errorBorderMsg.showed : errorBorderMsg.base
+              }
             />
             <span
               onClick={() => setPassToggle(!passToggle)}

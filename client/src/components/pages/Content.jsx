@@ -34,7 +34,7 @@ export const Content = memo(() => {
         username: loginUser,
       }).then((response) => {
         const { result, err } = response.data;
-        setBookItems(result); 
+        setBookItems(result);
         console.log({ result: result, err: err });
       });
     };
@@ -67,15 +67,12 @@ export const Content = memo(() => {
       {/* ヘッダー */}
       <Header root={"/mybooks"}>
         <div className="flex space-x-2">
-          <span className="mx-2 border-b h-full mt-[2px] text-[13px] font-bold text-slate-700">
-            {loginUser}
-          </span>
-          <MenuOpenModal />
+          <MenuOpenModal loginUser={loginUser} />
           <HeaderLogoutBtn />
         </div>
       </Header>
       {/* メインコンテンツ */}
-      <div className="flex w-screen flex-col py-20 text-center">
+      <div className="flex w-screen flex-col py-14 text-center">
         {bookItems.length > 0 ? (
           // bookItems(bookの情報を格納している配列)の中の配列の中にデータが存在しない場合(0の場合)は"まだ何もありません"を表示
           <>

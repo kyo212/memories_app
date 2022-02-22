@@ -34,9 +34,9 @@ export const useStyle = () => {
       showed: "rotate-180 transform text-2xl text-slate-600 transition-all",
     },
     menuOpenAnimation: {
-      base: "fixed top-14 right-6 h-0 w-32 transform rounded-md border bg-white px-3 text-sm text-slate-700 opacity-0 shadow-md transition-all ease-in",
+      base: "fixed top-14 right-6 h-0 w-44 transform rounded-md border bg-white px-3 text-sm text-slate-700 opacity-0 shadow-md transition-all ease-in",
       showed:
-        "fixed top-14 right-6 h-40 w-32 transform space-y-2 rounded-md border bg-white py-4 px-3 text-sm text-slate-700 shadow-md transition-all duration-500",
+        "fixed top-14 right-6 h-40 w-52 transform space-y-2 rounded-md border bg-white py-4 px-3 text-sm text-slate-700 shadow-md transition-all duration-500",
     },
   };
   // search
@@ -58,9 +58,9 @@ export const useStyle = () => {
         "border-b border-green-800 fixed bottom-10 bg-green-600 bg-opacity-10 px-4 py-2 text-sm text-green-800 opacity-100 transition-all duration-500",
     },
     errorBorderMsg: {
-      base: "w-full rounded-md border p-2 outline-none",
+      base: "w-full rounded border border-slate-400 px-4 py-2 outline-none",
       showed:
-        "w-full rounded-md border-2 border-red-400 placeholder:text-red-400 p-2 outline-none",
+        "w-full rounded border border-slate-400 px-4 border border-red-400 placeholder:text-red-400 py-2 outline-none",
     },
   };
 
