@@ -16,18 +16,18 @@ export const Books = memo(({ category, Items }) => {
         {Items.map((item, index) => {
           return (
             <div
-              key={item.book_num}
+              key={item.bookNum}
               className="relative mx-6 snap-start scroll-mx-10"
             >
               {/* 本の淵のUI */}
-              <BookRibbon />
+              <BookRibbon favorite={item.favorite} />
               <div className="absolute -right-2 -top-2 -z-10 flex h-[400px] w-80 rounded-sm border border-slate-300 bg-slate-100 text-slate-700"></div>
               <div className="absolute -right-1 -top-1 -z-10 flex h-[400px]  w-80 border border-slate-300 bg-slate-100 text-slate-700"></div>
               <span className="absolute -top-[5px] left-0 -z-10 h-[4px] w-[13px] -rotate-45 transform rounded-md border border-slate-300 bg-white"></span>
               {/* 表紙 */}
               <div className="z-10 flex h-[400px] w-80 flex-col  items-center rounded-sm border border-slate-300 bg-white text-slate-700 shadow-md">
                 <div className="text-bold flax mt-8 mb-4 flex-col text-center text-lg">
-                  <p className="border-b">{item.book_name}</p>
+                  <p className="border-b">{item.bookName}</p>
                   <label className="text-[12px] text-slate-400">
                     {item.category}
                   </label>
@@ -37,7 +37,8 @@ export const Books = memo(({ category, Items }) => {
                 />
               </div>
               <p className="my-2 space-x-1 text-sm text-slate-400">
-                -<span className="mx-2 font-bold">{index + 1}</span>-
+                -<span className="mx-2 font-bold">{index + 1}</span>- -
+                <span className="mx-2 font-bold">{item.createDate}</span>-
               </p>
             </div>
           );

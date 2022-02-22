@@ -161,4 +161,14 @@ app.post("/login", (req, res) => {
   });
 });
 
+app.post("/getItems", (req, res) => {
+  const { username } = req.body;
+  const sqlSelect = "SELECT * FROM book_list WHERE username = ?";
+  db.query(sqlSelect, username, (err, result) => {
+    if (result.length > 0) {
+      res.json({ result: result, err: err });
+    }
+  });
+});
+
 app.listen(PORT);
