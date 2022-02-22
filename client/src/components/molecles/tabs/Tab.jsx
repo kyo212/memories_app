@@ -3,7 +3,7 @@ import { memo, useState } from "react";
 import { TabInform } from "./TabInform";
 
 export const Tab = memo(({ animation, hidden, ulClass }) => {
-  const [tabListIndex, setTabListIndex] = useState("家族");
+  const [tabListSelected, setTabListSelected] = useState("家族");
   const tabList = ["家族", "子供", "ペット", "趣味", "友達", "恋人", "旅行"];
 
   return (
@@ -15,18 +15,18 @@ export const Tab = memo(({ animation, hidden, ulClass }) => {
           <li
             key={index}
             className={[
-              tabListIndex !== tabList[index]
+              tabListSelected !== tabList[index]
                 ? animation.base
                 : animation.selected,
             ]}
-            onClick={() => setTabListIndex(tabList[index])}
+            onClick={() => setTabListSelected(tabList[index])}
           >
             <a href="#a">{tab}</a>
           </li>
         ))}
       </ul>
       <div className={hidden}>
-        <TabInform tabListIndex={tabListIndex} tabList={tabList} />
+        <TabInform tabListSelected={tabListSelected} tabList={tabList} />
       </div>
     </>
   );

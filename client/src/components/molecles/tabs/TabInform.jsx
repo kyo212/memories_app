@@ -1,15 +1,20 @@
-export const TabInform = ({ tabListIndex, tabList }) => {
+export const TabInform = ({ tabListSelected, tabList }) => {
   return (
     <div>
-      {tabList.map((tab, index) => (
-        <div
-          key={index}
-          className="mt-4 h-[400px] w-full rounded-md border bg-white  shadow-md"
-        >
-          <p>{tabListIndex}</p>
-          <p></p>
-        </div>
-      ))}
+      {tabList.map((tab, index) => {
+        return (
+          tab === tabListSelected && (
+            // tabとtabListIndex(選択中のtab)が一致しているものだけ表示させる
+            <div
+              key={index}
+              className="mt-4 h-[400px] w-full rounded-md border bg-white  shadow-md"
+            >
+              <p>{tabListSelected}</p>
+              <p></p>
+            </div>
+          )
+        );
+      })}
     </div>
   );
 };

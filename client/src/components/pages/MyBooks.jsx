@@ -34,7 +34,12 @@ export const MyBooks = memo(() => {
       book_num: 3,
       favorite: 0,
     },
-    { book_name: "ラテの成長日記", category: "ペット", book_num: 4, favorite: 0 },
+    {
+      book_name: "ラテの成長日記",
+      category: "ペット",
+      book_num: 4,
+      favorite: 0,
+    },
     { book_name: "カフェ巡り記", category: "趣味", book_num: 5, favorite: 0 },
     // {
     //   book_name: "友達とパーティ",
@@ -56,7 +61,7 @@ export const MyBooks = memo(() => {
     },
   ]);
 
-  // カテゴリごとにデータを抽出
+  // カテゴリごとにデータを抽出して新しい配列に格納
   const familyArry = bookItems.filter((item) => item.category === "家族");
   const childArry = bookItems.filter((item) => item.category === "子供");
   const petArry = bookItems.filter((item) => item.category === "ペット");
@@ -65,6 +70,8 @@ export const MyBooks = memo(() => {
   const loverArry = bookItems.filter((item) => item.category === "恋人");
   const travelArry = bookItems.filter((item) => item.category === "旅行");
 
+  // カテゴリごとに抽出したデータの配列を一つの配列にまとめる
+  // 構造 → 配列の中に配列、その中にオブジェクト [[{},{}],[{},{}]]
   const categoryArrays = [
     familyArry,
     childArry,
@@ -74,6 +81,7 @@ export const MyBooks = memo(() => {
     loverArry,
     travelArry,
   ];
+
   useEffect(() => {
     // ログイン状態を取得
     const getAuth = async () => {
@@ -82,7 +90,7 @@ export const MyBooks = memo(() => {
       ).then((response) => {
         const { loggedIn } = response.data;
         if (!loggedIn) {
-          // navigate("/session");
+          navigate("/session");
         } else {
           setIsAuth(loggedIn);
         }
@@ -93,7 +101,7 @@ export const MyBooks = memo(() => {
 
   return (
     <div>
-      {!isAuth && (
+      {isAuth && (
         // ログイン中である時、下記を表示
         <>
           {/* ヘッダー */}
