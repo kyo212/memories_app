@@ -8,9 +8,9 @@ import { Tab } from "../tabs/Tab";
 import { ImageUrlCreate } from "../../organisms/ImageUrlCreate";
 
 export const AddBookModal = memo(
-  ({ toggle, insertItem, responseMsg, bookListItems, setBookListItems }) => {
+  ({ toggle, insertItem, msgShow, bookListItems, setBookListItems }) => {
     // props
-    const { responseMsgShow, setResponseMsgShow } = responseMsg;
+    const { msgToggle, setMsgToggle } = msgShow;
     const { modalToggle, setModalToggle } = toggle;
     const { setBookName, setCoverImage, setCategory } = setBookListItems;
     const { bookName, coverImage, category } = bookListItems;
@@ -18,6 +18,18 @@ export const AddBookModal = memo(
     const { modals, messageWindow } = useStyle();
     const { modalAnimation, modalWindowAnimation, modalTabAnimation } = modals;
     const { errorBorderMsg } = messageWindow;
+
+    const inputInform = (e) => {
+      setBookName(e.target.value);
+      setMsgToggle(false);
+    };
+
+    const closeButton = () => {
+      setModalToggle(false);
+      setMsgToggle(false);
+      setCategory("家族");
+      setBookName("");
+    };
 
     return (
       <div
@@ -41,12 +53,9 @@ export const AddBookModal = memo(
                   value={bookName}
                   autoFocus
                   placeholder="本のタイトルを入力"
-                  onChange={(e) => {
-                    setBookName(e.target.value);
-                    setResponseMsgShow(false);
-                  }}
+                  onChange={inputInform}
                   className={[
-                    responseMsgShow
+                    msgToggle
                       ? errorBorderMsg.showed
                       : errorBorderMsg.base,
                   ]}
@@ -84,17 +93,12 @@ export const AddBookModal = memo(
           本を追加する
         </button>
         {/* 閉じるボタン */}
-        <span
-          className="absolute bottom-0 right-0 inline-block p-4 text-4xl text-white hover:bg-white hover:bg-opacity-40"
-          onClick={() => {
-            setModalToggle(false);
-            setResponseMsgShow(false);
-            setCategory("家族")
-            setBookName("")
-          }}
+        <button
+          className="absolute bottom-0 right-0 p-4 text-4xl text-white hover:bg-white hover:bg-opacity-40"
+          onClick={closeButton}
         >
           <AiOutlinePlus className="rotate-45 transform" />
-        </span>
+        </button>
       </div>
     );
   }

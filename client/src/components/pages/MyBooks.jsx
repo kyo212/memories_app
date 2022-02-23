@@ -4,7 +4,10 @@ import Axios from "axios";
 // コンポーネント
 import { Content } from "./Content";
 
+// ------------------------------------------
 // ログイン情報を取得してcontentコンポーネントを表示させる
+// ------------------------------------------
+
 export const MyBooks = memo(() => {
   const navigate = useNavigate();
   const [isAuth, setIsAuth] = useState(false);
@@ -17,6 +20,7 @@ export const MyBooks = memo(() => {
       ).then((response) => {
         const { loggedIn } = response.data;
         if (!loggedIn) {
+          // ログイン中でない時、"/session"に遷移させる
           // navigate("/session");
         } else {
           setIsAuth(loggedIn);
@@ -26,6 +30,6 @@ export const MyBooks = memo(() => {
     getAuth();
   }, []);
 
-  // ログイン中である時、下記を表示
+  // ログイン中である時、Contentを表示
   return <>{!isAuth && <Content />}</>;
 });

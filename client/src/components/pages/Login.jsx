@@ -23,8 +23,8 @@ export const Login = memo(() => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   // メッセージ
-  const [responseMsg, setResponseMsg] = useState("");
-  const [responseMsgShow, setResponseMsgShow] = useState(false);
+  const [msgText, setMsgText] = useState("");
+  const [msgToggle, setMsgToggle] = useState(false);
   // カスタムフック
   const { messageWindow } = useStyle(); // アニメーション
   const { errorBorderMsg } = messageWindow;
@@ -51,8 +51,8 @@ export const Login = memo(() => {
     }).then((response) => {
       const { auth, token, result, msg } = response.data;
       console.log({ auth, token, result, msg });
-      setResponseMsg(msg);
-      setResponseMsgShow(true);
+      setMsgText(msg);
+      setMsgToggle(true);
       Axios.post(`http://${process.env.REACT_APP_PUBLIC_IP}/isUserAuth`).then(
         (response) => {
           const { auth, msg } = response.data;
@@ -68,7 +68,7 @@ export const Login = memo(() => {
     e.target.id === "username"
       ? setUsername(e.target.value)
       : setPassword(e.target.value);
-    setResponseMsgShow(false);
+    setMsgToggle(false);
   };
   const toggleIcon = () => setPassToggle(!passToggle);
 
@@ -102,7 +102,7 @@ export const Login = memo(() => {
               autoFocus
               placeholder="ユーザーネーム"
               className={[
-                responseMsgShow ? errorBorderMsg.showed : errorBorderMsg.base,
+                msgToggle ? errorBorderMsg.showed : errorBorderMsg.base,
               ]}
             />
             <input
@@ -112,10 +112,10 @@ export const Login = memo(() => {
               onChange={inputInfrom}
               placeholder="パスワード"
               className={[
-                responseMsgShow ? errorBorderMsg.showed : errorBorderMsg.base,
+                msgToggle ? errorBorderMsg.showed : errorBorderMsg.base,
               ]}
             />
-            <span
+            <button
               onClick={toggleIcon}
               className="absolute right-2 top-[50px] text-2xl text-slate-600"
             >
@@ -124,7 +124,7 @@ export const Login = memo(() => {
               ) : (
                 <BsFillEyeSlashFill className="text-slate-400" />
               )}
-            </span>
+            </button>
           </form>
           <a href="/password-change" className="text-sm text-blue-800">
             パスワードを忘れた場合
@@ -141,7 +141,7 @@ export const Login = memo(() => {
           <a href="/mybooks" className="text-sm text-blue-800">
             ゲストユーザーではじめる
           </a>
-          <MsgWindow MsgShow={{ responseMsg, responseMsgShow }} />
+          <MsgWindow msgShow={{ msgToggle, msgText }} headerText="注意" />
         </div>
       </div>
       <Footer />

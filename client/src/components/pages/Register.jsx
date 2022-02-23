@@ -23,8 +23,8 @@ export const Register = memo(() => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   // メッセージ
-  const [responseMsg, setResponseMsg] = useState("");
-  const [responseMsgShow, setResponseMsgShow] = useState(false);
+  const [msgText, setMsgText] = useState("");
+  const [msgToggle, setMsgToggle] = useState(false);
   // カスタムフック
   const { messageWindow } = useStyle();
   const { errorBorderMsg } = messageWindow;
@@ -49,8 +49,8 @@ export const Register = memo(() => {
     }).then((response) => {
       const { auth, token, result, msg } = response.data;
       console.log({ auth, token, result, msg });
-      setResponseMsg(msg);
-      setResponseMsgShow(true);
+      setMsgText(msg);
+      setMsgToggle(true);
       Axios.post(`http://${process.env.REACT_APP_PUBLIC_IP}/isUserAuth`).then(
         (response) => {
           const { auth, msg } = response.data;
@@ -71,8 +71,8 @@ export const Register = memo(() => {
         console.log(result, msg);
         if (!result) {
           // usernameまたはpasswordが空の場合,usernameが重複既に存在している場合
-          setResponseMsg(msg);
-          setResponseMsgShow(true); // レスポンスメッセージ出現
+          setMsgText(msg);
+          setMsgToggle(true); // レスポンスメッセージ出現
           setUsername("");
           setPassword("");
         } else {
@@ -108,12 +108,12 @@ export const Register = memo(() => {
               value={username}
               onChange={(e) => {
                 setUsername(e.target.value);
-                setResponseMsgShow(false);
+                setMsgToggle(true);
               }}
               autoFocus
               placeholder="ユーザーネーム"
               className={
-                responseMsgShow ? errorBorderMsg.showed : errorBorderMsg.base
+                msgText ? errorBorderMsg.showed : errorBorderMsg.base
               }
             />
             <input
@@ -121,11 +121,11 @@ export const Register = memo(() => {
               value={password}
               onChange={(e) => {
                 setPassword(e.target.value);
-                setResponseMsgShow(false);
+                setMsgToggle(true);
               }}
               placeholder="パスワード"
               className={
-                responseMsgShow ? errorBorderMsg.showed : errorBorderMsg.base
+                msgToggle ? errorBorderMsg.showed : errorBorderMsg.base
               }
             />
             <span
@@ -171,7 +171,7 @@ export const Register = memo(() => {
           >
             登録してはじめる
           </button>
-          <MsgWindow MsgShow={{ responseMsg, responseMsgShow }} />
+          <MsgWindow msgShow={{ msgToggle, msgText }} headerText="注意" />
         </div>
       </div>
       <Footer />

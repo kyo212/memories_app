@@ -16,20 +16,24 @@ import { AddBookModal } from "../molecles/modal/AddBookModal";
 // カスタムフック
 import { useForceUpdate } from "../custom/useForceUpdate";
 
+// ------------------------------------------
+// ユーザーが認証済みであるときに表示させる内容
+// ------------------------------------------
+
 export const Content = memo(() => {
   const navigate = useNavigate();
-  const [loginUser, setLoginUser] = useState("gest"); // ログイン中のusername
-  const [bookItems, setBookItems] = useState([]);
-  // Toggle
-  const [modalToggle, setModalToggle] = useState(false);
-  // メッセージ
-  const [responseMsgShow, setResponseMsgShow] = useState(false);
-  // カスタムフック
-  const [update, { setUpdate }] = useForceUpdate();
   // 情報
   const [bookName, setBookName] = useState("");
   const [coverImage, setCoverImage] = useState("");
   const [category, setCategory] = useState("家族");
+  const [loginUser, setLoginUser] = useState("gest"); // ログイン中のusername
+  const [bookItems, setBookItems] = useState([]);
+  // モーダルウィンドウのスイッチ
+  const [modalToggle, setModalToggle] = useState(false);
+  // メッセージ
+  const [msgToggle, setMsgToggle] = useState(false);
+  // カスタムフック
+  const [update, { setUpdate }] = useForceUpdate();
 
   useEffect(() => {
     // ユーザーネームをセッションから取得
@@ -91,13 +95,13 @@ export const Content = memo(() => {
       }).then((response) => {
         const { result, err } = response.data;
         console.log({ result, err });
-        setUpdate(!update); // getUsernameを更新する
+        setUpdate(!update); // getUsername関数を更新する
         setModalToggle(false); // モーダルを閉じる
         setBookName(""); // デフォルト値に戻す
         setCategory("家族"); // デフォルト値に戻す
       });
     } else {
-      setResponseMsgShow(true);
+      setMsgToggle(true);
     }
   };
 
@@ -105,10 +109,10 @@ export const Content = memo(() => {
     <>
       {/* ヘッダー */}
       <Header root={"/mybooks"}>
-        <div className="flex space-x-2">
+        <span className="flex space-x-2">
           <MenuOpenModal loginUser={loginUser} />
           <HeaderLogoutBtn />
-        </div>
+        </span>
       </Header>
       {/* メインコンテンツ */}
       <div className="flex w-screen flex-col text-center">
@@ -137,12 +141,12 @@ export const Content = memo(() => {
               </p>
             </div>
             <div className="flex flex-col items-center justify-center">
-              <p className="text-bold text-slate-500 my-8 flex items-center">
-                <AiOutlinePlus className="text-slate-800 mx-2" />
+              <p className="text-bold my-8 flex items-center text-slate-500">
+                <AiOutlinePlus className="mx-2 text-slate-800" />
                 をクリックして追加
               </p>
-              <p className="flex h-10 w-10 animate-bounce items-center justify-center rounded-full border border-slate-400 bg-white shadow-md text-slate-800">
-                <BsArrowDown/>
+              <p className="flex h-10 w-10 animate-bounce items-center justify-center rounded-full border border-slate-400 bg-white text-slate-800 shadow-md">
+                <BsArrowDown />
               </p>
             </div>
           </div>
@@ -156,7 +160,7 @@ export const Content = memo(() => {
         setBookListItems={{ setBookName, setCoverImage, setCategory }}
         toggle={{ modalToggle, setModalToggle }}
         insertItem={insertItem}
-        responseMsg={{ responseMsgShow, setResponseMsgShow }}
+        msgShow={{ msgToggle, setMsgToggle }}
       />
       <FooterTab />
     </>
