@@ -89,6 +89,8 @@ export const AddBookModal = memo(
           onClick={() => {
             setModalToggle(false);
             setResponseMsgShow(false);
+            setCategory("家族")
+            setBookName("")
           }}
         >
           <AiOutlinePlus className="rotate-45 transform" />

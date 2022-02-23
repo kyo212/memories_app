@@ -12,6 +12,10 @@ import { MsgWindow } from "../atoms/message/MsgWindow";
 import { BsFillEyeFill } from "react-icons/bs";
 import { BsFillEyeSlashFill } from "react-icons/bs";
 
+// ------------------------------------------
+// ログイン画面のコンポーネント
+// ------------------------------------------
+
 export const Login = memo(() => {
   const navigate = useNavigate();
   const [passToggle, setPassToggle] = useState(false);
@@ -22,11 +26,11 @@ export const Login = memo(() => {
   const [responseMsg, setResponseMsg] = useState("");
   const [responseMsgShow, setResponseMsgShow] = useState(false);
   // カスタムフック
-  const { messageWindow } = useStyle();
+  const { messageWindow } = useStyle(); // アニメーション
   const { errorBorderMsg } = messageWindow;
 
-  // セッション情報によってルートを制限する
   useEffect(() => {
+    // セッション情報によってルートを制限する
     const getLoginState = async () => {
       await Axios.post(
         `http://${process.env.REACT_APP_PUBLIC_IP}/loginState`
@@ -38,8 +42,9 @@ export const Login = memo(() => {
     getLoginState();
   }, []);
 
-  // registerのlogin関数と共通化
+  // Memo : registerのlogin関数と共通化
   const login = async () => {
+    // ログイン認証の関数
     await Axios.post(`http://${process.env.REACT_APP_PUBLIC_IP}/login`, {
       username,
       password,
@@ -57,6 +62,15 @@ export const Login = memo(() => {
       );
     });
   };
+
+  // DOMから関数の切り出し
+  const inputInfrom = (e) => {
+    e.target.id === "username"
+      ? setUsername(e.target.value)
+      : setPassword(e.target.value);
+    setResponseMsgShow(false);
+  };
+  const toggleIcon = () => setPassToggle(!passToggle);
 
   return (
     <>
@@ -81,12 +95,10 @@ export const Login = memo(() => {
           </p>
           <form className="relative mt-8 mb-2 w-[210px] space-y-2 text-center">
             <input
+              id="username"
               type="text"
               value={username}
-              onChange={(e) => {
-                setUsername(e.target.value);
-                setResponseMsgShow(false);
-              }}
+              onChange={inputInfrom}
               autoFocus
               placeholder="ユーザーネーム"
               className={[
@@ -94,19 +106,17 @@ export const Login = memo(() => {
               ]}
             />
             <input
+              id="password"
               type={passToggle ? "text" : "password"}
               value={password}
-              onChange={(e) => {
-                setPassword(e.target.value);
-                setResponseMsgShow(false);
-              }}
+              onChange={inputInfrom}
               placeholder="パスワード"
               className={[
                 responseMsgShow ? errorBorderMsg.showed : errorBorderMsg.base,
               ]}
             />
             <span
-              onClick={() => setPassToggle(!passToggle)}
+              onClick={toggleIcon}
               className="absolute right-2 top-[50px] text-2xl text-slate-600"
             >
               {passToggle ? (
@@ -121,7 +131,7 @@ export const Login = memo(() => {
           </a>
           <button
             type="submit"
-            onClick={() => login()}
+            onClick={login}
             className={
               "mt-6 mb-4 rounded-md bg-sky-600 p-2 px-4 font-bold text-white shadow-md"
             }

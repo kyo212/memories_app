@@ -27,5 +27,5 @@ export const MyBooks = memo(() => {
   }, []);
 
   // ログイン中である時、下記を表示
-  return <div>{!isAuth && <Content />}</div>;
+  return <>{!isAuth && <Content />}</>;
 });

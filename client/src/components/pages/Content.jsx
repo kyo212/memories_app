@@ -1,6 +1,9 @@
 import { memo, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
+// アイコン
+import { AiOutlinePlus } from "react-icons/ai";
+import { BsArrowDown } from "react-icons/bs";
 // コンポーネント UI系
 import { FooterTab } from "../molecles/tabs/FooterTab";
 import { Header } from "../organisms/Header";
@@ -15,7 +18,7 @@ import { useForceUpdate } from "../custom/useForceUpdate";
 
 export const Content = memo(() => {
   const navigate = useNavigate();
-  const [loginUser, setLoginUser] = useState("gestuser"); // ログイン中のusername
+  const [loginUser, setLoginUser] = useState("gest"); // ログイン中のusername
   const [bookItems, setBookItems] = useState([]);
   // Toggle
   const [modalToggle, setModalToggle] = useState(false);
@@ -108,7 +111,7 @@ export const Content = memo(() => {
         </div>
       </Header>
       {/* メインコンテンツ */}
-      <div className="flex w-screen flex-col py-14 text-center">
+      <div className="flex w-screen flex-col text-center">
         {bookItems.length > 0 ? (
           // bookItems(bookの情報を格納している配列)の中の配列の中にデータが存在しない場合(0の場合)は"まだ何もありません"を表示
           <>
@@ -116,7 +119,7 @@ export const Content = memo(() => {
               // categoryArrays(カテゴリごとに分けた配列をまとめた配列)の中の配列の中にデータが存在しない場合は下記コンポーネントを表示させない
               return (
                 array.length > 0 && (
-                  <div key={index}>
+                  <div key={index} className="w-screen pt-10 pb-14">
                     <Books category={array[0].category} Items={array} />
                   </div>
                 )
@@ -124,7 +127,25 @@ export const Content = memo(() => {
             })}
           </>
         ) : (
-          <p className="text-bold text-slate-700">まだ何もありません</p>
+          <div className="flex h-screen w-screen flex-col items-center justify-around">
+            <div className="">
+              <p className="text-bold my-2 text-xl font-bold text-slate-500">
+                まだ何もありません
+              </p>
+              <p className="text-bold text-slate-500">
+                まずは本を追加してみましょう
+              </p>
+            </div>
+            <div className="flex flex-col items-center justify-center">
+              <p className="text-bold text-slate-500 my-8 flex items-center">
+                <AiOutlinePlus className="text-slate-800 mx-2" />
+                をクリックして追加
+              </p>
+              <p className="flex h-10 w-10 animate-bounce items-center justify-center rounded-full border border-slate-400 bg-white shadow-md text-slate-800">
+                <BsArrowDown/>
+              </p>
+            </div>
+          </div>
         )}
       </div>
       {/* モーダル出現ボタン */}
