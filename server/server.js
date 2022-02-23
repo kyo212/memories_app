@@ -176,14 +176,14 @@ app.post("/insert", (req, res) => {
 
   // date
   const createYear = new Date().getFullYear();
-  const createDay = new Date().getDay();
+  const createMonth = new Date().getMonth();
   const createDate = new Date().getDate();
-  const date = `${createYear}/${createDay}/${createDate}`;
+  const date = `${createYear}/${createMonth + 1}/${createDate}`;
 
   const sqlInsert =
     "INSERT INTO book_list (username,bookName,coverImage,category,date,favorite) VALUES (?,?,?,?,?,?)";
-    // usernameは自動で入力される。dateとfavoriteはデフォルト値を設定
-    // coverImage === "" || 追加
+  // usernameは自動で入力される。dateとfavoriteはデフォルト値を設定
+  // coverImage === "" || 追加
   if (bookName !== "") {
     db.query(
       sqlInsert,

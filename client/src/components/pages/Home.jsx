@@ -1,4 +1,4 @@
-import { memo, useEffect } from "react";
+import { memo, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
 // コンポーネント
@@ -7,11 +7,14 @@ import { HeaderRegBtn } from "../atoms/button/HeaderRegBtn";
 import { Tab } from "../molecles/tabs/Tab";
 import { Footer } from "../organisms/Footer";
 import { Header } from "../organisms/Header";
+import { TabInform } from "../molecles/tabs/TabInform";
 // カスタムフック
 import { useStyle } from "../custom/useStyle";
 
 export const Home = memo(() => {
   const navigate = useNavigate();
+  const [category, setCategory] = useState("家族");
+  // カスタムフック
   const { tabs } = useStyle();
   const { tabAnimation } = tabs;
 
@@ -88,10 +91,11 @@ export const Home = memo(() => {
               </h2>
               {/* タブ */}
               <Tab
-                hidden={"block"}
                 animation={tabAnimation}
                 ulClass={"my-10 space-x-1"}
+                setCategory={setCategory}
               />
+              <TabInform category={category} />
             </div>
           </div>
           <Footer />

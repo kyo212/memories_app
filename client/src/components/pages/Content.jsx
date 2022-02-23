@@ -28,6 +28,7 @@ export const Content = memo(() => {
   const [category, setCategory] = useState("家族");
   const [loginUser, setLoginUser] = useState("gest"); // ログイン中のusername
   const [bookItems, setBookItems] = useState([]);
+  console.log(category);
   // モーダルウィンドウのスイッチ
   const [modalToggle, setModalToggle] = useState(false);
   // メッセージ
@@ -98,7 +99,7 @@ export const Content = memo(() => {
         setUpdate(!update); // getUsername関数を更新する
         setModalToggle(false); // モーダルを閉じる
         setBookName(""); // デフォルト値に戻す
-        setCategory("家族"); // デフォルト値に戻す
+        // setCategory(""); // デフォルト値に戻す
       });
     } else {
       setMsgToggle(true);

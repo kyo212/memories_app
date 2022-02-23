@@ -1,10 +1,14 @@
 import { memo, useState } from "react";
 // カスタムフック
-import { TabInform } from "./TabInform";
 
-export const Tab = memo(({ animation, hidden, ulClass, setCategory }) => {
+export const Tab = memo(({ animation, ulClass, setCategory }) => {
   const [tabListSelected, setTabListSelected] = useState("家族");
   const tabList = ["家族", "子供", "ペット", "趣味", "友達", "恋人", "旅行"];
+
+  const tabCliced = (index) => {
+    setTabListSelected(tabList[index]);
+    setCategory(tabList[index]);
+  };
 
   return (
     <>
@@ -19,18 +23,12 @@ export const Tab = memo(({ animation, hidden, ulClass, setCategory }) => {
                 ? animation.base
                 : animation.selected,
             ]}
-            onClick={() => {
-              setTabListSelected(tabList[index]);
-              setCategory(tabList[index]);
-            }}
+            onClick={() => tabCliced(index)}
           >
-            <a href="#a">{tab}</a>
+            <button>{tab}</button>
           </li>
         ))}
       </ul>
-      <div className={hidden}>
-        <TabInform tabListSelected={tabListSelected} tabList={tabList} />
-      </div>
     </>
   );
 });

@@ -75,7 +75,6 @@ export const AddBookModal = memo(
                 </p>
                 <div className="mt-4 mb-10">
                   <Tab
-                    hidden={"hidden"}
                     animation={modalTabAnimation}
                     ulClass={"my-2 space-x-2 space-y-2"}
                     setCategory={setCategory}
