@@ -8,7 +8,7 @@ import { BsArrowDown } from "react-icons/bs";
 import { FooterTab } from "../molecles/tabs/FooterTab";
 import { Header } from "../organisms/Header";
 import { Books } from "../organisms/Books";
-// import { SuccessMsgWindow } from "../atoms/message/successMsgWindow";
+import { SuccessMsgWindow } from "../atoms/message/SuccessMsgWindow";
 // コンポーネント 処理系
 import { MenuOpenModal } from "../molecles/modal/MenuOpenModal";
 import { AddBookBtn } from "../atoms/button/AddBookBtn";
@@ -33,7 +33,7 @@ export const Content = memo(() => {
   const [modalToggle, setModalToggle] = useState(false);
   // メッセージ
   const [errMsgToggle, setErrMsgToggle] = useState(false);
-  // const [sucMsgToggle, setSucMsgToggle] = useState(false);
+  const [sucMsgToggle, setSucMsgToggle] = useState(false);
   // カスタムフック
   const [update, { setUpdate }] = useForceUpdate();
 
@@ -101,6 +101,10 @@ export const Content = memo(() => {
         setModalToggle(false); // モーダルを閉じる
         setBookName(""); // デフォルト値に戻す
         setCategory(""); // デフォルト値に戻す
+        setSucMsgToggle(true); 
+        setTimeout(() => { // 3病後にメッセージを閉じる
+          setSucMsgToggle(false);
+        }, 3000);
       });
     } else {
       setErrMsgToggle(true);
@@ -164,7 +168,11 @@ export const Content = memo(() => {
         insertItem={insertItem}
         msgShow={{ errMsgToggle, setErrMsgToggle }}
       />
-      {/* <SuccessMsgWindow msgShow={{}} headerText="成功" /> */}
+      <SuccessMsgWindow
+        msgToggle={sucMsgToggle}
+        msgText="新しく本を追加しました。"
+        headerText="成功"
+      />
       <FooterTab />
     </>
   );

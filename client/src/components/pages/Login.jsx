@@ -53,6 +53,9 @@ export const Login = memo(() => {
       console.log({ auth, token, result, msg });
       setErrMsgText(msg);
       setErrMsgToggle(true);
+      setTimeout(() => {
+        setErrMsgToggle(false);
+      }, 3000);
       Axios.post(`http://${process.env.REACT_APP_PUBLIC_IP}/isUserAuth`).then(
         (response) => {
           const { auth, msg } = response.data;
@@ -141,7 +144,11 @@ export const Login = memo(() => {
           <a href="/mybooks" className="text-sm text-blue-800">
             ゲストユーザーではじめる
           </a>
-          <ErrorMsgWindow msgShow={{ errMsgToggle, errMsgText }} headerText="注意" />
+          <ErrorMsgWindow
+            msgToggle={errMsgToggle}
+            msgText={errMsgText}
+            headerText="注意"
+          />
         </div>
       </div>
       <Footer />

@@ -72,7 +72,10 @@ export const Register = memo(() => {
         if (!result) {
           // usernameまたはpasswordが空の場合,usernameが重複既に存在している場合
           setErrMsgText(msg);
-          setErrMsgToggle(true); // レスポンスメッセージ出現
+          setErrMsgToggle(true);
+          setTimeout(() => {
+            setErrMsgToggle(false);
+          }, 3000);
           setUsername("");
           setPassword("");
         } else {
@@ -175,7 +178,8 @@ export const Register = memo(() => {
             登録してはじめる
           </button>
           <ErrorMsgWindow
-            msgShow={{ errMsgToggle, errMsgText }}
+            msgToggle={errMsgToggle}
+            msgText={errMsgText}
             headerText="注意"
           />
         </div>

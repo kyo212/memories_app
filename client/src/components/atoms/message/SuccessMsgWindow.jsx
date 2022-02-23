@@ -2,11 +2,10 @@ import { memo } from "react";
 // カスタムフック
 import { useStyle } from "../../custom/useStyle";
 
-export const SuccessMsgWindow = memo(({ msgShow, headerText }) => {
+export const SuccessMsgWindow = memo(({ msgToggle, msgText, headerText }) => {
   const { messageWindow } = useStyle();
   const { successMsg } = messageWindow;
   // msgToggle → bool値 // msgText → メッセージテキスト
-  const { msgToggle, msgText } = msgShow;
 
   return (
     <>
