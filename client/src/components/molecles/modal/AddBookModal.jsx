@@ -10,7 +10,7 @@ import { ImageUrlCreate } from "../../organisms/ImageUrlCreate";
 export const AddBookModal = memo(
   ({ toggle, insertItem, msgShow, bookListItems, setBookListItems }) => {
     // props
-    const { msgToggle, setMsgToggle } = msgShow;
+    const { errMsgToggle, setErrMsgToggle } = msgShow;
     const { modalToggle, setModalToggle } = toggle;
     const { setBookName, setCoverImage, setCategory } = setBookListItems;
     const { bookName, coverImage, category } = bookListItems;
@@ -21,12 +21,12 @@ export const AddBookModal = memo(
 
     const inputInform = (e) => {
       setBookName(e.target.value);
-      setMsgToggle(false);
+      setErrMsgToggle(false);
     };
 
     const closeButton = () => {
       setModalToggle(false);
-      setMsgToggle(false);
+      setErrMsgToggle(false);
       setCategory("家族");
       setBookName("");
     };
@@ -55,9 +55,7 @@ export const AddBookModal = memo(
                   placeholder="本のタイトルを入力"
                   onChange={inputInform}
                   className={[
-                    msgToggle
-                      ? errorBorderMsg.showed
-                      : errorBorderMsg.base,
+                    errMsgToggle ? errorBorderMsg.showed : errorBorderMsg.base,
                   ]}
                 />
               </div>

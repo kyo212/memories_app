@@ -6,7 +6,7 @@ import Axios from "axios";
 import { HeaderLoginBtn } from "../atoms/button/HeaderLoginBtn";
 import { Footer } from "../organisms/Footer";
 import { Header } from "../organisms/Header";
-import { MsgWindow } from "../atoms/message/MsgWindow";
+import { ErrorMsgWindow } from "../atoms/message/ErrorMsgWindow";
 // サードパーティ
 import { BsFillEyeFill } from "react-icons/bs";
 import { BsFillEyeSlashFill } from "react-icons/bs";
@@ -23,8 +23,8 @@ export const Register = memo(() => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   // メッセージ
-  const [msgText, setMsgText] = useState("");
-  const [msgToggle, setMsgToggle] = useState(false);
+  const [errMsgText, setErrMsgText] = useState("");
+  const [errMsgToggle, setErrMsgToggle] = useState(false);
   // カスタムフック
   const { messageWindow } = useStyle();
   const { errorBorderMsg } = messageWindow;
@@ -49,8 +49,8 @@ export const Register = memo(() => {
     }).then((response) => {
       const { auth, token, result, msg } = response.data;
       console.log({ auth, token, result, msg });
-      setMsgText(msg);
-      setMsgToggle(true);
+      setErrMsgText(msg);
+      setErrMsgToggle(true);
       Axios.post(`http://${process.env.REACT_APP_PUBLIC_IP}/isUserAuth`).then(
         (response) => {
           const { auth, msg } = response.data;
@@ -71,8 +71,8 @@ export const Register = memo(() => {
         console.log(result, msg);
         if (!result) {
           // usernameまたはpasswordが空の場合,usernameが重複既に存在している場合
-          setMsgText(msg);
-          setMsgToggle(true); // レスポンスメッセージ出現
+          setErrMsgText(msg);
+          setErrMsgToggle(true); // レスポンスメッセージ出現
           setUsername("");
           setPassword("");
         } else {
@@ -83,6 +83,13 @@ export const Register = memo(() => {
         }
       });
     }
+  };
+
+  const inputInform = (e) => {
+    e.target.id === "username"
+      ? setUsername(e.target.value)
+      : setPassword(e.target.value);
+    setErrMsgToggle(false);
   };
 
   return (
@@ -104,28 +111,24 @@ export const Register = memo(() => {
           </p>
           <form className="relative mt-8 mb-2 w-[210px] space-y-2 text-center">
             <input
+              id="username"
               type="text"
               value={username}
-              onChange={(e) => {
-                setUsername(e.target.value);
-                setMsgToggle(true);
-              }}
+              onChange={inputInform}
               autoFocus
               placeholder="ユーザーネーム"
               className={
-                msgText ? errorBorderMsg.showed : errorBorderMsg.base
+                errMsgToggle ? errorBorderMsg.showed : errorBorderMsg.base
               }
             />
             <input
+              id="password"
               type={passToggle ? "text" : "password"}
               value={password}
-              onChange={(e) => {
-                setPassword(e.target.value);
-                setMsgToggle(true);
-              }}
+              onChange={inputInform}
               placeholder="パスワード"
               className={
-                msgToggle ? errorBorderMsg.showed : errorBorderMsg.base
+                errMsgToggle ? errorBorderMsg.showed : errorBorderMsg.base
               }
             />
             <span
@@ -171,7 +174,10 @@ export const Register = memo(() => {
           >
             登録してはじめる
           </button>
-          <MsgWindow msgShow={{ msgToggle, msgText }} headerText="注意" />
+          <ErrorMsgWindow
+            msgShow={{ errMsgToggle, errMsgText }}
+            headerText="注意"
+          />
         </div>
       </div>
       <Footer />

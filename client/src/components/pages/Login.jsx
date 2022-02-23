@@ -7,7 +7,7 @@ import { useStyle } from "../custom/useStyle";
 import { HeaderRegBtn } from "../atoms/button/HeaderRegBtn";
 import { Footer } from "../organisms/Footer";
 import { Header } from "../organisms/Header";
-import { MsgWindow } from "../atoms/message/MsgWindow";
+import { ErrorMsgWindow } from "../atoms/message/ErrorMsgWindow";
 // サードパーティ
 import { BsFillEyeFill } from "react-icons/bs";
 import { BsFillEyeSlashFill } from "react-icons/bs";
@@ -23,8 +23,8 @@ export const Login = memo(() => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   // メッセージ
-  const [msgText, setMsgText] = useState("");
-  const [msgToggle, setMsgToggle] = useState(false);
+  const [errMsgText, setErrMsgText] = useState("");
+  const [errMsgToggle, setErrMsgToggle] = useState(false);
   // カスタムフック
   const { messageWindow } = useStyle(); // アニメーション
   const { errorBorderMsg } = messageWindow;
@@ -51,8 +51,8 @@ export const Login = memo(() => {
     }).then((response) => {
       const { auth, token, result, msg } = response.data;
       console.log({ auth, token, result, msg });
-      setMsgText(msg);
-      setMsgToggle(true);
+      setErrMsgText(msg);
+      setErrMsgToggle(true);
       Axios.post(`http://${process.env.REACT_APP_PUBLIC_IP}/isUserAuth`).then(
         (response) => {
           const { auth, msg } = response.data;
@@ -68,7 +68,7 @@ export const Login = memo(() => {
     e.target.id === "username"
       ? setUsername(e.target.value)
       : setPassword(e.target.value);
-    setMsgToggle(false);
+    setErrMsgToggle(false);
   };
   const toggleIcon = () => setPassToggle(!passToggle);
 
@@ -102,7 +102,7 @@ export const Login = memo(() => {
               autoFocus
               placeholder="ユーザーネーム"
               className={[
-                msgToggle ? errorBorderMsg.showed : errorBorderMsg.base,
+                errMsgToggle ? errorBorderMsg.showed : errorBorderMsg.base,
               ]}
             />
             <input
@@ -112,7 +112,7 @@ export const Login = memo(() => {
               onChange={inputInfrom}
               placeholder="パスワード"
               className={[
-                msgToggle ? errorBorderMsg.showed : errorBorderMsg.base,
+                errMsgToggle ? errorBorderMsg.showed : errorBorderMsg.base,
               ]}
             />
             <button
@@ -141,7 +141,7 @@ export const Login = memo(() => {
           <a href="/mybooks" className="text-sm text-blue-800">
             ゲストユーザーではじめる
           </a>
-          <MsgWindow msgShow={{ msgToggle, msgText }} headerText="注意" />
+          <ErrorMsgWindow msgShow={{ errMsgToggle, errMsgText }} headerText="注意" />
         </div>
       </div>
       <Footer />

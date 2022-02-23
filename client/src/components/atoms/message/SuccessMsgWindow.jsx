@@ -2,15 +2,15 @@ import { memo } from "react";
 // カスタムフック
 import { useStyle } from "../../custom/useStyle";
 
-export const MsgWindow = memo(({ msgShow, headerText }) => {
+export const SuccessMsgWindow = memo(({ msgShow, headerText }) => {
   const { messageWindow } = useStyle();
-  const { errorMsg } = messageWindow;
+  const { successMsg } = messageWindow;
   // msgToggle → bool値 // msgText → メッセージテキスト
   const { msgToggle, msgText } = msgShow;
 
   return (
     <>
-      <p className={[msgToggle ? errorMsg.showed : errorMsg.base]}>
+      <p className={[msgToggle ? successMsg.showed : successMsg.base]}>
         <span className="mr-2 font-bold">{headerText}:</span>
         {msgText}
       </p>
