@@ -39,7 +39,8 @@ export const Content = memo(() => {
   const [sucMsgToggle, setSucMsgToggle] = useState(false);
   // カスタムフック
   const [update, { setUpdate }] = useForceUpdate();
-  // コンテキスト タブのデフォルトインデックス
+  // コンテキストに渡すstate
+  // タブのデフォルトインデックス
   const [defaultIndex, setDefaultIndex] = useState(false);
 
   useEffect(() => {
@@ -90,6 +91,9 @@ export const Content = memo(() => {
     travelArry,
   ];
 
+  // 値が1つ以上格納されているカテゴリーを抽出
+  const filterCategoryArrays = categoryArrays.filter((item) => item.length > 0);
+
   // 入力した情報をDBに追加
   const insertItem = async () => {
     //  coverImage === "" || 追加
@@ -125,23 +129,26 @@ export const Content = memo(() => {
           <span className="flex space-x-2">
             <MenuOpenModal loginUser={loginUser} />
             <HeaderLogoutBtn />
+            <span>×</span>
           </span>
         </Header>
         {/* メインコンテンツ */}
-        <div className="flex w-screen flex-col text-center">
+        <div className="flex h-screen w-screen snap-y snap-mandatory flex-col overflow-scroll text-center">
           {bookItems.length > 0 ? (
             // bookItems(bookの情報を格納している配列)の中の配列の中にデータが存在しない場合(0の場合)は"まだ何もありません"を表示
             <>
-              {categoryArrays.map((array, index) => {
-                // categoryArrays(カテゴリごとに分けた配列をまとめた配列)の中の配列の中にデータが存在しない場合は下記コンポーネントを表示させない
-                return (
-                  array.length > 0 && (
-                    <div key={index} className="w-screen pt-10 pb-14">
-                      <Books category={array[0].category} Items={array} />
-                    </div>
-                  )
-                );
-              })}
+              {filterCategoryArrays.map((item, index) => (
+                // filterCategoryArrays → 値が一つ以上格納されているオブジェクトが格納されてる配列
+                <>
+                  <div
+                    key={index}
+                    className="h-screen w-screen snap-start snap-always"
+                  >
+                    <p>{index + 1}</p>
+                    <Books category={item[0].category} Items={item} />
+                  </div>
+                </>
+              ))}
             </>
           ) : (
             <div className="flex h-screen w-screen flex-col items-center justify-around">
