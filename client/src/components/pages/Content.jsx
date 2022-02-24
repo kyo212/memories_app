@@ -93,6 +93,7 @@ export const Content = memo(() => {
 
   // 値が1つ以上格納されているカテゴリーを抽出
   const filterCategoryArrays = categoryArrays.filter((item) => item.length > 0);
+  console.log(filterCategoryArrays.length);
 
   // 入力した情報をDBに追加
   const insertItem = async () => {
@@ -144,7 +145,7 @@ export const Content = memo(() => {
                     key={index}
                     className="h-screen w-screen snap-start snap-always"
                   >
-                    <p>{index + 1}</p>
+                    {/* <p className="">{`${index + 1} / ${filterCategoryArrays.length}`}</p> */}
                     <Books category={item[0].category} Items={item} />
                   </div>
                 </>
