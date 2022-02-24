@@ -9,10 +9,10 @@ export const Books = memo(({ category, Items }) => {
 
   return (
     <div className="my-6">
-      <h1 className="relative py-4 font-serif text-xl font-bold text-slate-600">
-        <span className="absolute top-7 left-10 mx-4 inline-block w-20 border-b" />
+      <h1 className="my-0 mx-auto mb-8 w-[80%] rounded-sm border-slate-200 bg-white py-2 font-serif text-xl font-bold text-slate-600 shadow-md">
+        {/* <span className="absolute top-7 left-10 mx-4 inline-block w-20 border-b" /> */}
         {category}
-        <span className="absolute top-7 right-10 mx-4 inline-block w-20 border-b" />
+        {/* <span className="absolute top-7 right-10 mx-4 inline-block w-20 border-b" /> */}
       </h1>
       <div className="flex h-[460px] w-full snap-x items-center overflow-x-scroll">
         {Items.map((item, index) => {
@@ -24,7 +24,7 @@ export const Books = memo(({ category, Items }) => {
               {/* 本の厚み */}
               <BookRibbon favorite={item.favorite} />
               <div className={`${bookStyle} -right-2 -top-2 rounded-sm`} />
-              <div className={`${bookStyle} -right-1 -top-1`}  />
+              <div className={`${bookStyle} -right-1 -top-1`} />
               <span className="absolute -top-[5px] left-0 -z-10 h-[4px] w-[13px] -rotate-45 transform rounded-md border border-slate-300 bg-white" />
               {/* 表紙 */}
               <div className="z-10 flex h-[400px] w-80 flex-col  items-center rounded-sm border border-slate-300 bg-white text-slate-700 shadow-md">

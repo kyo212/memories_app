@@ -1,13 +1,23 @@
-import { memo, useState } from "react";
-// カスタムフック
+import { memo, useState, useContext, useEffect } from "react";
+// コンテキスト
+import { TabContext } from "../../pages/Content";
 
 export const Tab = memo(({ animation, ulClass, setCategory }) => {
+  // 情報
   const [tabListSelected, setTabListSelected] = useState("家族");
   const tabList = ["家族", "子供", "ペット", "趣味", "友達", "恋人", "旅行"];
+  // コンテキスト
+  const { defaultIndex, setDefaultIndex } = useContext(TabContext);
+
+  useEffect(() => {
+    defaultIndex && setTabListSelected(tabList[0]);
+    console.log(defaultIndex);
+  }, [defaultIndex]);
 
   const tabCliced = (index) => {
     setTabListSelected(tabList[index]);
     setCategory(tabList[index]);
+    setDefaultIndex(false);
   };
 
   return (

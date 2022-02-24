@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useState } from "react";
 // カスタムフック
 import { useStyle } from "../../custom/useStyle";
 // サードパーティ
@@ -6,6 +6,9 @@ import { AiOutlinePlus } from "react-icons/ai";
 // コンポーネント
 import { Tab } from "../tabs/Tab";
 import { ImageUrlCreate } from "../../organisms/ImageUrlCreate";
+import { useContext } from "react";
+// コンテキスト
+import { TabContext } from "../../pages/Content";
 
 export const AddBookModal = memo(
   ({ toggle, insertItem, msgShow, bookListItems, setBookListItems }) => {
@@ -18,6 +21,8 @@ export const AddBookModal = memo(
     const { modals, messageWindow } = useStyle();
     const { modalAnimation, modalWindowAnimation, modalTabAnimation } = modals;
     const { errorBorderMsg } = messageWindow;
+    // コンテキスト
+    const { defaultIndex, setDefaultIndex } = useContext(TabContext);
 
     const inputInform = (e) => {
       setBookName(e.target.value);
@@ -29,6 +34,7 @@ export const AddBookModal = memo(
       setErrMsgToggle(false);
       setCategory("家族");
       setBookName("");
+      setDefaultIndex(true);
     };
 
     return (
@@ -82,20 +88,22 @@ export const AddBookModal = memo(
             </div>
           </div>
         </div>
-        {/* 追加ボタン */}
-        <button
-          onClick={insertItem}
-          className="absolute bottom-3 rounded-sm bg-blue-600 bg-opacity-80 px-3 py-2 font-bold text-white"
-        >
-          本を追加する
-        </button>
-        {/* 閉じるボタン */}
-        <button
-          className="absolute bottom-0 right-0 p-4 text-4xl text-white hover:bg-white hover:bg-opacity-40"
-          onClick={closeButton}
-        >
-          <AiOutlinePlus className="rotate-45 transform" />
-        </button>
+        <>
+          {/* 追加ボタン */}
+          <button
+            onClick={insertItem}
+            className="absolute bottom-3 rounded-sm bg-blue-600 bg-opacity-80 px-3 py-2 font-bold text-white"
+          >
+            本を追加する
+          </button>
+          {/* 閉じるボタン */}
+          <button
+            className="absolute bottom-0 right-0 p-4 text-4xl text-white hover:bg-white hover:bg-opacity-40"
+            onClick={closeButton}
+          >
+            <AiOutlinePlus className="rotate-45 transform" />
+          </button>
+        </>
       </div>
     );
   }

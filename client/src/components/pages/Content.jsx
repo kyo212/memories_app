@@ -1,4 +1,4 @@
-import { memo, useState, useEffect } from "react";
+import { memo, useState, useEffect, createContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
 // アイコン
@@ -21,6 +21,9 @@ import { useForceUpdate } from "../custom/useForceUpdate";
 // ユーザーが認証済みであるときに表示させる内容
 // ------------------------------------------
 
+// コンテキスト
+export const TabContext = createContext();
+
 export const Content = memo(() => {
   const navigate = useNavigate();
   // 情報
@@ -36,6 +39,8 @@ export const Content = memo(() => {
   const [sucMsgToggle, setSucMsgToggle] = useState(false);
   // カスタムフック
   const [update, { setUpdate }] = useForceUpdate();
+  // コンテキスト タブのデフォルトインデックス
+  const [defaultIndex, setDefaultIndex] = useState(false);
 
   useEffect(() => {
     // ユーザーネームをセッションから取得
@@ -100,9 +105,10 @@ export const Content = memo(() => {
         setUpdate(!update); // getUsername関数を更新する
         setModalToggle(false); // モーダルを閉じる
         setBookName(""); // デフォルト値に戻す
-        setCategory(""); // デフォルト値に戻す
-        setSucMsgToggle(true); 
-        setTimeout(() => { // 3病後にメッセージを閉じる
+        setDefaultIndex(true); // タブのアニメーションをデフォルトに戻す
+        setSucMsgToggle(true);
+        setTimeout(() => {
+          // 3病後にメッセージを閉じる
           setSucMsgToggle(false);
         }, 3000);
       });
@@ -113,67 +119,69 @@ export const Content = memo(() => {
 
   return (
     <>
-      {/* ヘッダー */}
-      <Header root={"/mybooks"}>
-        <span className="flex space-x-2">
-          <MenuOpenModal loginUser={loginUser} />
-          <HeaderLogoutBtn />
-        </span>
-      </Header>
-      {/* メインコンテンツ */}
-      <div className="flex w-screen flex-col text-center">
-        {bookItems.length > 0 ? (
-          // bookItems(bookの情報を格納している配列)の中の配列の中にデータが存在しない場合(0の場合)は"まだ何もありません"を表示
-          <>
-            {categoryArrays.map((array, index) => {
-              // categoryArrays(カテゴリごとに分けた配列をまとめた配列)の中の配列の中にデータが存在しない場合は下記コンポーネントを表示させない
-              return (
-                array.length > 0 && (
-                  <div key={index} className="w-screen pt-10 pb-14">
-                    <Books category={array[0].category} Items={array} />
-                  </div>
-                )
-              );
-            })}
-          </>
-        ) : (
-          <div className="flex h-screen w-screen flex-col items-center justify-around">
-            <div className="">
-              <p className="text-bold my-2 text-xl font-bold text-slate-500">
-                まだ何もありません
-              </p>
-              <p className="text-bold text-slate-500">
-                まずは本を追加してみましょう
-              </p>
+      <TabContext.Provider value={{ defaultIndex, setDefaultIndex }}>
+        {/* ヘッダー */}
+        <Header root={"/mybooks"}>
+          <span className="flex space-x-2">
+            <MenuOpenModal loginUser={loginUser} />
+            <HeaderLogoutBtn />
+          </span>
+        </Header>
+        {/* メインコンテンツ */}
+        <div className="flex w-screen flex-col text-center">
+          {bookItems.length > 0 ? (
+            // bookItems(bookの情報を格納している配列)の中の配列の中にデータが存在しない場合(0の場合)は"まだ何もありません"を表示
+            <>
+              {categoryArrays.map((array, index) => {
+                // categoryArrays(カテゴリごとに分けた配列をまとめた配列)の中の配列の中にデータが存在しない場合は下記コンポーネントを表示させない
+                return (
+                  array.length > 0 && (
+                    <div key={index} className="w-screen pt-10 pb-14">
+                      <Books category={array[0].category} Items={array} />
+                    </div>
+                  )
+                );
+              })}
+            </>
+          ) : (
+            <div className="flex h-screen w-screen flex-col items-center justify-around">
+              <div className="">
+                <p className="text-bold my-2 text-xl font-bold text-slate-500">
+                  まだ何もありません
+                </p>
+                <p className="text-bold text-slate-500">
+                  まずは本を追加してみましょう
+                </p>
+              </div>
+              <div className="flex flex-col items-center justify-center">
+                <p className="text-bold my-8 flex items-center text-slate-500">
+                  <AiOutlinePlus className="mx-2 text-slate-800" />
+                  をクリックして追加
+                </p>
+                <p className="flex h-10 w-10 animate-bounce items-center justify-center rounded-full border border-slate-400 bg-white text-slate-800 shadow-md">
+                  <BsArrowDown />
+                </p>
+              </div>
             </div>
-            <div className="flex flex-col items-center justify-center">
-              <p className="text-bold my-8 flex items-center text-slate-500">
-                <AiOutlinePlus className="mx-2 text-slate-800" />
-                をクリックして追加
-              </p>
-              <p className="flex h-10 w-10 animate-bounce items-center justify-center rounded-full border border-slate-400 bg-white text-slate-800 shadow-md">
-                <BsArrowDown />
-              </p>
-            </div>
-          </div>
-        )}
-      </div>
-      {/* モーダル出現ボタン */}
-      <AddBookBtn setModalToggle={setModalToggle} />
-      {/* モーダルウィンドウ */}
-      <AddBookModal
-        bookListItems={{ bookName, coverImage, category }}
-        setBookListItems={{ setBookName, setCoverImage, setCategory }}
-        toggle={{ modalToggle, setModalToggle }}
-        insertItem={insertItem}
-        msgShow={{ errMsgToggle, setErrMsgToggle }}
-      />
-      <SuccessMsgWindow
-        msgToggle={sucMsgToggle}
-        msgText="新しく本を追加しました。"
-        headerText="成功"
-      />
-      <FooterTab />
+          )}
+        </div>
+        {/* モーダル出現ボタン */}
+        <AddBookBtn setModalToggle={setModalToggle} />
+        {/* モーダルウィンドウ */}
+        <AddBookModal
+          bookListItems={{ bookName, coverImage, category }}
+          setBookListItems={{ setBookName, setCoverImage, setCategory }}
+          toggle={{ modalToggle, setModalToggle }}
+          insertItem={insertItem}
+          msgShow={{ errMsgToggle, setErrMsgToggle }}
+        />
+        <SuccessMsgWindow
+          msgToggle={sucMsgToggle}
+          msgText={`"${category}"に新しく本を追加しました。`}
+          headerText="成功"
+        />
+        <FooterTab />
+      </TabContext.Provider>
     </>
   );
 });
