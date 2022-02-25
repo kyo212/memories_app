@@ -9,9 +9,6 @@ export const Books = memo(({ category, Items }) => {
 
   return (
     <>
-      {/* <h1 className="my-0 mx-auto mb-8 w-[80%] rounded-sm border border-slate-200 bg-white py-2 font-serif text-xl font-bold  shadow-md">
-              {category}
-            </h1> */}
       <div className="flex h-screen w-screen snap-x items-center overflow-x-scroll scroll-smooth">
         {Items.map((item, index) => {
           return (
@@ -23,9 +20,9 @@ export const Books = memo(({ category, Items }) => {
               {/* オブジェクトひとつずつの背面 */}
               <div className="flex h-screen w-screen items-center justify-center">
                 <div className="relative">
-                  <p className="absolute -top-10 left-1/2 -translate-x-1/2 transform text-md font-bold text-slate-600 shadow-md rounded-full px-4 py-2 bg-white">
-                {item.category}
-              </p>
+                  <p className="text-md absolute -top-16 left-1/2 -translate-x-1/2 transform bg-white px-4 py-2 font-bold text-slate-600">
+                    {item.category}
+                  </p>
                   {/* 本の厚み */}
                   <BookRibbon favorite={item.favorite} />
                   <div className={`${bookStyle} -right-2 -top-2 rounded-sm`} />
@@ -41,7 +38,10 @@ export const Books = memo(({ category, Items }) => {
                         </span>
                       </label>
                     </div>
-                    <ImageUrlCreate coverImage={item.coverImage} imageStyle="h-[70%] opacity-80 w-[90%] shadow-inner" />
+                    <ImageUrlCreate
+                      coverImage={item.coverImage}
+                      imageStyle="h-[270px] opacity-80 w-[285px] shadow-inner"
+                    />
                   </div>
                   <p className="my-2 space-x-1 text-sm text-slate-400">
                     -{/* index → オブジェクトごとの数字 */}

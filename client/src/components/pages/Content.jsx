@@ -124,7 +124,7 @@ export const Content = memo(() => {
                 coverImage,
                 category,
               }
-            ).then((response) => {
+            ).then(async (response) => {
               const { result, err } = response.data;
               console.log({ result, err });
               setModalToggle(false); // モーダルを閉じる
@@ -132,11 +132,9 @@ export const Content = memo(() => {
               setDefaultIndex(true); // タブのアニメーションをデフォルトに戻す
               setSucMsgToggle(true);
               setModalImageUrl("");
-              setTimeout(() => {
-                // 3病後にメッセージを閉じる
-                setSucMsgToggle(false);
-                setUpdate(!update);
-              }, 3000);
+              // 3秒後にメッセージを閉じる
+              setTimeout(() => setSucMsgToggle(false), 3000);
+              await setUpdate(!update);
             });
           } else {
             setErrMsgToggle(true);
@@ -151,10 +149,9 @@ export const Content = memo(() => {
     <>
       {/* ヘッダー */}
       <Header root={"/mybooks"}>
-        <span className="flex items-center space-x-2">
+        <span className="flex items-center">
           <Search />
           <MenuOpenModal loginUser={loginUser} />
-          <span>×</span>
         </span>
       </Header>
       {/* メインコンテンツ */}

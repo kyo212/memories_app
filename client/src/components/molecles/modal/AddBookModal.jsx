@@ -59,9 +59,9 @@ export const AddBookModal = memo(
           ]}
         >
           <div className="itemscenter flex h-[98%] w-[80%] flex-col items-center">
-            <div className="my-10 flex flex-col">
-              <div className="mb-4">
-                <p className="mb-2 border-b text-lg font-bold text-slate-500">
+            <div className="my-10 flex flex-col text-center">
+              <div>
+                <p className="mb-2 text-lg font-bold text-slate-500">
                   本のタイトル
                 </p>
                 <input
@@ -71,27 +71,25 @@ export const AddBookModal = memo(
                   placeholder="本のタイトルを入力"
                   onChange={inputInform}
                   className={[
-                    errMsgToggle ? errorBorderMsg.showed : errorBorderMsg.base,
+                    `${
+                      errMsgToggle ? errorBorderMsg.showed : errorBorderMsg.base
+                    } border-slate-200 w-[280px]`,
                   ]}
                 />
               </div>
-              <div className="mb-4 items-center">
-                <p className="mb-2 border-b text-lg font-bold text-slate-500">
-                  表紙
-                </p>
+              <div className="m-8 items-center">
+                <p className="mb-2 text-lg font-bold text-slate-500">表紙</p>
                 <ImageUrlCreate
                   coverImage={modalImageUrl}
-                  imageStyle="inline-block h-[70%] opacity-80 w-full bg-gray-100"
+                  imageStyle="inline-block h-[270px] w-[285px] opacity-80 border shadow-md"
                 />
               </div>
               <div>
-                <p className="border-b text-lg font-bold text-slate-500">
-                  カテゴリー
-                </p>
+                <p className="text-lg font-bold text-slate-500">カテゴリー</p>
                 <div className="mt-4 mb-10">
                   <Tab
                     animation={modalTabAnimation}
-                    ulClass={"my-2 space-x-2 space-y-2"}
+                    ulClass="my-2 space-x-2 space-y-2"
                     setCategory={setCategory}
                   />
                 </div>

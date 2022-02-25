@@ -11,7 +11,7 @@ export const Search = () => {
   const [seachToggle, setSearchToggle] = useState(false);
 
   return (
-    <button className="fixed right-20 flex items-center rounded-full border-slate-300 bg-gray-500">
+    <button className="fixed right-16 flex items-center rounded-full border-slate-300 bg-gray-500">
       <input
         type="text"
         placeholder="アルバムを検索"
