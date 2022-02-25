@@ -30,8 +30,8 @@ export const useStyle = () => {
   // menu-open
   const menuOpens = {
     menuOpenBtnAnimation: {
-      base: "transform text-2xl text-slate-600 transition-all",
-      showed: "rotate-180 transform text-2xl text-slate-600 transition-all",
+      base: "transform text-white bg-gray-500 rounded-full p-2 transition-all",
+      showed: "rotate-180 transform p-2 text-white bg-gray-500 rounded-full transition-all",
     },
     menuOpenAnimation: {
       base: "fixed top-14 right-6 h-0 w-60 transform rounded-md border bg-white px-3 text-sm text-slate-700 opacity-0 shadow-md transition-all ease-in",

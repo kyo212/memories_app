@@ -17,18 +17,19 @@ export const MenuOpenModal = ({ loginUser }) => {
 
   return (
     <>
-      <VscTriangleDown
-        onClick={modalOpenClose}
+      <span
         className={[
           modalToggle ? menuOpenBtnAnimation.showed : menuOpenBtnAnimation.base,
         ]}
-      />
+      >
+        <VscTriangleDown onClick={modalOpenClose} className="transform scale-125"/>
+      </span>
       <div
         className={[
           modalToggle ? menuOpenAnimation.showed : menuOpenAnimation.base,
         ]}
       >
-        <div className="items-start flex flex-col space-y-4 text-left">
+        <div className="flex flex-col items-start space-y-4 text-left">
           <p className="text-md font-bold text-slate-700">
             "{loginUser}"<span className="text-md font-thin">でログイン中</span>
           </p>

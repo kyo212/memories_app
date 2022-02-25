@@ -155,7 +155,6 @@ export const Content = memo(() => {
           <Search />
           <MenuOpenModal loginUser={loginUser} />
           <span>×</span>
-          {/* <button onClick={}>更新</button> */}
         </span>
       </Header>
       {/* メインコンテンツ */}
