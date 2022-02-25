@@ -1,6 +1,7 @@
 import { memo, useState } from "react";
 // カスタムフック
 import { useStyle } from "../../custom/useStyle";
+import { useForceUpdate } from "../../custom/useForceUpdate";
 // サードパーティ
 import { AiOutlinePlus } from "react-icons/ai";
 // コンポーネント
@@ -8,21 +9,29 @@ import { Tab } from "../tabs/Tab";
 import { ImageUrlCreate } from "../../organisms/ImageUrlCreate";
 import { useContext } from "react";
 // コンテキスト
-import { TabContext } from "../../../App";
+import { Context } from "../../../App";
 
 export const AddBookModal = memo(
-  ({ toggle, insertItem, msgShow, bookListItems, setBookListItems }) => {
+  ({
+    toggle,
+    getImage,
+    insertItem,
+    msgShow,
+    bookListItems,
+    setBookListItems,
+  }) => {
     // props
     const { errMsgToggle, setErrMsgToggle } = msgShow;
     const { modalToggle, setModalToggle } = toggle;
-    const { setBookName, setCoverImage, setCategory } = setBookListItems;
-    const { bookName, coverImage, category } = bookListItems;
+    const { setBookName, setCategory } = setBookListItems;
+    const { bookName, category } = bookListItems;
     // カスタムフック
     const { modals, messageWindow } = useStyle();
     const { modalAnimation, modalWindowAnimation, modalTabAnimation } = modals;
     const { errorBorderMsg } = messageWindow;
     // コンテキスト
-    const { defaultIndex, setDefaultIndex } = useContext(TabContext);
+    const { modalImageUrl, setDefaultIndex, setModalImageUrl } =
+      useContext(Context);
 
     const inputInform = (e) => {
       setBookName(e.target.value);
@@ -35,6 +44,7 @@ export const AddBookModal = memo(
       setCategory("家族");
       setBookName("");
       setDefaultIndex(true);
+      setModalImageUrl("");
     };
 
     return (
@@ -48,7 +58,7 @@ export const AddBookModal = memo(
               : modalWindowAnimation.base,
           ]}
         >
-          <div className="flex h-[98%] w-[80%] flex-col items-center">
+          <div className="itemscenter flex h-[98%] w-[80%] flex-col items-center">
             <div className="my-10 flex flex-col">
               <div className="mb-4">
                 <p className="mb-2 border-b text-lg font-bold text-slate-500">
@@ -65,11 +75,14 @@ export const AddBookModal = memo(
                   ]}
                 />
               </div>
-              <div className="mb-4">
+              <div className="mb-4 items-center">
                 <p className="mb-2 border-b text-lg font-bold text-slate-500">
                   表紙
                 </p>
-                <ImageUrlCreate imageStyle="inline-block h-52 w-full bg-gray-100" />
+                <ImageUrlCreate
+                  coverImage={modalImageUrl}
+                  imageStyle="inline-block h-[70%] opacity-80 w-full bg-gray-100"
+                />
               </div>
               <div>
                 <p className="border-b text-lg font-bold text-slate-500">

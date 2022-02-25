@@ -1,4 +1,4 @@
-import { memo, useState, useEffect, createContext } from "react";
+import { memo, useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
 // アイコン
@@ -9,37 +9,40 @@ import { FooterTab } from "../molecles/tabs/FooterTab";
 import { Header } from "../organisms/Header";
 import { Books } from "../organisms/Books";
 import { SuccessMsgWindow } from "../atoms/message/SuccessMsgWindow";
+import { Search } from "../atoms/Search";
 // コンポーネント 処理系
 import { MenuOpenModal } from "../molecles/modal/MenuOpenModal";
 import { AddBookBtn } from "../atoms/button/AddBookBtn";
-import { HeaderLogoutBtn } from "../atoms/button/HeaderLogoutBtn";
 import { AddBookModal } from "../molecles/modal/AddBookModal";
 // カスタムフック
 import { useForceUpdate } from "../custom/useForceUpdate";
+// コンテキスト
+import { Context } from "../../App";
 
 // ------------------------------------------
 // ユーザーが認証済みであるときに表示させる内容
 // ------------------------------------------
 
-
 export const Content = memo(() => {
   const navigate = useNavigate();
   // 情報
   const [bookName, setBookName] = useState("");
-  const [coverImage, setCoverImage] = useState("");
   const [category, setCategory] = useState("家族");
   const [loginUser, setLoginUser] = useState("gestuser"); // ログイン中のusername
   const [bookItems, setBookItems] = useState([]);
-  // モーダルウィンドウのスイッチ
+  // Toggle
   const [modalToggle, setModalToggle] = useState(false);
   // メッセージ
   const [errMsgToggle, setErrMsgToggle] = useState(false);
   const [sucMsgToggle, setSucMsgToggle] = useState(false);
   // カスタムフック
   const [update, { setUpdate }] = useForceUpdate();
+  // 描画制御
+  const [loading, setLoading] = useState(false);
+  console.log(loading);
   // コンテキストに渡すstate
   // タブのデフォルトインデックス
-  const [defaultIndex, setDefaultIndex] = useState(false);
+  const { setDefaultIndex, fileUrl, setModalImageUrl } = useContext(Context);
 
   useEffect(() => {
     // ユーザーネームをセッションから取得
@@ -62,6 +65,7 @@ export const Content = memo(() => {
       }).then((response) => {
         const { result, err } = response.data;
         setBookItems(result);
+        result.length > 0 && setLoading(true);
         console.log({ result: result, err: err });
       });
     };
@@ -91,64 +95,89 @@ export const Content = memo(() => {
 
   // 値が1つ以上格納されているカテゴリーを抽出
   const filterCategoryArrays = categoryArrays.filter((item) => item.length > 0);
-  console.log(filterCategoryArrays.length);
 
-  // 入力した情報をDBに追加
   const insertItem = async () => {
-    //  coverImage === "" || 追加
-    if (bookName !== "" && category !== "") {
-      await Axios.post(`http://${process.env.REACT_APP_PUBLIC_IP}/insert`, {
-        username: loginUser,
-        bookName,
-        coverImage,
-        category,
-      }).then((response) => {
-        const { result, err } = response.data;
-        console.log({ result, err });
-        setUpdate(!update); // getUsername関数を更新する
-        setModalToggle(false); // モーダルを閉じる
-        setBookName(""); // デフォルト値に戻す
-        setDefaultIndex(true); // タブのアニメーションをデフォルトに戻す
-        setSucMsgToggle(true);
-        setTimeout(() => {
-          // 3病後にメッセージを閉じる
-          setSucMsgToggle(false);
-        }, 3000);
-      });
-    } else {
-      setErrMsgToggle(true);
-    }
+    // awsのバケットURLを取得
+    await Axios.post(`http://${process.env.REACT_APP_PUBLIC_IP}/s3Url`).then(
+      (response) => {
+        const { url } = response.data;
+        // awsのURLにput
+        fetch(url, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+          body: fileUrl, // imageUrlを送る
+        });
+        const coverImage = url.split("?")[0];
+        console.log({ url, fileUrl, coverImage });
+
+        const insert = async () => {
+          // coverImage !== "" &&
+          if (bookName !== "") {
+            // 入力した情報をDBに追加
+            await Axios.post(
+              `http://${process.env.REACT_APP_PUBLIC_IP}/insert`,
+              {
+                username: loginUser,
+                bookName,
+                coverImage,
+                category,
+              }
+            ).then((response) => {
+              const { result, err } = response.data;
+              console.log({ result, err });
+              setModalToggle(false); // モーダルを閉じる
+              setBookName(""); // デフォルト値に戻す
+              setDefaultIndex(true); // タブのアニメーションをデフォルトに戻す
+              setSucMsgToggle(true);
+              setModalImageUrl("");
+              setTimeout(() => {
+                // 3病後にメッセージを閉じる
+                setSucMsgToggle(false);
+                setUpdate(!update);
+              }, 3000);
+            });
+          } else {
+            setErrMsgToggle(true);
+          }
+        };
+        insert();
+      }
+    );
   };
 
   return (
     <>
-        {/* ヘッダー */}
-        <Header root={"/mybooks"}>
-          <span className="flex space-x-2">
-            <MenuOpenModal loginUser={loginUser} />
-            <HeaderLogoutBtn />
-            <span>×</span>
-          </span>
-        </Header>
-        {/* メインコンテンツ */}
-        <div className="flex h-screen w-screen snap-y snap-mandatory flex-col overflow-scroll text-center">
-          {bookItems.length > 0 ? (
-            // bookItems(bookの情報を格納している配列)の中の配列の中にデータが存在しない場合(0の場合)は"まだ何もありません"を表示
-            <>
-              {filterCategoryArrays.map((item, index) => (
-                // filterCategoryArrays → 値が一つ以上格納されているオブジェクトが格納されてる配列
-                <>
-                  <div
-                    key={index}
-                    className="h-screen w-screen snap-start snap-always"
-                  >
-                    {/* <p className="">{`${index + 1} / ${filterCategoryArrays.length}`}</p> */}
-                    <Books category={item[0].category} Items={item} />
-                  </div>
-                </>
-              ))}
-            </>
-          ) : (
+      {/* ヘッダー */}
+      <Header root={"/mybooks"}>
+        <span className="flex items-center space-x-2">
+          <Search />
+          <MenuOpenModal loginUser={loginUser} />
+          <span>×</span>
+          {/* <button onClick={}>更新</button> */}
+        </span>
+      </Header>
+      {/* メインコンテンツ */}
+      <div className="flex h-screen w-screen snap-y snap-mandatory flex-col overflow-scroll text-center">
+        {bookItems.length > 0 ? (
+          // bookItems(bookの情報を格納している配列)の中の配列の中にデータが存在しない場合(0の場合)は"まだ何もありません"を表示
+          <>
+            {filterCategoryArrays.map((item, index) => (
+              // filterCategoryArrays → 値が一つ以上格納されているオブジェクトが格納されてる配列
+              <>
+                <div
+                  key={item}
+                  className="h-screen w-screen snap-start snap-always"
+                >
+                  {/* <p className="">{`${index + 1} / ${filterCategoryArrays.length}`}</p> */}
+                  <Books category={item[0].category} Items={item} />
+                </div>
+              </>
+            ))}
+          </>
+        ) : (
+          <>
             <div className="flex h-screen w-screen flex-col items-center justify-around">
               <div className="">
                 <p className="text-bold my-2 text-xl font-bold text-slate-500">
@@ -168,24 +197,25 @@ export const Content = memo(() => {
                 </p>
               </div>
             </div>
-          )}
-        </div>
-        {/* モーダル出現ボタン */}
-        <AddBookBtn setModalToggle={setModalToggle} />
-        {/* モーダルウィンドウ */}
-        <AddBookModal
-          bookListItems={{ bookName, coverImage, category }}
-          setBookListItems={{ setBookName, setCoverImage, setCategory }}
-          toggle={{ modalToggle, setModalToggle }}
-          insertItem={insertItem}
-          msgShow={{ errMsgToggle, setErrMsgToggle }}
-        />
-        <SuccessMsgWindow
-          msgToggle={sucMsgToggle}
-          msgText={`"${category}"に新しく本を追加しました。`}
-          headerText="成功"
-        />
-        <FooterTab />
+          </>
+        )}
+      </div>
+      {/* モーダル出現ボタン */}
+      <AddBookBtn setModalToggle={setModalToggle} />
+      {/* モーダルウィンドウ */}
+      <AddBookModal
+        bookListItems={{ bookName, category }}
+        setBookListItems={{ setBookName, setCategory }}
+        toggle={{ modalToggle, setModalToggle }}
+        insertItem={insertItem}
+        msgShow={{ errMsgToggle, setErrMsgToggle }}
+      />
+      <SuccessMsgWindow
+        msgToggle={sucMsgToggle}
+        msgText={`"${category}"に新しく本を追加しました。`}
+        headerText="成功"
+      />
+      <FooterTab />
     </>
   );
 });

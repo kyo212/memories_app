@@ -17,6 +17,7 @@ const PORT = process.env.PORT;
 // コンポーネント
 const db = require("./db/db").db;
 const { verifyJWT } = require("./middleware/verifyJWT");
+const { genereateUploadURL } = require("./s3/s3");
 
 app.use(
   "/static",
@@ -183,7 +184,7 @@ app.post("/insert", (req, res) => {
   const sqlInsert =
     "INSERT INTO book_list (username,bookName,coverImage,category,date,favorite) VALUES (?,?,?,?,?,?)";
   // usernameは自動で入力される。dateとfavoriteはデフォルト値を設定
-  // coverImage === "" || 追加
+  // coverImage !== ""
   if (bookName !== "") {
     db.query(
       sqlInsert,
@@ -193,6 +194,11 @@ app.post("/insert", (req, res) => {
       }
     );
   }
+});
+
+app.post("/s3Url", async (req, res) => {
+  const url = await genereateUploadURL();
+  res.json({ url });
 });
 
 app.listen(PORT);

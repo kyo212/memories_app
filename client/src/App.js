@@ -1,17 +1,28 @@
 import { createContext, useState } from "react";
 import { Router } from "./root/Router";
 
-export const TabContext = createContext();
+export const Context = createContext();
 
 function App() {
   // コンテキストに渡すstate
   const [defaultIndex, setDefaultIndex] = useState(false);
+  const [fileUrl, setFileUrl] = useState("");
+  const [modalImageUrl, setModalImageUrl] = useState("");
 
   return (
     <div>
-      <TabContext.Provider value={{ defaultIndex, setDefaultIndex }}>
+      <Context.Provider
+        value={{
+          defaultIndex,
+          setDefaultIndex,
+          fileUrl,
+          setFileUrl,
+          modalImageUrl,
+          setModalImageUrl,
+        }}
+      >
         <Router />
-      </TabContext.Provider>
+      </Context.Provider>
     </div>
   );
 }

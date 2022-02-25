@@ -1,13 +1,14 @@
-import { useState } from "react";
+import { memo, useContext } from "react";
+import { Context } from "../../App";
 
-export const ImageUrlCreate = ({ imageStyle }) => {
-  const [fileUrl, setFileUrl] = useState("");
-  console.log(fileUrl);
+export const ImageUrlCreate = memo(({ coverImage, imageStyle }) => {
+  const { setFileUrl, setModalImageUrl } = useContext(Context);
 
   const processImage = (e) => {
     const imageFile = e.target.files[0];
     const imageUrl = URL.createObjectURL(imageFile);
-    setFileUrl(imageUrl);
+    setModalImageUrl(imageUrl);
+    setFileUrl(imageFile);
   };
 
   return (
@@ -17,16 +18,16 @@ export const ImageUrlCreate = ({ imageStyle }) => {
       <input
         type="file"
         // onClick={() => window.confirm("変更しますか？")}
-        onChange={(e) => processImage(e)}
+        onChange={processImage}
         accept="image/*"
         className="hidden"
       />
       <img
-        src={fileUrl}
+        src={coverImage}
         onError={(e) => (e.target.value = "OK")}
         alt="表紙の画像"
         className="h-full w-full object-cover"
       />
     </label>
   );
-};
+});

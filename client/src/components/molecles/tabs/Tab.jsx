@@ -1,13 +1,13 @@
 import { memo, useState, useContext, useEffect } from "react";
 // コンテキスト
-import { TabContext } from "../../../App";
+import { Context } from "../../../App";
 
 export const Tab = memo(({ animation, ulClass, setCategory }) => {
   // 情報
   const [tabListSelected, setTabListSelected] = useState("家族");
   const tabList = ["家族", "子供", "ペット", "趣味", "友達", "恋人", "旅行"];
   // コンテキスト
-  const { defaultIndex, setDefaultIndex } = useContext(TabContext);
+  const { defaultIndex, setDefaultIndex } = useContext(Context);
 
   useEffect(() => {
     defaultIndex && setTabListSelected(tabList[0]);
@@ -27,7 +27,7 @@ export const Tab = memo(({ animation, ulClass, setCategory }) => {
       >
         {tabList.map((tab, index) => (
           <li
-            key={index}
+            key={tab}
             className={[
               tabListSelected !== tabList[index]
                 ? animation.base

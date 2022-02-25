@@ -34,16 +34,16 @@ export const useStyle = () => {
       showed: "rotate-180 transform text-2xl text-slate-600 transition-all",
     },
     menuOpenAnimation: {
-      base: "fixed top-14 right-6 h-0 w-44 transform rounded-md border bg-white px-3 text-sm text-slate-700 opacity-0 shadow-md transition-all ease-in",
+      base: "fixed top-14 right-6 h-0 w-60 transform rounded-md border bg-white px-3 text-sm text-slate-700 opacity-0 shadow-md transition-all ease-in",
       showed:
-        "fixed top-14 right-6 h-40 w-52 transform space-y-2 rounded-md border bg-white py-4 px-3 text-sm text-slate-700 shadow-md transition-all duration-500",
+        "fixed top-14 right-6 h-603 w-60 transform space-y-2 rounded-md border bg-white py-4 px-3 text-sm text-slate-700 shadow-md transition-all duration-500",
     },
   };
   // search
   const searchOpen = {
     base: "w-0 transform rounded-sm py-1 opacity-0 outline-none transition-all",
     showed:
-      "w-[116px] transform rounded-sm bg-slate-100 px-2 py-1 opacity-100 outline-none transition-all",
+      "w-[116px] transform rounded-full placeholder:text-white shadow-inline px-2 py-2 bg-gray-500 opacity-100 outline-none transition-all text-[8px]",
   };
 
   const messageWindow = {
