@@ -8,7 +8,7 @@ import { Tab } from "../tabs/Tab";
 import { ImageUrlCreate } from "../../organisms/ImageUrlCreate";
 import { useContext } from "react";
 // コンテキスト
-import { TabContext } from "../../pages/Content";
+import { TabContext } from "../../../App";
 
 export const AddBookModal = memo(
   ({ toggle, insertItem, msgShow, bookListItems, setBookListItems }) => {
@@ -69,9 +69,7 @@ export const AddBookModal = memo(
                 <p className="mb-2 border-b text-lg font-bold text-slate-500">
                   表紙
                 </p>
-                <ImageUrlCreate
-                  className={"inline-block h-52 w-full bg-gray-100"}
-                />
+                <ImageUrlCreate imageStyle="inline-block h-52 w-full bg-gray-100" />
               </div>
               <div>
                 <p className="border-b text-lg font-bold text-slate-500">

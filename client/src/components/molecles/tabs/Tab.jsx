@@ -1,6 +1,6 @@
 import { memo, useState, useContext, useEffect } from "react";
 // コンテキスト
-import { TabContext } from "../../pages/Content";
+import { TabContext } from "../../../App";
 
 export const Tab = memo(({ animation, ulClass, setCategory }) => {
   // 情報
@@ -11,7 +11,7 @@ export const Tab = memo(({ animation, ulClass, setCategory }) => {
 
   useEffect(() => {
     defaultIndex && setTabListSelected(tabList[0]);
-    console.log(defaultIndex);
+    // console.log(defaultIndex);
   }, [defaultIndex]);
 
   const tabCliced = (index) => {

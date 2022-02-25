@@ -1,7 +1,8 @@
 import { useState } from "react";
 
-export const ImageUrlCreate = ({ className }) => {
+export const ImageUrlCreate = ({ imageStyle }) => {
   const [fileUrl, setFileUrl] = useState("");
+  console.log(fileUrl);
 
   const processImage = (e) => {
     const imageFile = e.target.files[0];
@@ -12,7 +13,7 @@ export const ImageUrlCreate = ({ className }) => {
   return (
     // className="inline-block h-52 w-full bg-gray-100"
     // className="h-[60%] w-[90%] border shadow-inner"
-    <label className={className}>
+    <label className={`${imageStyle}`}>
       <input
         type="file"
         // onClick={() => window.confirm("変更しますか？")}

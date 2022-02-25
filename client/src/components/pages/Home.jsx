@@ -78,6 +78,9 @@ export const Home = memo(() => {
           <div className="h-full w-full">
             <div className="my-0 mx-auto h-[40%] w-[85%] text-center">
               <h2 className="mt-10 mb-2 border-b text-xl font-bold text-slate-800">
+               memoriesとは
+              </h2>
+              <h2 className="mt-10 mb-2 border-b text-xl font-bold text-slate-800">
                 1:フォトブックを作ろう。
               </h2>
               <h2 className="mt-10 mb-2 border-b text-xl font-bold text-slate-800">
@@ -90,11 +93,13 @@ export const Home = memo(() => {
                 memoriesの特徴:カテゴリーを活用しよう。
               </h2>
               {/* タブ */}
+
               <Tab
                 animation={tabAnimation}
                 ulClass={"my-10 space-x-1"}
                 setCategory={setCategory}
               />
+
               <TabInform category={category} />
             </div>
           </div>

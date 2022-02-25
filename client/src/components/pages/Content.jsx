@@ -21,8 +21,6 @@ import { useForceUpdate } from "../custom/useForceUpdate";
 // ユーザーが認証済みであるときに表示させる内容
 // ------------------------------------------
 
-// コンテキスト
-export const TabContext = createContext();
 
 export const Content = memo(() => {
   const navigate = useNavigate();
@@ -124,7 +122,6 @@ export const Content = memo(() => {
 
   return (
     <>
-      <TabContext.Provider value={{ defaultIndex, setDefaultIndex }}>
         {/* ヘッダー */}
         <Header root={"/mybooks"}>
           <span className="flex space-x-2">
@@ -189,7 +186,6 @@ export const Content = memo(() => {
           headerText="成功"
         />
         <FooterTab />
-      </TabContext.Provider>
     </>
   );
 });
