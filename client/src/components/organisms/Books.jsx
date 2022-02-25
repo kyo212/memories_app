@@ -12,7 +12,7 @@ export const Books = memo(({ category, Items }) => {
       {/* <h1 className="my-0 mx-auto mb-8 w-[80%] rounded-sm border border-slate-200 bg-white py-2 font-serif text-xl font-bold  shadow-md">
               {category}
             </h1> */}
-      <div className="flex h-screen w-full snap-x items-center overflow-x-scroll scroll-smooth border-4 ">
+      <div className="flex h-screen w-full snap-x items-center overflow-x-scroll scroll-smooth">
         {Items.map((item, index) => {
           return (
             <div
