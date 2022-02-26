@@ -1,7 +1,6 @@
-import { memo, useState } from "react";
+import { memo } from "react";
 // カスタムフック
 import { useStyle } from "../../custom/useStyle";
-import { useForceUpdate } from "../../custom/useForceUpdate";
 // サードパーティ
 import { AiOutlinePlus } from "react-icons/ai";
 // コンポーネント
@@ -89,7 +88,7 @@ export const AddBookModal = memo(
                 <div className="mt-4 mb-10">
                   <Tab
                     animation={modalTabAnimation}
-                    ulClass="my-2 space-x-2 space-y-2"
+                    ulClass="my-2"
                     setCategory={setCategory}
                   />
                 </div>

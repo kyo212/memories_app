@@ -2,17 +2,17 @@ export const useStyle = () => {
   // Tab
   const tabs = {
     tabAnimation: {
-      base: "rounded-full w-[76px] h-[76px] leading-[76px] border bg-white shadow-lg text-indigo-900 ",
+      base: "rounded-full w-[72px] h-[72px] leading-[72px] border bg-white shadow-lg text-indigo-900 my-2",
       selected:
-        "rounded-full w-[76px] h-[76px] leading-[76px] border bg-white shadow-inner translate-y-1 transition-all transform font-bold text-slate-600 bg-slate-200",
+        "rounded-full w-[72px] h-[72px] leading-[72px] border bg-white shadow-inner translate-y-1 transition-all transform font-bold text-slate-600 bg-slate-200 my-2",
     },
   };
   // Modal
   const modals = {
     modalTabAnimation: {
-      base: "rounded-full w-16 h-10 leading-10 border bg-white shadow-lg text-indigo-900",
+      base: "rounded-full w-16 h-10 leading-10 border bg-white shadow-md text-indigo-900 m-1",
       selected:
-        "rounded-full w-16 h-10 leading-10 border bg-white shadow-inner translate-y-1 transition-all transform font-bold text-slate-600 bg-slate-200",
+        "rounded-full w-16 h-10 leading-10 border bg-white shadow-inner translate-y-1 transition-all transform font-bold text-slate-600 bg-slate-200 m-1",
     },
     modalAnimation: {
       // 黒背景

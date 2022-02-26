@@ -4,8 +4,17 @@ import { Context } from "../../../App";
 
 export const Tab = memo(({ animation, ulClass, setCategory }) => {
   // 情報
-  const [tabListSelected, setTabListSelected] = useState("家族");
-  const tabList = ["家族", "子供", "ペット", "趣味", "友達", "恋人", "旅行"];
+  const [tabListSelected, setTabListSelected] = useState("自分");
+  const tabList = [
+    "自分",
+    "家族",
+    "子供",
+    "ペット",
+    "趣味",
+    "友達",
+    "恋人",
+    "旅行",
+  ];
   // コンテキスト
   const { defaultIndex, setDefaultIndex } = useContext(Context);
 

@@ -103,7 +103,8 @@ export const Home = memo(() => {
               <TabInform category={category} />
             </div>
           </div>
-          <Footer />
+          {/* フッター */}
+          {/* <Footer /> */}
         </div>
       </div>
     </>

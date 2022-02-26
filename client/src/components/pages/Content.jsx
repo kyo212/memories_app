@@ -27,7 +27,7 @@ export const Content = memo(() => {
   const navigate = useNavigate();
   // 情報
   const [bookName, setBookName] = useState("");
-  const [category, setCategory] = useState("家族");
+  const [category, setCategory] = useState("自分");
   const [loginUser, setLoginUser] = useState(""); // ログイン中のusername
   const [bookItems, setBookItems] = useState([]);
   // Toggle
@@ -69,6 +69,7 @@ export const Content = memo(() => {
   }, [loginUser, update]);
 
   // カテゴリごとにデータを抽出して新しい配列に格納
+  const MyArry = bookItems.filter((item) => item.category === "自分");
   const familyArry = bookItems.filter((item) => item.category === "家族");
   const childArry = bookItems.filter((item) => item.category === "子供");
   const petArry = bookItems.filter((item) => item.category === "ペット");
@@ -80,6 +81,7 @@ export const Content = memo(() => {
   // カテゴリごとに抽出したデータの配列を一つの配列にまとめる
   // 構造 → 配列の中に配列、その中にオブジェクト // [[{},{}],[{},{}]]
   const categoryArrays = [
+    MyArry,
     familyArry,
     childArry,
     petArry,
@@ -124,10 +126,10 @@ export const Content = memo(() => {
               const { result, err } = response.data;
               console.log({ result, err });
               setModalToggle(false); // モーダルを閉じる
-              setBookName(""); // デフォルト値に戻す
-              setDefaultIndex(true); // タブのアニメーションをデフォルトに戻す
+              setBookName(""); // デフォルト状態に戻す
+              setDefaultIndex(true); // タブのアニメーションをデフォルト状態に戻す
               setSucMsgToggle(true);
-              setModalImageUrl("");
+              setModalImageUrl(""); // デフォルト状態に戻す
               // 3秒後にメッセージを閉じる
               setTimeout(() => {
                 setUpdate(!update);
