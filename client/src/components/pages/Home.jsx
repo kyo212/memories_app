@@ -75,31 +75,49 @@ export const Home = memo(() => {
               </div>
             </div>
           </div>
-          <div className="h-full w-full">
-            <div className="my-0 mx-auto h-[40%] w-[85%] text-center">
-              <h2 className="mt-10 mb-2 border-b text-xl font-bold text-slate-800">
-               memoriesとは
+          <div className="flex h-full w-full flex-col items-center">
+            <div className="w-[85%] text-center">
+              <h2 className="mt-10 mb-6 border-b pb-4 text-xl font-bold text-slate-800">
+                memoriesとは
               </h2>
-              <h2 className="mt-10 mb-2 border-b text-xl font-bold text-slate-800">
+              <p>
+                いつでもどこでも、だれとでも、何気ない日常も小さな思い出もデジタルなフォトブックに残そうという思いで作りました。
+              </p>
+              <br />
+              <p>
+                スマホやパソコンに眠っている思い出の写真をおしゃれに保存できます。
+              </p>
+              <br />
+              <p>
+                デジタルだからいつでもどこでもフォトブックをみて思い出を振り返れます。
+              </p>
+              <br />
+              <p>
+                どんな小さな思い出も、何気なく撮った写真も、子供の成長も、趣味も、毎日の日記まで、すべてmemoriesに残すことができます。
+              </p>
+              <h2 className="mt-10 mb-6 border-b pb-4 text-xl font-bold text-slate-800">
                 1:フォトブックを作ろう。
               </h2>
-              <h2 className="mt-10 mb-2 border-b text-xl font-bold text-slate-800">
+              <h2 className="mt-10 mb-6 border-b pb-4 text-xl font-bold text-slate-800">
                 2:本の中身を作ろう。
               </h2>
-              <h2 className="mt-10 border-b text-xl font-bold text-slate-800">
-                memoriesの特徴:細かい情報を残そう。
+              <h2 className="mt-10 mb-6 border-b pb-4 text-xl font-bold text-slate-800">
+                3:共有しよう。
               </h2>
-              <h2 className="mt-10 border-b text-xl font-bold text-slate-800">
-                memoriesの特徴:カテゴリーを活用しよう。
+              <h2 className="mt-10 mb-6 border-b pb-4 text-xl font-bold text-slate-800">
+                3:みんなのフォトブックを見よう。
               </h2>
+              <h2 className="mt-10 mb-6 border-b pb-4 text-xl font-bold text-slate-800">
+                memoriesの特徴
+              </h2>
+              <p>カテゴリーがたくさんあるからどんなものでも残せる。</p>
               {/* タブ */}
 
               <Tab
                 animation={tabAnimation}
-                ulClass={"my-10 space-x-1"}
+                ulClass={"my-5 space-x-1"}
                 setCategory={setCategory}
               />
-
               <TabInform category={category} />
             </div>
           </div>

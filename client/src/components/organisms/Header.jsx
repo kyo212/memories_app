@@ -7,7 +7,7 @@ export const Header = memo(({ root, children }) => {
         <h1 className="mx-4 font-serif text-xl font-bold text-slate-800">
           <a href={root}>memories</a>
         </h1>
-        <div className="mx-4 space-x-2">{children}</div>
+        <div className="mx-4 flex h-12 items-center space-x-2">{children}</div>
       </div>
     </div>
   );

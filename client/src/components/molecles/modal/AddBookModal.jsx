@@ -100,13 +100,13 @@ export const AddBookModal = memo(
           {/* 追加ボタン */}
           <button
             onClick={insertItem}
-            className="absolute bottom-28 rounded-sm bg-blue-600 bg-opacity-80 px-3 py-2 font-bold text-white"
+            className="absolute bottom-20 rounded-sm bg-blue-600 bg-opacity-80 px-3 py-2 font-bold text-white"
           >
             本を追加する
           </button>
           {/* 閉じるボタン */}
           <button
-            className="absolute bottom-[100px] right-0 p-4 text-4xl text-white hover:bg-white hover:bg-opacity-40"
+            className="absolute bottom-[68px] right-0 p-4 text-4xl text-white hover:bg-white hover:bg-opacity-40"
             onClick={closeButton}
           >
             <AiOutlinePlus className="rotate-45 transform" />

@@ -2,9 +2,9 @@ export const useStyle = () => {
   // Tab
   const tabs = {
     tabAnimation: {
-      base: "rounded-full w-[72px] h-[72px] leading-[72px] border bg-white shadow-lg text-indigo-900 my-2",
+      base: "rounded-full w-[60px] h-[60px] leading-[60px] border bg-white shadow-lg text-indigo-900 my-2",
       selected:
-        "rounded-full w-[72px] h-[72px] leading-[72px] border bg-white shadow-inner translate-y-1 transition-all transform font-bold text-slate-600 bg-slate-200 my-2",
+        "rounded-full w-[60px] h-[60px] leading-[60px] border bg-white shadow-inner translate-y-1 transition-all transform font-bold text-slate-600 bg-slate-200 my-2",
     },
   };
   // Modal
@@ -18,13 +18,13 @@ export const useStyle = () => {
       // 黒背景
       base: "fixed transform transition-all -translate-y-full duration-300 top-0 left-0 z-40 h-screen w-screen opacity-0 bg-black bg-opacity-80 flex  justify-center",
       showed:
-        "fixed transform transition-all ease-in top-0 left-0 z-40 duration-300 h-screen w-screen bg-black items-center bg-opacity-80 flex justify-center",
+        "fixed transform transition-all ease-in top-0 left-0 z-40 duration-300 h-screen w-screen bg-black pt-2 bg-opacity-80 flex justify-center",
     },
     modalWindowAnimation: {
       // 白背景
-      base: "flex h-[50%] w-[95%] items-center -translate-y-full opacity-0 justify-center rounded-sm bg-white transform transition-all",
+      base: "flex h-[80%] w-[95%] items-center -translate-y-full opacity-0 justify-center rounded-sm bg-white transform transition-all",
       showed:
-        "flex h-[50%] w-[95%] items-center opacity-100 transform transition-all duration-1000 justify-center rounded-sm bg-white overflow-scroll",
+        "flex h-[80%] w-[95%] items-center opacity-100 transform transition-all duration-1000 justify-center rounded-sm bg-white overflow-scroll",
     },
   };
   // menu-open

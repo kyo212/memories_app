@@ -69,7 +69,7 @@ export const Content = memo(() => {
   }, [loginUser, update]);
 
   // カテゴリごとにデータを抽出して新しい配列に格納
-  const MyArry = bookItems.filter((item) => item.category === "自分");
+  const diaryArry = bookItems.filter((item) => item.category === "日記");
   const familyArry = bookItems.filter((item) => item.category === "家族");
   const childArry = bookItems.filter((item) => item.category === "子供");
   const petArry = bookItems.filter((item) => item.category === "ペット");
@@ -77,11 +77,12 @@ export const Content = memo(() => {
   const friendArry = bookItems.filter((item) => item.category === "友達");
   const loverArry = bookItems.filter((item) => item.category === "恋人");
   const travelArry = bookItems.filter((item) => item.category === "旅行");
+  const workArry = bookItems.filter((item) => item.category === "作品");
 
   // カテゴリごとに抽出したデータの配列を一つの配列にまとめる
   // 構造 → 配列の中に配列、その中にオブジェクト // [[{},{}],[{},{}]]
   const categoryArrays = [
-    MyArry,
+    diaryArry,
     familyArry,
     childArry,
     petArry,
@@ -89,6 +90,7 @@ export const Content = memo(() => {
     friendArry,
     loverArry,
     travelArry,
+    workArry,
   ];
 
   // 値が1つ以上格納されているカテゴリーを抽出

@@ -4,9 +4,9 @@ import { Context } from "../../../App";
 
 export const Tab = memo(({ animation, ulClass, setCategory }) => {
   // 情報
-  const [tabListSelected, setTabListSelected] = useState("自分");
+  const [tabListSelected, setTabListSelected] = useState("日記");
   const tabList = [
-    "自分",
+    "日記",
     "家族",
     "子供",
     "ペット",
@@ -14,6 +14,7 @@ export const Tab = memo(({ animation, ulClass, setCategory }) => {
     "友達",
     "恋人",
     "旅行",
+    "作品",
   ];
   // コンテキスト
   const { defaultIndex, setDefaultIndex } = useContext(Context);
@@ -44,7 +45,7 @@ export const Tab = memo(({ animation, ulClass, setCategory }) => {
             ]}
             onClick={() => tabCliced(index)}
           >
-            <button className="select-none cursor-pointer">{tab}</button>
+            <button className="cursor-pointer select-none">{tab}</button>
           </li>
         ))}
       </ul>
