@@ -150,7 +150,7 @@ export const Login = memo(() => {
           />
         </div>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 });
