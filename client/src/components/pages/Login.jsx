@@ -66,7 +66,6 @@ export const Login = memo(() => {
     });
   };
 
-  // DOMから関数の切り出し
   const inputInfrom = (e) => {
     e.target.id === "username"
       ? setUsername(e.target.value)
@@ -118,7 +117,7 @@ export const Login = memo(() => {
                 errMsgToggle ? errorBorderMsg.showed : errorBorderMsg.base,
               ]}
             />
-            <button
+            <span
               onClick={toggleIcon}
               className="absolute right-2 top-[50px] text-2xl text-slate-600"
             >
@@ -127,7 +126,7 @@ export const Login = memo(() => {
               ) : (
                 <BsFillEyeSlashFill className="text-slate-400" />
               )}
-            </button>
+            </span>
           </form>
           <a href="/password-change" className="text-sm text-blue-800">
             パスワードを忘れた場合

@@ -22,9 +22,9 @@ export const useStyle = () => {
     },
     modalWindowAnimation: {
       // 白背景
-      base: "flex h-[70%] w-[95%] items-center opacity-0 justify-center rounded-sm bg-white transform transition-all",
+      base: "flex h-[70%] w-[95%] items-center -translate-y-full opacity-0 justify-center rounded-sm bg-white transform transition-all",
       showed:
-        "flex h-[80%] w-[95%] items-center opacity-100 transform transition-all delay-100 duration-1000 justify-center rounded-sm bg-white overflow-scroll",
+        "flex h-[80%] w-[95%] items-center opacity-100 transform transition-all duration-1000 justify-center rounded-sm bg-white overflow-scroll",
     },
   };
   // menu-open
