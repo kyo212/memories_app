@@ -16,22 +16,23 @@ export const useStyle = () => {
     },
     modalAnimation: {
       // 黒背景
-      base: "fixed transform transition-all -translate-y-full duration-300 top-0 left-0 z-40 h-screen w-screen opacity-0 bg-black bg-opacity-80 flex items-center justify-center",
+      base: "fixed transform transition-all -translate-y-full duration-300 top-0 left-0 z-40 h-screen w-screen opacity-0 bg-black bg-opacity-80 flex  justify-center",
       showed:
-        "fixed transform transition-all ease-in top-0 left-0 z-40 duration-300 h-screen w-screen bg-black bg-opacity-80 flex items-center justify-center",
+        "fixed transform transition-all ease-in top-0 left-0 z-40 duration-300 h-screen w-screen bg-black items-center bg-opacity-80 flex justify-center",
     },
     modalWindowAnimation: {
       // 白背景
-      base: "flex h-[70%] w-[95%] items-center -translate-y-full opacity-0 justify-center rounded-sm bg-white transform transition-all",
+      base: "flex h-[50%] w-[95%] items-center -translate-y-full opacity-0 justify-center rounded-sm bg-white transform transition-all",
       showed:
-        "flex h-[80%] w-[95%] items-center opacity-100 transform transition-all duration-1000 justify-center rounded-sm bg-white overflow-scroll",
+        "flex h-[50%] w-[95%] items-center opacity-100 transform transition-all duration-1000 justify-center rounded-sm bg-white overflow-scroll",
     },
   };
   // menu-open
   const menuOpens = {
     menuOpenBtnAnimation: {
       base: "transform text-white bg-gray-500 rounded-full p-2 transition-all",
-      showed: "rotate-180 transform p-2 text-white bg-gray-500 rounded-full transition-all",
+      showed:
+        "rotate-180 transform p-2 text-white bg-gray-500 rounded-full transition-all",
     },
     menuOpenAnimation: {
       base: "fixed top-14 right-6 h-0 w-60 transform rounded-md border bg-white px-3 text-sm text-slate-700 opacity-0 shadow-md transition-all ease-in -translate-y-64",

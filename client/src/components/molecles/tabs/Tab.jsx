@@ -44,7 +44,7 @@ export const Tab = memo(({ animation, ulClass, setCategory }) => {
             ]}
             onClick={() => tabCliced(index)}
           >
-            <button>{tab}</button>
+            <button className="select-none cursor-pointer">{tab}</button>
           </li>
         ))}
       </ul>
