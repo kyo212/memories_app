@@ -5,7 +5,7 @@ import { ImageUrlCreate } from "./ImageUrlCreate";
 
 export const Books = memo(({ category, Items }) => {
   const bookStyle =
-    "absolute -z-10 flex h-[400px] w-80 sm:h-[600px] sm:w-[500px] border border-slate-300 bg-slate-100 text-slate-70";
+    "absolute -z-10 flex h-[400px] w-80 sm:h-[600px] sm:w-[500px] border border-slate-300 bg-white text-slate-70 block";
 
   return (
     <>
@@ -25,8 +25,14 @@ export const Books = memo(({ category, Items }) => {
                   </p>
                   {/* 本の厚み */}
                   <BookRibbon favorite={item.favorite} />
-                  <div className={`${bookStyle} -right-2 -top-2 rounded-sm`} />
-                  <div className={`${bookStyle} -right-1 -top-1`} />
+                  <span className={`${bookStyle} -right-2 -top-2 rounded-sm`} />
+                  <span
+                    className={`${bookStyle} -right-[6px] -top-[6px] border-slate-200`}
+                  />
+                  <span
+                    className={`${bookStyle} -right-[4px] -top-[4px] border-slate-200`}
+                  />
+                  <span className={`${bookStyle} -right-[2px] -top-[2px] border-slate-200`} />
                   <span className="absolute -top-[5px] left-0 -z-10 h-[4px] w-[13px] -rotate-45 transform rounded-md border border-slate-300 bg-white" />
                   {/* 表紙 */}
                   <div className="z-10 flex h-[400px] w-80 flex-col items-center rounded-sm  border border-slate-300 bg-white text-slate-700 shadow-md sm:h-[600px] sm:w-[500px]">
