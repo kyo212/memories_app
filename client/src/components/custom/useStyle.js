@@ -42,9 +42,9 @@ export const useStyle = () => {
   };
   // search
   const searchOpen = {
-    base: "w-0 transform rounded-sm py-1 opacity-0 outline-none transition-all",
+    base: "w-0 transform rounded-sm py-1 opacity-0 outline-none transition-all text-white",
     showed:
-      "w-[116px] transform rounded-full placeholder:text-white shadow-inline px-2 py-2 bg-gray-500 opacity-100 outline-none transition-all text-[8px]",
+      "w-[116px] transform rounded-full placeholder:text-white text-white shadow-inline px-2 py-2 bg-gray-500 opacity-100 outline-none transition-all text-[8px]",
   };
 
   const messageWindow = {

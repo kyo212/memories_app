@@ -1,11 +1,13 @@
 import { memo } from "react";
+// アイコン
+import { BsThreeDotsVertical } from "react-icons/bs";
 // コンポーネント
 import { BookRibbon } from "../atoms/style/BookRibbon";
 import { ImageUrlCreate } from "./ImageUrlCreate";
 
 export const Books = memo(({ category, Items }) => {
   const bookStyle =
-    "absolute -z-10 flex h-[400px] w-80 sm:h-[600px] sm:w-[500px] border border-slate-300 bg-white text-slate-70 block";
+    "absolute -z-10 flex h-[400px] w-80 sm:h-[600px] sm:w-[500px] border bg-white text-slate-70 block border-slate-300";
 
   return (
     <>
@@ -19,40 +21,43 @@ export const Books = memo(({ category, Items }) => {
             >
               {/* オブジェクトひとつずつの背面 */}
               <div className="flex h-screen w-screen items-center justify-center">
-                <div className="relative">
-                  <p className="text-md absolute -top-16 left-1/2 -translate-x-1/2 transform bg-white px-4 py-2 font-bold text-slate-600">
-                    {item.category}
-                  </p>
+                <div className="relative space-y-4">
                   {/* 本の厚み */}
                   <BookRibbon favorite={item.favorite} />
-                  <span className={`${bookStyle} -right-2 -top-2 rounded-sm`} />
                   <span
-                    className={`${bookStyle} -right-[6px] -top-[6px] border-slate-200`}
+                    className={`${bookStyle} -right-2 -top-2 rounded-sm  border-slate-300`}
                   />
-                  <span
-                    className={`${bookStyle} -right-[4px] -top-[4px] border-slate-200`}
-                  />
-                  <span className={`${bookStyle} -right-[2px] -top-[2px] border-slate-200`} />
+                  <span className={`${bookStyle} -right-[6px] -top-[6px]`} />
+                  <span className={`${bookStyle} -right-[4px] -top-[4px]`} />
+                  <span className={`${bookStyle} -right-[2px] -top-[2px]`} />
                   <span className="absolute -top-[5px] left-0 -z-10 h-[4px] w-[13px] -rotate-45 transform rounded-md border border-slate-300 bg-white" />
                   {/* 表紙 */}
-                  <div className="z-10 flex h-[400px] w-80 flex-col items-center rounded-sm  border border-slate-300 bg-white text-slate-700 shadow-md sm:h-[600px] sm:w-[500px]">
+                  <div className="z-10 flex h-[400px] w-80 flex-col items-center rounded-sm  border border-slate-300 bg-white text-slate-700 shadow-xl sm:h-[600px] sm:w-[500px]">
+                    <span className="absolute top-6 right-2 text-xl text-slate-400">
+                      <BsThreeDotsVertical />
+                    </span>
                     <div className="text-bold flax mt-8 mb-4 flex-col text-center text-lg">
                       <p className="border-b">{item.bookName}</p>
-                      <label className="text-[12px] text-slate-400">
-                        <span className="mx-2 font-bold">
-                          作成日:{item.date}
-                        </span>
-                      </label>
+                      <div className="mt-2 flex flex-col items-start text-[12px] leading-4 text-slate-400">
+                        <p>
+                          <span className="mr-1 font-bold">作成日:</span>
+                          {item.date}
+                        </p>
+                        <p>
+                          <span className="mr-1 font-bold">カテゴリー:</span>
+                          {item.category}
+                        </p>
+                      </div>
                     </div>
                     <ImageUrlCreate
                       coverImage={item.coverImage}
                       imageStyle="h-[270px] opacity-80 w-[285px] shadow-inner"
                     />
                   </div>
-                  <p className="my-2 space-x-1 text-sm text-slate-400">
+                  <p className="space-x-1 text-sm text-slate-400">
                     -{/* index → オブジェクトごとの数字 */}
                     {/* Items.length → Items配列の中のオブジェクトの総数 */}
-                    <span className="mx-2 font-bold">{`${index + 1} / ${
+                    <span className="mx-4 font-bold">{`${index + 1} / ${
                       Items.length
                     }`}</span>
                     -
