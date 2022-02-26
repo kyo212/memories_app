@@ -28,7 +28,7 @@ export const Content = memo(() => {
   // 情報
   const [bookName, setBookName] = useState("");
   const [category, setCategory] = useState("家族");
-  const [loginUser, setLoginUser] = useState("gestuser"); // ログイン中のusername
+  const [loginUser, setLoginUser] = useState(""); // ログイン中のusername
   const [bookItems, setBookItems] = useState([]);
   // Toggle
   const [modalToggle, setModalToggle] = useState(false);
@@ -37,9 +37,6 @@ export const Content = memo(() => {
   const [sucMsgToggle, setSucMsgToggle] = useState(false);
   // カスタムフック
   const [update, { setUpdate }] = useForceUpdate();
-  // 描画制御
-  const [loading, setLoading] = useState(false);
-  console.log(loading);
   // コンテキストに渡すstate
   // タブのデフォルトインデックス
   const { setDefaultIndex, fileUrl, setModalImageUrl } = useContext(Context);
@@ -65,7 +62,6 @@ export const Content = memo(() => {
       }).then((response) => {
         const { result, err } = response.data;
         setBookItems(result);
-        result.length > 0 && setLoading(true);
         console.log({ result: result, err: err });
       });
     };
@@ -124,7 +120,7 @@ export const Content = memo(() => {
                 coverImage,
                 category,
               }
-            ).then(async (response) => {
+            ).then((response) => {
               const { result, err } = response.data;
               console.log({ result, err });
               setModalToggle(false); // モーダルを閉じる
@@ -133,8 +129,10 @@ export const Content = memo(() => {
               setSucMsgToggle(true);
               setModalImageUrl("");
               // 3秒後にメッセージを閉じる
-              setTimeout(() => setSucMsgToggle(false), 3000);
-              await setUpdate(!update);
+              setTimeout(() => {
+                setUpdate(!update);
+                setTimeout(() => setSucMsgToggle(false), 2000);
+              }, 1000);
             });
           } else {
             setErrMsgToggle(true);
