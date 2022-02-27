@@ -72,7 +72,7 @@ export const AddBookModal = memo(
                   className={[
                     `${
                       errMsgToggle ? errorBorderMsg.showed : errorBorderMsg.base
-                    } border-slate-200 w-[280px]`,
+                    } w-[280px] border-slate-200`,
                   ]}
                 />
               </div>

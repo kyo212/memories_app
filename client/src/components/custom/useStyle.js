@@ -30,9 +30,9 @@ export const useStyle = () => {
   // menu-open
   const menuOpens = {
     menuOpenBtnAnimation: {
-      base: "transform text-white bg-gray-500 rounded-full p-2 transition-all",
+      base: "transform text-gray-500 border border-gray-500 rounded-full p-2 transition-all",
       showed:
-        "rotate-180 transform p-2 text-white bg-gray-500 rounded-full transition-all",
+        "rotate-180 transform p-2 text-gray-500 border border-gray-500 rounded-full transition-all",
     },
     menuOpenAnimation: {
       base: "fixed top-14 right-6 h-0 w-60 transform rounded-md border bg-white px-3 text-sm text-slate-700 opacity-0 shadow-md transition-all ease-in -translate-y-64",
@@ -42,9 +42,9 @@ export const useStyle = () => {
   };
   // search
   const searchOpen = {
-    base: "w-0 transform rounded-sm py-1 opacity-0 outline-none transition-all text-white",
+    base: "w-0 transform rounded-sm py-1 opacity-0 outline-none transition-all text-gray-500",
     showed:
-      "w-[116px] transform rounded-full placeholder:text-white text-white shadow-inline px-2 py-2 bg-gray-500 opacity-100 outline-none transition-all text-[8px]",
+      "w-[116px] transform rounded-full placeholder:text-gray-500 shadow-inline px-2 py-2 text-gray-500 opacity-100 outline-none transition-all text-[8px]",
   };
 
   const messageWindow = {
