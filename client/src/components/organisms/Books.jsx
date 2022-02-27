@@ -32,7 +32,9 @@ export const Books = memo(({ category, Items }) => {
                   <span className={`${bookStyle} -right-[2px] -top-[2px]`} />
                   <span className="absolute -top-[5px] left-0 -z-10 h-[4px] w-[13px] -rotate-45 transform rounded-md border border-slate-300 bg-white" />
                   {/* 表紙 */}
-                  <div className="z-10 flex h-[400px] w-80 flex-col items-center rounded-sm  border border-slate-300 bg-white text-slate-700 shadow-xl sm:h-[600px] sm:w-[500px]">
+                  <div
+                    className="z-10 flex h-[400px] w-80 flex-col items-center rounded-sm  border border-slate-300 bg-white text-slate-700 shadow-xl sm:h-[600px] sm:w-[500px]"
+                  >
                     <span className="absolute top-6 right-2 text-xl text-slate-400">
                       <BsThreeDotsVertical />
                     </span>
