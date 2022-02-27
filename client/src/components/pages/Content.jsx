@@ -27,8 +27,8 @@ export const Content = memo(() => {
   const navigate = useNavigate();
   // 情報
   const [bookName, setBookName] = useState("");
-  const [category, setCategory] = useState("自分");
-  const [loginUser, setLoginUser] = useState("gestuser"); // ログイン中のusername
+  const [category, setCategory] = useState("日記");
+  const [loginUser, setLoginUser] = useState(""); // ログイン中のusername
   const [bookItems, setBookItems] = useState([]);
   // Toggle
   const [modalToggle, setModalToggle] = useState(false);
@@ -113,8 +113,7 @@ export const Content = memo(() => {
         console.log({ url, fileUrl, coverImage });
 
         const insert = async () => {
-          // coverImage !== "" &&
-          if (bookName !== "") {
+          if (coverImage !== "" && bookName !== "") {
             // 入力した情報をDBに追加
             await Axios.post(
               `http://${process.env.REACT_APP_PUBLIC_IP}/insert`,
@@ -128,13 +127,13 @@ export const Content = memo(() => {
               const { result, err } = response.data;
               console.log({ result, err });
               setModalToggle(false); // モーダルを閉じる
-              setBookName(""); // デフォルト状態に戻す
+              setBookName(""); // タイトルをデフォルト状態に戻す
               setDefaultIndex(true); // タブのアニメーションをデフォルト状態に戻す
-              setSucMsgToggle(true);
-              setModalImageUrl(""); // デフォルト状態に戻す
-              // 3秒後にメッセージを閉じる
+              setSucMsgToggle(true); // 追加完了のメッセージを出す
+              setModalImageUrl(""); // 画像プレビューをデフォルト状態に戻す
               setTimeout(() => {
                 setUpdate(!update);
+                // 3秒後にメッセージを閉じる
                 setTimeout(() => setSucMsgToggle(false), 2000);
               }, 1000);
             });
@@ -169,7 +168,7 @@ export const Content = memo(() => {
                   className="h-screen w-screen snap-start snap-always"
                 >
                   {/* <p className="">{`${index + 1} / ${filterCategoryArrays.length}`}</p> */}
-                  <Books category={item[0].category} Items={item} />
+                  <Books Items={item} />
                 </div>
               </>
             ))}

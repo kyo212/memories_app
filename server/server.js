@@ -185,7 +185,7 @@ app.post("/insert", (req, res) => {
     "INSERT INTO book_list (username,bookName,coverImage,category,date,favorite) VALUES (?,?,?,?,?,?)";
   // usernameは自動で入力される。dateとfavoriteはデフォルト値を設定
   // coverImage !== ""
-  if (bookName !== "") {
+  if (coverImage !== "" && bookName !== "") {
     db.query(
       sqlInsert,
       [username, bookName, coverImage, category, date, (favorite = 0)],
