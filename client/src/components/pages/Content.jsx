@@ -114,7 +114,7 @@ export const Content = memo(() => {
         console.log({ url, fileUrl, coverImage });
 
         const insert = async () => {
-          if (coverImage !== "" && bookName !== "") {
+          if (fileUrl !== "" && bookName !== "") {
             // 入力した情報をDBに追加
             await Axios.post(
               `http://${process.env.REACT_APP_PUBLIC_IP}/insert`,

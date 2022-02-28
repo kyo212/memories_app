@@ -1,5 +1,4 @@
 import { memo, useState } from "react";
-import Axios from "axios";
 // アイコン
 import { BsReply } from "react-icons/bs";
 import { BsReplyFill } from "react-icons/bs";
@@ -8,7 +7,6 @@ import { BookRibbon } from "../atoms/style/BookRibbon";
 import { ImageUrlCreate } from "./ImageUrlCreate";
 // カスタムフック
 import { useStyle } from "../custom/useStyle";
-import { useForceUpdate } from "../custom/useForceUpdate";
 
 export const Books = memo(({ Items, deleteItem }) => {
   const [bookOpen, setBookOpen] = useState(false);
