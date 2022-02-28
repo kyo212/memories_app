@@ -40,7 +40,7 @@ export const AddBookModal = memo(
     const closeButton = () => {
       setModalToggle(false);
       setErrMsgToggle(false);
-      setCategory("家族");
+      setCategory("日記");
       setBookName("");
       setDefaultIndex(true);
       setModalImageUrl("");

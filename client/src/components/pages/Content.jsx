@@ -164,7 +164,7 @@ export const Content = memo(() => {
               // filterCategoryArrays → 値が一つ以上格納されているオブジェクトが格納されてる配列
               <>
                 <div
-                  key={item}
+                  key={item.bookId}
                   className="h-screen w-screen snap-start snap-always"
                 >
                   {/* <p className="">{`${index + 1} / ${filterCategoryArrays.length}`}</p> */}
