@@ -1,4 +1,5 @@
 import { memo, useState } from "react";
+import Axios from "axios";
 // アイコン
 import { BsReply } from "react-icons/bs";
 import { BsReplyFill } from "react-icons/bs";
@@ -7,8 +8,9 @@ import { BookRibbon } from "../atoms/style/BookRibbon";
 import { ImageUrlCreate } from "./ImageUrlCreate";
 // カスタムフック
 import { useStyle } from "../custom/useStyle";
+import { useForceUpdate } from "../custom/useForceUpdate";
 
-export const Books = memo(({ Items }) => {
+export const Books = memo(({ Items, deleteItem }) => {
   const [bookOpen, setBookOpen] = useState(false);
   // カスタムフック
   const { bookOpenAnimation } = useStyle();
@@ -55,7 +57,7 @@ export const Books = memo(({ Items }) => {
                     className={[
                       bookOpen
                         ? "hidden"
-                        : "absolute top-2 right-3 transform -rotate-45 text-xl text-slate-400",
+                        : "absolute top-2 right-3 -rotate-45 transform text-xl text-slate-400",
                     ]}
                   >
                     <BsReply onClick={bookOpenToggle} />
@@ -72,12 +74,15 @@ export const Books = memo(({ Items }) => {
                         <button className="absolute top-0 right-0 my-1 mr-1 border-b py-[2px] px-[5px] text-[10px] ">
                           ひらく
                         </button>
-                        <button className="absolute top-4 right-0 mr-1 mt-3 border-b py-[2px] px-[5px] text-[10px] ">
+                        <button
+                          onClick={() => deleteItem(item.bookId)}
+                          className="absolute top-4 right-0 mr-1 mt-3 border-b py-[2px] px-[5px] text-[10px] "
+                        >
                           すてる
                         </button>
                         <button
                           onClick={bookOpenToggle}
-                          className="absolute transform rotate-[125deg] top-[77px] text-slate-500 right-[72px] text-xl"
+                          className="absolute top-[77px] right-[72px] rotate-[125deg] transform text-xl text-slate-500"
                         >
                           <BsReplyFill />
                         </button>

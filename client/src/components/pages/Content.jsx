@@ -67,6 +67,7 @@ export const Content = memo(() => {
     };
     getItems();
   }, [loginUser, update]);
+  console.log(update);
 
   // カテゴリごとにデータを抽出して新しい配列に格納
   const diaryArry = bookItems.filter((item) => item.category === "日記");
@@ -146,6 +147,16 @@ export const Content = memo(() => {
     );
   };
 
+  const deleteItem = async (id) => {
+    if (window.confirm("?")) {
+      await Axios.delete(
+        `http://${process.env.REACT_APP_PUBLIC_IP}/delete/${id}`
+      ).then((response) => {
+        setUpdate(!update);
+      });
+    }
+  };
+
   return (
     <>
       {/* ヘッダー */}
@@ -168,7 +179,7 @@ export const Content = memo(() => {
                   className="h-screen w-screen snap-start snap-always"
                 >
                   {/* <p className="">{`${index + 1} / ${filterCategoryArrays.length}`}</p> */}
-                  <Books Items={item} />
+                  <Books Items={item} deleteItem={deleteItem} />
                 </div>
               </>
             ))}

@@ -196,6 +196,15 @@ app.post("/insert", (req, res) => {
   }
 });
 
+app.delete("/delete/:id", (req, res) => {
+  const { id } = req.params;
+  const sqlDelete = "DELETE FROM book_list WHERE bookId = ?";
+
+  db.query(sqlDelete, [id], (err, result) => {
+    res.json({ result: result, err: err });
+  });
+});
+
 app.post("/s3Url", async (req, res) => {
   const url = await genereateUploadURL();
   res.json({ url });
