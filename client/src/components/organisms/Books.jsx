@@ -53,7 +53,7 @@ export const Books = memo(({ Items, deleteItem }) => {
                   {/* 本の厚み */}
                   <BookRibbon favorite={item.favorite} bookId={item.bookId} />
                   <span
-                    className={`${bookStyle} -right-2 -top-2 rounded-sm  border-slate-300 shadow-md`}
+                    className={`${bookStyle} -right-2 -top-2 rounded-sm  border-slate-300 shadow-xl`}
                   />
                   <span className={`${bookStyle} -right-[6px] -top-[6px]`} />
                   <span className={`${bookStyle} -right-[4px] -top-[4px]`} />
@@ -122,7 +122,7 @@ export const Books = memo(({ Items, deleteItem }) => {
                     </div>
                     <ImageUrlCreate
                       coverImage={item.coverImage}
-                      imageStyle="h-[230px] w-[250px] shadow-inner"
+                      imageStyle="h-[250px] w-[90%]"
                     />
                   </div>
                   <p className="select-none space-x-1 text-sm text-slate-400">

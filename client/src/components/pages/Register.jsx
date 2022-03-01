@@ -80,9 +80,7 @@ export const Register = memo(() => {
           setPassword("");
         } else {
           // 新規登録に成功後、自動ログインする。
-          setTimeout(() => {
-            login();
-          }, 1000);
+          login();
         }
       });
     }

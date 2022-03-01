@@ -135,20 +135,18 @@ export const Content = memo(() => {
               setDefaultIndex(true); // タブのアニメーションをデフォルトに戻す
               setSucMsgToggle(true); // 追加完了のメッセージを出す
               setModalImageUrl(""); // 画像プレビューをデフォルト状態に戻す
+              setUpdate(!update);
+              // 3秒後にメッセージを閉じる
               setTimeout(() => {
-                setUpdate(!update);
-                // 3秒後にメッセージを閉じる
-                setTimeout(() => {
-                  setSucMsgToggle(false);
-                  setCategory("日記"); // タブの初期値をデフォルトに戻す
-                }, 3000);
-              }, 1000);
+                setSucMsgToggle(false);
+                setCategory("日記"); // タブの初期値をデフォルトに戻す
+              }, 3000);
             });
           } else {
             setErrMsgToggle(true);
           }
         };
-        insert();
+       insert();
       }
     );
   };
@@ -204,27 +202,25 @@ export const Content = memo(() => {
           </>
         ) : (
           <>
-            <>
-              <div className="flex h-screen w-screen flex-col items-center justify-around">
-                <div className="">
-                  <p className="text-bold my-2 text-xl font-bold text-slate-500">
-                    まだ何もありません
-                  </p>
-                  <p className="text-bold text-slate-500">
-                    まずは本を追加してみましょう
-                  </p>
-                </div>
-                <div className="flex flex-col items-center justify-center">
-                  <p className="text-bold my-8 flex items-center text-slate-500">
-                    <AiOutlinePlus className="mx-2 text-slate-800" />
-                    をクリックして追加
-                  </p>
-                  <p className="flex h-10 w-10 animate-bounce items-center justify-center rounded-full border border-slate-400 bg-white text-slate-800 shadow-md">
-                    <BsArrowDown />
-                  </p>
-                </div>
+            <div className="flex h-screen w-screen flex-col items-center justify-around">
+              <div className="">
+                <p className="text-bold my-2 text-xl font-bold text-slate-500">
+                  まだ何もありません
+                </p>
+                <p className="text-bold text-slate-500">
+                  まずは本を追加してみましょう
+                </p>
               </div>
-            </>
+              <div className="flex flex-col items-center justify-center">
+                <p className="text-bold my-8 flex items-center text-slate-500">
+                  <AiOutlinePlus className="mx-2 text-slate-800" />
+                  をクリックして追加
+                </p>
+                <p className="flex h-10 w-10 animate-bounce items-center justify-center rounded-full border border-slate-400 bg-white text-slate-800 shadow-md">
+                  <BsArrowDown />
+                </p>
+              </div>
+            </div>
           </>
         )}
       </div>

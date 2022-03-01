@@ -12,7 +12,7 @@ import { Session } from "./Session";
 
 export const Router = memo(() => {
   return (
-    <div className="h-screen w-screen ">
+    <div className="h-screen w-screen">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />

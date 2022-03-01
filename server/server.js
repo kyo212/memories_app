@@ -56,14 +56,14 @@ app.use(
 );
 
 // routes
-app.post("/register", (req, res) => {
+app.post("/register", async (req, res) => {
   const { username, password } = req.body;
   if (username === "" || password === "") {
     res.json({ result: false, msg: "入力してください" });
   } else {
     const sqlSelect = "SELECT * FROM users WHERE username = ?";
     const sqlInsert = "INSERT INTO users (username,password) VALUE (?,?)";
-    db.query(sqlSelect, [username], (err, result) => {
+    await db.query(sqlSelect, [username], (err, result) => {
       if (err) {
         console.log(err);
       }
@@ -111,12 +111,11 @@ app.post("/logout", (req, res) => {
   });
 });
 
-app.post("/login", (req, res) => {
+app.post("/login", async (req, res) => {
   const { username, password } = req.body;
-  console.log(username, password);
+
   const sqlSelect = "SELECT * FROM users WHERE username = ?";
-  db.query(sqlSelect, [username], (err, result) => {
-    console.log(result);
+  await db.query(sqlSelect, [username], (err, result) => {
     if (err) {
       console.log(err);
     } else if (result.length > 0) {
@@ -162,17 +161,17 @@ app.post("/login", (req, res) => {
   });
 });
 
-app.post("/getItems", (req, res) => {
+app.post("/getItems", async (req, res) => {
   const { username } = req.body;
   const sqlSelect = "SELECT * FROM book_list WHERE username = ?";
-  db.query(sqlSelect, username, (err, result) => {
+  await db.query(sqlSelect, username, (err, result) => {
     if (result.length > 0) {
       res.json({ result: result, err: err });
     }
   });
 });
 
-app.post("/insert", (req, res) => {
+app.post("/insert", async (req, res) => {
   const { username, bookName, coverImage, category } = req.body;
 
   // date
@@ -186,7 +185,7 @@ app.post("/insert", (req, res) => {
   // usernameは自動で入力される。dateとfavoriteはデフォルト値を設定
   // coverImage !== ""
   if (coverImage !== "" && bookName !== "") {
-    db.query(
+    await db.query(
       sqlInsert,
       [username, bookName, coverImage, category, date, (favorite = 0)],
       (err, result) => {
@@ -196,11 +195,11 @@ app.post("/insert", (req, res) => {
   }
 });
 
-app.delete("/delete/:id", (req, res) => {
+app.delete("/delete/:id", async (req, res) => {
   const { id } = req.params;
   const sqlDelete = "DELETE FROM book_list WHERE bookId = ?";
 
-  db.query(sqlDelete, [id], (err, result) => {
+  await db.query(sqlDelete, [id], (err, result) => {
     res.json({ result: result, err: err });
   });
 });
@@ -210,11 +209,11 @@ app.post("/s3Url", async (req, res) => {
   res.json({ url });
 });
 
-app.put("/put", (req, res) => {
+app.put("/put", async (req, res) => {
   const { favoriteBtn, favoriteBtnId } = req.body;
 
   const sqlUpdate = "UPDATE book_list SET favorite = ? WHERE bookId = ?";
-  db.query(sqlUpdate, [favoriteBtn, favoriteBtnId], (err, result) => {
+  await db.query(sqlUpdate, [favoriteBtn, favoriteBtnId], (err, result) => {
     res.json({ result: result, err: err });
   });
 
