@@ -23,7 +23,7 @@ export const AddBookModal = memo(
     const { errMsgToggle, setErrMsgToggle } = msgShow;
     const { modalToggle, setModalToggle } = toggle;
     const { setBookName, setCategory } = setBookListItems;
-    const { bookName, category } = bookListItems;
+    const { bookName } = bookListItems;
     // カスタムフック
     const { modals, messageWindow } = useStyle();
     const { modalAnimation, modalWindowAnimation, modalTabAnimation } = modals;
@@ -80,7 +80,7 @@ export const AddBookModal = memo(
                 <p className="mb-2 text-lg font-bold text-slate-500">表紙</p>
                 <ImageUrlCreate
                   coverImage={modalImageUrl}
-                  imageStyle="inline-block h-[260px] w-[285px] opacity-80 border shadow-md"
+                  imageStyle="inline-block h-[260px] w-[285px] border shadow-md"
                 />
               </div>
               <div>

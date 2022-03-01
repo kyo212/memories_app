@@ -28,7 +28,7 @@ export const Content = memo(() => {
   // 情報
   const [bookName, setBookName] = useState("");
   const [category, setCategory] = useState("日記");
-  const [loginUser, setLoginUser] = useState(""); // ログイン中のusername
+  const [loginUser, setLoginUser] = useState("kyo"); // ログイン中のusername
   const [bookItems, setBookItems] = useState([]);
   // Toggle
   const [modalToggle, setModalToggle] = useState(false);
@@ -38,7 +38,6 @@ export const Content = memo(() => {
   // カスタムフック
   const [update, { setUpdate }] = useForceUpdate();
   // コンテキストに渡すstate
-  // タブのデフォルトインデックス
   const {
     setDefaultIndex,
     fileUrl,
@@ -68,7 +67,6 @@ export const Content = memo(() => {
       }).then((response) => {
         const { result, err } = response.data;
         setBookItems(result);
-        console.log({ result: result, err: err });
       });
     };
     getItems();
@@ -116,11 +114,11 @@ export const Content = memo(() => {
           body: fileUrl, // imageUrlを送る
         });
         const coverImage = url.split("?")[0];
-        console.log({ url, fileUrl, coverImage });
 
         const insert = async () => {
           if (fileUrl !== "" && bookName !== "") {
             // 入力した情報をDBに追加
+            console.log(category);
             await Axios.post(
               `http://${process.env.REACT_APP_PUBLIC_IP}/insert`,
               {
@@ -134,13 +132,16 @@ export const Content = memo(() => {
               console.log({ result, err });
               setModalToggle(false); // モーダルを閉じる
               setBookName(""); // タイトルをデフォルト状態に戻す
-              setDefaultIndex(true); // タブのアニメーションをデフォルト状態に戻す
+              setDefaultIndex(true); // タブのアニメーションをデフォルトに戻す
               setSucMsgToggle(true); // 追加完了のメッセージを出す
               setModalImageUrl(""); // 画像プレビューをデフォルト状態に戻す
               setTimeout(() => {
                 setUpdate(!update);
                 // 3秒後にメッセージを閉じる
-                setTimeout(() => setSucMsgToggle(false), 2000);
+                setTimeout(() => {
+                  setSucMsgToggle(false);
+                  setCategory("日記"); // タブの初期値をデフォルトに戻す
+                }, 3000);
               }, 1000);
             });
           } else {
@@ -153,7 +154,7 @@ export const Content = memo(() => {
   };
 
   const deleteItem = async (id) => {
-    if (window.confirm("?")) {
+    if (window.confirm("削除しますか?")) {
       await Axios.delete(
         `http://${process.env.REACT_APP_PUBLIC_IP}/delete/${id}`
       ).then((response) => {
@@ -164,16 +165,10 @@ export const Content = memo(() => {
 
   useEffect(() => {
     const favoriteState = async () => {
-      await Axios.put(
-        `http://${process.env.REACT_APP_PUBLIC_IP}/put`,
-        {
-          favoriteBtnId,
-          favoriteBtn: Number(favoriteBtn),
-          // editFavorite
-        }
-      ).then((response) => {
-        console.log(response.data.result);
-        console.log(response.data.err);
+      await Axios.put(`http://${process.env.REACT_APP_PUBLIC_IP}/put`, {
+        favoriteBtnId,
+        favoriteBtn: Number(favoriteBtn),
+        // editFavorite
       });
       setUpdate(!update);
     };
@@ -209,25 +204,27 @@ export const Content = memo(() => {
           </>
         ) : (
           <>
-            <div className="flex h-screen w-screen flex-col items-center justify-around">
-              <div className="">
-                <p className="text-bold my-2 text-xl font-bold text-slate-500">
-                  まだ何もありません
-                </p>
-                <p className="text-bold text-slate-500">
-                  まずは本を追加してみましょう
-                </p>
+            <>
+              <div className="flex h-screen w-screen flex-col items-center justify-around">
+                <div className="">
+                  <p className="text-bold my-2 text-xl font-bold text-slate-500">
+                    まだ何もありません
+                  </p>
+                  <p className="text-bold text-slate-500">
+                    まずは本を追加してみましょう
+                  </p>
+                </div>
+                <div className="flex flex-col items-center justify-center">
+                  <p className="text-bold my-8 flex items-center text-slate-500">
+                    <AiOutlinePlus className="mx-2 text-slate-800" />
+                    をクリックして追加
+                  </p>
+                  <p className="flex h-10 w-10 animate-bounce items-center justify-center rounded-full border border-slate-400 bg-white text-slate-800 shadow-md">
+                    <BsArrowDown />
+                  </p>
+                </div>
               </div>
-              <div className="flex flex-col items-center justify-center">
-                <p className="text-bold my-8 flex items-center text-slate-500">
-                  <AiOutlinePlus className="mx-2 text-slate-800" />
-                  をクリックして追加
-                </p>
-                <p className="flex h-10 w-10 animate-bounce items-center justify-center rounded-full border border-slate-400 bg-white text-slate-800 shadow-md">
-                  <BsArrowDown />
-                </p>
-              </div>
-            </div>
+            </>
           </>
         )}
       </div>

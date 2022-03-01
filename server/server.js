@@ -211,7 +211,6 @@ app.post("/s3Url", async (req, res) => {
 });
 
 app.put("/put", (req, res) => {
-  // const { favoriteBtnId } = req.params;
   const { favoriteBtn, favoriteBtnId } = req.body;
 
   const sqlUpdate = "UPDATE book_list SET favorite = ? WHERE bookId = ?";

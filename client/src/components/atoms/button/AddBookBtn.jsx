@@ -4,10 +4,10 @@ import { AiOutlinePlus } from "react-icons/ai";
 
 export const AddBookBtn = memo(({ setModalToggle }) => {
   const modalToggle = () => setModalToggle(true);
-
+  
   return (
     <>
-      <div className="fixed bottom-1 left-1/2 transform -translate-x-1/2 z-10">
+      <div className="fixed bottom-1 left-1/2 z-10 -translate-x-1/2 transform">
         <label className="flex h-12 w-12 items-center justify-center rounded-full bg-white">
           <button
             onClick={modalToggle}

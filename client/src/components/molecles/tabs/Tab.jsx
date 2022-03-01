@@ -20,8 +20,8 @@ export const Tab = memo(({ animation, ulClass, setCategory }) => {
   const { defaultIndex, setDefaultIndex } = useContext(Context);
 
   useEffect(() => {
+    // タブの初期アニメーションを"日記"にする
     defaultIndex && setTabListSelected(tabList[0]);
-    // console.log(defaultIndex);
   }, [defaultIndex]);
 
   const tabCliced = (index) => {
@@ -45,7 +45,7 @@ export const Tab = memo(({ animation, ulClass, setCategory }) => {
             ]}
             onClick={() => tabCliced(index)}
           >
-            <button className="cursor-pointer select-none">{tab}</button>
+            <button className="cursor-pointer">{tab}</button>
           </li>
         ))}
       </ul>
