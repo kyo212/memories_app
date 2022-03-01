@@ -75,12 +75,12 @@ export const Books = memo(({ Items, deleteItem }) => {
                   >
                     {bookOpen && item.bookId && (
                       <>
-                        <button className="absolute top-0 right-0 my-1 mr-1 border-b py-[2px] px-[5px] text-[10px] ">
+                        <button className="absolute top-0 right-0 my-1 mr-1 border-b py-[2px] px-[5px] text-[10px] select-none">
                           ひらく
                         </button>
                         <button
                           onClick={() => deleteItemToggle(item.bookId)}
-                          className="absolute top-4 right-0 mr-1 mt-3 border-b py-[2px] px-[5px] text-[10px] "
+                          className="absolute top-4 right-0 mr-1 mt-3 border-b py-[2px] px-[5px] text-[10px] select-none"
                         >
                           すてる
                         </button>
