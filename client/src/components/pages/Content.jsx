@@ -39,7 +39,13 @@ export const Content = memo(() => {
   const [update, { setUpdate }] = useForceUpdate();
   // コンテキストに渡すstate
   // タブのデフォルトインデックス
-  const { setDefaultIndex, fileUrl, setModalImageUrl } = useContext(Context);
+  const {
+    setDefaultIndex,
+    fileUrl,
+    setModalImageUrl,
+    favoriteBtn,
+    favoriteBtnId,
+  } = useContext(Context);
 
   useEffect(() => {
     // ユーザーネームをセッションから取得
@@ -67,7 +73,6 @@ export const Content = memo(() => {
     };
     getItems();
   }, [loginUser, update]);
-  console.log(update);
 
   // カテゴリごとにデータを抽出して新しい配列に格納
   const diaryArry = bookItems.filter((item) => item.category === "日記");
@@ -156,6 +161,24 @@ export const Content = memo(() => {
       });
     }
   };
+
+  useEffect(() => {
+    const favoriteState = async () => {
+      await Axios.put(
+        `http://${process.env.REACT_APP_PUBLIC_IP}/put`,
+        {
+          favoriteBtnId,
+          favoriteBtn: Number(favoriteBtn),
+          // editFavorite
+        }
+      ).then((response) => {
+        console.log(response.data.result);
+        console.log(response.data.err);
+      });
+      setUpdate(!update);
+    };
+    favoriteState();
+  }, [favoriteBtn]);
 
   return (
     <>

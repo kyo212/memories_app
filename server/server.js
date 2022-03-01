@@ -210,4 +210,21 @@ app.post("/s3Url", async (req, res) => {
   res.json({ url });
 });
 
+app.put("/put", (req, res) => {
+  // const { favoriteBtnId } = req.params;
+  const { favoriteBtn, favoriteBtnId } = req.body;
+
+  const sqlUpdate = "UPDATE book_list SET favorite = ? WHERE bookId = ?";
+  db.query(sqlUpdate, [favoriteBtn, favoriteBtnId], (err, result) => {
+    res.json({ result: result, err: err });
+  });
+
+  // if (editTitle) {
+  //   const sqlUpdateText = "UPDATE user_contents SET title = ? WHERE id = ?";
+  //   db.query(sqlUpdateText, [newTitle, id], (err, result) => {
+  //     res.json({ result: result, err: err });
+  //   });
+  // }
+});
+
 app.listen(PORT);

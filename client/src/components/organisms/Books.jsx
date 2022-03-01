@@ -20,6 +20,11 @@ export const Books = memo(({ Items, deleteItem }) => {
     setBookOpen(!bookOpen);
   };
 
+  const deleteItemToggle = (id) => {
+    setBookOpen(false);
+    deleteItem(id);
+  };
+
   return (
     <>
       <div className="flex h-screen w-screen snap-x items-center overflow-x-scroll scroll-smooth">
@@ -34,7 +39,7 @@ export const Books = memo(({ Items, deleteItem }) => {
               <div className="flex h-screen w-screen items-center justify-center">
                 <div className="relative space-y-4">
                   {/* 本の厚み */}
-                  <BookRibbon favorite={item.favorite} />
+                  <BookRibbon favorite={item.favorite} bookId={item.bookId} />
                   <span
                     className={`${bookStyle} -right-2 -top-2 rounded-sm  border-slate-300 shadow-md`}
                   />
@@ -46,34 +51,35 @@ export const Books = memo(({ Items, deleteItem }) => {
                   {/* 本をめくるアニメーション */}
                   <div
                     className={[
-                      bookOpen
+                      bookOpen && item.bookId
                         ? bookOpenAnimation.showed
                         : bookOpenAnimation.base,
                     ]}
                   />
-                  <span
+                  <button
+                    onClick={bookOpenToggle}
                     className={[
-                      bookOpen
+                      bookOpen && item.bookId
                         ? "hidden"
                         : "absolute top-2 right-3 -rotate-45 transform text-xl text-slate-400",
                     ]}
                   >
-                    <BsReply onClick={bookOpenToggle} />
-                  </span>
+                    <BsReply />
+                  </button>
                   <div
                     className={
-                      bookOpen
+                      bookOpen && item.bookId
                         ? "transform text-slate-600 transition-all delay-300 duration-300"
                         : "transform text-slate-600 opacity-0 transition-all"
                     }
                   >
-                    {bookOpen && (
+                    {bookOpen && item.bookId && (
                       <>
                         <button className="absolute top-0 right-0 my-1 mr-1 border-b py-[2px] px-[5px] text-[10px] ">
                           ひらく
                         </button>
                         <button
-                          onClick={() => deleteItem(item.bookId)}
+                          onClick={() => deleteItemToggle(item.bookId)}
                           className="absolute top-4 right-0 mr-1 mt-3 border-b py-[2px] px-[5px] text-[10px] "
                         >
                           すてる
