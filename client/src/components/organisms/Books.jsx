@@ -23,10 +23,8 @@ export const Books = memo(({ Items, deleteItem }) => {
   const bookOpenBtnStyle =
     "absolute top-2 right-3 -rotate-45 transform text-xl text-slate-400 transition-all";
 
-
   const bookOpenToggle = () => {
     setBookOpen(!bookOpen);
-    console.log("OK");
   };
 
   const deleteItemToggle = (id) => {
@@ -89,24 +87,24 @@ export const Books = memo(({ Items, deleteItem }) => {
                   >
                     {bookOpen && item.bookId && (
                       <>
-                        <button className="absolute top-0 right-0 my-1 mr-1 select-none border-b py-[2px] px-[5px] text-[10px]">
+                        <button className="absolute top-0 right-0 my-1 mr-1 border-b py-[2px] px-[5px] text-[10px]">
                           ひらく
                         </button>
                         <button
                           onClick={() => deleteItemToggle(item.bookId)}
-                          className="absolute top-4 right-0 mr-1 mt-3 select-none border-b py-[2px] px-[5px] text-[10px]"
+                          className="absolute top-4 right-0 mr-1 mt-3 border-b py-[2px] px-[5px] text-[10px]"
                         >
                           すてる
                         </button>
                         <button
                           onClick={() => favoriteBtnToggle(item.bookId)}
-                          className="absolute top-10 right-0 mr-1 mt-3 select-none border-b py-[2px] px-[5px] text-[10px]"
+                          className="absolute top-10 right-0 mr-1 mt-3 border-b py-[2px] px-[5px] text-[10px]"
                         >
                           おきにいり
                         </button>
                         <button
                           onClick={bookOpenToggle}
-                          className="absolute top-[85px] right-[80px] rotate-[125deg] transform text-xl text-slate-500"
+                          className="absolute top-[173px] left-[60%] rotate-[125deg] transform text-xl text-slate-500"
                         >
                           <BsReplyFill />
                         </button>
@@ -124,7 +122,7 @@ export const Books = memo(({ Items, deleteItem }) => {
                     </div>
                     <ImageUrlCreate
                       coverImage={item.coverImage}
-                      imageStyle="h-[260px] w-[285px] shadow-inner"
+                      imageStyle="h-[230px] w-[250px] shadow-inner"
                     />
                   </div>
                   <p className="select-none space-x-1 text-sm text-slate-400">
