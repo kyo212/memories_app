@@ -75,12 +75,12 @@ export const Books = memo(({ Items, deleteItem }) => {
                   >
                     {bookOpen && item.bookId && (
                       <>
-                        <button className="absolute top-0 right-0 my-1 mr-1 border-b py-[2px] px-[5px] text-[10px] select-none">
+                        <button className="absolute top-0 right-0 my-1 mr-1 select-none border-b py-[2px] px-[5px] text-[10px]">
                           ひらく
                         </button>
                         <button
                           onClick={() => deleteItemToggle(item.bookId)}
-                          className="absolute top-4 right-0 mr-1 mt-3 border-b py-[2px] px-[5px] text-[10px] select-none"
+                          className="absolute top-4 right-0 mr-1 mt-3 select-none border-b py-[2px] px-[5px] text-[10px]"
                         >
                           すてる
                         </button>
@@ -97,20 +97,14 @@ export const Books = memo(({ Items, deleteItem }) => {
                   <div className="z-10 flex h-[400px] w-80 flex-col items-center rounded-sm  border border-slate-300 bg-white text-slate-700 shadow-inner sm:h-[600px] sm:w-[500px]">
                     <div className="text-bold flax mt-8 mb-4 flex-col text-center text-lg">
                       <p className="border-b">{item.bookName}</p>
-                      <div className="mt-2 flex select-none flex-col items-start text-[12px] leading-4 text-slate-400">
-                        <p>
-                          <span className="mr-1 font-bold">作成日:</span>
-                          {item.date}
-                        </p>
-                        <p>
-                          <span className="mr-1 font-bold">カテゴリー:</span>
-                          {item.category}
-                        </p>
+                      <div className="mt-2 flex select-none flex-col items-center text-[12px] leading-5 text-slate-400">
+                        <p>{item.date}</p>
+                        <p>{item.category}</p>
                       </div>
                     </div>
                     <ImageUrlCreate
                       coverImage={item.coverImage}
-                      imageStyle="h-[270px] opacity-80 w-[285px] shadow-inner"
+                      imageStyle="h-[260px] w-[285px] shadow-inner"
                     />
                   </div>
                   <p className="select-none space-x-1 text-sm text-slate-400">
