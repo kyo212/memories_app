@@ -1,4 +1,4 @@
-import { memo, useState } from "react";
+import { memo, useContext, useState } from "react";
 // アイコン
 import { BsReply } from "react-icons/bs";
 import { BsReplyFill } from "react-icons/bs";
@@ -7,22 +7,36 @@ import { BookRibbon } from "../atoms/style/BookRibbon";
 import { ImageUrlCreate } from "./ImageUrlCreate";
 // カスタムフック
 import { useStyle } from "../custom/useStyle";
+// コンテキスト
+import { Context } from "../../App";
 
 export const Books = memo(({ Items, deleteItem }) => {
   const [bookOpen, setBookOpen] = useState(false);
   // カスタムフック
   const { bookOpenAnimation } = useStyle();
+  // コンテキスト
+  const { favoriteBtn, setFavoriteBtn, setFavoriteBtnId } = useContext(Context);
+
   // スタイル共通化
   const bookStyle =
     "absolute -z-10 flex h-[400px] w-80 sm:h-[600px] sm:w-[500px] border bg-white text-slate-70 block border-slate-300";
+  const bookOpenBtnStyle =
+    "absolute top-2 right-3 -rotate-45 transform text-xl text-slate-400 transition-all";
+
 
   const bookOpenToggle = () => {
     setBookOpen(!bookOpen);
+    console.log("OK");
   };
 
   const deleteItemToggle = (id) => {
     setBookOpen(false);
     deleteItem(id);
+  };
+
+  const favoriteBtnToggle = (id) => {
+    setFavoriteBtn(!favoriteBtn);
+    setFavoriteBtnId(id);
   };
 
   return (
@@ -49,27 +63,27 @@ export const Books = memo(({ Items, deleteItem }) => {
                   <span className="absolute -top-[5px] left-0 -z-10 h-[4px] w-[13px] -rotate-45 transform rounded-md border border-slate-300 bg-white" />
                   {/* 表紙 */}
                   {/* 本をめくるアニメーション */}
-                  <div
+                  <div // 三角のUI
                     className={[
                       bookOpen && item.bookId
                         ? bookOpenAnimation.showed
                         : bookOpenAnimation.base,
                     ]}
                   />
-                  <button
+                  <button // ひらくボタン
                     onClick={bookOpenToggle}
                     className={[
                       bookOpen && item.bookId
-                        ? "hidden"
-                        : "absolute top-2 right-3 -rotate-45 transform text-xl text-slate-400",
+                        ? `${bookOpenBtnStyle} opacity-0 duration-300`
+                        : `${bookOpenBtnStyle} opacity-100 delay-500`,
                     ]}
                   >
                     <BsReply />
                   </button>
-                  <div
+                  <div // ひらいた後の要素
                     className={
                       bookOpen && item.bookId
-                        ? "transform text-slate-600 transition-all delay-300 duration-300"
+                        ? "transform text-slate-600 transition-all delay-100 duration-300"
                         : "transform text-slate-600 opacity-0 transition-all"
                     }
                   >
@@ -85,8 +99,14 @@ export const Books = memo(({ Items, deleteItem }) => {
                           すてる
                         </button>
                         <button
+                          onClick={() => favoriteBtnToggle(item.bookId)}
+                          className="absolute top-10 right-0 mr-1 mt-3 select-none border-b py-[2px] px-[5px] text-[10px]"
+                        >
+                          おきにいり
+                        </button>
+                        <button
                           onClick={bookOpenToggle}
-                          className="absolute top-[77px] right-[72px] rotate-[125deg] transform text-xl text-slate-500"
+                          className="absolute top-[85px] right-[80px] rotate-[125deg] transform text-xl text-slate-500"
                         >
                           <BsReplyFill />
                         </button>

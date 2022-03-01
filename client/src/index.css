@@ -29,7 +29,7 @@ button {
   position: absolute;
   top: 0px;
   right: 0px;
-  border-bottom: solid 100px rgb(240, 240, 240);
-  border-right: solid 100px rgb(260, 260, 260);
+  border-bottom: solid 110px rgb(240, 240, 240);
+  border-right: solid 110px rgb(260, 260, 260);
   box-shadow: 0 2px 4px rgb(200, 200, 200);
 }
