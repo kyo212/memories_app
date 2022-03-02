@@ -15,7 +15,7 @@ export const Books = memo(({ Items, deleteItem, favoriteState }) => {
 
   // スタイル共通化
   const bookStyle =
-    "absolute -z-10 flex h-[400px] w-80 sm:h-[600px] sm:w-[500px] border bg-white text-slate-70 block border-slate-300";
+    "absolute -z-20 flex h-[400px] w-80 sm:h-[600px] sm:w-[500px] border bg-gray-100 text-slate-70 block border-slate-400";
   const bookOpenBtnStyle =
     "absolute top-2 right-3 -rotate-45 transform text-xl text-slate-400 transition-all";
 
@@ -38,12 +38,11 @@ export const Books = memo(({ Items, deleteItem, favoriteState }) => {
       <div className="flex h-screen w-screen snap-x items-center overflow-x-scroll scroll-smooth">
         {Items.map((item, index) => {
           return (
-            // 基準となる背面
             <div
               key={item.bookId}
               className="h-screen w-screen snap-start snap-always"
             >
-              {/* オブジェクトひとつずつの背面 */}
+              {/* オブジェクトひとつずつのスクリーン幅 */}
               <div className="flex h-screen w-screen items-center justify-center">
                 <div className="relative space-y-4">
                   {/* 本の厚み */}
@@ -54,7 +53,7 @@ export const Books = memo(({ Items, deleteItem, favoriteState }) => {
                   <span className={`${bookStyle} -right-[6px] -top-[6px]`} />
                   <span className={`${bookStyle} -right-[4px] -top-[4px]`} />
                   <span className={`${bookStyle} -right-[2px] -top-[2px]`} />
-                  <span className="absolute -top-[5px] left-0 -z-10 h-[4px] w-[13px] -rotate-45 transform rounded-md border border-slate-300 bg-white" />
+                  <span className="absolute -top-[5px] -left-[1px] -z-10 h-[4px] w-[13px] -rotate-45 transform rounded-md border border-slate-300 bg-white" />
                   {/* 本をめくるアニメーション */}
                   <div // 三角のUI
                     className={[

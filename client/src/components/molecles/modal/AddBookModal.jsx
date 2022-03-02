@@ -49,9 +49,9 @@ export const AddBookModal = memo(
     return (
       <>
         {modalToggle && (
-          <div className="fixed top-0 left-0 z-40 flex h-screen w-screen transform items-center justify-center overflow-hidden bg-black bg-opacity-80 pt-2 transition-all duration-300 ease-in">
-            <div className="flex h-[75%] w-[92%] transform items-center justify-center overflow-scroll rounded-sm bg-white py-6 opacity-100 transition-all duration-1000">
-              <div className="flex w-[88%] flex-col items-center pt-40">
+          <div className="fixed top-0 left-0 z-40 flex h-screen w-screen items-center justify-center overflow-hidden bg-black bg-opacity-80 ">
+            <div className="flex h-[70%] w-[92%] justify-center overflow-y-scroll rounded-sm bg-white opacity-100">
+              <div className="my-20 flex h-screen w-[88%] flex-col items-center">
                 <>
                   <p className="mb-2 select-none text-lg font-bold text-slate-500">
                     本のタイトル
@@ -91,12 +91,10 @@ export const AddBookModal = memo(
                       setCategory={setCategory}
                     />
                   </div>
-                </>
-                <>
                   {/* 追加ボタン */}
                   <button
                     onClick={insertItem}
-                    className="rounded-sm bg-blue-600 bg-opacity-80 px-3 py-2 mb-10 font-bold text-white"
+                    className="rounded-sm bg-blue-600 bg-opacity-80 px-3 py-2 font-bold text-white"
                   >
                     本を追加する
                   </button>
@@ -105,7 +103,7 @@ export const AddBookModal = memo(
             </div>
             {/* 閉じるボタン */}
             <button
-              className="fixed right-[4%] bottom-[12.3%] p-4 text-4xl text-gray-600 hover:bg-black hover:bg-opacity-40 hover:text-white"
+              className="fixed right-[4%] bottom-[15%] p-4 text-4xl text-gray-600 hover:bg-black hover:bg-opacity-40 hover:text-white"
               onClick={closeButton}
             >
               <AiOutlinePlus className="rotate-45 transform" />
