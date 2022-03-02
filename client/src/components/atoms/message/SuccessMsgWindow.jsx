@@ -10,7 +10,7 @@ export const SuccessMsgWindow = memo(({ msgToggle, msgText, headerText }) => {
   return (
     <>
       {msgToggle && (
-        <p className={[msgToggle ? successMsg.showed : successMsg.base]}>
+        <p className={`[msgToggle ? successMsg.showed : successMsg.base]`}>
           <span className="mr-2 font-bold">{headerText}:</span>
           {msgText}
         </p>

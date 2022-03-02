@@ -33,6 +33,7 @@ export const Content = memo(() => {
   const [bookItems, setBookItems] = useState([]);
   // Toggle
   const [modalToggle, setModalToggle] = useState(false);
+  const [headerToggle, setHeaderToggle] = useState(false);
   // メッセージ
   const [errMsgToggle, setErrMsgToggle] = useState(false);
   const [sucMsgToggle, setSucMsgToggle] = useState(false);
@@ -176,11 +177,10 @@ export const Content = memo(() => {
   return (
     <>
       {/* ヘッダー */}
-      <Header root={"/mybooks"}>
+      <Header root={"/mybooks"} headerOpen={{ headerToggle, setHeaderToggle }}>
         <div className="flex items-center">
           <Search />
           <MenuOpenModal loginUser={loginUser} />
-          <BsChevronDoubleUp />
         </div>
       </Header>
       {/* メインコンテンツ */}
