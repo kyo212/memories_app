@@ -1,4 +1,4 @@
-import { memo, useContext, useEffect, useState } from "react";
+import { memo, useState } from "react";
 // アイコン
 import { BsReply } from "react-icons/bs";
 import { BsReplyFill } from "react-icons/bs";
@@ -7,15 +7,11 @@ import { BookRibbon } from "../atoms/style/BookRibbon";
 import { ImageUrlCreate } from "./ImageUrlCreate";
 // カスタムフック
 import { useStyle } from "../custom/useStyle";
-// コンテキスト
-import { Context } from "../../App";
 
-export const Books = memo(({ Items, deleteItem }) => {
+export const Books = memo(({ Items, deleteItem, favoriteState }) => {
   const [bookOpen, setBookOpen] = useState(false);
   // カスタムフック
   const { bookOpenAnimation } = useStyle();
-  // コンテキスト
-  const { favoriteBtn, setFavoriteBtn, setFavoriteBtnId } = useContext(Context);
 
   // スタイル共通化
   const bookStyle =
@@ -32,9 +28,8 @@ export const Books = memo(({ Items, deleteItem }) => {
     deleteItem(id);
   };
 
-  const favoriteBtnToggle = (id) => {
-    setFavoriteBtn(!favoriteBtn);
-    setFavoriteBtnId(id);
+  const favoriteBtnToggle = (id, num) => {
+    favoriteState(id, num);
     setBookOpen(false);
   };
 
@@ -97,7 +92,9 @@ export const Books = memo(({ Items, deleteItem }) => {
                           すてる
                         </button>
                         <button
-                          onClick={() => favoriteBtnToggle(item.bookId)}
+                          onClick={() =>
+                            favoriteBtnToggle(item.bookId, !item.favorite)
+                          }
                           className="absolute top-10 right-0 mr-1 mt-3 border-b py-[2px] px-[5px] text-[10px]"
                         >
                           おきにいり

@@ -210,10 +210,10 @@ app.post("/s3Url", async (req, res) => {
 });
 
 app.put("/put", async (req, res) => {
-  const { favoriteBtn, favoriteBtnId } = req.body;
+  const { id, num } = req.body;
 
   const sqlUpdate = "UPDATE book_list SET favorite = ? WHERE bookId = ?";
-  await db.query(sqlUpdate, [favoriteBtn, favoriteBtnId], (err, result) => {
+  await db.query(sqlUpdate, [num, id], (err, result) => {
     res.json({ result: result, err: err });
   });
 

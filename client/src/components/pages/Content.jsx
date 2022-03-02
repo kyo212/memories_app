@@ -1,10 +1,9 @@
-import { memo, useState, useEffect, useContext, useMemo } from "react";
+import { memo, useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
 // アイコン
 import { AiOutlinePlus } from "react-icons/ai";
 import { BsArrowDown } from "react-icons/bs";
-import { BsChevronDoubleUp } from "react-icons/bs";
 // コンポーネント UI系
 import { FooterTab } from "../molecles/tabs/FooterTab";
 import { Header } from "../organisms/Header";
@@ -40,13 +39,7 @@ export const Content = memo(() => {
   // カスタムフック
   const [update, { setUpdate }] = useForceUpdate();
   // コンテキストに渡すstate
-  const {
-    setDefaultIndex,
-    fileUrl,
-    setModalImageUrl,
-    favoriteBtn,
-    favoriteBtnId,
-  } = useContext(Context);
+  const { setDefaultIndex, fileUrl, setModalImageUrl } = useContext(Context);
 
   useEffect(() => {
     // ユーザーネームをセッションから取得
@@ -162,17 +155,13 @@ export const Content = memo(() => {
     }
   };
 
-  useMemo(() => {
-    const favoriteState = async () => {
-      await Axios.put(`http://${process.env.REACT_APP_PUBLIC_IP}/put`, {
-        favoriteBtnId,
-        favoriteBtn: Number(favoriteBtn),
-        // editFavorite
-      });
-      setUpdate(!update);
-    };
-    favoriteState();
-  }, [favoriteBtn]);
+  const favoriteState = async (id, num) => {
+    await Axios.put(`http://${process.env.REACT_APP_PUBLIC_IP}/put`, {
+      id,
+      num,
+    });
+    setUpdate(!update);
+  };
 
   return (
     <>
@@ -196,7 +185,11 @@ export const Content = memo(() => {
                   className="h-screen w-screen snap-start snap-always"
                 >
                   {/* <p className="">{`${index + 1} / ${filterCategoryArrays.length}`}</p> */}
-                  <Books Items={item} deleteItem={deleteItem} />
+                  <Books
+                    Items={item}
+                    deleteItem={deleteItem}
+                    favoriteState={favoriteState}
+                  />
                 </div>
               </>
             ))}
