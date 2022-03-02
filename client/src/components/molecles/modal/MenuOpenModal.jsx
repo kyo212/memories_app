@@ -1,18 +1,25 @@
-import { useState } from "react";
+import { useContext } from "react";
 // サードパーティ
 import { VscTriangleDown } from "react-icons/vsc";
 // カスタムフック
 import { useStyle } from "../../custom/useStyle";
 // コンポーネント
 import { HeaderLogoutBtn } from "../../atoms/button/HeaderLogoutBtn";
+// コンテキスト
+import { Context } from "../../../App";
 
 export const MenuOpenModal = ({ loginUser }) => {
-  const [modalToggle, setModalToggle] = useState(false);
+  // カスタムフック
   const { menuOpens } = useStyle();
   const { menuOpenBtnAnimation, menuOpenAnimation } = menuOpens;
+  // コンテキスト
+  const { modalToggle, setModalToggle, setSearchToggle, setHeaderToggle } =
+    useContext(Context);
 
   const modalOpenClose = () => {
     setModalToggle(!modalToggle);
+    setSearchToggle(false);
+    setHeaderToggle(false);
   };
 
   return (
@@ -25,30 +32,35 @@ export const MenuOpenModal = ({ loginUser }) => {
       >
         <VscTriangleDown className="scale-125 transform" />
       </button>
-      <div
-        className={[
-          modalToggle ? menuOpenAnimation.showed : menuOpenAnimation.base,
-        ]}
-      >
-        <div className="flex flex-col items-start space-y-4 text-left">
-          <p className="text-md font-bold text-slate-700">
-            "{loginUser}"<span className="text-md font-thin">でログイン中</span>
-          </p>
-          <button>
-            <p>並び替え</p>
-          </button>
-          <button>
-            <p>フィルタを適用</p>
-          </button>
-          <button>
-            <p>ヘルプ</p>
-          </button>
-          <HeaderLogoutBtn />
-          <button onClick={modalOpenClose}>
-            <p>閉じる</p>
-          </button>
+      {modalToggle && (
+        <div
+          className={[
+            modalToggle ? menuOpenAnimation.showed : menuOpenAnimation.base,
+          ]}
+        >
+          <div className="flex w-full flex-col space-y-4 text-left">
+            <p className="text-md w-full border-b pb-3 font-bold text-slate-700">
+              "{loginUser}"
+              <span className="text-md font-thin">でログイン中</span>
+            </p>
+            <button className="w-full bg-opacity-50 px-1 py-2 text-left hover:bg-gray-200">
+              <p>並び替え</p>
+            </button>
+            <button className="w-full bg-opacity-50 px-1 py-2 text-left hover:bg-gray-200">
+              <p>フィルタを適用</p>
+            </button>
+            <button className="w-full bg-opacity-50 px-1 py-2 text-left hover:bg-gray-200">
+              <p>ヘルプ</p>
+            </button>
+            <div className="w-full border-t pt-5">
+              <HeaderLogoutBtn />
+            </div>
+            {/* <button onClick={modalOpenClose} className="">
+              <p>閉じる</p>
+            </button> */}
+          </div>
         </div>
-      </div>
+      )}
     </>
   );
 };

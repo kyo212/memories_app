@@ -23,9 +23,9 @@ export const useStyle = () => {
         "rotate-180 transform p-2 mx-3 bg-gray-500 text-white text-gray-500 border border-gray-500 rounded-full transition-all",
     },
     menuOpenAnimation: {
-      base: "fixed top-14 right-6 h-0 w-60 transform rounded-md border bg-white px-3 text-sm text-slate-700 opacity-0 shadow-md transition-all ease-in -translate-y-64",
+      base: "fixed top-14 right-6 w-60 rounded-md border bg-white px-3 text-sm text-slate-700 opacity-0 shadow-md",
       showed:
-        "fixed top-14 right-6 h-603 w-60 transform space-y-2 rounded-md border bg-white py-4 px-3 text-sm text-slate-700 shadow-md transition-all duration-500",
+        "fixed top-14 right-6 w-60 rounded-md border bg-white py-4 px-3 text-sm text-slate-700 shadow-md",
     },
   };
   // search

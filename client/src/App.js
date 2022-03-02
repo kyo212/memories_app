@@ -8,6 +8,9 @@ function App() {
   const [defaultIndex, setDefaultIndex] = useState(false);
   const [fileUrl, setFileUrl] = useState("");
   const [modalImageUrl, setModalImageUrl] = useState("");
+  const [searchToggle, setSearchToggle] = useState(false);
+  const [modalToggle, setModalToggle] = useState(false);
+  const [headerToggle, setHeaderToggle] = useState(false);
 
   return (
     <div>
@@ -19,6 +22,12 @@ function App() {
           setFileUrl,
           modalImageUrl,
           setModalImageUrl,
+          searchToggle,
+          setSearchToggle,
+          modalToggle,
+          setModalToggle,
+          headerToggle,
+          setHeaderToggle,
         }}
       >
         <Router />

@@ -32,14 +32,19 @@ export const Content = memo(() => {
   const [bookItems, setBookItems] = useState([]);
   // Toggle
   const [modalToggle, setModalToggle] = useState(false);
-  const [headerToggle, setHeaderToggle] = useState(false);
   // メッセージ
   const [errMsgToggle, setErrMsgToggle] = useState(false);
   const [sucMsgToggle, setSucMsgToggle] = useState(false);
   // カスタムフック
   const [update, { setUpdate }] = useForceUpdate();
   // コンテキストに渡すstate
-  const { setDefaultIndex, fileUrl, setModalImageUrl } = useContext(Context);
+  const {
+    setDefaultIndex,
+    fileUrl,
+    setModalImageUrl,
+    headerToggle,
+    setHeaderToggle,
+  } = useContext(Context);
 
   useEffect(() => {
     // ユーザーネームをセッションから取得
@@ -146,13 +151,11 @@ export const Content = memo(() => {
   };
 
   const deleteItem = async (id) => {
-    if (window.confirm("削除しますか?")) {
-      await Axios.delete(
-        `http://${process.env.REACT_APP_PUBLIC_IP}/delete/${id}`
-      ).then((response) => {
-        setUpdate(!update);
-      });
-    }
+    await Axios.delete(
+      `http://${process.env.REACT_APP_PUBLIC_IP}/delete/${id}`
+    ).then((response) => {
+      setUpdate(!update);
+    });
   };
 
   const favoriteState = async (id, num) => {

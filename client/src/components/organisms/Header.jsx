@@ -1,10 +1,21 @@
-import { memo } from "react";
+import { memo, useContext } from "react";
 // アイコン
 import { BsChevronDoubleUp } from "react-icons/bs";
 import { BsChevronDoubleDown } from "react-icons/bs";
+// コンテキスト
+import { Context } from "../../App";
 
 export const Header = memo(({ root, children, headerOpen }) => {
   const { headerToggle, setHeaderToggle } = headerOpen;
+
+  const { setModalToggle, setSearchToggle } = useContext(Context);
+
+  const headerOpenClose = () => {
+    setHeaderToggle(!headerToggle);
+    setModalToggle(false);
+    setSearchToggle(false);
+  };
+
   return (
     <>
       <div
@@ -19,7 +30,7 @@ export const Header = memo(({ root, children, headerOpen }) => {
           <div className="mx-4 flex h-12 items-center">
             {children}
             <button
-              onClick={() => setHeaderToggle(!headerToggle)}
+              onClick={headerOpenClose}
               className={`${[
                 headerToggle &&
                   "translate-y-12 bg-gray-500 text-white delay-500",

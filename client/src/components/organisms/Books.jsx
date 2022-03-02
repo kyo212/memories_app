@@ -5,6 +5,7 @@ import { BsReplyFill } from "react-icons/bs";
 // コンポーネント
 import { BookRibbon } from "../atoms/style/BookRibbon";
 import { ImageUrlCreate } from "./ImageUrlCreate";
+import { ConfirmWindow } from "../atoms/message/ConfirmWindow";
 // カスタムフック
 import { useStyle } from "../custom/useStyle";
 
@@ -12,6 +13,10 @@ export const Books = memo(({ Items, deleteItem, favoriteState }) => {
   const [bookOpen, setBookOpen] = useState(false);
   // カスタムフック
   const { bookOpenAnimation } = useStyle();
+  // Toggle
+  const [confirmWindowOpen, setConfirmWindowOpen] = useState(false);
+  // 情報
+  const [deleteId, setDeleteId] = useState();
 
   // スタイル共通化
   const bookStyle =
@@ -24,8 +29,8 @@ export const Books = memo(({ Items, deleteItem, favoriteState }) => {
   };
 
   const deleteItemToggle = (id) => {
-    setBookOpen(false);
-    deleteItem(id);
+    setConfirmWindowOpen(true); // 確認ダイアログを出現
+    setDeleteId(id); // 削除するアイテムのidを保持
   };
 
   const favoriteBtnToggle = (id, num) => {
@@ -135,6 +140,23 @@ export const Books = memo(({ Items, deleteItem, favoriteState }) => {
             </div>
           );
         })}
+      </div>
+      <div
+        className={[
+          confirmWindowOpen
+            ? "absolute top-0 left-0 z-50 flex h-screen w-screen transform items-center justify-center overflow-hidden transition-transform duration-500"
+            : "absolute top-0 left-0 z-50 flex h-screen w-screen -translate-x-full transform items-center justify-center overflow-hidden duration-500 transition-transform",
+        ]}
+      >
+        <div>
+          <ConfirmWindow
+            message="削除しますか？"
+            deleteId={deleteId}
+            deleteItem={deleteItem}
+            setConfirmWindowOpen={setConfirmWindowOpen}
+            setBookOpen={setBookOpen}
+          />
+        </div>
       </div>
     </>
   );
