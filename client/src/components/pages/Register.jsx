@@ -42,6 +42,31 @@ export const Register = memo(() => {
     getLoginState();
   }, []);
 
+  const register = async () => {
+    if (checkBoxFirst && checkBoxSecond) {
+      await Axios.post(`http://${process.env.REACT_APP_PUBLIC_IP}/register`, {
+        username,
+        password,
+      }).then(async (response) => {
+        const { result, msg } = response.data;
+        console.log(result, msg);
+        if (!result) {
+          // usernameまたはpasswordが空の場合,usernameが重複既に存在している場合
+          setErrMsgText(msg);
+          setErrMsgToggle(true);
+          setTimeout(() => {
+            setErrMsgToggle(false);
+          }, 3000);
+          setUsername("");
+          setPassword("");
+        } else {
+          // 新規登録に成功後、自動ログインする。
+          await setTimeout(() => login(), 1000);
+        }
+      });
+    }
+  };
+
   const login = async () => {
     await Axios.post(`http://${process.env.REACT_APP_PUBLIC_IP}/login`, {
       username,
@@ -59,31 +84,6 @@ export const Register = memo(() => {
         }
       );
     });
-  };
-
-  const register = async () => {
-    if (checkBoxFirst && checkBoxSecond) {
-      await Axios.post(`http://${process.env.REACT_APP_PUBLIC_IP}/register`, {
-        username,
-        password,
-      }).then((response) => {
-        const { result, msg } = response.data;
-        console.log(result, msg);
-        if (!result) {
-          // usernameまたはpasswordが空の場合,usernameが重複既に存在している場合
-          setErrMsgText(msg);
-          setErrMsgToggle(true);
-          setTimeout(() => {
-            setErrMsgToggle(false);
-          }, 3000);
-          setUsername("");
-          setPassword("");
-        } else {
-          // 新規登録に成功後、自動ログインする。
-          login();
-        }
-      });
-    }
   };
 
   const inputInform = (e) => {

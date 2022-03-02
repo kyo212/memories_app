@@ -6,7 +6,7 @@ export const BookRibbon = ({ favorite }) => {
       <div
         className={[
           favorite
-            ? "transform cursor-pointer transition-all "
+            ? "transform transition-all"
             : "opacity-0",
         ]}
       >
@@ -25,7 +25,7 @@ export const BookRibbon = ({ favorite }) => {
               : `h-0`,
           ]}
         />
-        <span className="absolute left-5 top-[52px] h-6 w-6 rotate-45 transform  rounded-sm bg-white transition-all" />
+        <span className="absolute left-5 top-[52px] h-6 w-6 rotate-45 transform rounded-sm bg-white transition-all" />
       </div>
     </>
   );

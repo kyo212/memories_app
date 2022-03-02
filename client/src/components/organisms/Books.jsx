@@ -1,4 +1,4 @@
-import { memo, useContext, useState } from "react";
+import { memo, useContext, useEffect, useState } from "react";
 // アイコン
 import { BsReply } from "react-icons/bs";
 import { BsReplyFill } from "react-icons/bs";
@@ -35,6 +35,7 @@ export const Books = memo(({ Items, deleteItem }) => {
   const favoriteBtnToggle = (id) => {
     setFavoriteBtn(!favoriteBtn);
     setFavoriteBtnId(id);
+    setBookOpen(false);
   };
 
   return (
@@ -59,7 +60,6 @@ export const Books = memo(({ Items, deleteItem }) => {
                   <span className={`${bookStyle} -right-[4px] -top-[4px]`} />
                   <span className={`${bookStyle} -right-[2px] -top-[2px]`} />
                   <span className="absolute -top-[5px] left-0 -z-10 h-[4px] w-[13px] -rotate-45 transform rounded-md border border-slate-300 bg-white" />
-                  {/* 表紙 */}
                   {/* 本をめくるアニメーション */}
                   <div // 三角のUI
                     className={[
@@ -112,6 +112,7 @@ export const Books = memo(({ Items, deleteItem }) => {
                     )}
                   </div>
                   {/* 本をめくるアニメーション */}
+                  {/* 表紙 */}
                   <div className="z-10 flex h-[400px] w-80 flex-col items-center rounded-sm  border border-slate-300 bg-white text-slate-700 shadow-inner sm:h-[600px] sm:w-[500px]">
                     <div className="text-bold flax mt-8 mb-4 flex-col text-center text-lg">
                       <p className="border-b">{item.bookName}</p>

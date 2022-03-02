@@ -1,4 +1,12 @@
-import { memo, useState, useEffect, useContext } from "react";
+import {
+  memo,
+  useState,
+  useEffect,
+  useContext,
+  useCallback,
+  useMemo,
+  useLayoutEffect,
+} from "react";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
 // アイコン
@@ -28,7 +36,7 @@ export const Content = memo(() => {
   // 情報
   const [bookName, setBookName] = useState("");
   const [category, setCategory] = useState("日記");
-  const [loginUser, setLoginUser] = useState("kyo"); // ログイン中のusername
+  const [loginUser, setLoginUser] = useState(""); // ログイン中のusername
   const [bookItems, setBookItems] = useState([]);
   // Toggle
   const [modalToggle, setModalToggle] = useState(false);
@@ -72,6 +80,8 @@ export const Content = memo(() => {
     getItems();
   }, [loginUser, update]);
 
+  console.log(bookItems);
+
   // カテゴリごとにデータを抽出して新しい配列に格納
   const diaryArry = bookItems.filter((item) => item.category === "日記");
   const familyArry = bookItems.filter((item) => item.category === "家族");
@@ -96,7 +106,6 @@ export const Content = memo(() => {
     travelArry,
     workArry,
   ];
-
   // 値が1つ以上格納されているカテゴリーを抽出
   const filterCategoryArrays = categoryArrays.filter((item) => item.length > 0);
 
@@ -146,7 +155,7 @@ export const Content = memo(() => {
             setErrMsgToggle(true);
           }
         };
-       insert();
+        insert();
       }
     );
   };
@@ -161,7 +170,7 @@ export const Content = memo(() => {
     }
   };
 
-  useEffect(() => {
+  useMemo(() => {
     const favoriteState = async () => {
       await Axios.put(`http://${process.env.REACT_APP_PUBLIC_IP}/put`, {
         favoriteBtnId,
@@ -213,17 +222,18 @@ export const Content = memo(() => {
               </div>
               <div className="flex flex-col items-center justify-center">
                 <p className="text-bold my-8 flex items-center text-slate-500">
-                  <AiOutlinePlus className="mx-2 text-slate-800" />
+                  {/* <AiOutlinePlus className="mx-2 text-slate-800" /> */}
                   をクリックして追加
                 </p>
                 <p className="flex h-10 w-10 animate-bounce items-center justify-center rounded-full border border-slate-400 bg-white text-slate-800 shadow-md">
-                  <BsArrowDown />
+                  {/* <BsArrowDown /> */}
                 </p>
               </div>
             </div>
           </>
         )}
       </div>
+
       {/* モーダル出現ボタン */}
       <AddBookBtn setModalToggle={setModalToggle} />
       {/* モーダルウィンドウ */}
