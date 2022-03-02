@@ -21,8 +21,9 @@ export const Header = memo(({ root, children, headerOpen }) => {
             <button
               onClick={() => setHeaderToggle(!headerToggle)}
               className={`${[
-                headerToggle && "translate-y-12 delay-500",
-              ]} m-2 transform cursor-pointer transition-all`}
+                headerToggle &&
+                  "translate-y-12 bg-gray-500 text-white delay-500",
+              ]} transform cursor-pointer rounded-full border border-slate-500 p-2 transition-all`}
             >
               {headerToggle ? <BsChevronDoubleDown /> : <BsChevronDoubleUp />}
             </button>
