@@ -80,8 +80,6 @@ export const Content = memo(() => {
     getItems();
   }, [loginUser, update]);
 
-  console.log(bookItems);
-
   // カテゴリごとにデータを抽出して新しい配列に格納
   const diaryArry = bookItems.filter((item) => item.category === "日記");
   const familyArry = bookItems.filter((item) => item.category === "家族");
@@ -222,11 +220,11 @@ export const Content = memo(() => {
               </div>
               <div className="flex flex-col items-center justify-center">
                 <p className="text-bold my-8 flex items-center text-slate-500">
-                  {/* <AiOutlinePlus className="mx-2 text-slate-800" /> */}
+                  <AiOutlinePlus className="mx-2 text-slate-800" />
                   をクリックして追加
                 </p>
                 <p className="flex h-10 w-10 animate-bounce items-center justify-center rounded-full border border-slate-400 bg-white text-slate-800 shadow-md">
-                  {/* <BsArrowDown /> */}
+                  <BsArrowDown />
                 </p>
               </div>
             </div>

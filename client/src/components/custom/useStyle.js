@@ -16,15 +16,15 @@ export const useStyle = () => {
     },
     modalAnimation: {
       // 黒背景
-      base: "fixed transform transition-all -translate-y-full duration-300 top-0 left-0 z-40 h-screen w-screen opacity-0 bg-black bg-opacity-80 flex  justify-center",
+      base: "fixed transform transition-all duration-300 top-0 left-0 z-40 h-screen w-screen opacity-0 bg-black bg-opacity-80 flex items-center justify-center",
       showed:
-        "fixed transform transition-all ease-in top-0 left-0 z-40 duration-300 h-screen w-screen bg-black pt-2 bg-opacity-80 flex justify-center",
+        "fixed transform transition-all ease-in top-0 left-0 z-40 duration-300 h-screen w-screen bg-black pt-2 bg-opacity-80 items-center flex justify-center overflow-hidden",
     },
     modalWindowAnimation: {
       // 白背景
-      base: "flex h-[80%] w-[95%] items-center -translate-y-full opacity-0 justify-center rounded-sm bg-white transform transition-all",
+      base: "flex h-[80%] w-[92%] items-center opacity-0 justify-center rounded-sm bg-white transform transition-all",
       showed:
-        "flex h-[80%] w-[95%] items-center opacity-100 transform transition-all duration-1000 justify-center rounded-sm bg-white overflow-scroll",
+        "flex h-[80%] w-[92%] items-center opacity-100 transform transition-all duration-1000 py-6 justify-center rounded-sm bg-white overflow-scroll",
     },
   };
   // menu-open
