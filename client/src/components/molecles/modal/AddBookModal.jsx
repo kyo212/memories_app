@@ -49,62 +49,50 @@ export const AddBookModal = memo(
     return (
       <>
         {modalToggle && (
-          <div
-            className={[
-              modalToggle ? modalAnimation.showed : modalAnimation.base,
-            ]}
-          >
-            <div
-              className={[
-                modalToggle
-                  ? modalWindowAnimation.showed
-                  : modalWindowAnimation.base,
-              ]}
-            >
-              <div className="flex h-[98%] w-[80%] flex-col items-center">
-                <div className="my-10 flex flex-col text-center">
-                  <div>
-                    <p className="mb-2 text-lg font-bold text-slate-500">
-                      本のタイトル
-                    </p>
-                    <input
-                      type="text"
-                      value={bookName}
-                      autoFocus
-                      placeholder="本のタイトルを入力"
-                      onChange={inputInform}
-                      className={[
-                        `${
-                          errMsgToggle
-                            ? errorBorderMsg.showed
-                            : errorBorderMsg.base
-                        } w-[280px] border-slate-200`,
-                      ]}
-                    />
-                  </div>
-                  <div className="m-8 items-center">
-                    <p className="mb-2 text-lg font-bold text-slate-500">
-                      表紙
-                    </p>
-                    <ImageUrlCreate
-                      coverImage={modalImageUrl}
-                      imageStyle="inline-block h-[260px] w-[285px] border shadow-md"
-                    />
-                  </div>
-                  <div>
-                    <p className="text-lg font-bold text-slate-500">
-                      カテゴリー
-                    </p>
-                    <div className="mt-4 mb-10">
-                      <Tab
-                        animation={modalTabAnimation}
-                        ulClass="my-2"
-                        setCategory={setCategory}
-                      />
-                    </div>
-                  </div>
+          <div className="fixed top-0 left-0 z-40 flex h-screen w-screen transform items-center justify-center overflow-hidden bg-black bg-opacity-80 pt-2 transition-all duration-300 ease-in">
+            <div className="flex h-[80%] w-[92%] transform items-center justify-center overflow-scroll rounded-sm bg-white py-6 opacity-100 transition-all duration-1000">
+              <div className="flex w-[88%] flex-col items-center pt-40">
+                <>
+                  <p className="mb-2 select-none text-lg font-bold text-slate-500">
+                    本のタイトル
+                  </p>
+                  <input
+                    type="text"
+                    value={bookName}
+                    autoFocus
+                    placeholder="本のタイトルを入力"
+                    onChange={inputInform}
+                    className={[
+                      `${
+                        errMsgToggle
+                          ? errorBorderMsg.showed
+                          : errorBorderMsg.base
+                      } w-[280px] border-slate-200`,
+                    ]}
+                  />
+                </>
+                <div className="m-8 items-center">
+                  <p className="mb-2 select-none text-center text-lg font-bold text-slate-500">
+                    フォトブックの表紙
+                  </p>
+                  <ImageUrlCreate
+                    coverImage={modalImageUrl}
+                    imageStyle="inline-block h-[260px] w-[285px] border shadow-md"
+                  />
                 </div>
-                <div className="flex">
+                <>
+                  <p className="select-none text-lg font-bold text-slate-500">
+                    カテゴリー
+                  </p>
+                  <div className="mt-4 mb-10">
+                    <Tab
+                      animation={modalTabAnimation}
+                      ulClass="my-2"
+                      setCategory={setCategory}
+                    />
+                  </div>
+                </>
+                <>
                   {/* 追加ボタン */}
                   <button
                     onClick={insertItem}
@@ -112,16 +100,16 @@ export const AddBookModal = memo(
                   >
                     本を追加する
                   </button>
-                  {/* 閉じるボタン */}
-                  <button
-                    className="p-4 text-4xl text-gray-600 hover:bg-black hover:bg-opacity-40 hover:text-white"
-                    onClick={closeButton}
-                  >
-                    <AiOutlinePlus className="rotate-45 transform" />
-                  </button>
-                </div>
+                </>
               </div>
             </div>
+            {/* 閉じるボタン */}
+            <button
+              className="fixed right-[4%] bottom-[10%] p-4 text-4xl text-gray-600 hover:bg-black hover:bg-opacity-40 hover:text-white"
+              onClick={closeButton}
+            >
+              <AiOutlinePlus className="rotate-45 transform" />
+            </button>
           </div>
         )}
       </>
