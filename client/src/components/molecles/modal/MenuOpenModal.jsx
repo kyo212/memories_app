@@ -17,13 +17,13 @@ export const MenuOpenModal = ({ loginUser }) => {
 
   return (
     <>
-      <span
+      <button
         className={[
           modalToggle ? menuOpenBtnAnimation.showed : menuOpenBtnAnimation.base,
         ]}
       >
         <VscTriangleDown onClick={modalOpenClose} className="transform scale-125"/>
-      </span>
+      </button>
       <div
         className={[
           modalToggle ? menuOpenAnimation.showed : menuOpenAnimation.base,

@@ -1,17 +1,10 @@
-import {
-  memo,
-  useState,
-  useEffect,
-  useContext,
-  useCallback,
-  useMemo,
-  useLayoutEffect,
-} from "react";
+import { memo, useState, useEffect, useContext, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
 // アイコン
 import { AiOutlinePlus } from "react-icons/ai";
 import { BsArrowDown } from "react-icons/bs";
+import { BsChevronDoubleUp } from "react-icons/bs";
 // コンポーネント UI系
 import { FooterTab } from "../molecles/tabs/FooterTab";
 import { Header } from "../organisms/Header";
@@ -184,10 +177,11 @@ export const Content = memo(() => {
     <>
       {/* ヘッダー */}
       <Header root={"/mybooks"}>
-        <span className="flex items-center">
+        <div className="flex items-center">
           <Search />
           <MenuOpenModal loginUser={loginUser} />
-        </span>
+          <BsChevronDoubleUp />
+        </div>
       </Header>
       {/* メインコンテンツ */}
       <div className="flex h-screen w-screen snap-y snap-mandatory flex-col overflow-scroll text-center">
