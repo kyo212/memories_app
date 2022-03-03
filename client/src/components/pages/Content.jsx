@@ -154,7 +154,8 @@ export const Content = memo(() => {
     await Axios.delete(
       `http://${process.env.REACT_APP_PUBLIC_IP}/delete/${id}`
     ).then((response) => {
-      setUpdate(!update);
+      setBookItems([]); // ステートを初期化してから
+      setUpdate(!update); // 情報を取得する
     });
   };
 
@@ -189,7 +190,7 @@ export const Content = memo(() => {
                 >
                   {/* <p className="">{`${index + 1} / ${filterCategoryArrays.length}`}</p> */}
                   <Books
-                    Items={item}
+                    items={item}
                     deleteItem={deleteItem}
                     favoriteState={favoriteState}
                   />

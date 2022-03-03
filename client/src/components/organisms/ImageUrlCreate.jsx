@@ -1,10 +1,12 @@
 import { memo, useContext } from "react";
+// コンテキスト
 import { Context } from "../../App";
 
-export const ImageUrlCreate = memo(({ coverImage, imageStyle }) => {
+export const ImageUrlCreate = memo(({ coverImage, imageStyle, acceptType }) => {
   const { setFileUrl, setModalImageUrl } = useContext(Context);
 
   const processImage = (e) => {
+    // 拡張子で分岐 videoはvideoUrl
     const imageFile = e.target.files[0];
     const imageUrl = URL.createObjectURL(imageFile);
     setModalImageUrl(imageUrl);
@@ -17,9 +19,8 @@ export const ImageUrlCreate = memo(({ coverImage, imageStyle }) => {
     <label className={`${imageStyle}`}>
       <input
         type="file"
-        // onClick={() => window.confirm("変更しますか？")}
         onChange={processImage}
-        accept="image/*"
+        accept={acceptType}
         className="hidden"
       />
       <img
@@ -28,6 +29,7 @@ export const ImageUrlCreate = memo(({ coverImage, imageStyle }) => {
         alt="表紙の画像"
         className="h-full w-full object-cover"
       />
+      {/* <video src={coverImage} className="h-full w-full object-cover"></video> */}
     </label>
   );
 });

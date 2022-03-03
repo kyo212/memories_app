@@ -9,7 +9,7 @@ import { ConfirmWindow } from "../atoms/message/ConfirmWindow";
 // カスタムフック
 import { useStyle } from "../custom/useStyle";
 
-export const Books = memo(({ Items, deleteItem, favoriteState }) => {
+export const Books = memo(({ items, deleteItem, favoriteState }) => {
   const [bookOpen, setBookOpen] = useState(false);
   // カスタムフック
   const { bookOpenAnimation } = useStyle();
@@ -41,7 +41,8 @@ export const Books = memo(({ Items, deleteItem, favoriteState }) => {
   return (
     <>
       <div className="flex h-screen w-screen snap-x items-center overflow-x-scroll scroll-smooth">
-        {Items.map((item, index) => {
+        {items.map((item, index) => {
+          console.log(items);
           return (
             <div
               key={item.bookId}
@@ -131,7 +132,7 @@ export const Books = memo(({ Items, deleteItem, favoriteState }) => {
                     -{/* index → オブジェクトごとの数字 */}
                     {/* Items.length → Items配列の中のオブジェクトの総数 */}
                     <span className="mx-4 font-bold">{`${index + 1} / ${
-                      Items.length
+                      items.length
                     }`}</span>
                     -
                   </p>
@@ -145,7 +146,7 @@ export const Books = memo(({ Items, deleteItem, favoriteState }) => {
         className={[
           confirmWindowOpen
             ? "absolute top-0 left-0 z-50 flex h-screen w-screen transform items-center justify-center overflow-hidden transition-transform duration-500"
-            : "absolute top-0 left-0 z-50 flex h-screen w-screen -translate-x-full transform items-center justify-center overflow-hidden duration-500 transition-transform",
+            : "absolute top-0 left-0 z-50 flex h-screen w-screen -translate-x-full transform items-center justify-center overflow-hidden transition-transform duration-500",
         ]}
       >
         <div>
