@@ -18,10 +18,9 @@ code {
     monospace;
 }
 
-a {
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-}
-button {
+a,
+button,
+input {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   user-select: none;
   outline: none;

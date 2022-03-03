@@ -22,8 +22,8 @@ export const Search = () => {
   return (
     <button
       className={`${[
-        searchToggle && "bg-gray-500 text-white ",
-      ]} flex items-center rounded-full border border-gray-500 text-gray-500`}
+        searchToggle ? "bg-gray-500 text-white" : "text-gray-500",
+      ]} flex items-center rounded-full border border-gray-500`}
     >
       <input
         type="text"
