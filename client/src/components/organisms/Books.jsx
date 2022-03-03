@@ -80,7 +80,7 @@ export const Books = memo(({ Items, deleteItem, favoriteState }) => {
                   <div // ひらいた後の要素
                     className={
                       bookOpen && item.bookId
-                        ? "transform text-slate-600 transition-all delay-100 duration-300"
+                        ? "transform text-slate-600 transition-all delay-300 duration-300"
                         : "transform text-slate-600 opacity-0 transition-all"
                     }
                   >
