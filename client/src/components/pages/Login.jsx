@@ -1,4 +1,4 @@
-import { memo, useState, useEffect } from "react";
+import { memo, useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
 // カスタムフック
@@ -11,6 +11,8 @@ import { ErrorMsgWindow } from "../atoms/message/ErrorMsgWindow";
 // サードパーティ
 import { BsFillEyeFill } from "react-icons/bs";
 import { BsFillEyeSlashFill } from "react-icons/bs";
+// コンテキスト
+import { Context } from "../../App";
 
 // ------------------------------------------
 // ログイン画面のコンポーネント
@@ -28,6 +30,8 @@ export const Login = memo(() => {
   // カスタムフック
   const { messageWindow } = useStyle(); // アニメーション
   const { errorBorderMsg } = messageWindow;
+  // コンテキスト
+  const { headerToggle, setHeaderToggle } = useContext(Context);
 
   useEffect(() => {
     // セッション情報によってルートを制限する
@@ -76,7 +80,7 @@ export const Login = memo(() => {
 
   return (
     <>
-      <Header root={"/"}>
+      <Header root={"/"} headerOpen={{ headerToggle, setHeaderToggle }}>
         <HeaderRegBtn />
       </Header>
       <div className="flex h-screen w-screen items-center justify-center bg-white">

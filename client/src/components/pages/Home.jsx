@@ -1,4 +1,4 @@
-import { memo, useEffect, useState } from "react";
+import { memo, useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
 // コンポーネント
@@ -10,6 +10,8 @@ import { Header } from "../organisms/Header";
 import { TabInform } from "../molecles/tabs/TabInform";
 // カスタムフック
 import { useStyle } from "../custom/useStyle";
+// コンテキスト
+import { Context } from "../../App";
 
 export const Home = memo(() => {
   const navigate = useNavigate();
@@ -17,6 +19,8 @@ export const Home = memo(() => {
   // カスタムフック
   const { tabs } = useStyle();
   const { tabAnimation } = tabs;
+  // コンテキスト
+  const { headerToggle, setHeaderToggle } = useContext(Context);
   // スタイル共通化
   const commonStyle = "mb-10 pb-10 flex w-full justify-center text-center";
   const sentenceStyle = "w-[85%] leading-6";
@@ -36,7 +40,7 @@ export const Home = memo(() => {
   return (
     <>
       <header>
-        <Header root={"/"}>
+        <Header root={"/"} headerOpen={{ headerToggle, setHeaderToggle }}>
           <HeaderLoginBtn />
           <HeaderRegBtn />
         </Header>

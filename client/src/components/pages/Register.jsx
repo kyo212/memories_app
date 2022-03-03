@@ -1,4 +1,4 @@
-import { memo, useEffect, useState } from "react";
+import { memo, useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
 
@@ -10,8 +10,10 @@ import { ErrorMsgWindow } from "../atoms/message/ErrorMsgWindow";
 // サードパーティ
 import { BsFillEyeFill } from "react-icons/bs";
 import { BsFillEyeSlashFill } from "react-icons/bs";
-import { useStyle } from "../custom/useStyle";
 // カスタムフック
+import { useStyle } from "../custom/useStyle";
+// コンテキスト
+import { Context } from "../../App";
 
 export const Register = memo(() => {
   const navigate = useNavigate();
@@ -28,6 +30,8 @@ export const Register = memo(() => {
   // カスタムフック
   const { messageWindow } = useStyle();
   const { errorBorderMsg } = messageWindow;
+  // コンテキスト
+  const { headerToggle, setHeaderToggle } = useContext(Context);
 
   // セッション情報によってルートを制限する
   useEffect(() => {
@@ -95,7 +99,7 @@ export const Register = memo(() => {
 
   return (
     <>
-      <Header root={"/"}>
+      <Header root={"/"} headerOpen={{ headerToggle, setHeaderToggle }}>
         <HeaderLoginBtn />
       </Header>
       <div className="flex h-screen w-screen items-center justify-center bg-white">
