@@ -134,12 +134,14 @@ export const Content = memo(() => {
               setDefaultIndex(true); // タブのアニメーションをデフォルトに戻す
               setSucMsgToggle(true); // 追加完了のメッセージを出す
               setModalImageUrl(""); // 画像プレビューをデフォルト状態に戻す
-              setUpdate(!update);
               // 3秒後にメッセージを閉じる
               setTimeout(() => {
-                setSucMsgToggle(false);
-                setCategory("日記"); // タブの初期値をデフォルトに戻す
-              }, 3000);
+                setUpdate(!update);
+                setTimeout(() => {
+                  setSucMsgToggle(false);
+                  setCategory("日記"); // タブの初期値をデフォルトに戻す
+                });
+              }, 1000);
             });
           } else {
             setErrMsgToggle(true);
