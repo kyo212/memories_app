@@ -27,7 +27,7 @@ export const Content = memo(() => {
   const navigate = useNavigate();
   // 情報
   const [bookName, setBookName] = useState("");
-  const [category, setCategory] = useState("日記");
+  const [category, setCategory] = useState("diary");
   const [loginUser, setLoginUser] = useState(""); // ログイン中のusername
   const [bookItems, setBookItems] = useState([]);
   // Toggle
@@ -73,15 +73,17 @@ export const Content = memo(() => {
   }, [loginUser, update]);
 
   // カテゴリごとにデータを抽出して新しい配列に格納
-  const diaryArry = bookItems.filter((item) => item.category === "日記");
-  const familyArry = bookItems.filter((item) => item.category === "家族");
-  const childArry = bookItems.filter((item) => item.category === "子供");
-  const petArry = bookItems.filter((item) => item.category === "ペット");
-  const hobyArry = bookItems.filter((item) => item.category === "趣味");
-  const friendArry = bookItems.filter((item) => item.category === "友達");
-  const loverArry = bookItems.filter((item) => item.category === "恋人");
-  const travelArry = bookItems.filter((item) => item.category === "旅行");
-  const workArry = bookItems.filter((item) => item.category === "作品");
+  const diaryArry = bookItems.filter((item) => item.category === "diary");
+  const familyArry = bookItems.filter((item) => item.category === "family");
+  const childArry = bookItems.filter((item) => item.category === "child");
+  const petArry = bookItems.filter((item) => item.category === "pet");
+  const hobyArry = bookItems.filter((item) => item.category === "hoby");
+  const friendArry = bookItems.filter((item) => item.category === "friend");
+  const loverArry = bookItems.filter((item) => item.category === "lover");
+  const travelArry = bookItems.filter((item) => item.category === "travel");
+  const portfolioArry = bookItems.filter(
+    (item) => item.category === "portfolio"
+  );
 
   // カテゴリごとに抽出したデータの配列を一つの配列にまとめる
   // 構造 → 配列の中に配列、その中にオブジェクト // [[{},{}],[{},{}]]
@@ -94,7 +96,7 @@ export const Content = memo(() => {
     friendArry,
     loverArry,
     travelArry,
-    workArry,
+    portfolioArry,
   ];
   // 値が1つ以上格納されているカテゴリーを抽出
   const filterCategoryArrays = categoryArrays.filter((item) => item.length > 0);
@@ -139,7 +141,7 @@ export const Content = memo(() => {
                 setUpdate(!update);
                 setTimeout(() => {
                   setSucMsgToggle(false);
-                  setCategory("日記"); // タブの初期値をデフォルトに戻す
+                  setCategory("diary"); // タブの初期値をデフォルトに戻す
                 });
               }, 1000);
             });
@@ -237,7 +239,8 @@ export const Content = memo(() => {
       />
       <SuccessMsgWindow
         msgToggle={sucMsgToggle}
-        msgText={`"${category}"に新しく本を追加しました。`}
+        category={category}
+        msgText="に新しく本を追加しました。"
         headerText="成功"
       />
       <FooterTab />

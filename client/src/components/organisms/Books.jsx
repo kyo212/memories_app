@@ -1,4 +1,5 @@
 import { memo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 // アイコン
 import { BsReply } from "react-icons/bs";
 import { BsReplyFill } from "react-icons/bs";
@@ -6,14 +7,17 @@ import { BsReplyFill } from "react-icons/bs";
 import { BookRibbon } from "../atoms/style/BookRibbon";
 import { ImageUrlCreate } from "./ImageUrlCreate";
 import { ConfirmWindow } from "../atoms/message/ConfirmWindow";
+import { ChangeJapanese } from "../atoms/ChangeJapanese";
 // カスタムフック
 import { useStyle } from "../custom/useStyle";
 
 export const Books = memo(({ items, deleteItem, favoriteState }) => {
-  const [bookOpen, setBookOpen] = useState(false);
+  // ナビゲーション
+  const navigate = useNavigate();
   // カスタムフック
   const { bookOpenAnimation } = useStyle();
   // Toggle
+  const [bookOpen, setBookOpen] = useState(false);
   const [confirmWindowOpen, setConfirmWindowOpen] = useState(false);
   // 情報
   const [deleteId, setDeleteId] = useState();
@@ -86,7 +90,10 @@ export const Books = memo(({ items, deleteItem, favoriteState }) => {
                   >
                     {bookOpen && item.bookId && (
                       <>
-                        <button className="absolute top-0 right-0 my-1 mr-1 border-b py-[2px] px-[5px] text-[10px] hover:font-bold">
+                        <button
+                          onClick={() => navigate(`${item.category}`)}
+                          className="absolute top-0 right-0 my-1 mr-1 border-b py-[2px] px-[5px] text-[10px] hover:font-bold"
+                        >
                           ひらく
                         </button>
                         <button
@@ -119,7 +126,9 @@ export const Books = memo(({ items, deleteItem, favoriteState }) => {
                       <p className="border-b">{item.bookName}</p>
                       <div className="mt-2 flex select-none flex-col items-center text-[12px] leading-5 text-slate-400">
                         <p>{item.date}</p>
-                        <p>{item.category}</p>
+                        <p>
+                          <ChangeJapanese category={item.category} />
+                        </p>
                       </div>
                     </div>
                     <ImageUrlCreate

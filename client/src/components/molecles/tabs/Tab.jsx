@@ -1,20 +1,21 @@
 import { memo, useState, useContext, useEffect } from "react";
 // コンテキスト
 import { Context } from "../../../App";
+import { ChangeJapanese } from "../../atoms/ChangeJapanese";
 
 export const Tab = memo(({ animation, ulClass, setCategory }) => {
   // 情報
-  const [tabListSelected, setTabListSelected] = useState("日記");
+  const [tabListSelected, setTabListSelected] = useState("diary");
   const tabList = [
-    "日記",
-    "家族",
-    "子供",
-    "ペット",
-    "趣味",
-    "友達",
-    "恋人",
-    "旅行",
-    "作品",
+    "diary",
+    "family",
+    "child",
+    "pet",
+    "hoby",
+    "friend",
+    "lover",
+    "travel",
+    "portfolio",
   ];
   // コンテキスト
   const { defaultIndex, setDefaultIndex } = useContext(Context);
@@ -45,7 +46,9 @@ export const Tab = memo(({ animation, ulClass, setCategory }) => {
             ]}
             onClick={() => tabCliced(index)}
           >
-            <button className="cursor-pointer">{tab}</button>
+            <button className="cursor-pointer">
+              <ChangeJapanese category={tab} />
+            </button>
           </li>
         ))}
       </ul>
