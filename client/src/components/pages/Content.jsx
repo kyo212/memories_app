@@ -26,7 +26,7 @@ import { Context } from "../../App";
 export const Content = memo(() => {
   const navigate = useNavigate();
   // 情報
-  const [bookName, setBookName] = useState("");
+  const [bookTitle, setBookTitle] = useState("");
   const [category, setCategory] = useState("diary");
   const [loginUser, setLoginUser] = useState(""); // ログイン中のusername
   const [bookItems, setBookItems] = useState([]);
@@ -117,14 +117,14 @@ export const Content = memo(() => {
         const coverImage = url.split("?")[0];
 
         const insert = async () => {
-          if (fileUrl !== "" && bookName !== "") {
+          if (fileUrl !== "" && bookTitle !== "") {
             // 入力した情報をDBに追加
             console.log(category);
             await Axios.post(
               `http://${process.env.REACT_APP_PUBLIC_IP}/insert`,
               {
                 username: loginUser,
-                bookName,
+                bookTitle,
                 coverImage,
                 category,
               }
@@ -132,7 +132,7 @@ export const Content = memo(() => {
               const { result, err } = response.data;
               console.log({ result, err });
               setModalToggle(false); // モーダルを閉じる
-              setBookName(""); // タイトルをデフォルト状態に戻す
+              setBookTitle(""); // タイトルをデフォルト状態に戻す
               setDefaultIndex(true); // タブのアニメーションをデフォルトに戻す
               setSucMsgToggle(true); // 追加完了のメッセージを出す
               setModalImageUrl(""); // 画像プレビューをデフォルト状態に戻す
@@ -142,7 +142,7 @@ export const Content = memo(() => {
                 setTimeout(() => {
                   setSucMsgToggle(false);
                   setCategory("diary"); // タブの初期値をデフォルトに戻す
-                });
+                }, 2000);
               }, 1000);
             });
           } else {
@@ -231,8 +231,8 @@ export const Content = memo(() => {
       <AddBookBtn setModalToggle={setModalToggle} />
       {/* モーダルウィンドウ */}
       <AddBookModal
-        bookListItems={{ bookName, category }}
-        setBookListItems={{ setBookName, setCategory }}
+        bookListItems={{ bookTitle, category }}
+        setBookListItems={{ setBookTitle, setCategory }}
         toggle={{ modalToggle, setModalToggle }}
         insertItem={insertItem}
         msgShow={{ errMsgToggle, setErrMsgToggle }}

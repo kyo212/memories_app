@@ -42,6 +42,10 @@ export const Books = memo(({ items, deleteItem, favoriteState }) => {
     setBookOpen(false);
   };
 
+  const toCategoryComponent = (category, id, title, username) => {
+    navigate(`${category}`, { state: { id, title, username } });
+  };
+
   return (
     <>
       <div className="flex h-screen w-screen snap-x items-center overflow-x-scroll scroll-smooth">
@@ -91,7 +95,14 @@ export const Books = memo(({ items, deleteItem, favoriteState }) => {
                     {bookOpen && item.bookId && (
                       <>
                         <button
-                          onClick={() => navigate(`${item.category}`)}
+                          onClick={() =>
+                            toCategoryComponent(
+                              item.category,
+                              item.bookId,
+                              item.bookTitle,
+                              item.username
+                            )
+                          }
                           className="absolute top-0 right-0 my-1 mr-1 border-b py-[2px] px-[5px] text-[10px] hover:font-bold"
                         >
                           ひらく
@@ -123,7 +134,7 @@ export const Books = memo(({ items, deleteItem, favoriteState }) => {
                   {/* 表紙 */}
                   <div className="z-10 flex h-[400px] w-80 flex-col items-center rounded-sm  border border-slate-300 bg-white text-slate-700 shadow-inner sm:h-[600px] sm:w-[500px]">
                     <div className="text-bold flax mt-8 mb-4 flex-col text-center text-lg">
-                      <p className="border-b">{item.bookName}</p>
+                      <p className="border-b">{item.bookTitle}</p>
                       <div className="mt-2 flex select-none flex-col items-center text-[12px] leading-5 text-slate-400">
                         <p>{item.date}</p>
                         <p>

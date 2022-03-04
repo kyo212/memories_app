@@ -172,7 +172,7 @@ app.post("/getItems", async (req, res) => {
 });
 
 app.post("/insert", async (req, res) => {
-  const { username, bookName, coverImage, category } = req.body;
+  const { username, bookTitle, coverImage, category } = req.body;
 
   // date
   const createYear = new Date().getFullYear();
@@ -181,13 +181,13 @@ app.post("/insert", async (req, res) => {
   const date = `${createYear}/${createMonth + 1}/${createDate}`;
 
   const sqlInsert =
-    "INSERT INTO book_list (username,bookName,coverImage,category,date,favorite) VALUES (?,?,?,?,?,?)";
+    "INSERT INTO book_list (username,bookTitle,coverImage,category,date,favorite) VALUES (?,?,?,?,?,?)";
   // usernameは自動で入力される。dateとfavoriteはデフォルト値を設定
   // coverImage !== ""
-  if (coverImage !== "" && bookName !== "") {
+  if (coverImage !== "" && bookTitle !== "") {
     await db.query(
       sqlInsert,
-      [username, bookName, coverImage, category, date, (favorite = 0)],
+      [username, bookTitle, coverImage, category, date, (favorite = 0)],
       (err, result) => {
         res.json({ result: result, err: err });
       }

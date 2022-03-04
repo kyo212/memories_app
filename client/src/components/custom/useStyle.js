@@ -44,7 +44,7 @@ export const useStyle = () => {
     successMsg: {
       base: "w-64 translate-y-10 transform fixed top-10 left-1/2 -translate-x-1/2 opacity-0 transition-all",
       showed:
-        "w-64 border-b border-green-800 fixed top-16 left-1/2 -translate-x-1/2 bg-green-600 bg-opacity-10 px-4 py-2 text-sm text-green-800 opacity-100 transition-all duration-500",
+        "w-64 border-b border-green-800 fixed top-16 left-1/2 -translate-x-1/2 bg-green-600 bg-opacity-10 px-4 py-2 text-sm text-green-800 opacity-100 transition-all",
     },
     errorBorderMsg: {
       base: "w-full rounded border border-slate-400 px-4 py-2",

@@ -22,26 +22,26 @@ export const AddBookModal = memo(
     // props
     const { errMsgToggle, setErrMsgToggle } = msgShow;
     const { modalToggle, setModalToggle } = toggle;
-    const { setBookName, setCategory } = setBookListItems;
+    const { setBookTitle, setCategory } = setBookListItems;
     const { bookName } = bookListItems;
     // カスタムフック
     const { modals, messageWindow } = useStyle();
-    const { modalAnimation, modalWindowAnimation, modalTabAnimation } = modals;
+    const { modalTabAnimation } = modals;
     const { errorBorderMsg } = messageWindow;
     // コンテキスト
     const { modalImageUrl, setDefaultIndex, setModalImageUrl } =
       useContext(Context);
 
     const inputInform = (e) => {
-      setBookName(e.target.value);
+      setBookTitle(e.target.value);
       setErrMsgToggle(false);
     };
 
     const closeButton = () => {
       setModalToggle(false);
       setErrMsgToggle(false);
-      setCategory("日記");
-      setBookName("");
+      setCategory("diary");
+      setBookTitle("");
       setDefaultIndex(true);
       setModalImageUrl("");
     };

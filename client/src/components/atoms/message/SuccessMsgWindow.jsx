@@ -11,13 +11,11 @@ export const SuccessMsgWindow = memo(
 
     return (
       <>
-        {msgToggle && (
-          <p className={[msgToggle ? successMsg.showed : successMsg.base]}>
-            <span className="mr-2 font-bold">{headerText}:</span>
-            <ChangeJapanese category={category} />
-            {msgText}
-          </p>
-        )}
+        <p className={[msgToggle ? successMsg.showed : successMsg.base]}>
+          <span className="mr-2 font-bold">{headerText}:</span>
+          <ChangeJapanese category={category} />
+          {msgText}
+        </p>
       </>
     );
   }
