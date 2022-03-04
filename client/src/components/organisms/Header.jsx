@@ -28,13 +28,13 @@ export const Header = memo(({ root, children, headerOpen }) => {
             <a href={root}>memories</a>
           </h1>
           <div className="mx-4 flex h-12 items-center">
-            {children}
+            <div className="flex h-full items-center space-x-2">{children}</div>
             <button
               onClick={headerOpenClose}
               className={`${[
                 headerToggle &&
                   "translate-y-12 bg-gray-500 text-white delay-500",
-              ]} transform cursor-pointer rounded-full border border-slate-500 p-2 transition-all`}
+              ]} ml-2 transform cursor-pointer rounded-full border border-slate-500 p-2 transition-all`}
             >
               {headerToggle ? <BsChevronDoubleDown /> : <BsChevronDoubleUp />}
             </button>
