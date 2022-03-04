@@ -18,9 +18,9 @@ export const useStyle = () => {
   // menu-open
   const menuOpens = {
     menuOpenBtnAnimation: {
-      base: "transform text-gray-500 mx-3 border border-gray-500 rounded-full p-2 transition-all",
+      base: "transform text-gray-500 ml-2 border border-gray-500 rounded-full p-2 transition-all",
       showed:
-        "rotate-180 transform p-2 mx-3 bg-gray-500 text-white border border-gray-500 rounded-full transition-all",
+        "rotate-180 transform p-2 ml-2 bg-gray-500 text-white border border-gray-500 rounded-full transition-all",
     },
     menuOpenAnimation: {
       base: "fixed top-14 right-6 w-60 rounded-md border bg-white px-3 text-sm text-slate-700 opacity-0 shadow-md",

@@ -29,7 +29,7 @@ export const Content = memo(() => {
   // 情報
   const [bookTitle, setBookTitle] = useState("");
   const [category, setCategory] = useState("diary");
-  const [loginUser, setLoginUser] = useState("kyo"); // ログイン中のusername
+  const [loginUser, setLoginUser] = useState(""); // ログイン中のusername
   const [bookItems, setBookItems] = useState([]);
   // Toggle
   const [modalToggle, setModalToggle] = useState(false);

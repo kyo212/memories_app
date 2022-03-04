@@ -20,8 +20,7 @@ export const Books = memo(({ items, deleteItem, favoriteState }) => {
   const [bookOpen, setBookOpen] = useState(false);
   const [confirmWindowOpen, setConfirmWindowOpen] = useState(false);
   // 情報
-  const [deleteId, setDeleteId] = useState();
-
+  const [deleteInform, setDeleteInform] = useState({});
   // スタイル共通化
   const bookStyle =
     "absolute -z-20 flex h-[400px] w-80 sm:h-[600px] sm:w-[500px] border bg-gray-100 text-slate-70 block border-slate-400";
@@ -32,9 +31,9 @@ export const Books = memo(({ items, deleteItem, favoriteState }) => {
     setBookOpen(!bookOpen);
   };
 
-  const deleteItemToggle = (id) => {
+  const deleteItemToggle = (id, title, favorite) => {
     setConfirmWindowOpen(true); // 確認ダイアログを出現
-    setDeleteId(id); // 削除するアイテムのidを保持
+    setDeleteInform({ id, title, favorite }); // 削除するアイテムのidを保持
   };
 
   const favoriteBtnToggle = (id, num) => {
@@ -108,7 +107,13 @@ export const Books = memo(({ items, deleteItem, favoriteState }) => {
                           ひらく
                         </button>
                         <button
-                          onClick={() => deleteItemToggle(item.bookId)}
+                          onClick={() =>
+                            deleteItemToggle(
+                              item.bookId,
+                              item.bookTitle,
+                              item.favorite
+                            )
+                          }
                           className="absolute top-4 right-0 mr-1 mt-3 border-b py-[2px] px-[5px] text-[10px] hover:font-bold"
                         >
                           すてる
@@ -168,15 +173,13 @@ export const Books = memo(({ items, deleteItem, favoriteState }) => {
             : "absolute top-0 left-0 z-50 flex h-screen w-screen -translate-x-full transform items-center justify-center overflow-hidden transition-transform duration-500",
         ]}
       >
-        <div>
-          <ConfirmWindow
-            message="削除しますか？"
-            deleteId={deleteId}
-            deleteItem={deleteItem}
-            setConfirmWindowOpen={setConfirmWindowOpen}
-            setBookOpen={setBookOpen}
-          />
-        </div>
+        <ConfirmWindow
+          message="削除しますか？"
+          deleteInform={deleteInform} // 削除するアイテムのid
+          deleteItem={deleteItem} // 削除する関数
+          setConfirmWindowOpen={setConfirmWindowOpen}
+          setBookOpen={setBookOpen}
+        />
       </div>
     </>
   );
