@@ -4,6 +4,7 @@ import Axios from "axios";
 // アイコン
 import { AiOutlinePlus } from "react-icons/ai";
 import { BsArrowDown } from "react-icons/bs";
+import { CgSpinner } from "react-icons/cg";
 // コンポーネント UI系
 import { FooterTab } from "../molecles/tabs/FooterTab";
 import { Header } from "../organisms/Header";
@@ -28,10 +29,11 @@ export const Content = memo(() => {
   // 情報
   const [bookTitle, setBookTitle] = useState("");
   const [category, setCategory] = useState("diary");
-  const [loginUser, setLoginUser] = useState(""); // ログイン中のusername
+  const [loginUser, setLoginUser] = useState("kyo"); // ログイン中のusername
   const [bookItems, setBookItems] = useState([]);
   // Toggle
   const [modalToggle, setModalToggle] = useState(false);
+  const [loading, setLoading] = useState(false);
   // メッセージ
   const [errMsgToggle, setErrMsgToggle] = useState(false);
   const [sucMsgToggle, setSucMsgToggle] = useState(false);
@@ -157,9 +159,10 @@ export const Content = memo(() => {
   const deleteItem = async (id) => {
     await Axios.delete(
       `http://${process.env.REACT_APP_PUBLIC_IP}/delete/${id}`
-    ).then((response) => {
-      setBookItems([]); // ステートを初期化してから
-      setUpdate(!update); // 情報を取得する
+    ).then(() => {
+      // DBから値を消してもstateには残っているため最後だけ初期化する
+      bookItems.length === 1 && setBookItems([]);
+      setUpdate(!update);
     });
   };
 
@@ -170,6 +173,10 @@ export const Content = memo(() => {
     });
     setUpdate(!update);
   };
+
+  // リロードの間、loading画面を表示させる
+  // この記述がないとloadingがすぐtrueになってしまい、"まだなにもありません"が表示されてしまう
+  useEffect(() => setTimeout(() => setLoading(true), 1000), []);
 
   return (
     <>
@@ -204,25 +211,38 @@ export const Content = memo(() => {
           </>
         ) : (
           <>
-            <div className="flex h-screen w-screen flex-col items-center justify-around">
-              <div className="">
-                <p className="text-bold my-2 text-xl font-bold text-slate-500">
-                  まだ何もありません
-                </p>
-                <p className="text-bold text-slate-500">
-                  まずは本を追加してみましょう
-                </p>
+            {loading ? (
+              // リロード中はstateがデフォルト値になるから、stateがデフォルト値(リロード中)の場合はloadingを表示させるようにする処理
+              <>
+                <>
+                  <div className="flex h-screen w-screen flex-col items-center justify-around">
+                    <div className="">
+                      <p className="text-bold my-2 text-xl font-bold text-slate-500">
+                        まだ何もありません
+                      </p>
+                      <p className="text-bold text-slate-500">
+                        まずは本を追加してみましょう
+                      </p>
+                    </div>
+                    <div className="flex flex-col items-center justify-center">
+                      <p className="text-bold my-8 flex items-center text-slate-500">
+                        <AiOutlinePlus className="mx-2 text-slate-800" />
+                        をクリックして追加
+                      </p>
+                      <p className="flex h-10 w-10 animate-bounce items-center justify-center rounded-full border border-slate-400 bg-white text-slate-800 shadow-md">
+                        <BsArrowDown />
+                      </p>
+                    </div>
+                  </div>
+                </>
+              </>
+            ) : (
+              <div className="flex h-screen w-screen items-center justify-center">
+                <span className="animate-spin text-4xl text-gray-500">
+                  <CgSpinner />
+                </span>
               </div>
-              <div className="flex flex-col items-center justify-center">
-                <p className="text-bold my-8 flex items-center text-slate-500">
-                  <AiOutlinePlus className="mx-2 text-slate-800" />
-                  をクリックして追加
-                </p>
-                <p className="flex h-10 w-10 animate-bounce items-center justify-center rounded-full border border-slate-400 bg-white text-slate-800 shadow-md">
-                  <BsArrowDown />
-                </p>
-              </div>
-            </div>
+            )}
           </>
         )}
       </div>
