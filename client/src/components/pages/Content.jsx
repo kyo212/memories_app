@@ -4,13 +4,13 @@ import Axios from "axios";
 // アイコン
 import { AiOutlinePlus } from "react-icons/ai";
 import { BsArrowDown } from "react-icons/bs";
-import { CgSpinner } from "react-icons/cg";
 // コンポーネント UI系
 import { FooterTab } from "../molecles/tabs/FooterTab";
 import { Header } from "../organisms/Header";
 import { Books } from "../organisms/Books";
 import { SuccessMsgWindow } from "../atoms/message/SuccessMsgWindow";
 import { Search } from "../atoms/Search";
+import { Loading } from "../atoms/style/Loading";
 // コンポーネント 処理系
 import { MenuOpenModal } from "../molecles/modal/MenuOpenModal";
 import { AddBookBtn } from "../atoms/button/AddBookBtn";
@@ -237,11 +237,7 @@ export const Content = memo(() => {
                 </>
               </>
             ) : (
-              <div className="flex h-screen w-screen items-center justify-center">
-                <span className="animate-spin text-4xl text-gray-500">
-                  <CgSpinner />
-                </span>
-              </div>
+              <Loading />
             )}
           </>
         )}

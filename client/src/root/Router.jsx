@@ -43,7 +43,6 @@ export const Router = memo(() => {
         <Route path="login/*" element={<NotFound />} />
         <Route path="register/*" element={<NotFound />} />
         <Route path="mybooks/*" element={<NotFound />} />
-        <Route path="mybooks/book/*" element={<NotFound />} />
       </Routes>
     </div>
   );
