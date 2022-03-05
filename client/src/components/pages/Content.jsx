@@ -74,35 +74,6 @@ export const Content = memo(() => {
     getItems();
   }, [loginUser, update]);
 
-  // カテゴリごとにデータを抽出して新しい配列に格納
-  const diaryArry = bookItems.filter((item) => item.category === "diary");
-  const familyArry = bookItems.filter((item) => item.category === "family");
-  const childArry = bookItems.filter((item) => item.category === "child");
-  const petArry = bookItems.filter((item) => item.category === "pet");
-  const hobyArry = bookItems.filter((item) => item.category === "hoby");
-  const friendArry = bookItems.filter((item) => item.category === "friend");
-  const loverArry = bookItems.filter((item) => item.category === "lover");
-  const travelArry = bookItems.filter((item) => item.category === "travel");
-  const portfolioArry = bookItems.filter(
-    (item) => item.category === "portfolio"
-  );
-
-  // カテゴリごとに抽出したデータの配列を一つの配列にまとめる
-  // 構造 → 配列の中に配列、その中にオブジェクト // [[{},{}],[{},{}]]
-  const categoryArrays = [
-    diaryArry,
-    familyArry,
-    childArry,
-    petArry,
-    hobyArry,
-    friendArry,
-    loverArry,
-    travelArry,
-    portfolioArry,
-  ];
-  // 値が1つ以上格納されているカテゴリーを抽出
-  const filterCategoryArrays = categoryArrays.filter((item) => item.length > 0);
-
   const insertItem = async () => {
     // awsのバケットURLを取得
     await Axios.post(`http://${process.env.REACT_APP_PUBLIC_IP}/s3Url`).then(
@@ -188,20 +159,21 @@ export const Content = memo(() => {
         </div>
       </Header>
       {/* メインコンテンツ */}
-      <div className="flex h-screen w-screen snap-y snap-mandatory flex-col overflow-scroll text-center">
+      <div className="flex h-screen w-screen snap-x snap-mandatory overflow-scroll text-center">
         {bookItems.length > 0 ? (
           // bookItems(bookの情報を格納している配列)の中の配列の中にデータが存在しない場合(0の場合)は"まだ何もありません"を表示
           <>
-            {filterCategoryArrays.map((item, index) => (
-              // filterCategoryArrays → 値が一つ以上格納されているオブジェクトが格納されてる配列
+            {bookItems.map((item, index) => (
               <>
                 <div
+                  id={index}
                   key={item.bookId}
                   className="h-screen w-screen snap-start snap-always"
                 >
-                  {/* <p className="">{`${index + 1} / ${filterCategoryArrays.length}`}</p> */}
                   <Books
-                    items={item}
+                    item={item}
+                    index={index}
+                    bookItems={bookItems}
                     deleteItem={deleteItem}
                     favoriteState={favoriteState}
                   />
@@ -215,7 +187,7 @@ export const Content = memo(() => {
               // リロード中はstateがデフォルト値になるから、stateがデフォルト値(リロード中)の場合はloadingを表示させるようにする処理
               <>
                 <div className="w-screen bg-slate-100">
-                  <div className="h-[75%] fixed bottom-20 flex w-full flex-col items-center justify-around bg-white">
+                  <div className="fixed bottom-20 flex h-[75%] w-full flex-col items-center justify-around bg-white">
                     <div>
                       <p className="text-bold my-2 text-xl font-bold text-slate-500">
                         まだ何もありません
