@@ -14,7 +14,7 @@ export const ConfirmWindow = memo(
 
     const confirmSelect = (e) => {
       e.target.id === "yes" && deleteItem(id);
-      setConfirmWindowOpen(false); // 確認ダイアログをとじる
+      setConfirmWindowOpen(false); // 確認ダイアログを閉じる
       setBookOpen(false);
     };
 
