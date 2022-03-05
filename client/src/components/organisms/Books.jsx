@@ -154,19 +154,19 @@ export const Books = memo(
                 </div>
                 {/* index → オブジェクトごとの数字 */}
                 {/* Items.length → Items配列の中のオブジェクトの総数 */}
-                <div className="flex w-full justify-center text-sm">
+                <div className="flex w-full items-center justify-center text-sm">
                   <a
                     href={`#${index - 1}`}
-                    className="text-xl text-slate-500 active:text-black"
+                    className="rounded-full border bg-white p-2 text-xl text-slate-500 shadow-md active:text-black"
                   >
                     <BsCaretLeft />
                   </a>
-                  <p className="mx-2 select-none space-x-1 text-slate-500">
+                  <p className="mx-4 select-none space-x-1 text-slate-500">
                     {`${index + 1} / ${bookItems.length}`}
                   </p>
                   <a
                     href={`#${index + 1}`}
-                    className="text-xl text-slate-500 active:text-black"
+                    className="rounded-full border bg-white p-2 text-xl text-slate-500 shadow-md active:text-black"
                   >
                     <BsCaretRight />
                   </a>
@@ -178,8 +178,8 @@ export const Books = memo(
         <div
           className={[
             confirmWindowOpen
-              ? "absolute top-0 left-0 z-50 flex h-screen w-screen transform items-center justify-center overflow-hidden transition-transform duration-500"
-              : "absolute top-0 left-0 z-50 flex h-screen w-screen -translate-x-full transform items-center justify-center overflow-hidden transition-transform duration-500",
+              ? "absolute top-0 left-0 z-50 flex h-screen w-screen transform items-center justify-center bg-black bg-opacity-10 overflow-hidden transition-transform duration-100"
+              : "absolute top-0 left-0 z-50 flex h-screen w-screen -translate-x-full transform items-center justify-center overflow-hidden transition-transform duration-100",
           ]}
         >
           <ConfirmDialog
