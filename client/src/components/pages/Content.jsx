@@ -186,7 +186,7 @@ export const Content = memo(() => {
             {loading ? (
               // リロード中はstateがデフォルト値になるから、stateがデフォルト値(リロード中)の場合はloadingを表示させるようにする処理
               <>
-                <div className="w-screen bg-slate-100">
+                <div className="w-screen">
                   <div className="fixed bottom-20 flex h-[75%] w-full flex-col items-center justify-around bg-white">
                     <div>
                       <p className="text-bold my-2 text-xl font-bold text-slate-500">

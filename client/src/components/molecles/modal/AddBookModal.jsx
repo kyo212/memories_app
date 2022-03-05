@@ -54,7 +54,7 @@ export const AddBookModal = memo(
       <>
         {modalToggle && (
           <div className="fixed top-0 left-0 z-50 h-screen w-screen overflow-y-scroll bg-white">
-            <div className="mt-[10%] mb-[14%]">
+            <div className="mt-[10%] mb-[40%]">
               <div className="flex w-full flex-col items-center">
                 <p className={textStyle}>本のタイトル</p>
                 <input
@@ -90,7 +90,7 @@ export const AddBookModal = memo(
                 {/* 追加ボタン */}
                 <button
                   onClick={insertItem}
-                  className="transform rounded-sm bg-blue-600 bg-opacity-80 px-3 py-2 font-bold text-white"
+                  className="rounded-sm bg-blue-600 bg-opacity-80 px-3 py-2 font-bold text-white"
                 >
                   本を追加する
                 </button>
