@@ -13,7 +13,7 @@ function App() {
   const [headerToggle, setHeaderToggle] = useState(false);
 
   return (
-    <div>
+    <>
       <Context.Provider
         value={{
           defaultIndex,
@@ -32,7 +32,7 @@ function App() {
       >
         <Router />
       </Context.Provider>
-    </div>
+    </>
   );
 }
 

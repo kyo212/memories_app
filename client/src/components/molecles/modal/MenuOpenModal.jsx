@@ -52,7 +52,7 @@ export const MenuOpenModal = ({ loginUser }) => {
             <button className="w-full bg-opacity-50 px-1 py-2 text-left hover:bg-gray-200">
               <p>ヘルプ</p>
             </button>
-            <div className="w-full border-t pt-5">
+            <div className="w-full h-14 border-t pt-5 flex items-center">
               <HeaderLogoutBtn />
             </div>
             {/* <button onClick={modalOpenClose} className="">

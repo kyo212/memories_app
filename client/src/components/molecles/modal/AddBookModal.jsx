@@ -32,6 +32,10 @@ export const AddBookModal = memo(
     const { modalImageUrl, setDefaultIndex, setModalImageUrl } =
       useContext(Context);
 
+    // 共通化
+    const textStyle =
+      "h-14 select-none text-lg font-bold leading-[56px] text-slate-500";
+
     const inputInform = (e) => {
       setBookTitle(e.target.value);
       setErrMsgToggle(false);
@@ -49,62 +53,52 @@ export const AddBookModal = memo(
     return (
       <>
         {modalToggle && (
-          <div className="fixed top-0 left-0 z-40 flex h-screen w-screen items-center justify-center overflow-hidden bg-black bg-opacity-80 ">
-            <div className="flex h-[70%] w-[92%] justify-center overflow-y-scroll rounded-sm bg-white opacity-100">
-              <div className="my-20 flex h-screen w-[88%] flex-col items-center">
-                <>
-                  <p className="mb-2 select-none text-lg font-bold text-slate-500">
-                    本のタイトル
-                  </p>
-                  <input
-                    type="text"
-                    value={bookName}
-                    autoFocus
-                    placeholder="本のタイトルを入力"
-                    onChange={inputInform}
-                    className={[
-                      `${
-                        errMsgToggle
-                          ? errorBorderMsg.showed
-                          : errorBorderMsg.base
-                      } w-[280px] border-slate-200`,
-                    ]}
-                  />
-                </>
-                <div className="m-8 items-center">
-                  <p className="mb-2 select-none text-center text-lg font-bold text-slate-500">
-                    フォトブックの表紙
-                  </p>
-                  <ImageUrlCreate
-                    coverImage={modalImageUrl}
-                    acceptType="image/*"
-                    imageStyle="inline-block h-[260px] w-[285px] border shadow-md"
+          <div className="fixed top-0 left-0 z-50 h-screen w-screen overflow-y-scroll bg-white">
+            <div className="mt-[10%] mb-[14%]">
+              <div className="flex w-full flex-col items-center">
+                <p className={textStyle}>本のタイトル</p>
+                <input
+                  type="text"
+                  value={bookName}
+                  autoFocus
+                  placeholder="本のタイトルを入力"
+                  onChange={inputInform}
+                  className={[
+                    `${
+                      errMsgToggle ? errorBorderMsg.showed : errorBorderMsg.base
+                    } w-[280px] border-slate-200`,
+                  ]}
+                />
+              </div>
+              <div className="flex w-full flex-col items-center">
+                <p className={textStyle}>フォトブックの表紙</p>
+                <ImageUrlCreate
+                  coverImage={modalImageUrl}
+                  acceptType="image/*"
+                  imageStyle="inline-block h-[260px] w-[285px] border shadow-md"
+                />
+              </div>
+              <div className="flex w-full flex-col items-center">
+                <p className={textStyle}>カテゴリー</p>
+                <div className="mb-10 w-[280px]">
+                  <Tab
+                    animation={modalTabAnimation}
+                    ulClass=""
+                    setCategory={setCategory}
                   />
                 </div>
-                <>
-                  <p className="select-none text-lg font-bold text-slate-500">
-                    カテゴリー
-                  </p>
-                  <div className="mt-4 mb-10">
-                    <Tab
-                      animation={modalTabAnimation}
-                      ulClass="my-2"
-                      setCategory={setCategory}
-                    />
-                  </div>
-                  {/* 追加ボタン */}
-                  <button
-                    onClick={insertItem}
-                    className="rounded-sm bg-blue-600 bg-opacity-80 px-3 py-2 font-bold text-white"
-                  >
-                    本を追加する
-                  </button>
-                </>
+                {/* 追加ボタン */}
+                <button
+                  onClick={insertItem}
+                  className="transform rounded-sm bg-blue-600 bg-opacity-80 px-3 py-2 font-bold text-white"
+                >
+                  本を追加する
+                </button>
               </div>
             </div>
             {/* 閉じるボタン */}
             <button
-              className="fixed right-[4%] bottom-[15%] p-4 text-4xl text-gray-600 hover:bg-black hover:bg-opacity-40 hover:text-white"
+              className="fixed right-0 bottom-0 p-4 text-4xl text-gray-600 hover:bg-black hover:bg-opacity-40 hover:text-white"
               onClick={closeButton}
             >
               <AiOutlinePlus className="rotate-45 transform" />

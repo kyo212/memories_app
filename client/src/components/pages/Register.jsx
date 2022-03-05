@@ -200,7 +200,7 @@ export const Register = memo(() => {
               />
             </div>
           </div>
-          {/* <Footer /> */}
+          <Footer />
         </>
       )}
     </>
