@@ -1,6 +1,6 @@
 import { memo } from "react";
 
-export const ConfirmWindow = memo(
+export const ConfirmDialog = memo(
   ({
     message,
     setConfirmWindowOpen,
@@ -14,7 +14,7 @@ export const ConfirmWindow = memo(
 
     const confirmSelect = (e) => {
       e.target.id === "yes" && deleteItem(id);
-      setConfirmWindowOpen(false); // 確認ダイアログを閉じる
+      setConfirmWindowOpen(false); // 確認ダイアログをとじる
       setBookOpen(false);
     };
 
