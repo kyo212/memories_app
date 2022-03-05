@@ -110,7 +110,7 @@ export const Register = memo(() => {
           <Header root={"/"} headerOpen={{ headerToggle, setHeaderToggle }}>
             <HeaderLoginBtn />
           </Header>
-          <div className="flex h-screen w-screen items-center justify-center bg-white">
+          <div className="flex h-[85%] w-screen items-center justify-center bg-white">
             <div className="flex h-[400px] w-[400px] flex-col items-center justify-center rounded-md">
               <h1 className="my-10 text-2xl font-bold text-slate-600">
                 新規登録をする

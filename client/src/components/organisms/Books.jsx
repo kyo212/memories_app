@@ -23,7 +23,7 @@ export const Books = memo(({ items, deleteItem, favoriteState }) => {
   const [deleteInform, setDeleteInform] = useState({});
   // スタイル共通化
   const bookStyle =
-    "absolute -z-20 flex h-[400px] w-80 sm:h-[600px] sm:w-[500px] border bg-gray-100 text-slate-70 block border-slate-400";
+    "absolute -z-20 flex h-[360px] w-72 sm:h-[600px] sm:w-[500px] border bg-gray-100 text-slate-70 block border-slate-400";
   const bookOpenBtnStyle =
     "absolute top-2 right-3 -rotate-45 transform text-xl text-slate-400 transition-all";
 
@@ -137,7 +137,7 @@ export const Books = memo(({ items, deleteItem, favoriteState }) => {
                   </div>
                   {/* 本をめくるアニメーション */}
                   {/* 表紙 */}
-                  <div className="z-10 flex h-[400px] w-80 flex-col items-center rounded-sm  border border-slate-300 bg-white text-slate-700 shadow-inner sm:h-[600px] sm:w-[500px]">
+                  <div className="z-10 flex h-[360px] w-72 flex-col items-center rounded-sm  border border-slate-300 bg-white text-slate-700 shadow-inner sm:h-[600px] sm:w-[500px]">
                     <div className="text-bold flax mt-8 mb-4 flex-col text-center text-lg">
                       <p className="border-b">{item.bookTitle}</p>
                       <div className="mt-2 flex select-none flex-col items-center text-[12px] leading-5 text-slate-400">
@@ -149,7 +149,7 @@ export const Books = memo(({ items, deleteItem, favoriteState }) => {
                     </div>
                     <ImageUrlCreate
                       coverImage={item.coverImage}
-                      imageStyle="h-[250px] w-[90%]"
+                      imageStyle="h-[220px] w-[90%]"
                     />
                   </div>
                   <p className="select-none space-x-1 text-sm text-slate-400">

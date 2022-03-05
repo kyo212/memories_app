@@ -26,13 +26,13 @@ export const Home = memo(() => {
   const sentenceStyle = "w-[85%] leading-6";
 
   useEffect(() => {
-    const getLoginState = async () => {
-      await Axios.post(
-        `http://${process.env.REACT_APP_PUBLIC_IP}/loginState`
-      ).then((response) => {
-        const { loggedIn } = response.data;
-        loggedIn ? navigate(`/mybooks`) : navigate("/");
-      });
+    const getLoginState = () => {
+      Axios.post(`http://${process.env.REACT_APP_PUBLIC_IP}/loginState`).then(
+        (response) => {
+          const { loggedIn } = response.data;
+          loggedIn ? navigate(`/mybooks`) : navigate("/");
+        }
+      );
     };
     getLoginState();
   }, []);

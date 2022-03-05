@@ -75,7 +75,7 @@ export const AddBookModal = memo(
                 <ImageUrlCreate
                   coverImage={modalImageUrl}
                   acceptType="image/*"
-                  imageStyle="inline-block h-[260px] w-[285px] border shadow-md"
+                  imageStyle="inline-block h-[220px] w-[285px] border shadow-md"
                 />
               </div>
               <div className="flex w-full flex-col items-center">

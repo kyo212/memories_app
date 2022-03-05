@@ -50,13 +50,13 @@ export const Content = memo(() => {
 
   useEffect(() => {
     // ユーザーネームをセッションから取得
-    const getUsername = async () => {
-      await Axios.post(
-        `http://${process.env.REACT_APP_PUBLIC_IP}/loginState`
-      ).then((response) => {
-        const { user } = response.data;
-        setLoginUser(user[0].username); // セッションに格納されているユーザー情報
-      });
+    const getUsername = () => {
+      Axios.post(`http://${process.env.REACT_APP_PUBLIC_IP}/loginState`).then(
+        (response) => {
+          const { user } = response.data;
+          setLoginUser(user[0].username); // セッションに格納されているユーザー情報
+        }
+      );
     };
     getUsername();
   }, []);
@@ -214,9 +214,9 @@ export const Content = memo(() => {
             {loading ? (
               // リロード中はstateがデフォルト値になるから、stateがデフォルト値(リロード中)の場合はloadingを表示させるようにする処理
               <>
-                <>
-                  <div className="flex h-screen w-screen flex-col items-center justify-around">
-                    <div className="">
+                <div className="w-screen bg-slate-100">
+                  <div className="h-[75%] fixed bottom-20 flex w-full flex-col items-center justify-around bg-white">
+                    <div>
                       <p className="text-bold my-2 text-xl font-bold text-slate-500">
                         まだ何もありません
                       </p>
@@ -234,7 +234,7 @@ export const Content = memo(() => {
                       </p>
                     </div>
                   </div>
-                </>
+                </div>
               </>
             ) : (
               <Loading />

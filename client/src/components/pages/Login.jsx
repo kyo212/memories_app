@@ -83,7 +83,7 @@ export const Login = memo(() => {
       <Header root={"/"} headerOpen={{ headerToggle, setHeaderToggle }}>
         <HeaderRegBtn />
       </Header>
-      <div className="flex h-screen w-screen items-center justify-center bg-white">
+      <div className="flex h-[85%] w-screen items-center justify-center bg-white">
         <div className="flex h-[400px] w-[400px] flex-col items-center justify-center rounded-md">
           <h1 className="my-10 text-2xl font-bold text-slate-600">
             ログインする
