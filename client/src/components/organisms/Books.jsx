@@ -6,7 +6,7 @@ import { BsReplyFill } from "react-icons/bs";
 // コンポーネント
 import { BookRibbon } from "../atoms/style/BookRibbon";
 import { ImageUrlCreate } from "./ImageUrlCreate";
-import { ConfirmWindow } from "../atoms/message/ConfirmWindow";
+import { ConfirmDialog } from "../atoms/message/ConfirmDialog";
 import { ChangeJapanese } from "../atoms/ChangeJapanese";
 // カスタムフック
 import { useStyle } from "../custom/useStyle";
@@ -173,7 +173,7 @@ export const Books = memo(({ items, deleteItem, favoriteState }) => {
             : "absolute top-0 left-0 z-50 flex h-screen w-screen -translate-x-full transform items-center justify-center overflow-hidden transition-transform duration-500",
         ]}
       >
-        <ConfirmWindow
+        <ConfirmDialog
           message="削除しますか？"
           deleteInform={deleteInform} // 削除するアイテムのid
           deleteItem={deleteItem} // 削除する関数
