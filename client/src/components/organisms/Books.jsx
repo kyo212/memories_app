@@ -28,7 +28,9 @@ export const Books = memo(
     const bookStyle =
       "absolute -z-20 flex h-[360px] w-72 sm:h-[600px] sm:w-[500px] border bg-gray-100 text-slate-70 block border-slate-400";
     const bookOpenBtnStyle =
-      "absolute top-2 right-3 -rotate-45 transform text-xl text-slate-400 transition-all";
+      "absolute -top-1 p-3 right-0 -rotate-45 transform text-xl text-slate-400 transition-all";
+    const bookOpenTextStyle =
+      "absolute mr-1 border-b py-[2px] px-[5px] text-[12px] hover:font-bold";
 
     const bookOpenToggle = () => {
       setBookOpen(!bookOpen);
@@ -100,7 +102,7 @@ export const Books = memo(
                             item.username
                           )
                         }
-                        className="absolute top-0 right-0 my-1 mr-1 border-b py-[2px] px-[5px] text-[10px] hover:font-bold"
+                        className={`${bookOpenTextStyle} top-0 right-0 my-1`}
                       >
                         ひらく
                       </button>
@@ -112,7 +114,7 @@ export const Books = memo(
                             item.favorite
                           )
                         }
-                        className="absolute top-4 right-0 mr-1 mt-3 border-b py-[2px] px-[5px] text-[10px] hover:font-bold"
+                        className={`${bookOpenTextStyle} top-4 right-0 mt-4`}
                       >
                         すてる
                       </button>
@@ -120,13 +122,13 @@ export const Books = memo(
                         onClick={() =>
                           favoriteBtnToggle(item.bookId, !item.favorite)
                         }
-                        className="absolute top-10 right-0 mr-1 mt-3 border-b py-[2px] px-[5px] text-[10px] hover:font-bold"
+                        className={`${bookOpenTextStyle} top-10 right-0 mt-5`}
                       >
                         おきにいり
                       </button>
                       <button
                         onClick={bookOpenToggle}
-                        className="absolute top-[173px] left-[60%] rotate-[125deg] transform text-xl text-slate-500"
+                        className="absolute top-[160px] left-[52%] rotate-[125deg] transform p-3 text-xl text-slate-500"
                       >
                         <BsReplyFill />
                       </button>

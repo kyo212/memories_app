@@ -34,7 +34,7 @@ export const AddBookModal = memo(
 
     // 共通化
     const textStyle =
-      "h-14 select-none text-lg font-bold leading-[56px] text-slate-500";
+      "h-20 select-none text-lg font-bold leading-[80px] text-slate-500";
 
     const inputInform = (e) => {
       setBookTitle(e.target.value);
@@ -54,7 +54,7 @@ export const AddBookModal = memo(
       <>
         {modalToggle && (
           <div className="fixed top-0 left-0 z-50 h-screen w-screen overflow-y-scroll bg-white">
-            <div className="mt-[10%] mb-[40%]">
+            <div className="mt-[4%] mb-[40%]">
               <div className="flex w-full flex-col items-center">
                 <p className={textStyle}>本のタイトル</p>
                 <input
