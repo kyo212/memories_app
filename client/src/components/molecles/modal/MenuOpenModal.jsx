@@ -55,9 +55,6 @@ export const MenuOpenModal = ({ loginUser }) => {
             <div className="w-full h-14 border-t pt-5 flex items-center">
               <HeaderLogoutBtn />
             </div>
-            {/* <button onClick={modalOpenClose} className="">
-              <p>閉じる</p>
-            </button> */}
           </div>
         </div>
       )}
