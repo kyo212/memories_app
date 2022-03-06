@@ -1,10 +1,13 @@
 import { memo, useState } from "react";
 import { useLocation } from "react-router-dom";
+// コンポーネント
+import { ChangeJapanese } from "../../atoms/ChangeJapanese";
 
-export const Family = memo(() => {
+export const Book = memo(() => {
   // ルーター
   const location = useLocation();
-  const { bookId, bookTitle, username, coverImage } = location.state;
+  const { category, bookId, bookTitle, username, coverImage, date } =
+    location.state;
   // 画像情報
   const [imageState, setImageState] = useState([]);
   const [textState, setTextState] = useState([]);
@@ -12,6 +15,7 @@ export const Family = memo(() => {
   // 回す画像配列
   const bookImages = [coverImage, ...imageState];
   const bookText = ["表紙", ...textState];
+
   return (
     <>
       <div className="flex h-screen w-screen snap-x overflow-x-scroll">
@@ -28,8 +32,13 @@ export const Family = memo(() => {
           <div className="flex h-1/2 w-screen flex-col items-center justify-center">
             <div className="h-[88%] w-[96%] border ">
               {/* <p>{bookId}</p> */}
+              <h1 className="text-4xl font-bold text-slate-700">{bookTitle}</h1>
+              <p>
+                <ChangeJapanese category={category} />
+              </p>
+              <p>{date}</p>
               <p>作成者 :{username}</p>
-              <p>{bookTitle}</p>
+              <p>{category === "child" && <>誕生日を入力</>}</p>
             </div>
             <div className="flex">
               <p>
@@ -43,12 +52,22 @@ export const Family = memo(() => {
         </div>
         {/* 取得したコンテンツをmapで回す */}
         <div className="h-full w-screen snap-start bg-white">
-          <div className="h-1/2 w-screen border">画像</div>
+          <div className="h-1/2 w-screen border">
+            <label className="h-full w-screen">
+              <input type="file" accept="*" className="hidden" />
+              <img
+                // src={}
+                alt="表紙の画像"
+                className="h-full w-full object-cover"
+              />
+            </label>
+          </div>
           <div className="h-1/2">
-            <p>おもいで</p>
-            <p>aaaaaaaaaaa</p>
-            <p>aaaaaa</p>
+            <p>追加画面 常に最後尾に配置する</p>
+            <p>タイトルを入力 (子供とひなまつり)</p>
+            <p>説明 (今日はひなまつりをしたよ)</p>
             <p>aaaaaaaaaaaaa</p>
+            <button>追加</button>
           </div>
         </div>
       </div>

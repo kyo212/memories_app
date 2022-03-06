@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 // アイコン
 import { BsReply } from "react-icons/bs";
 import { BsReplyFill } from "react-icons/bs";
-import { BsCaretLeft } from "react-icons/bs";
-import { BsCaretRight } from "react-icons/bs";
+import { BsChevronCompactLeft } from "react-icons/bs";
+import { BsChevronCompactRight } from "react-icons/bs";
 // コンポーネント
 import { BookRibbon } from "../atoms/style/BookRibbon";
 import { ImageUrlCreate } from "./ImageUrlCreate";
@@ -49,9 +49,9 @@ export const Books = memo(
     };
 
     const toCategoryComponent = (item) => {
-      const { category, bookId, bookTitle, username, coverImage } = item;
-      navigate(`${category}`, {
-        state: { bookId, bookTitle, username, coverImage },
+      const { category, bookId, bookTitle, username, coverImage, date } = item;
+      navigate(`book`, {
+        state: { category, bookId, bookTitle, username, coverImage, date },
       });
     };
 
@@ -147,18 +147,18 @@ export const Books = memo(
                 <div className="flex w-full items-center justify-center text-sm">
                   <a
                     href={`#${index - 1}`}
-                    className="rounded-full border bg-white p-2 text-xl text-slate-500 shadow-md active:text-black"
+                    className="text-lg text-slate-500 active:text-black"
                   >
-                    <BsCaretLeft />
+                    <BsChevronCompactLeft />
                   </a>
                   <p className="mx-4 select-none space-x-1 text-slate-500">
                     {`${index + 1} / ${bookItems.length}`}
                   </p>
                   <a
                     href={`#${index + 1}`}
-                    className="rounded-full border bg-white p-2 text-xl text-slate-500 shadow-md active:text-black"
+                    className="text-lg text-slate-500 active:text-black"
                   >
-                    <BsCaretRight />
+                    <BsChevronCompactRight />
                   </a>
                 </div>
               </div>
