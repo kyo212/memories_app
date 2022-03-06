@@ -36,18 +36,23 @@ export const Books = memo(
       setBookOpen(!bookOpen);
     };
 
-    const deleteItemToggle = (id, title, favorite) => {
+    const deleteItemToggle = (item) => {
+      const { bookId, bookTitle, favorite } = item;
       setConfirmWindowOpen(true); // 確認ダイアログを出現
-      setDeleteInform({ id, title, favorite }); // 削除するアイテムのidを保持
+      setDeleteInform({ bookId, bookTitle, favorite }); // 削除するアイテムのidを保持
     };
 
-    const favoriteBtnToggle = (id, num) => {
-      favoriteState(id, num);
+    const favoriteBtnToggle = (item) => {
+      const { bookId, favorite } = item;
+      favoriteState(bookId, !favorite);
       setBookOpen(false);
     };
 
-    const toCategoryComponent = (category, id, title, username) => {
-      navigate(`${category}`, { state: { id, title, username } });
+    const toCategoryComponent = (item) => {
+      const { category, bookId, bookTitle, username, coverImage } = item;
+      navigate(`${category}`, {
+        state: { bookId, bookTitle, username, coverImage },
+      });
     };
 
     return (
@@ -94,34 +99,19 @@ export const Books = memo(
                   {bookOpen && item.bookId && (
                     <>
                       <button
-                        onClick={() =>
-                          toCategoryComponent(
-                            item.category,
-                            item.bookId,
-                            item.bookTitle,
-                            item.username
-                          )
-                        }
+                        onClick={() => toCategoryComponent(item)}
                         className={`${bookOpenTextStyle} top-0 right-0 my-1`}
                       >
                         ひらく
                       </button>
                       <button
-                        onClick={() =>
-                          deleteItemToggle(
-                            item.bookId,
-                            item.bookTitle,
-                            item.favorite
-                          )
-                        }
+                        onClick={() => deleteItemToggle(item)}
                         className={`${bookOpenTextStyle} top-4 right-0 mt-4`}
                       >
                         すてる
                       </button>
                       <button
-                        onClick={() =>
-                          favoriteBtnToggle(item.bookId, !item.favorite)
-                        }
+                        onClick={() => favoriteBtnToggle(item)}
                         className={`${bookOpenTextStyle} top-10 right-0 mt-5`}
                       >
                         おきにいり
@@ -178,7 +168,7 @@ export const Books = memo(
         <div
           className={[
             confirmWindowOpen
-              ? "absolute top-0 left-0 z-50 flex h-screen w-screen transform items-center justify-center bg-black bg-opacity-10 overflow-hidden transition-transform duration-100"
+              ? "absolute top-0 left-0 z-50 flex h-screen w-screen transform items-center justify-center overflow-hidden bg-black bg-opacity-10 transition-transform duration-100"
               : "absolute top-0 left-0 z-50 flex h-screen w-screen -translate-x-full transform items-center justify-center overflow-hidden transition-transform duration-100",
           ]}
         >

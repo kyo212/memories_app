@@ -9,6 +9,7 @@ export const Footer = () => {
         <li>利用規約</li>
         <li>プライバシーポリシー</li>
         <li>ヘルプ</li>
+        &copy;
       </ul>
     </div>
   );

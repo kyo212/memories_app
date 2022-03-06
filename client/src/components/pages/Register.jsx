@@ -176,7 +176,7 @@ export const Register = memo(() => {
                   />
                   <label className="ml-1">
                     <a className="font-bold text-blue-800">
-                      プライバシーポリシー
+                      推奨するブラウザ
                     </a>
                     に同意する
                   </label>

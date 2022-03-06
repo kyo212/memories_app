@@ -8,12 +8,12 @@ export const ConfirmDialog = memo(
     deleteItem,
     deleteInform,
   }) => {
-    const { id, title, favorite } = deleteInform;
+    const { bookId, bookTitle, favorite } = deleteInform;
     const msgBtnStyle =
       "py-1 px-2 mx-2 text-sm rounded-md border hover:bg-gray-500 hover:text-white hover:font-bold";
 
     const confirmSelect = (e) => {
-      e.target.id === "yes" && deleteItem(id);
+      e.target.id === "yes" && deleteItem(bookId);
       setConfirmWindowOpen(false); // 確認ダイアログをとじる
       setBookOpen(false);
     };
@@ -36,7 +36,7 @@ export const ConfirmDialog = memo(
           ) : (
             <>
               <div className="leading-6">
-                <p className="ml-1 font-bold">{`${title}`}</p>
+                <p className="ml-1 font-bold">{`${bookTitle}`}</p>
                 <p>{`を${message}`}</p>
               </div>
               <div className="w-full">

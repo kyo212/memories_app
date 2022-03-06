@@ -105,10 +105,10 @@ app.post("/logout", (req, res) => {
   req.session.destroy((err) => {
     console.log(err);
   });
+  res.clearCookie("token");
   res.json({
     loggedIn: false,
   });
-  res.clearCookie("token");
 });
 
 app.post("/login", async (req, res) => {
