@@ -138,7 +138,7 @@ export const Books = memo(
                     </div>
                   </div>
                   <ImageUrlCreate
-                    coverImage={item.coverImage}
+                    imageUrl={item.coverImage}
                     imageStyle="h-[220px] w-[90%]"
                   />
                 </div>

@@ -73,7 +73,7 @@ export const AddBookModal = memo(
               <div className="flex w-full flex-col items-center">
                 <p className={textStyle}>フォトブックの表紙</p>
                 <ImageUrlCreate
-                  coverImage={modalImageUrl}
+                  imageUrl={modalImageUrl}
                   acceptType="image/*"
                   imageStyle="inline-block h-[220px] w-[285px] border shadow-md"
                 />
