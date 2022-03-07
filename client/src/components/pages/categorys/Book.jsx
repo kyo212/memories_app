@@ -1,7 +1,9 @@
 import { memo, useState, useEffect, useContext } from "react";
 import { useLocation } from "react-router-dom";
-// コンポーネント
+// コンポーネント UI系
 import { ChangeJapanese } from "../../atoms/ChangeJapanese";
+import { ChangeFont } from "../../atoms/ChangeFont";
+// コンポーネント 処理系
 import { ImageUrlCreate } from "../../organisms/ImageUrlCreate";
 // コンテキスト
 import { Context } from "../../../App";
@@ -49,6 +51,7 @@ export const Book = memo(() => {
         >
           <div className="flex items-center">家族</div>
           {/* 表紙情報 */}
+          {/* 画像 */}
           <div className="h-full w-screen snap-start bg-white">
             <div className="h-1/2 w-screen">
               <img
@@ -57,26 +60,27 @@ export const Book = memo(() => {
                 className="h-full w-full object-cover"
               />
             </div>
+            {/* テキスト */}
             <div className="flex h-1/2 w-screen flex-col items-center justify-center">
-              <div className="h-[82%] w-[90%]">
+              <div
+                className="h-[82%] w-[90%] font-bold
+text-slate-500"
+              >
                 {/* <p>{bookId}</p> */}
                 <h1 className="text-2xl font-bold text-slate-700">
                   {bookTitle}
                 </h1>
-                <p className="text-md text-slate-500">
+                <p className="text-sm">{date}</p>
+                <p className="text-sm">
                   <ChangeJapanese category={category} />
                 </p>
-                <p className="text-md font-bold text-slate-500">{date}</p>
-                <p>作成者 :{username}</p>
-                <button onClick={() => setFontChange("font-serif")}>
-                  セリフ
-                </button>
-                <button onClick={() => setFontChange("font-suns")}>
-                  デフォルト
-                </button>
-
+                <p className="text-sm">作成者 : {username}</p>
+                <div className="my-2">
+                  <ChangeFont setFontChange={setFontChange} />
+                </div>
                 {/* カテゴリー専用のインプット要素 */}
-                <div className="mt-10 text-sm">
+                <p>Not null を許可してbook_listに追加する</p>
+                <div className="mt-4 text-sm">
                   {category === "diary" ? (
                     <div className="">
                       <>日記専用</>
@@ -101,33 +105,36 @@ export const Book = memo(() => {
                     </div>
                   ) : category === "child" ? (
                     <div>
-                      <div className="flex h-24 flex-col justify-center">
-                        <span className="font-bold">
-                          生まれた時間 (誕生日と現在の年齢を自動算出)
-                        </span>
+                      <div className="flex flex-col justify-center">
+                        <span className="font-bold">生まれた時間</span>
                         {true ? (
                           <>
-                            <input
-                              type="date"
-                              className="border border-black py-2 pl-2"
-                            />
-                            <input
-                              type="number"
-                              placeholder="例 1230 → 12時30分"
-                              className="border border-black py-2 pl-2"
-                            />
+                            <div className="flex space-x-2">
+                              <input
+                                type="date"
+                                className="w-40 border py-2 pl-2"
+                              />
+                              <input
+                                type="number"
+                                placeholder="例 1230 (12時30分)"
+                                className="w-40 border py-2 pl-2"
+                              />
+                            </div>
                           </>
                         ) : (
-                          <>生まれた時間 誕生日 年齢</>
+                          <>
+                            生まれた時間 誕生日 年齢
+                            (誕生日と現在の年齢を自動算出)
+                          </>
                         )}
                       </div>
-                      <div className="flex h-20 flex-col justify-center">
+                      <div className="mt-4 flex w-40 flex-col justify-center">
                         <span className="font-bold">生まれたときのグラム</span>
                         {true ? (
                           <input
                             type="number"
                             placeholder="例 2000"
-                            className="border border-black py-2 pl-2"
+                            className="border py-2 pl-2"
                           />
                         ) : (
                           <>グラム</>
@@ -162,33 +169,53 @@ export const Book = memo(() => {
                     )
                   )}
                 </div>
-              </div>
-              <div className="flex">
-                <p>
-                  <a href="/mybooks" className="text-sm text-blue-800">
-                    一覧画面へ戻る
-                  </a>
-                </p>
-                <p className="mx-2">1/2</p>
+                <div className="flex">
+                  <p>
+                    <a href="/mybooks" className="text-sm text-blue-800">
+                      一覧画面へ戻る
+                    </a>
+                  </p>
+                  <p className="mx-2">1/2</p>
+                </div>
               </div>
             </div>
           </div>
           {/* 取得したコンテンツをmapで回す */}
+          <>
+            <></>
+          </>
+          {/* 追加画面 */}
           <div className="h-full w-screen snap-start bg-white">
-            <div className="h-1/2 w-screen border">
+            {/* 画像 */}
+            <div className="h-1/2 w-screen">
               <ImageUrlCreate
                 imageStyle="h-full w-screen"
-                acceptType="*"
+                acceptType="image/*,video/*"
                 imageUrl={modalImageUrl}
-                videoUrl={videoUrl}
+                video={{ videoUrl, videoCtrl: false, videoLoop: true }}
               />
             </div>
-            <div className="h-1/2">
-              <p>追加画面 常に最後尾に配置する</p>
-              <p>タイトルを入力 (子供とひなまつり)</p>
-              <p>説明 (今日はひなまつりをしたよ)</p>
-              <p>aaaaaaaaaaaaa</p>
-              <button>追加</button>
+            {/* テキスト */}
+            <div className="flex h-1/2 w-screen items-center justify-center">
+              <div className="h-[82%] w-[90%]">
+                {/* 追加画面 常に最後尾に配置する */}
+                <div className="">
+                  <p className="text-xl">タイトルを入力</p>
+                  <input
+                    type="text"
+                    className="border w-60 py-1 px-2 text-sm"
+                  />
+                </div>
+                <div className="mt-4">
+                  <p className="text-lg">説明</p>
+                  <textarea
+                    cols="30"
+                    rows="7"
+                    className="border py-1 px-2 text-sm outline-none"
+                  ></textarea>
+                </div>
+                <button>追加</button>
+              </div>
             </div>
           </div>
         </div>

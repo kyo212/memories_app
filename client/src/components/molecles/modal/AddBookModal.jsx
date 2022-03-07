@@ -75,6 +75,7 @@ export const AddBookModal = memo(
                 <ImageUrlCreate
                   imageUrl={modalImageUrl}
                   acceptType="image/*"
+                  video={{ videoUrl: "", videoCtrl: false, videoLoop: false }}
                   imageStyle="inline-block h-[220px] w-[285px] border shadow-md"
                 />
               </div>

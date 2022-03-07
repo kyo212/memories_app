@@ -3,7 +3,9 @@ import { memo, useContext, useState } from "react";
 import { Context } from "../../App";
 
 export const ImageUrlCreate = memo(
-  ({ imageUrl, videoUrl, imageStyle, acceptType }) => {
+  ({ imageUrl, imageStyle, acceptType, video }) => {
+    // props
+    const { videoUrl, videoCtrl, videoLoop } = video;
     // コンテキスト
     const { setFileUrl, setModalImageUrl, setVideoUrl } = useContext(Context);
     // Toggle
@@ -12,7 +14,7 @@ export const ImageUrlCreate = memo(
     // ファイルを選んだときに呼ばれる関数
     const processImage = (e) => {
       // URLを生成
-      
+
       const imageFile = e.target.files[0];
       const imageUrl = URL.createObjectURL(imageFile);
 
@@ -46,10 +48,16 @@ export const ImageUrlCreate = memo(
           />
         ) : (
           <video
-            src={videoUrl}
-            controls
+            controls={videoCtrl}
+            autoPlay
+            muted
+            playsInline
+            loop={videoLoop}
             className="h-full w-full object-cover"
-          ></video>
+          >
+            <source src={videoUrl} />
+            予期せぬエラーが発生しました
+          </video>
         )}
       </label>
     );
