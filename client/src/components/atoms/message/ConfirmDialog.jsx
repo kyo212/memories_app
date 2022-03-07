@@ -8,7 +8,12 @@ export const ConfirmDialog = memo(
     deleteItem,
     deleteInform,
   }) => {
+    // props
+    // bookId -> 削除する対象 bookTitle -> メッセージに表示
+    // favorite -> お気に入り状態によって削除できるか決める
     const { bookId, bookTitle, favorite } = deleteInform;
+
+    // スタイル共通化
     const msgBtnStyle =
       "py-1 px-2 mx-2 text-sm rounded-md border hover:bg-gray-500 hover:text-white hover:font-bold";
 

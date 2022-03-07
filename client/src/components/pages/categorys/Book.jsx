@@ -1,5 +1,7 @@
 import { memo, useState, useEffect, useContext } from "react";
 import { useLocation } from "react-router-dom";
+// アイコン
+import { HiUpload } from "react-icons/hi";
 // コンポーネント UI系
 import { ChangeJapanese } from "../../atoms/ChangeJapanese";
 import { ChangeFont } from "../../atoms/ChangeFont";
@@ -191,9 +193,17 @@ text-slate-500"
             <></>
           </>
           {/* 追加画面 */}
-          <div className="h-full w-screen snap-start bg-white">
+          <div className="h-full w-screen snap-start">
             {/* 画像 */}
-            <div className="h-1/2 w-screen">
+            <div className="relative h-1/2 w-screen bg-slate-100">
+              {!modalImageUrl &&
+                !videoUrl && ( // 画像と動画を設定されていない時だけ
+                  <div className="absolute top-1/2 left-1/2 h-20 w-20 -translate-x-1/2 -translate-y-1/2 transform rounded-full border bg-white p-4 flex items-center justify-center text-2xl font-bold">
+                    <span className="animate-pulse">
+                      <HiUpload />
+                    </span>
+                  </div>
+                )}
               <ImageUrlCreate
                 imageStyle="h-full w-screen"
                 acceptType="image/*,video/*"

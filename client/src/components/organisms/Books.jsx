@@ -38,8 +38,8 @@ export const Books = memo(
 
     const deleteItemToggle = (item) => {
       const { bookId, bookTitle, favorite } = item;
-      setConfirmWindowOpen(true); // 確認ダイアログを出現
-      setDeleteInform({ bookId, bookTitle, favorite }); // 削除するアイテムのidを保持
+      setConfirmWindowOpen(true); // 確認ダイアログを出現させる
+      setDeleteInform({ bookId, bookTitle, favorite }); // 削除するアイテムの情報を保持
     };
 
     const favoriteBtnToggle = (item) => {
