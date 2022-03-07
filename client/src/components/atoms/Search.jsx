@@ -26,7 +26,7 @@ export const Search = () => {
       ]} flex items-center rounded-full border border-gray-500`}
     >
       <input
-        type="text"
+        type="search"
         placeholder="アルバムを検索"
         className={[searchToggle ? searchOpen.showed : searchOpen.base]}
       />

@@ -1,12 +1,12 @@
-import { memo } from "react";
+import { useContext, memo } from "react";
 // カスタムフック
 import { useStyle } from "../../custom/useStyle";
-// サードパーティ
+// アイコン
 import { AiOutlinePlus } from "react-icons/ai";
 // コンポーネント
 import { Tab } from "../tabs/Tab";
 import { ImageUrlCreate } from "../../organisms/ImageUrlCreate";
-import { useContext } from "react";
+import { Button } from "../../atoms/button/Button";
 // コンテキスト
 import { Context } from "../../../App";
 
@@ -89,12 +89,7 @@ export const AddBookModal = memo(
                   />
                 </div>
                 {/* 追加ボタン */}
-                <button
-                  onClick={insertItem}
-                  className="rounded-sm bg-blue-600 bg-opacity-80 px-3 py-2 font-bold text-white"
-                >
-                  本を追加する
-                </button>
+                <Button clickBtn={insertItem}>本を追加する</Button>
               </div>
             </div>
             {/* 閉じるボタン */}

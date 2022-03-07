@@ -9,6 +9,7 @@ import { ChangeFont } from "../../atoms/ChangeFont";
 import { ImageUrlCreate } from "../../organisms/ImageUrlCreate";
 // コンテキスト
 import { Context } from "../../../App";
+import { Button } from "../../atoms/button/Button";
 
 export const Book = memo(() => {
   // ルーター
@@ -38,6 +39,8 @@ export const Book = memo(() => {
       setUnExpectErr(true);
     }
   }, []);
+
+  const insertItem = () => {};
 
   const resetBtn = () => {
     setModalImageUrl("");
@@ -198,7 +201,7 @@ text-slate-500"
             <div className="relative h-1/2 w-screen bg-slate-100">
               {!modalImageUrl &&
                 !videoUrl && ( // 画像と動画を設定されていない時だけ
-                  <div className="absolute top-1/2 left-1/2 h-20 w-20 -translate-x-1/2 -translate-y-1/2 transform rounded-full border bg-white p-4 flex items-center justify-center text-2xl font-bold">
+                  <div className="absolute top-1/2 left-1/2 flex h-20 w-20 -translate-x-1/2 -translate-y-1/2 transform items-center justify-center rounded-full border bg-white p-4 text-2xl font-bold">
                     <span className="animate-pulse">
                       <HiUpload />
                     </span>
@@ -230,8 +233,10 @@ text-slate-500"
                     className="border py-1 px-2 text-sm outline-none"
                   ></textarea>
                 </div>
-                <button>追加</button>
-                <button onClick={resetBtn}>画像リセット</button>
+                <div className="space-x-2 my-4">
+                  <Button clickBtn={insertItem}>追加する</Button>
+                  <Button clickBtn={resetBtn}>画像をリセット</Button>
+                </div>
               </div>
             </div>
           </div>
