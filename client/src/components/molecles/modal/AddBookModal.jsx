@@ -37,17 +37,21 @@ export const AddBookModal = memo(
       "h-20 select-none text-lg font-bold leading-[80px] text-slate-500";
 
     const inputInform = (e) => {
+      // 情報の保持
       setBookTitle(e.target.value);
+      // Toggle
       setErrMsgToggle(false);
     };
 
     const closeButton = () => {
+      // 初期化
+      setCategory("diary");
+      setDefaultIndex(true);
+      setBookTitle("");
+      setModalImageUrl("");
+      // Toggle
       setModalToggle(false);
       setErrMsgToggle(false);
-      setCategory("diary");
-      setBookTitle("");
-      setDefaultIndex(true);
-      setModalImageUrl("");
     };
 
     return (
@@ -75,7 +79,12 @@ export const AddBookModal = memo(
                 <ImageUrlCreate
                   imageUrl={modalImageUrl}
                   acceptType="image/*"
-                  video={{ videoUrl: "", videoCtrl: false, videoLoop: false }}
+                  video={{
+                    videoUrl: "",
+                    videoAutoPlay: false,
+                    videoCtrl: false,
+                    videoLoop: false,
+                  }}
                   imageStyle="inline-block h-[220px] w-[285px] border shadow-md"
                 />
               </div>

@@ -163,11 +163,20 @@ app.post("/login", async (req, res) => {
 
 app.post("/getItems", async (req, res) => {
   const { username } = req.body;
+
   const sqlSelect = "SELECT * FROM book_list WHERE username = ?";
   await db.query(sqlSelect, username, (err, result) => {
     if (result.length > 0) {
       res.json({ result: result, err: err });
     }
+  });
+});
+
+app.post("/getBookContent", async (req, res) => {
+  const { bookId } = req.body;
+  const sqlSelect = "SELECT * FROM book_content WHERE bookId = ?";
+  await db.query(sqlSelect, bookId, (err, result) => {
+    res.json({ result: result, err: err });
   });
 });
 
@@ -183,7 +192,6 @@ app.post("/insert", async (req, res) => {
   const sqlInsert =
     "INSERT INTO book_list (username,bookTitle,coverImage,category,date,favorite) VALUES (?,?,?,?,?,?)";
   // usernameは自動で入力される。dateとfavoriteはデフォルト値を設定
-  // coverImage !== ""
   if (coverImage !== "" && bookTitle !== "") {
     await db.query(
       sqlInsert,
@@ -193,6 +201,29 @@ app.post("/insert", async (req, res) => {
       }
     );
   }
+});
+
+app.post("/bookContentInsert", async (req, res) => {
+  const {
+    bookId,
+    username,
+    bookImage,
+    bookVideo,
+    bookContentTitle,
+    bookContentDesc,
+  } = req.body;
+
+  const sqlInsert =
+    "INSERT INTO book_content (bookId,username,bookImage,bookVideo,title,description) VALUES (?,?,?,?,?,?)";
+
+  // if (bookImage !== "" && bookContentTitle !== "" && bookContentDesc !== "") {}
+  await db.query(
+    sqlInsert,
+    [bookId, username, bookImage, bookVideo, bookContentTitle, bookContentDesc],
+    (err, result) => {
+      res.json({ result: result, err: err });
+    }
+  );
 });
 
 app.delete("/delete/:id", async (req, res) => {

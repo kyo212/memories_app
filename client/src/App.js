@@ -6,7 +6,8 @@ export const Context = createContext();
 function App() {
   // コンテキストに渡すstate
   const [defaultIndex, setDefaultIndex] = useState(false);
-  const [fileUrl, setFileUrl] = useState("");
+  const [imageFileUrl, setImageFileUrl] = useState("");
+  const [videoFileUrl, setVideoFileUrl] = useState("");
   const [modalImageUrl, setModalImageUrl] = useState("");
   const [videoUrl, setVideoUrl] = useState("");
   const [searchToggle, setSearchToggle] = useState(false);
@@ -19,8 +20,10 @@ function App() {
         value={{
           defaultIndex,
           setDefaultIndex,
-          fileUrl,
-          setFileUrl,
+          imageFileUrl,
+          setImageFileUrl,
+          videoFileUrl,
+          setVideoFileUrl,
           modalImageUrl,
           setModalImageUrl,
           videoUrl,

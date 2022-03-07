@@ -1,31 +1,34 @@
-import { memo, useContext, useState } from "react";
+import { memo, useContext } from "react";
 // コンテキスト
 import { Context } from "../../App";
 
 export const ImageUrlCreate = memo(
   ({ imageUrl, imageStyle, acceptType, video }) => {
     // props
-    const { videoUrl, videoCtrl, videoLoop } = video;
+    const { videoUrl,videoAutoPlay, videoCtrl, videoLoop } = video;
     // コンテキスト
-    const { setFileUrl, setModalImageUrl, setVideoUrl } = useContext(Context);
-    // Toggle
-    const [imageOrVideo, setImageOrVideo] = useState(false);
+    const { setImageFileUrl, setVideoFileUrl, setModalImageUrl, setVideoUrl } =
+      useContext(Context);
 
     // ファイルを選んだときに呼ばれる関数
     const processImage = (e) => {
       // URLを生成
       const imageFile = e.target.files[0];
-      const imageUrl = URL.createObjectURL(imageFile);
+      const mediaUrl = URL.createObjectURL(imageFile);
 
       if (String(imageFile.type).indexOf("video")) {
-        setModalImageUrl(imageUrl); // タイプがimageだった場合
-        setImageOrVideo(false);
+        // タイプがimageだった場合
+        setVideoUrl(""); // プレビューの初期化
+        setVideoFileUrl(""); // DB保存用 初期化
+        setModalImageUrl(mediaUrl); // プレビュー用
+        setImageFileUrl(imageFile); // DB保存用
       } else {
-        setVideoUrl(imageUrl); // タイプがvideoだった場合
-        setImageOrVideo(true);
+        // タイプがvideoだった場合
+        setModalImageUrl(""); // プレビューの初期化
+        setImageFileUrl(""); // DB保存用 初期化
+        setVideoUrl(mediaUrl); // プレビュー用
+        setVideoFileUrl(imageFile); // DB保存用
       }
-
-      setFileUrl(imageFile);
     };
 
     return (
@@ -38,7 +41,7 @@ export const ImageUrlCreate = memo(
           accept={acceptType}
           className="hidden"
         />
-        {!imageOrVideo ? (
+        {imageUrl ? ( // propsのimageUrlに値が渡ってきた場合
           <img
             src={imageUrl}
             alt="表紙の画像"
@@ -48,15 +51,25 @@ export const ImageUrlCreate = memo(
                 : "h-full w-full opacity-0",
             ]}
           />
-        ) : (
+        ) : videoUrl ? ( // propsのvideoUrlに値が渡ってきた場合
           <video
             src={videoUrl}
             controls={videoCtrl}
-            autoPlay
+            autoPlay={videoAutoPlay}
             muted
             playsInline
             loop={videoLoop}
             className="h-full w-full object-cover"
+          />
+        ) : (
+          <img
+            src={imageUrl}
+            alt="表紙の画像"
+            className={[
+              imageUrl
+                ? "h-full w-full object-cover"
+                : "h-full w-full opacity-0",
+            ]}
           />
         )}
       </label>

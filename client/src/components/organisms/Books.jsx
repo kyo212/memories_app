@@ -15,6 +15,7 @@ import { useStyle } from "../custom/useStyle";
 
 export const Books = memo(
   ({ item, index, bookItems, deleteItem, favoriteState }) => {
+    const { bookId, bookTitle, category, coverImage, date, favorite } = item;
     // ナビゲーション
     const navigate = useNavigate();
     // カスタムフック
@@ -58,12 +59,12 @@ export const Books = memo(
     return (
       <>
         <div className="flex h-screen w-screen items-center">
-          <div key={item.bookId} className="h-screen w-screen">
+          <div key={bookId} className="h-screen w-screen">
             {/* オブジェクトひとつずつのスクリーン幅 */}
             <div className="flex h-screen w-screen items-center justify-center">
               <div className="relative space-y-4">
                 {/* 本の厚み */}
-                <BookRibbon favorite={item.favorite} bookId={item.bookId} />
+                <BookRibbon favorite={favorite} bookId={bookId} />
                 <span
                   className={`${bookStyle} -right-2 -top-2 rounded-sm  border-slate-300 shadow-xl`}
                 />
@@ -74,7 +75,7 @@ export const Books = memo(
                 {/* 本をめくるアニメーション */}
                 <div // 三角のUI
                   className={[
-                    bookOpen && item.bookId
+                    bookOpen && bookId
                       ? bookOpenAnimation.showed
                       : bookOpenAnimation.base,
                   ]}
@@ -82,7 +83,7 @@ export const Books = memo(
                 <button // ひらくボタン
                   onClick={bookOpenToggle}
                   className={[
-                    bookOpen && item.bookId
+                    bookOpen && bookId
                       ? `${bookOpenBtnStyle} opacity-0 duration-300`
                       : `${bookOpenBtnStyle} opacity-100 delay-500`,
                   ]}
@@ -91,12 +92,12 @@ export const Books = memo(
                 </button>
                 <div // ひらいた後の要素
                   className={
-                    bookOpen && item.bookId
+                    bookOpen && bookId
                       ? "transform text-slate-600 transition-all delay-300 duration-300"
                       : "transform text-slate-600 opacity-0 transition-all"
                   }
                 >
-                  {bookOpen && item.bookId && (
+                  {bookOpen && bookId && (
                     <>
                       <button
                         onClick={() => toCategoryComponent(item)}
@@ -129,18 +130,23 @@ export const Books = memo(
                 {/* 表紙 */}
                 <div className="z-10 flex h-[360px] w-72 flex-col items-center rounded-sm  border border-slate-300 bg-white text-slate-700 shadow-inner sm:h-[600px] sm:w-[500px]">
                   <div className="text-bold flax mt-8 mb-4 flex-col text-center text-lg">
-                    <p className="border-b">{item.bookTitle}</p>
+                    <p className="border-b">{bookTitle}</p>
                     <div className="mt-2 flex select-none flex-col items-center text-[12px] leading-5 text-slate-400">
-                      <p>{item.date}</p>
+                      <p>{date}</p>
                       <p>
-                        <ChangeJapanese category={item.category} />
+                        <ChangeJapanese category={category} />
                       </p>
                     </div>
                   </div>
                   <ImageUrlCreate
-                    imageUrl={item.coverImage}
+                    imageUrl={coverImage}
                     acceptType="image/*"
-                    video={{ videoUrl: "", videoCtrl: false, videoLoop: false }}
+                    video={{
+                      videoUrl: "",
+                      videoAutoPlay: false,
+                      videoCtrl: false,
+                      videoLoop: false,
+                    }}
                     imageStyle="h-[220px] w-[90%]"
                   />
                 </div>
