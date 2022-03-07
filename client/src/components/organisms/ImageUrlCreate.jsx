@@ -14,7 +14,6 @@ export const ImageUrlCreate = memo(
     // ファイルを選んだときに呼ばれる関数
     const processImage = (e) => {
       // URLを生成
-
       const imageFile = e.target.files[0];
       const imageUrl = URL.createObjectURL(imageFile);
 
@@ -42,22 +41,23 @@ export const ImageUrlCreate = memo(
         {!imageOrVideo ? (
           <img
             src={imageUrl}
-            onError={(e) => (e.target.value = "OK")}
             alt="表紙の画像"
-            className="h-full w-full object-cover"
+            className={[
+              imageUrl
+                ? "h-full w-full object-cover"
+                : "h-full w-full opacity-0",
+            ]}
           />
         ) : (
           <video
+            src={videoUrl}
             controls={videoCtrl}
             autoPlay
             muted
             playsInline
             loop={videoLoop}
             className="h-full w-full object-cover"
-          >
-            <source src={videoUrl} />
-            予期せぬエラーが発生しました
-          </video>
+          />
         )}
       </label>
     );

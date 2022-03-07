@@ -22,7 +22,8 @@ export const Book = memo(() => {
   // Toggel
   const [unExpectErr, setUnExpectErr] = useState(false);
   // コンテキスト
-  const { modalImageUrl, videoUrl } = useContext(Context);
+  const { modalImageUrl, setModalImageUrl, videoUrl, setVideoUrl } =
+    useContext(Context);
   // 回す画像配列
   const bookImages = [coverImage, ...imageState];
   const bookText = ["表紙", ...textState];
@@ -35,6 +36,11 @@ export const Book = memo(() => {
       setUnExpectErr(true);
     }
   }, []);
+
+  const resetBtn = () => {
+    setModalImageUrl("");
+    setVideoUrl("");
+  };
 
   return (
     <>
@@ -203,7 +209,7 @@ text-slate-500"
                   <p className="text-xl">タイトルを入力</p>
                   <input
                     type="text"
-                    className="border w-60 py-1 px-2 text-sm"
+                    className="w-60 border py-1 px-2 text-sm"
                   />
                 </div>
                 <div className="mt-4">
@@ -215,6 +221,7 @@ text-slate-500"
                   ></textarea>
                 </div>
                 <button>追加</button>
+                <button onClick={resetBtn}>画像リセット</button>
               </div>
             </div>
           </div>
