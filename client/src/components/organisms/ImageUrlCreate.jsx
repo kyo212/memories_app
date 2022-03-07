@@ -12,6 +12,7 @@ export const ImageUrlCreate = memo(
     // ファイルを選んだときに呼ばれる関数
     const processImage = (e) => {
       // URLを生成
+      
       const imageFile = e.target.files[0];
       const imageUrl = URL.createObjectURL(imageFile);
 
