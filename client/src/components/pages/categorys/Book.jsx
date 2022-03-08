@@ -275,7 +275,7 @@ text-slate-500"
           {/* 取得したコンテンツをmapで回す */}
           <>
             {bookContents.map(
-              ({ pageId, bookImage, bookVideo, title, description }) => (
+              ({ pageId, bookImage, bookVideo, title, description }, index) => (
                 <div key={pageId} className="h-full w-screen snap-start">
                   {/* 画像 */}
                   <div className="relative h-1/2 w-screen bg-slate-100">
@@ -296,11 +296,14 @@ text-slate-500"
                     <div className="h-[82%] w-[90%]">
                       {/* 追加画面 常に最後尾に配置する */}
                       <div className="">
-                        <p className="text-xl">{title}</p>
+                        <p className="text-xl font-bold text-slate-800">
+                          {title}
+                        </p>
                       </div>
-                      <div className="mt-4">
-                        <p className="text-lg">{description}</p>
+                      <div className="mt-4 w-[80%]">
+                        <p className="text-md text-slate-600">{description}</p>
                       </div>
+                      <p>{`${index + 1} / ${bookContents.length}`}</p>
                     </div>
                   </div>
                 </div>
