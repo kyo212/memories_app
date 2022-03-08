@@ -32,14 +32,14 @@ export const Book = memo(() => {
   const [update, { setUpdate }] = useForceUpdate();
   // コンテキスト
   const {
-    modalImageUrl,
-    setModalImageUrl,
+    imageUrl,
+    setImageUrl,
     videoUrl,
     setVideoUrl,
-    imageFileUrl,
-    setImageFileUrl,
-    videoFileUrl,
-    setVideoFileUrl,
+    imageFile,
+    setImageFile,
+    videoFile,
+    setVideoFile,
   } = useContext(Context);
 
   useEffect(() => {
@@ -87,10 +87,10 @@ export const Book = memo(() => {
             const { result, err } = response.data;
             console.log({ result, err });
             // 初期化
-            setModalImageUrl("");
+            setImageUrl("");
             setVideoUrl("");
-            setImageFileUrl("");
-            setVideoFileUrl("");
+            setImageFile("");
+            setVideoFile("");
             setBookContentTitle("");
             setBookContentDesc("");
             // アップデート
@@ -105,15 +105,15 @@ export const Book = memo(() => {
             "Content-Type": "multipart/form-data",
           },
           body:
-            imageFileUrl !== "" // imageの値が入っている場合
-              ? imageFileUrl // imageを渡す
-              : videoFileUrl !== "" && videoFileUrl, // videoの値が入っている場合はvideoを渡す
+            imageFile !== "" // imageの値が入っている場合
+              ? imageFile // imageを渡す
+              : videoFile !== "" && videoFile, // videoの値が入っている場合はvideoを渡す
         });
         const bookMedia = url.split("?")[0]; // imageかvideoのURL
-        if (imageFileUrl !== "") {
+        if (imageFile !== "") {
           // imageの値が入っている場合
           insert(bookMedia, "");
-        } else if (videoFileUrl !== "") {
+        } else if (videoFile !== "") {
           insert("", bookMedia);
         }
       }
@@ -121,7 +121,7 @@ export const Book = memo(() => {
   };
 
   const resetBtn = () => {
-    setModalImageUrl("");
+    setImageUrl("");
     setVideoUrl("");
   };
 
@@ -316,7 +316,7 @@ text-slate-500"
           <div className="h-full w-screen snap-start">
             {/* 画像 */}
             <div className="relative h-1/2 w-screen bg-slate-100">
-              {!modalImageUrl &&
+              {!imageUrl &&
                 !videoUrl && ( // 画像と動画を設定されていない時だけ
                   <div className="absolute top-1/2 left-1/2 flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 transform items-center justify-center rounded-full border bg-white text-2xl font-bold">
                     <span className="animate-pulse">
@@ -327,7 +327,7 @@ text-slate-500"
               <ImageUrlCreate
                 imageStyle="h-full w-screen"
                 acceptType="image/*,video/*"
-                imageUrl={modalImageUrl}
+                imageUrl={imageUrl}
                 video={{
                   videoUrl,
                   videoAutoPlay: true,

@@ -29,8 +29,7 @@ export const AddBookModal = memo(
     const { modalTabAnimation } = modals;
     const { errorBorderMsg } = messageWindow;
     // コンテキスト
-    const { modalImageUrl, setDefaultIndex, setModalImageUrl } =
-      useContext(Context);
+    const { imageUrl, setDefaultIndex, setImageUrl } = useContext(Context);
 
     // 共通化
     const textStyle =
@@ -48,7 +47,7 @@ export const AddBookModal = memo(
       setCategory("diary");
       setDefaultIndex(true);
       setBookTitle("");
-      setModalImageUrl("");
+      setImageUrl("");
       // Toggle
       setModalToggle(false);
       setErrMsgToggle(false);
@@ -77,7 +76,7 @@ export const AddBookModal = memo(
               <div className="flex w-full flex-col items-center">
                 <p className={textStyle}>フォトブックの表紙</p>
                 <ImageUrlCreate
-                  imageUrl={modalImageUrl}
+                  imageUrl={imageUrl}
                   acceptType="image/*"
                   video={{
                     videoUrl: "",

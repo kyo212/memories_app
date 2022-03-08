@@ -42,8 +42,8 @@ export const Content = memo(() => {
   // コンテキストに渡すstate
   const {
     setDefaultIndex,
-    imageFileUrl,
-    setModalImageUrl,
+    imageFile,
+    setImageUrl,
     headerToggle,
     setHeaderToggle,
   } = useContext(Context);
@@ -85,12 +85,12 @@ export const Content = memo(() => {
           headers: {
             "Content-Type": "multipart/form-data",
           },
-          body: imageFileUrl, // imageUrlを送る
+          body: imageFile, // imageUrlを送る
         });
         const coverImage = url.split("?")[0];
 
         const insert = async () => {
-          if (imageFileUrl !== "" && bookTitle !== "") {
+          if (imageFile !== "" && bookTitle !== "") {
             // 入力した情報をDBに追加
             console.log(category);
             await Axios.post(
@@ -108,7 +108,7 @@ export const Content = memo(() => {
               setBookTitle(""); // タイトルをデフォルト状態に戻す
               setDefaultIndex(true); // タブのアニメーションをデフォルトに戻す
               setSucMsgToggle(true); // 追加完了のメッセージを出す
-              setModalImageUrl(""); // 画像プレビューをデフォルト状態に戻す
+              setImageUrl(""); // 画像プレビューをデフォルト状態に戻す
               // 3秒後にメッセージを閉じる
               setTimeout(() => {
                 setUpdate(!update);

@@ -7,7 +7,7 @@ export const ImageUrlCreate = memo(
     // props
     const { videoUrl,videoAutoPlay, videoCtrl, videoLoop } = video;
     // コンテキスト
-    const { setImageFileUrl, setVideoFileUrl, setModalImageUrl, setVideoUrl } =
+    const { setImageFile, setVideoFile, setImageUrl, setVideoUrl } =
       useContext(Context);
 
     // ファイルを選んだときに呼ばれる関数
@@ -19,15 +19,15 @@ export const ImageUrlCreate = memo(
       if (String(imageFile.type).indexOf("video")) {
         // タイプがimageだった場合
         setVideoUrl(""); // プレビューの初期化
-        setVideoFileUrl(""); // DB保存用 初期化
-        setModalImageUrl(mediaUrl); // プレビュー用
-        setImageFileUrl(imageFile); // DB保存用
+        setVideoFile(""); // DB保存用 初期化
+        setImageUrl(mediaUrl); // プレビュー用
+        setImageFile(imageFile); // DB保存用
       } else {
         // タイプがvideoだった場合
-        setModalImageUrl(""); // プレビューの初期化
-        setImageFileUrl(""); // DB保存用 初期化
+        setImageUrl(""); // プレビューの初期化
+        setImageFile(""); // DB保存用 初期化
         setVideoUrl(mediaUrl); // プレビュー用
-        setVideoFileUrl(imageFile); // DB保存用
+        setVideoFile(imageFile); // DB保存用
       }
     };
 
