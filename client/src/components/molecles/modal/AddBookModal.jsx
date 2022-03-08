@@ -98,7 +98,9 @@ export const AddBookModal = memo(
                   />
                 </div>
                 {/* 追加ボタン */}
-                <Button clickBtn={insertItem}>本を追加する</Button>
+                <div className="w-[75%]">
+                  <Button clickBtn={insertItem}>本を追加する</Button>
+                </div>
               </div>
             </div>
             {/* 閉じるボタン */}

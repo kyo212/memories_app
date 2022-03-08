@@ -199,7 +199,7 @@ app.post("/insert", async (req, res) => {
   const createDate = new Date().getDate();
   const date = `${createYear}/${createMonth + 1}/${createDate}`;
 
-  if (bookTitle) { 
+  if (bookTitle) {
     // bookTitleがtrueなら表紙
     const sqlInsert =
       "INSERT INTO book_list (username,bookTitle,coverImage,category,date,favorite) VALUES (?,?,?,?,?,?)";

@@ -293,8 +293,7 @@ text-slate-500"
                   </div>
                   {/* テキスト */}
                   <div className="flex h-1/2 w-screen items-center justify-center">
-                    <div className="h-[82%] w-[90%]">
-                      {/* 追加画面 常に最後尾に配置する */}
+                    <div className="relative h-[85%] w-[90%]">
                       <div className="">
                         <p className="text-xl font-bold text-slate-800">
                           {title}
@@ -303,10 +302,10 @@ text-slate-500"
                       <div className="mt-4 w-[80%]">
                         <p className="text-md text-slate-600">{description}</p>
                       </div>
-                      <div className="">
+                      <div className="absolute bottom-0 flex space-x-4">
                         <p className="text-md text-slate-600">{date}</p>
+                        <p>{`${index + 1} / ${bookContents.length}`}</p>
                       </div>
-                      <p>{`${index + 1} / ${bookContents.length}`}</p>
                     </div>
                   </div>
                 </div>
@@ -338,7 +337,7 @@ text-slate-500"
               />
             </div>
             {/* テキスト */}
-            <div className="flex h-1/2 w-screen items-center justify-center">
+            <div className="relative flex h-1/2 w-screen items-center justify-center">
               <div className="h-[82%] w-[90%]">
                 {/* 追加画面 常に最後尾に配置する */}
                 <div className="">
@@ -353,16 +352,18 @@ text-slate-500"
                 <div className="mt-4">
                   <p className="text-lg">説明</p>
                   <textarea
-                    cols="30"
-                    rows="4"
+                    cols="40"
+                    rows="2"
                     value={bookContentDesc}
                     onChange={(e) => setBookContentDesc(e.target.value)}
                     className="border py-1 px-2 text-sm outline-none"
                   />
                 </div>
-                <div className="my-4 space-x-2">
+                <div className="absolute bottom-0 my-4 w-[90%] space-y-2">
+                  <button onClick={resetBtn} className="text-sm text-blue-800">
+                    画像をリセット
+                  </button>
                   <Button clickBtn={insertItem}>追加する</Button>
-                  <Button clickBtn={resetBtn}>画像をリセット</Button>
                 </div>
               </div>
             </div>
