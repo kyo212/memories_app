@@ -42,7 +42,7 @@ export const Content = memo(() => {
   // コンテキストに渡すstate
   const {
     setDefaultIndex,
-    fileUrl,
+    imageFileUrl,
     setModalImageUrl,
     headerToggle,
     setHeaderToggle,
@@ -85,12 +85,12 @@ export const Content = memo(() => {
           headers: {
             "Content-Type": "multipart/form-data",
           },
-          body: fileUrl, // imageUrlを送る
+          body: imageFileUrl, // imageUrlを送る
         });
         const coverImage = url.split("?")[0];
 
         const insert = async () => {
-          if (fileUrl !== "" && bookTitle !== "") {
+          if (imageFileUrl !== "" && bookTitle !== "") {
             // 入力した情報をDBに追加
             console.log(category);
             await Axios.post(

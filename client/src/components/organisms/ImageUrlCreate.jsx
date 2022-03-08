@@ -63,7 +63,7 @@ export const ImageUrlCreate = memo(
           />
         ) : (
           <img
-            src={imageUrl}
+            src={""}
             alt="表紙の画像"
             className={[
               imageUrl

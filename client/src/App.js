@@ -6,7 +6,7 @@ export const Context = createContext();
 function App() {
   // コンテキストに渡すstate
   const [defaultIndex, setDefaultIndex] = useState(false);
-  const [imageFileUrl, setImageFileUrl] = useState("");
+  const [imageFileUrl, setImageFileUrl] = useState(""); 
   const [videoFileUrl, setVideoFileUrl] = useState("");
   const [modalImageUrl, setModalImageUrl] = useState("");
   const [videoUrl, setVideoUrl] = useState("");
