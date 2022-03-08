@@ -76,17 +76,14 @@ export const Book = memo(() => {
         const insert = async (bookImage, bookVideo) => {
           console.log({ bookImage, bookVideo });
           // 入力した情報をDBに追加
-          await Axios.post(
-            `http://${process.env.REACT_APP_PUBLIC_IP}/bookContentInsert`,
-            {
-              bookId,
-              username,
-              bookImage,
-              bookVideo,
-              bookContentTitle,
-              bookContentDesc,
-            }
-          ).then((response) => {
+          await Axios.post(`http://${process.env.REACT_APP_PUBLIC_IP}/insert`, {
+            bookId,
+            username,
+            bookImage,
+            bookVideo,
+            bookContentTitle,
+            bookContentDesc,
+          }).then((response) => {
             const { result, err } = response.data;
             console.log({ result, err });
             // 初期化
@@ -275,7 +272,10 @@ text-slate-500"
           {/* 取得したコンテンツをmapで回す */}
           <>
             {bookContents.map(
-              ({ pageId, bookImage, bookVideo, title, description }, index) => (
+              (
+                { pageId, bookImage, bookVideo, title, description, date },
+                index
+              ) => (
                 <div key={pageId} className="h-full w-screen snap-start">
                   {/* 画像 */}
                   <div className="relative h-1/2 w-screen bg-slate-100">
@@ -302,6 +302,9 @@ text-slate-500"
                       </div>
                       <div className="mt-4 w-[80%]">
                         <p className="text-md text-slate-600">{description}</p>
+                      </div>
+                      <div className="">
+                        <p className="text-md text-slate-600">{date}</p>
                       </div>
                       <p>{`${index + 1} / ${bookContents.length}`}</p>
                     </div>

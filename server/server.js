@@ -181,18 +181,29 @@ app.post("/getBookContent", async (req, res) => {
 });
 
 app.post("/insert", async (req, res) => {
-  const { username, bookTitle, coverImage, category } = req.body;
+  const {
+    username,
+    bookTitle,
+    coverImage,
+    category,
+    bookId,
+    bookImage,
+    bookVideo,
+    bookContentTitle,
+    bookContentDesc,
+  } = req.body;
 
-  // date
+  // 作成日
   const createYear = new Date().getFullYear();
   const createMonth = new Date().getMonth();
   const createDate = new Date().getDate();
   const date = `${createYear}/${createMonth + 1}/${createDate}`;
 
-  const sqlInsert =
-    "INSERT INTO book_list (username,bookTitle,coverImage,category,date,favorite) VALUES (?,?,?,?,?,?)";
-  // usernameは自動で入力される。dateとfavoriteはデフォルト値を設定
-  if (coverImage !== "" && bookTitle !== "") {
+  if (bookTitle) { 
+    // bookTitleがtrueなら表紙
+    const sqlInsert =
+      "INSERT INTO book_list (username,bookTitle,coverImage,category,date,favorite) VALUES (?,?,?,?,?,?)";
+    // usernameは自動で入力される。dateとfavoriteはデフォルト値を設定
     await db.query(
       sqlInsert,
       [username, bookTitle, coverImage, category, date, (favorite = 0)],
@@ -200,31 +211,28 @@ app.post("/insert", async (req, res) => {
         res.json({ result: result, err: err });
       }
     );
+  } else {
+    const sqlContentInsert =
+      "INSERT INTO book_content (bookId,username,bookImage,bookVideo,title,description,date) VALUES (?,?,?,?,?,?,?)";
+    await db.query(
+      sqlContentInsert,
+      [
+        bookId,
+        username,
+        bookImage,
+        bookVideo,
+        bookContentTitle,
+        bookContentDesc,
+        date,
+      ],
+      (err, result) => {
+        res.json({ result: result, err: err });
+      }
+    );
   }
 });
 
-app.post("/bookContentInsert", async (req, res) => {
-  const {
-    bookId,
-    username,
-    bookImage,
-    bookVideo,
-    bookContentTitle,
-    bookContentDesc,
-  } = req.body;
-
-  const sqlInsert =
-    "INSERT INTO book_content (bookId,username,bookImage,bookVideo,title,description) VALUES (?,?,?,?,?,?)";
-
-  // if (bookImage !== "" && bookContentTitle !== "" && bookContentDesc !== "") {}
-  await db.query(
-    sqlInsert,
-    [bookId, username, bookImage, bookVideo, bookContentTitle, bookContentDesc],
-    (err, result) => {
-      res.json({ result: result, err: err });
-    }
-  );
-});
+app.post("/bookContentInsert", async (req, res) => {});
 
 app.delete("/delete/:id", async (req, res) => {
   const { id } = req.params;
