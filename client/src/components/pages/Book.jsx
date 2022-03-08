@@ -5,20 +5,18 @@ import Axios from "axios";
 import { HiUpload } from "react-icons/hi";
 import { BsChevronDoubleLeft } from "react-icons/bs";
 import { BsChevronDoubleRight } from "react-icons/bs";
-import { BsChevronLeft } from "react-icons/bs";
-import { BsChevronRight } from "react-icons/bs";
 import { BsFillBookmarkFill } from "react-icons/bs";
 import { BsHouse } from "react-icons/bs";
 // コンポーネント UI系
-import { ChangeJapanese } from "../../atoms/ChangeJapanese";
-import { ChangeFont } from "../../atoms/ChangeFont";
-import { Button } from "../../atoms/button/Button";
+import { ChangeFont } from "../atoms/ChangeFont";
+import { Button } from "../atoms/button/Button";
+import { CategoryContent } from "./categorys/CategoryContent";
 // コンポーネント 処理系
-import { ImageUrlCreate } from "../../organisms/ImageUrlCreate";
+import { ImageUrlCreate } from "../organisms/ImageUrlCreate";
 // カスタムフック
-import { useForceUpdate } from "../../custom/useForceUpdate";
+import { useForceUpdate } from "../custom/useForceUpdate";
 // コンテキスト
-import { Context } from "../../../App";
+import { Context } from "../../App";
 
 export const Book = memo(() => {
   // ルーター
@@ -144,7 +142,6 @@ export const Book = memo(() => {
         <div
           className={`${fontChange} flex h-screen w-screen snap-x overflow-x-scroll`}
         >
-          <div className="flex items-center">家族</div>
           {/* 表紙情報 */}
           {/* 画像 */}
           <div className="h-full w-screen snap-start bg-white">
@@ -156,134 +153,46 @@ export const Book = memo(() => {
               />
             </div>
             {/* テキスト */}
-            <div className="flex h-1/2 w-screen flex-col items-center justify-center">
+            <div className="relative flex h-1/2 w-screen flex-col items-center justify-center">
+              <>
+                {favorite ? (
+                  <span className="absolute top-3 right-3 text-2xl text-red-500">
+                    <BsFillBookmarkFill />
+                  </span>
+                ) : (
+                  <></>
+                )}
+              </>
+              {/* テキスト */}
               <div
-                className="h-[93%] w-[90%]
+                className="h-[90%] w-[90%]
 text-slate-500"
               >
-                <div className="flex items-center justify-between space-x-2">
-                  <div className="flex">
-                    <h1 className="text-2xl font-bold text-slate-700">
-                      {bookTitle}
-                    </h1>
-                    <p className="text-sm">
-                      <ChangeJapanese category={category} />
-                    </p>
+                <div className="mt-10 flex w-full flex-col items-center justify-center">
+                  <h1 className="text-2xl font-bold text-slate-700">
+                    太郎の成長日記のしるし。
+                  </h1>
+                  <div className="my-2 space-y-2 text-center">
+                    <p className="text-md">{date}</p>
+                    <p className="text-xl">{username || "kyo"}</p>
                   </div>
-                  <>
-                    {favorite ? (
-                      <span className="text-2xl text-red-500">
-                        <BsFillBookmarkFill />
-                      </span>
-                    ) : (
-                      <></>
-                    )}
-                  </>
-                </div>
-                <p className="text-sm">{date}</p>
-                <p className="text-sm">作成者 : {username}</p>
-                <div className="my-2">
-                  <ChangeFont setFontChange={setFontChange} />
-                </div>
-                {/* カテゴリー専用のインプット要素 */}
-                <div className="mt-4 text-sm">
-                  {category === "diary" ? (
+                  {true && (
                     <div className="">
-                      <>日記専用</>
+                      {/* カテゴリーごとの入力欄 */}
+                      <ChangeFont setFontChange={setFontChange} />
+                      <CategoryContent category={category} />
                     </div>
-                  ) : category === "family" ? (
-                    <div className="">
-                      家族構成
-                      <select name="" id="">
-                        <option value="aaa">母親</option>
-                        <option value="">1人</option>
-                        <option value="">2人</option>
-                      </select>
-                      <select name="" id="">
-                        <option value="aaa">父親</option>
-                        <option value="">1人</option>
-                        <option value="">2人</option>
-                      </select>
-                      <select name="" id="">
-                        <option value="aaa">子供</option>
-                        <option value="">1人</option>
-                      </select>
-                    </div>
-                  ) : category === "child" ? (
-                    <div>
-                      <div className="flex flex-col justify-center">
-                        <span className="font-bold">生まれた時間</span>
-                        {true ? (
-                          <>
-                            <div className="flex space-x-2">
-                              <input
-                                type="date"
-                                className="w-40 border py-2 pl-2"
-                              />
-                              <input
-                                type="number"
-                                placeholder="例 1230 (12時30分)"
-                                className="w-40 border py-2 pl-2"
-                              />
-                            </div>
-                          </>
-                        ) : (
-                          <>
-                            生まれた時間 誕生日 年齢
-                            (誕生日と現在の年齢を自動算出)
-                          </>
-                        )}
-                      </div>
-                      <div className="mt-4 flex w-40 flex-col justify-center">
-                        <span className="font-bold">生まれたときのグラム</span>
-                        {true ? (
-                          <input
-                            type="number"
-                            placeholder="例 2000"
-                            className="border py-2 pl-2"
-                          />
-                        ) : (
-                          <>グラム</>
-                        )}
-                      </div>
-                    </div>
-                  ) : category === "pet" ? (
-                    <div className="">
-                      <>ペット専用</>
-                    </div>
-                  ) : category === "hoby" ? (
-                    <div className="">
-                      <>趣味専用</>
-                    </div>
-                  ) : category === "friend" ? (
-                    <div className="">
-                      <>友達専用</>
-                    </div>
-                  ) : category === "lover" ? (
-                    <div className="">
-                      <>恋人専用</>
-                    </div>
-                  ) : category === "travel" ? (
-                    <div className="">
-                      <>旅行専用</>
-                    </div>
-                  ) : (
-                    category === "portfolio" && (
-                      <div className="">
-                        <>作品専用</>
-                      </div>
-                    )
                   )}
                 </div>
                 <div className="absolute left-0 bottom-0 flex h-10 w-screen items-center justify-center space-x-4 text-xl text-slate-500">
                   <BsChevronDoubleLeft />
-                  <BsChevronLeft />
+                  {/* 最初へ */}
                   <button className="flex w-12 justify-center">
                     <a href="/mybooks">
                       <BsHouse />
                     </a>
                   </button>
-                  <BsChevronRight />
+                  {/* 最後へ */}
                   <BsChevronDoubleRight />
                 </div>
               </div>

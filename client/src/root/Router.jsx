@@ -9,7 +9,7 @@ import { Register } from "../components/pages/Register";
 import { NotFound } from "./NotFound";
 import { Session } from "./Session";
 // コンポーネント カテゴリーページ
-import { Book } from "../components/pages/categorys/Book";
+import { Book } from "../components/pages/Book";
 
 export const Router = memo(() => {
   return (
