@@ -50,9 +50,8 @@ export const Books = memo(
     };
 
     const toCategoryComponent = (item) => {
-      const { category, bookId, bookTitle, username, coverImage, date } = item;
       navigate(`book`, {
-        state: { category, bookId, bookTitle, username, coverImage, date },
+        state: item,
       });
     };
 

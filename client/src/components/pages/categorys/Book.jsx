@@ -3,6 +3,12 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Axios from "axios";
 // アイコン
 import { HiUpload } from "react-icons/hi";
+import { BsChevronDoubleLeft } from "react-icons/bs";
+import { BsChevronDoubleRight } from "react-icons/bs";
+import { BsChevronLeft } from "react-icons/bs";
+import { BsChevronRight } from "react-icons/bs";
+import { BsFillBookmarkFill } from "react-icons/bs";
+import { BsHouse } from "react-icons/bs";
 // コンポーネント UI系
 import { ChangeJapanese } from "../../atoms/ChangeJapanese";
 import { ChangeFont } from "../../atoms/ChangeFont";
@@ -21,7 +27,7 @@ export const Book = memo(() => {
   // 情報
   const [bookContents, setBookContents] = useState([]);
   const [locationState, setLocationState] = useState([]);
-  const { category, bookId, bookTitle, username, coverImage, date } =
+  const { category, bookId, bookTitle, username, coverImage, date, favorite } =
     locationState;
   const [fontChange, setFontChange] = useState(""); // フォント切り替え
   const [bookContentTitle, setBookContentTitle] = useState("");
@@ -152,23 +158,34 @@ export const Book = memo(() => {
             {/* テキスト */}
             <div className="flex h-1/2 w-screen flex-col items-center justify-center">
               <div
-                className="h-[82%] w-[90%] font-bold
+                className="h-[93%] w-[90%]
 text-slate-500"
               >
-                {/* <p>{bookId}</p> */}
-                <h1 className="text-2xl font-bold text-slate-700">
-                  {bookTitle}
-                </h1>
+                <div className="flex items-center justify-between space-x-2">
+                  <div className="flex">
+                    <h1 className="text-2xl font-bold text-slate-700">
+                      {bookTitle}
+                    </h1>
+                    <p className="text-sm">
+                      <ChangeJapanese category={category} />
+                    </p>
+                  </div>
+                  <>
+                    {favorite ? (
+                      <span className="text-2xl text-red-500">
+                        <BsFillBookmarkFill />
+                      </span>
+                    ) : (
+                      <></>
+                    )}
+                  </>
+                </div>
                 <p className="text-sm">{date}</p>
-                <p className="text-sm">
-                  <ChangeJapanese category={category} />
-                </p>
                 <p className="text-sm">作成者 : {username}</p>
                 <div className="my-2">
                   <ChangeFont setFontChange={setFontChange} />
                 </div>
                 {/* カテゴリー専用のインプット要素 */}
-                <p>Not null を許可してbook_listに追加する</p>
                 <div className="mt-4 text-sm">
                   {category === "diary" ? (
                     <div className="">
@@ -258,13 +275,16 @@ text-slate-500"
                     )
                   )}
                 </div>
-                <div className="flex">
-                  <p>
-                    <a href="/mybooks" className="text-sm text-blue-800">
-                      一覧画面へ戻る
+                <div className="absolute left-0 bottom-0 flex h-10 w-screen items-center justify-center space-x-4 text-xl text-slate-500">
+                  <BsChevronDoubleLeft />
+                  <BsChevronLeft />
+                  <button className="flex w-12 justify-center">
+                    <a href="/mybooks">
+                      <BsHouse />
                     </a>
-                  </p>
-                  <p className="mx-2">1/2</p>
+                  </button>
+                  <BsChevronRight />
+                  <BsChevronDoubleRight />
                 </div>
               </div>
             </div>
@@ -305,6 +325,7 @@ text-slate-500"
                       <div className="absolute bottom-0 flex space-x-4">
                         <p className="text-md text-slate-600">{date}</p>
                         <p>{`${index + 1} / ${bookContents.length}`}</p>
+                        <button></button>
                       </div>
                     </div>
                   </div>
