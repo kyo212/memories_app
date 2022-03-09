@@ -1,5 +1,6 @@
-import { memo, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Axios from "axios";
 // アイコン
 import { BsReply } from "react-icons/bs";
 import { BsReplyFill } from "react-icons/bs";
@@ -14,14 +15,7 @@ import { ChangeJapanese } from "../atoms/ChangeJapanese";
 import { useStyle } from "../custom/useStyle";
 
 export const Books = memo(
-  ({
-    item,
-    index,
-    bookItems,
-    deleteItem,
-    favoriteState,
-    setSlider,
-  }) => {
+  ({ item, index, bookItems, deleteItem, favoriteState }) => {
     const { bookId, bookTitle, category, coverImage, date, favorite } = item;
     // ナビゲーション
     const navigate = useNavigate();
@@ -40,6 +34,24 @@ export const Books = memo(
       "absolute -top-1 p-3 right-0 -rotate-45 transform text-xl text-slate-400 transition-all";
     const bookOpenTextStyle =
       "absolute mr-1 border-b py-[2px] px-[5px] text-[12px] hover:font-bold";
+
+    // useEffect(() => {
+    //   // ログイン状態を取得
+    //   const getAuth = async () => {
+    //     await Axios.post(
+    //       `http://${process.env.REACT_APP_PUBLIC_IP}/loginState`
+    //     ).then((response) => {
+    //       const { loggedIn } = response.data;
+    //       if (!loggedIn) {
+    //         // ログイン中でない時、"/session"に遷移させる
+    //         // navigate("/session");
+    //       } else {
+    //         setIsAuth(loggedIn);
+    //       }
+    //     });
+    //   };
+    //   getAuth();
+    // }, []);
 
     const bookOpenToggle = () => {
       setBookOpen(!bookOpen);
@@ -135,7 +147,7 @@ export const Books = memo(
                 </div>
                 {/* 本をめくるアニメーション */}
                 {/* 表紙 */}
-                <div className="z-10 flex h-[360px] w-72 flex-col items-center rounded-sm  border border-slate-300 bg-gradient-to-b from-white to-gray-200 text-slate-700 shadow-inner sm:h-[600px] sm:w-[500px]">
+                <div className="z-10 flex h-[360px] w-72 flex-col items-center rounded-sm  border border-slate-300 bg-white text-slate-700 shadow-inner sm:h-[600px] sm:w-[500px]">
                   <div className="text-bold flax mt-8 mb-4 flex-col text-center text-lg">
                     <p className="border-b">{bookTitle}</p>
                     <div className="mt-2 flex select-none flex-col items-center text-[12px] leading-5 text-slate-400">
@@ -157,30 +169,6 @@ export const Books = memo(
                     imageStyle="h-[220px] w-[90%]"
                   />
                 </div>
-                {/* index → オブジェクトごとの数字 */}
-                {/* Items.length → Items配列の中のオブジェクトの総数 */}
-                <div className="flex w-full items-center justify-center text-sm">
-                  <button
-                    onClick={() =>
-                      setSlider((prevCount) => prevCount - 100)
-                    }
-                    className="text-lg text-slate-500 active:text-black"
-                  >
-                    <BsChevronCompactLeft />
-                  </button>
-                  <p className="mx-4 select-none space-x-1 text-slate-500">
-                    {`${index + 1} / ${bookItems.length}`}
-                  </p>
-                  <button
-                    onClick={() => {
-                      setSlider((prevCount) => prevCount + 100);
-                      // index === length でdisable
-                    }}
-                    className="text-lg text-slate-500 active:text-black"
-                  >
-                    <BsChevronCompactRight />
-                  </button>
-                </div>
               </div>
             </div>
           </div>
@@ -189,7 +177,7 @@ export const Books = memo(
           className={[
             confirmWindowOpen
               ? "absolute top-0 left-0 z-50 flex h-screen w-screen transform items-center justify-center overflow-hidden transition-transform duration-100"
-              : "absolute top-0 left-0 z-50 flex h-screen w-screen -translate-y-full transform items-center justify-center overflow-hidden transition-transform duration-100",
+              : "absolute top-0 left-0 z-50  hidden h-screen w-screen transform items-center justify-center overflow-hidden transition-transform duration-100",
           ]}
         >
           <ConfirmDialog

@@ -1,11 +1,16 @@
-import { memo, useState, useEffect, useContext } from "react";
+import { memo, useState, useEffect, useContext, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
+// スライダー
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination } from "swiper";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 // アイコン
 import { AiOutlinePlus } from "react-icons/ai";
 import { BsArrowDown } from "react-icons/bs";
 // コンポーネント UI系
-import { FooterTab } from "../molecles/tabs/FooterTab";
 import { Header } from "../organisms/Header";
 import { Books } from "../organisms/Books";
 import { SuccessMsgWindow } from "../atoms/message/SuccessMsgWindow";
@@ -39,6 +44,9 @@ export const Content = memo(() => {
   const [sucMsgToggle, setSucMsgToggle] = useState(false);
   // カスタムフック
   const [update, { setUpdate }] = useForceUpdate();
+  // スライダーアイコン
+  const navigationPrevRef = useRef(null);
+  const navigationNextRef = useRef(null);
   // コンテキストに渡すstate
   const {
     setDefaultIndex,
@@ -47,9 +55,6 @@ export const Content = memo(() => {
     headerToggle,
     setHeaderToggle,
   } = useContext(Context);
-  // スライダー
-  const [slider, setSlider] = useState(0);
-  console.log(slider);
 
   useEffect(() => {
     // ユーザーネームをセッションから取得
@@ -162,16 +167,31 @@ export const Content = memo(() => {
         </div>
       </Header>
       {/* メインコンテンツ */}
-      <div className="flex h-screen w-screen snap-x snap-mandatory overflow-scroll text-center">
+      <div className="h-screen w-screen snap-x snap-mandatory overflow-scroll bg-slate-100 text-center">
         {bookItems.length > 0 ? (
           // bookItems(bookの情報を格納している配列)の中の配列の中にデータが存在しない場合(0の場合)は"まだ何もありません"を表示
-          <>
+          <Swiper
+            onInit={(swiper) => {
+              swiper.params.navigation.prevEl = navigationPrevRef.current;
+              swiper.params.navigation.nextEl = navigationNextRef.current;
+              swiper.navigation.init();
+              swiper.navigation.update();
+            }}
+            // navigation={{
+            //   prevEl: navigationPrevRef.current,
+            //   nextEl: navigationNextRef.current,
+            // }}
+            pagination={{
+              dynamicBullets: true,
+            }}
+            modules={[Navigation, Pagination]}
+          >
             {bookItems.map((item, index) => (
               <>
-                <div
+                <SwiperSlide
                   id={index}
                   key={item.bookId}
-                  className={`-translate-x-[${slider}vw] h-screen w-screen transform snap-start snap-always transition-transform duration-1000 ease-in`}
+                  className="inline-block h-screen w-screen transform snap-start snap-always bg-gradient-to-r from-white to-gray-100 transition-transform duration-1000 ease-in"
                 >
                   <Books
                     item={item}
@@ -179,13 +199,17 @@ export const Content = memo(() => {
                     bookItems={bookItems}
                     deleteItem={deleteItem}
                     favoriteState={favoriteState}
-                    slider={slider}
-                    setSlider={setSlider}
                   />
-                </div>
+                </SwiperSlide>
               </>
             ))}
-          </>
+            <div ref={navigationPrevRef} className="h-20 w-20 absolute top-10 z-50">
+              fdafd
+            </div>
+            <div ref={navigationNextRef} className="h-20 w-20">
+              fffffs
+            </div>
+          </Swiper>
         ) : (
           <>
             {loading ? (
@@ -220,7 +244,7 @@ export const Content = memo(() => {
         )}
       </div>
 
-      {/* モーダル出現ボタン */}
+      {/* モーダルボタン */}
       <AddBookBtn setModalToggle={setModalToggle} />
       {/* モーダルウィンドウ */}
       <AddBookModal
@@ -236,7 +260,7 @@ export const Content = memo(() => {
         msgText="に新しく本を追加しました。"
         headerText="成功"
       />
-      <FooterTab />
+      {/* <FooterTab /> */}
     </>
   );
 });
