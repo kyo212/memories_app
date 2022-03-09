@@ -37,14 +37,14 @@ export const useStyle = () => {
 
   const messageWindow = {
     errorMsg: {
-      base: "translate-y-10 transform fixed bottom-10 opacity-0 transition-all",
+      base: "w-[90%] translate-y-10 transform fixed top-16 opacity-0 transition-all",
       showed:
-        "border-b border-red-800 fixed bottom-10 bg-red-600 bg-opacity-10 px-4 py-2 text-sm text-red-800 opacity-100 transition-all duration-500",
+        "w-[90%] border border-red-500 rounded-lg fixed top-16 bg-red-600 bg-opacity-10 px-4 py-2 text-sm text-red-800 opacity-100 transition-all duration-500",
     },
     successMsg: {
-      base: "w-64 translate-y-10 transform fixed top-10 left-1/2 -translate-x-1/2 opacity-0 transition-all",
+      base: "w-[90%] z-50 translate-y-10 transform fixed top-14 left-1/2 -translate-x-1/2 opacity-0 transition-all",
       showed:
-        "w-64 border-b border-green-800 fixed top-16 left-1/2 -translate-x-1/2 bg-green-600 bg-opacity-10 px-4 py-2 text-sm text-green-800 opacity-100 transition-all",
+        "w-[90%] z-50 border border-green-500 rounded-lg fixed top-14 left-1/2 -translate-x-1/2 bg-green-600 bg-opacity-10 px-4 py-2 text-sm text-green-800 opacity-100 transition-all duration-500",
     },
     errorBorderMsg: {
       base: "w-full rounded border border-slate-400 px-4 py-2",

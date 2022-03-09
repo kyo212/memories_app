@@ -21,7 +21,7 @@ export const Header = memo(({ root, children, headerOpen }) => {
       <div
         className={`${[
           headerToggle && "-translate-y-full",
-        ]} fixed z-30 mt-2 flex h-[50px] w-full transform justify-center transition-transform`}
+        ]} fixed z-40 mt-2 flex h-[50px] w-full transform justify-center transition-transform`}
       >
         <div className="flex h-12 w-[96%] items-center  justify-between rounded-md ">
           <h1 className="mx-4 select-none font-serif text-xl font-bold text-slate-800">

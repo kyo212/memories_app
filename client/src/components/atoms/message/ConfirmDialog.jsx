@@ -25,7 +25,7 @@ export const ConfirmDialog = memo(
 
     return (
       <>
-        <div className="flex h-40 w-72 flex-col justify-center space-y-4 rounded-md border border-gray-200 bg-white py-4 px-2 text-gray-700 shadow-2xl">
+        <div className="flex h-32 w-[90%] flex-col items-center justify-center space-y-4 rounded-lg border-2 border-gray-200 bg-white py-4 px-2 text-gray-700 shadow-2xl">
           {favorite ? (
             <>
               <p>お気に入り中の本は削除できません</p>
@@ -41,14 +41,16 @@ export const ConfirmDialog = memo(
           ) : (
             <>
               <div className="leading-6">
-                <p className="ml-1 font-bold">{`${bookTitle}`}</p>
-                <p>{`を${message}`}</p>
+                <p>
+                  <span className="ml-1 font-bold">{`${bookTitle}`}</span>を
+                  {`${message}`}
+                </p>
               </div>
-              <div className="w-full">
+              <div className="w-full text-center">
                 <button
                   id="yes"
                   onClick={confirmSelect}
-                  className={`${msgBtnStyle} border-red-500 text-red-500 hover:bg-red-500`}
+                  className={`${msgBtnStyle} border-red-500 bg-red-500 font-bold text-white hover:bg-white hover:text-white`}
                 >
                   削除
                 </button>

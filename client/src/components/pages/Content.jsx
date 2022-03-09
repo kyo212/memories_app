@@ -16,6 +16,9 @@ import { Books } from "../organisms/Books";
 import { SuccessMsgWindow } from "../atoms/message/SuccessMsgWindow";
 import { Search } from "../atoms/Search";
 import { Loading } from "../atoms/style/Loading";
+import { SliderLeft } from "../atoms/button/SliderLeft";
+import { SliderRight } from "../atoms/button/SliderRight";
+import { ConfirmDialog } from "../atoms/message/ConfirmDialog";
 // コンポーネント 処理系
 import { MenuOpenModal } from "../molecles/modal/MenuOpenModal";
 import { AddBookBtn } from "../atoms/button/AddBookBtn";
@@ -24,8 +27,6 @@ import { AddBookModal } from "../molecles/modal/AddBookModal";
 import { useForceUpdate } from "../custom/useForceUpdate";
 // コンテキスト
 import { Context } from "../../App";
-import { SliderLeft } from "../atoms/button/SliderLeft";
-import { SliderRight } from "../atoms/button/SliderRight";
 
 // ------------------------------------------
 // ユーザーが認証済みであるときに表示させる内容
@@ -38,9 +39,12 @@ export const Content = memo(() => {
   const [category, setCategory] = useState("diary");
   const [loginUser, setLoginUser] = useState(""); // ログイン中のusername
   const [bookItems, setBookItems] = useState([]);
+  const [deleteInform, setDeleteInform] = useState({});
   // Toggle
   const [modalToggle, setModalToggle] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [confirmWindowOpen, setConfirmWindowOpen] = useState(false);
+  const [bookOpen, setBookOpen] = useState(false);
   // メッセージ
   const [errMsgToggle, setErrMsgToggle] = useState(false);
   const [sucMsgToggle, setSucMsgToggle] = useState(false);
@@ -162,12 +166,17 @@ export const Content = memo(() => {
   return (
     <>
       {/* ヘッダー */}
-      <Header root={"/mybooks"} headerOpen={{ headerToggle, setHeaderToggle }}>
-        <div className="flex items-center">
-          <Search />
-          <MenuOpenModal loginUser={loginUser} />
-        </div>
-      </Header>
+      {!confirmWindowOpen && (
+        <Header
+          root={"/mybooks"}
+          headerOpen={{ headerToggle, setHeaderToggle }}
+        >
+          <div className="flex items-center">
+            <Search />
+            <MenuOpenModal loginUser={loginUser} />
+          </div>
+        </Header>
+      )}
       {/* メインコンテンツ */}
       <div className="h-screen w-screen snap-x snap-mandatory overflow-scroll text-center">
         {bookItems.length > 0 ? (
@@ -189,7 +198,7 @@ export const Content = memo(() => {
                 <SwiperSlide
                   id={index}
                   key={item.bookId}
-                  className="inline-block h-screen w-screen transform snap-start snap-always bg-gradient-to-r from-white to-gray-100 transition-transform  ease-in"
+                  className="inline-block h-screen w-screen transform snap-start snap-always bg-gradient-to-r from-white to-gray-100 transition-transform ease-in"
                 >
                   <Books
                     item={item}
@@ -197,17 +206,17 @@ export const Content = memo(() => {
                     bookItems={bookItems}
                     deleteItem={deleteItem}
                     favoriteState={favoriteState}
+                    setConfirmWindowOpen={setConfirmWindowOpen}
+                    setDeleteInform={setDeleteInform}
+                    bookOpen={bookOpen}
+                    setBookOpen={setBookOpen}
                   />
                 </SwiperSlide>
               </>
             ))}
 
-            <SliderLeft
-              navigationPrevRef={navigationPrevRef}
-            />
-            <SliderRight
-              navigationNextRef={navigationNextRef}
-            />
+            <SliderLeft navigationPrevRef={navigationPrevRef} />
+            <SliderRight navigationNextRef={navigationNextRef} />
           </Swiper>
         ) : (
           <>
@@ -257,8 +266,23 @@ export const Content = memo(() => {
         msgToggle={sucMsgToggle}
         category={category}
         msgText="に新しく本を追加しました。"
-        headerText="成功"
+        
       />
+      <div
+        className={[
+          confirmWindowOpen
+            ? "fixed top-0 left-0 z-50 mt-20 flex h-screen w-screen transform justify-center overflow-hidden bg-white bg-opacity-80  transition-all duration-700"
+            : "fixed top-0 left-0 -z-50 flex h-screen w-screen transform justify-center overflow-hidden opacity-0 transition-all duration-700",
+        ]}
+      >
+        <ConfirmDialog
+          message="削除しますか？"
+          deleteInform={deleteInform} // 削除するアイテムのid
+          deleteItem={deleteItem} // 削除する関数
+          setConfirmWindowOpen={setConfirmWindowOpen}
+          setBookOpen={setBookOpen}
+        />
+      </div>
     </>
   );
 });

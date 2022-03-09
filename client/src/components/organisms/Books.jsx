@@ -1,31 +1,31 @@
-import { memo, useEffect, useState } from "react";
+import { memo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Axios from "axios";
 // アイコン
 import { BsReply } from "react-icons/bs";
 import { BsReplyFill } from "react-icons/bs";
-import { BsChevronCompactLeft } from "react-icons/bs";
-import { BsChevronCompactRight } from "react-icons/bs";
 // コンポーネント
 import { BookRibbon } from "../atoms/style/BookRibbon";
 import { ImageUrlCreate } from "./ImageUrlCreate";
-import { ConfirmDialog } from "../atoms/message/ConfirmDialog";
 import { ChangeJapanese } from "../atoms/ChangeJapanese";
 // カスタムフック
 import { useStyle } from "../custom/useStyle";
 
 export const Books = memo(
-  ({ item, index, bookItems, deleteItem, favoriteState }) => {
+  ({
+    item,
+    index,
+    bookItems,
+    favoriteState,
+    setConfirmWindowOpen,
+    setDeleteInform,
+    bookOpen,
+    setBookOpen,
+  }) => {
     const { bookId, bookTitle, category, coverImage, date, favorite } = item;
     // ナビゲーション
     const navigate = useNavigate();
     // カスタムフック
     const { bookOpenAnimation } = useStyle();
-    // Toggle
-    const [bookOpen, setBookOpen] = useState(false);
-    const [confirmWindowOpen, setConfirmWindowOpen] = useState(false);
-    // 情報
-    const [deleteInform, setDeleteInform] = useState({});
 
     // スタイル共通化
     const bookStyle =
@@ -154,21 +154,6 @@ export const Books = memo(
               </div>
             </div>
           </div>
-        </div>
-        <div
-          className={[
-            confirmWindowOpen
-              ? "absolute top-0 left-0 z-50 flex h-screen w-screen transform items-center justify-center overflow-hidden transition-transform duration-100"
-              : "absolute top-0 left-0 z-50  hidden h-screen w-screen transform items-center justify-center overflow-hidden transition-transform duration-100",
-          ]}
-        >
-          <ConfirmDialog
-            message="削除しますか？"
-            deleteInform={deleteInform} // 削除するアイテムのid
-            deleteItem={deleteItem} // 削除する関数
-            setConfirmWindowOpen={setConfirmWindowOpen}
-            setBookOpen={setBookOpen}
-          />
         </div>
       </>
     );
