@@ -10,9 +10,9 @@ import { BsHouse } from "react-icons/bs";
 // コンポーネント UI系
 import { ChangeFont } from "../atoms/ChangeFont";
 import { Button } from "../atoms/button/Button";
-import { CategoryContent } from "./categorys/CategoryContent";
 // コンポーネント 処理系
 import { ImageUrlCreate } from "../organisms/ImageUrlCreate";
+import { ChangeJapanese } from "../atoms/ChangeJapanese";
 // カスタムフック
 import { useForceUpdate } from "../custom/useForceUpdate";
 // コンテキスト
@@ -169,20 +169,19 @@ export const Book = memo(() => {
 text-slate-500"
               >
                 <div className="mt-10 flex w-full flex-col items-center justify-center">
-                  <h1 className="text-2xl font-bold text-slate-700">
+                  <h1 className="text-2xl border-b pb-2 text-slate-700">
                     太郎の成長日記のしるし。
                   </h1>
                   <div className="my-2 space-y-2 text-center">
                     <p className="text-md">{date}</p>
-                    <p className="text-xl">{username || "kyo"}</p>
+                    <p className="text-xl">
+                      {username || "kyo"}
+                      の<ChangeJapanese category={category} />
+                    </p>
                   </div>
-                  {true && (
-                    <div className="">
-                      {/* カテゴリーごとの入力欄 */}
-                      <ChangeFont setFontChange={setFontChange} />
-                      <CategoryContent category={category} />
-                    </div>
-                  )}
+                  <div className="">
+                    <ChangeFont setFontChange={setFontChange} />
+                  </div>
                 </div>
                 <div className="absolute left-0 bottom-0 flex h-10 w-screen items-center justify-center space-x-4 text-xl text-slate-500">
                   <BsChevronDoubleLeft />

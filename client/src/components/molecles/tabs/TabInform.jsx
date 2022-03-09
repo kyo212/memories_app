@@ -25,6 +25,8 @@ export const TabInform = ({ category }) => {
                 {category === "diary" ? (
                   <div className="bg-tab-my h-full w-full bg-cover">
                     <>日記</>
+                    <p>日常を書き起こしても</p>
+                    <p>家庭菜園の野菜や観葉植物の成長を見守る日記も</p>
                   </div>
                 ) : category === "family" ? (
                   <>

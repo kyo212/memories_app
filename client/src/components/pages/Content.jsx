@@ -47,6 +47,9 @@ export const Content = memo(() => {
     headerToggle,
     setHeaderToggle,
   } = useContext(Context);
+  // スライダー
+  const [slider, setSlider] = useState(0);
+  console.log(slider);
 
   useEffect(() => {
     // ユーザーネームをセッションから取得
@@ -168,7 +171,7 @@ export const Content = memo(() => {
                 <div
                   id={index}
                   key={item.bookId}
-                  className="h-screen w-screen snap-start snap-always"
+                  className={`-translate-x-[${slider}vw] h-screen w-screen transform snap-start snap-always transition-transform duration-1000 ease-in`}
                 >
                   <Books
                     item={item}
@@ -176,6 +179,8 @@ export const Content = memo(() => {
                     bookItems={bookItems}
                     deleteItem={deleteItem}
                     favoriteState={favoriteState}
+                    slider={slider}
+                    setSlider={setSlider}
                   />
                 </div>
               </>

@@ -14,7 +14,14 @@ import { ChangeJapanese } from "../atoms/ChangeJapanese";
 import { useStyle } from "../custom/useStyle";
 
 export const Books = memo(
-  ({ item, index, bookItems, deleteItem, favoriteState }) => {
+  ({
+    item,
+    index,
+    bookItems,
+    deleteItem,
+    favoriteState,
+    setSlider,
+  }) => {
     const { bookId, bookTitle, category, coverImage, date, favorite } = item;
     // ナビゲーション
     const navigate = useNavigate();
@@ -25,6 +32,7 @@ export const Books = memo(
     const [confirmWindowOpen, setConfirmWindowOpen] = useState(false);
     // 情報
     const [deleteInform, setDeleteInform] = useState({});
+
     // スタイル共通化
     const bookStyle =
       "absolute -z-20 flex h-[360px] w-72 sm:h-[600px] sm:w-[500px] border bg-gray-100 text-slate-70 block border-slate-400";
@@ -127,7 +135,7 @@ export const Books = memo(
                 </div>
                 {/* 本をめくるアニメーション */}
                 {/* 表紙 */}
-                <div className="z-10 flex h-[360px] w-72 flex-col items-center rounded-sm  border border-slate-300 bg-white text-slate-700 shadow-inner sm:h-[600px] sm:w-[500px]">
+                <div className="z-10 flex h-[360px] w-72 flex-col items-center rounded-sm  border border-slate-300 bg-gradient-to-b from-white to-gray-200 text-slate-700 shadow-inner sm:h-[600px] sm:w-[500px]">
                   <div className="text-bold flax mt-8 mb-4 flex-col text-center text-lg">
                     <p className="border-b">{bookTitle}</p>
                     <div className="mt-2 flex select-none flex-col items-center text-[12px] leading-5 text-slate-400">
@@ -152,21 +160,26 @@ export const Books = memo(
                 {/* index → オブジェクトごとの数字 */}
                 {/* Items.length → Items配列の中のオブジェクトの総数 */}
                 <div className="flex w-full items-center justify-center text-sm">
-                  <a
-                    href={`#${index - 1}`}
+                  <button
+                    onClick={() =>
+                      setSlider((prevCount) => prevCount - 100)
+                    }
                     className="text-lg text-slate-500 active:text-black"
                   >
                     <BsChevronCompactLeft />
-                  </a>
+                  </button>
                   <p className="mx-4 select-none space-x-1 text-slate-500">
                     {`${index + 1} / ${bookItems.length}`}
                   </p>
-                  <a
-                    href={`#${index + 1}`}
+                  <button
+                    onClick={() => {
+                      setSlider((prevCount) => prevCount + 100);
+                      // index === length でdisable
+                    }}
                     className="text-lg text-slate-500 active:text-black"
                   >
                     <BsChevronCompactRight />
-                  </a>
+                  </button>
                 </div>
               </div>
             </div>
@@ -175,8 +188,8 @@ export const Books = memo(
         <div
           className={[
             confirmWindowOpen
-              ? "absolute top-0 left-0 z-50 flex h-screen w-screen transform items-center justify-center overflow-hidden bg-black bg-opacity-10 transition-transform duration-100"
-              : "absolute top-0 left-0 z-50 flex h-screen w-screen -translate-x-full transform items-center justify-center overflow-hidden transition-transform duration-100",
+              ? "absolute top-0 left-0 z-50 flex h-screen w-screen transform items-center justify-center overflow-hidden transition-transform duration-100"
+              : "absolute top-0 left-0 z-50 flex h-screen w-screen -translate-y-full transform items-center justify-center overflow-hidden transition-transform duration-100",
           ]}
         >
           <ConfirmDialog

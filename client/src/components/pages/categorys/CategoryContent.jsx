@@ -4,14 +4,13 @@ import { ChangeJapanese } from "../../atoms/ChangeJapanese";
 
 export const CategoryContent = memo(({ category }) => {
   return (
-    // カテゴリー専用のインプット要素 
+    // カテゴリー専用のインプット要素
     <>
-      <div className="mt-4 text-sm">
+      <div className="mt-4 w-screen border text-sm">
         {category === "diary" ? (
           <div className="">
-            <p className="text-sm">
-              <ChangeJapanese category={category} />
-            </p>
+          
+
           </div>
         ) : category === "family" ? (
           <div className="">
