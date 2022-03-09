@@ -1,6 +1,4 @@
 import { memo, useContext } from "react";
-// ロゴ
-import logo from "../../../images/logo.png";
 // アイコン
 import { BsChevronDoubleUp } from "react-icons/bs";
 import { BsChevronDoubleDown } from "react-icons/bs";
@@ -27,18 +25,17 @@ export const Header = memo(({ root, children, headerOpen }) => {
       >
         <div className="flex h-12 w-[96%] items-center  justify-between rounded-md ">
           <h1 className="mx-4 select-none font-serif text-xl font-bold text-slate-800">
-            {/* <a href={root}>
-            </a> */}
-            <img src={logo} alt="" />
+            <a href={root}>memories</a>
           </h1>
           <div className="mx-4 flex h-12 items-center">
             <div className="flex h-full space-x-2">{children}</div>
             <button
               onClick={headerOpenClose}
               className={`${[
-                headerToggle &&
-                  "translate-y-12 bg-gray-500 text-white delay-500",
-              ]} ml-2 transform cursor-pointer rounded-full border border-slate-500 p-2 transition-all`}
+                headerToggle
+                  ? "translate-y-12 bg-gray-500 text-white delay-500"
+                  : "bg-white text-slate-500 shadow-md",
+              ]} ml-2 transform cursor-pointer rounded-full border border-gray-300 p-2 transition-all`}
             >
               {headerToggle ? <BsChevronDoubleDown /> : <BsChevronDoubleUp />}
             </button>

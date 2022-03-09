@@ -8,7 +8,7 @@ export const AddBookBtn = memo(({ setModalToggle }) => {
   return (
     <>
       <div className="fixed bottom-3 right-0 z-10 -translate-x-1/2 transform rounded-full">
-        <label className="flex h-10 w-10 items-center justify-center rounded-full bg-white border border-slate-500">
+        <label className="flex h-12 w-12 items-center justify-center rounded-full border border-gray-300 bg-white shadow-md">
           <button
             onClick={modalToggle}
             className="text-2xl font-bold text-slate-700"

@@ -35,24 +35,6 @@ export const Books = memo(
     const bookOpenTextStyle =
       "absolute mr-1 border-b py-[2px] px-[5px] text-[12px] hover:font-bold";
 
-    // useEffect(() => {
-    //   // ログイン状態を取得
-    //   const getAuth = async () => {
-    //     await Axios.post(
-    //       `http://${process.env.REACT_APP_PUBLIC_IP}/loginState`
-    //     ).then((response) => {
-    //       const { loggedIn } = response.data;
-    //       if (!loggedIn) {
-    //         // ログイン中でない時、"/session"に遷移させる
-    //         // navigate("/session");
-    //       } else {
-    //         setIsAuth(loggedIn);
-    //       }
-    //     });
-    //   };
-    //   getAuth();
-    // }, []);
-
     const bookOpenToggle = () => {
       setBookOpen(!bookOpen);
     };

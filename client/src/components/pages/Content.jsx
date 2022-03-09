@@ -24,6 +24,8 @@ import { AddBookModal } from "../molecles/modal/AddBookModal";
 import { useForceUpdate } from "../custom/useForceUpdate";
 // コンテキスト
 import { Context } from "../../App";
+import { SliderLeft } from "../atoms/button/SliderLeft";
+import { SliderRight } from "../atoms/button/SliderRight";
 
 // ------------------------------------------
 // ユーザーが認証済みであるときに表示させる内容
@@ -167,7 +169,7 @@ export const Content = memo(() => {
         </div>
       </Header>
       {/* メインコンテンツ */}
-      <div className="h-screen w-screen snap-x snap-mandatory overflow-scroll bg-slate-100 text-center">
+      <div className="h-screen w-screen snap-x snap-mandatory overflow-scroll text-center">
         {bookItems.length > 0 ? (
           // bookItems(bookの情報を格納している配列)の中の配列の中にデータが存在しない場合(0の場合)は"まだ何もありません"を表示
           <Swiper
@@ -177,10 +179,6 @@ export const Content = memo(() => {
               swiper.navigation.init();
               swiper.navigation.update();
             }}
-            // navigation={{
-            //   prevEl: navigationPrevRef.current,
-            //   nextEl: navigationNextRef.current,
-            // }}
             pagination={{
               dynamicBullets: true,
             }}
@@ -191,7 +189,7 @@ export const Content = memo(() => {
                 <SwiperSlide
                   id={index}
                   key={item.bookId}
-                  className="inline-block h-screen w-screen transform snap-start snap-always bg-gradient-to-r from-white to-gray-100 transition-transform duration-1000 ease-in"
+                  className="inline-block h-screen w-screen transform snap-start snap-always bg-gradient-to-r from-white to-gray-100 transition-transform  ease-in"
                 >
                   <Books
                     item={item}
@@ -203,12 +201,13 @@ export const Content = memo(() => {
                 </SwiperSlide>
               </>
             ))}
-            <div ref={navigationPrevRef} className="h-20 w-20 absolute top-10 z-50">
-              fdafd
-            </div>
-            <div ref={navigationNextRef} className="h-20 w-20">
-              fffffs
-            </div>
+
+            <SliderLeft
+              navigationPrevRef={navigationPrevRef}
+            />
+            <SliderRight
+              navigationNextRef={navigationNextRef}
+            />
           </Swiper>
         ) : (
           <>
@@ -260,7 +259,6 @@ export const Content = memo(() => {
         msgText="に新しく本を追加しました。"
         headerText="成功"
       />
-      {/* <FooterTab /> */}
     </>
   );
 });
