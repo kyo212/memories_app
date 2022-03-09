@@ -266,7 +266,6 @@ export const Content = memo(() => {
         msgToggle={sucMsgToggle}
         category={category}
         msgText="に新しく本を追加しました。"
-        
       />
       <div
         className={[
