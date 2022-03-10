@@ -10,9 +10,9 @@ export const useStyle = () => {
   // Modal
   const modals = {
     modalTabAnimation: {
-      base: "rounded-full w-14 h-10 leading-10 border bg-white shadow-md text-indigo-900 m-1",
+      base: "rounded-full w-[78px] h-10 leading-10 border bg-white shadow-md text-indigo-900 m-1",
       selected:
-        "rounded-full w-14 h-10 leading-10 border bg-white shadow-inner translate-y-1 transition-all transform font-bold text-slate-600 bg-slate-200 m-1",
+        "rounded-full w-[78px] h-10 leading-10 border bg-white shadow-inner translate-y-1 transition-all transform font-bold text-slate-600 bg-slate-200 m-1",
     },
     modalConfirmAnimation: {
       base: "fixed top-0 left-0 -z-50 flex h-screen w-screen transform justify-center overflow-hidden opacity-0 transition-all duration-700",
@@ -44,17 +44,17 @@ export const useStyle = () => {
     errorMsg: {
       base: "w-[90%] translate-y-10 transform fixed top-16 opacity-0 transition-all ",
       showed:
-        "w-[90%] border border-red-500 rounded-lg fixed top-16 bg-red-600 bg-opacity-10 px-4 py-2 text-sm text-red-800 opacity-100 transition-all duration-500",
+        "w-[90%] border border-red-500 rounded-lg fixed top-16 bg-red-600 bg-red-100 px-4 py-2 text-sm text-red-800 opacity-100 transition-all duration-500",
     },
     successMsg: {
       base: "w-[90%] z-50 transform fixed -top-10 left-1/2 -translate-x-1/2 opacity-0 transition-all",
       showed:
-        "w-[90%] z-50 border border-green-500 rounded-lg fixed top-14 left-1/2 -translate-x-1/2 bg-green-600 bg-opacity-10 px-4 py-2 text-sm text-green-800 opacity-100 transition-all duration-500",
+        "w-[90%] z-50 border border-green-500 rounded-lg fixed top-14 left-1/2 -translate-x-1/2 bg-green-600 bg-green-100 px-4 py-2 text-sm text-green-800 opacity-100 transition-all duration-500",
     },
     errorBorderMsg: {
       base: "w-full rounded border border-slate-300 px-4 py-2",
       showed:
-        "w-full rounded border px-4 border border-red-400 placeholder:text-red-400 py-2",
+        "w-full rounded border px-4 border border-red-400 py-2",
     },
   };
 

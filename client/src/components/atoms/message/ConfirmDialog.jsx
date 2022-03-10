@@ -1,6 +1,6 @@
 import { memo } from "react";
 // アイコン
-import { BsExclamationCircleFill } from "react-icons/bs";
+import { ErrIcon } from "../icon/ErrIcon";
 
 export const ConfirmDialog = memo(
   ({
@@ -44,9 +44,7 @@ export const ConfirmDialog = memo(
             <>
               <div className="leading-6">
                 <p className="flex">
-                  <span className="text-red-600 text-xl mx-2">
-                    <BsExclamationCircleFill />
-                  </span>
+                  <ErrIcon />
                   <span className="ml-1 font-bold">{`${bookTitle}`}</span>を
                   {`${message}`}
                 </p>

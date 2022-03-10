@@ -10,6 +10,7 @@ import { ImageUrlCreate } from "../../organisms/ImageUrlCreate";
 import { Button } from "../../atoms/button/Button";
 // コンテキスト
 import { Context } from "../../../App";
+import { ErrIcon } from "../../atoms/icon/ErrIcon";
 
 export const AddBookModal = memo(
   ({
@@ -60,48 +61,65 @@ export const AddBookModal = memo(
               : "-z-50 -translate-y-full opacity-0",
           ]} transform bg-white transition-all duration-500`}
         >
-          <div className="mb-[40%]">
+          <div className="mt-[10%] mb-[40%]">
             <div className="flex w-full flex-col items-center space-y-4">
-              <p className="h-12 select-none text-lg font-bold leading-[80px] text-slate-500">
-                本の表紙をつくる
-              </p>
-              
-              <div className="">
+              <div className="relative">
                 {/* タイトルバリデーション */}
                 {errMsgToggle && !bookTitle && (
-                  <p className="text-sm text-red-600">
+                  <p className="flex text-sm text-red-600">
+                    <span className="absolute top-1/2 -left-7">
+                      <ErrIcon />
+                    </span>
                     タイトルを入力してください
                   </p>
                 )}
-                <input
-                  type="text"
-                  value={bookTitle}
-                  autoFocus
-                  placeholder="本のタイトルを入力"
-                  onChange={inputInform}
-                  className={[
-                    `${
-                      errMsgToggle && !bookTitle
-                        ? errorBorderMsg.showed
-                        : errorBorderMsg.base
-                    } w-[280px] focus:border-sky-600`,
-                  ]}
-                />
+                <label className="flex flex-col">
+                  {!errMsgToggle && (
+                    <p className="text-sm font-bold text-slate-700">
+                      本のタイトル
+                    </p>
+                  )}
+                  <input
+                    type="text"
+                    value={bookTitle}
+                    autoFocus
+                    placeholder="本のタイトルを入力"
+                    onChange={inputInform}
+                    className={[
+                      `${
+                        errMsgToggle && !bookTitle
+                          ? errorBorderMsg.showed
+                          : errorBorderMsg.base
+                      } w-[260px] focus:border-sky-600`,
+                    ]}
+                  />
+                </label>
               </div>
 
               <div className="relative">
-                {!imageUrl && ( // 画像を設定されていない時だけ
+                {!imageUrl && ( // 画像を設定されていない時だけアップロードボタンを表示
                   <div className=" absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform rounded-full border p-4 text-xl text-slate-500">
                     <BsUpload />
                   </div>
                 )}
-                {/* 表紙バリデーション */}
+                {/* エラーバリデーション */}
                 {errMsgToggle && !imageUrl && (
-                  <p className="text-sm text-red-600">
+                  <p className="flex text-sm text-red-600">
+                    <span className="absolute top-1/2 -left-7">
+                      <ErrIcon />
+                    </span>
                     表紙の画像を設定してください
                   </p>
                 )}
-                <label onClick={() => setErrMsgToggle(false)}>
+                <label
+                  onClick={() => setErrMsgToggle(false)}
+                  className="flex flex-col"
+                >
+                  {!errMsgToggle && (
+                    <p className="text-sm font-bold text-slate-700">
+                      表紙を選ぶ
+                    </p>
+                  )}
                   <ImageUrlCreate
                     imageUrl={imageUrl}
                     acceptType="image/*"
@@ -113,20 +131,25 @@ export const AddBookModal = memo(
                     }}
                     imageStyle={`${[
                       errMsgToggle && !imageUrl && "border-red-400",
-                    ]} inline-block border shadow-md h-[215px] w-[260px] `}
+                    ]} inline-block border h-[215px] w-[260px] `}
                   />
                 </label>
               </div>
 
-              <div className="w-full text-sm">
-                <Tab
-                  animation={modalTabAnimation}
-                  ulClass=""
-                  setCategory={setCategory}
-                />
+              <div className="w-[260px] text-sm">
+                <label className="flex flex-col">
+                  <p className="text-sm font-bold text-slate-700">
+                    カテゴリーを選ぶ
+                  </p>
+                  <Tab
+                    animation={modalTabAnimation}
+                    ulClass=""
+                    setCategory={setCategory}
+                  />
+                </label>
               </div>
             </div>
-            <div className="flex w-full flex-col items-center">
+            <div className="mt-5 flex w-full flex-col items-center">
               {/* 追加ボタン */}
               <div className="w-[75%]">
                 <Button clickBtn={insertItem}>本を追加する</Button>
@@ -135,7 +158,7 @@ export const AddBookModal = memo(
           </div>
           {/* 閉じるボタン */}
           <button
-            className="fixed right-0 bottom-0 p-4 text-4xl text-gray-600 hover:bg-black hover:bg-opacity-40 hover:text-white"
+            className="absolute right-0 top-0 p-3 text-4xl text-gray-600 hover:bg-black hover:bg-opacity-40 hover:text-white"
             onClick={closeButton}
           >
             <AiOutlinePlus className="rotate-45 transform" />
