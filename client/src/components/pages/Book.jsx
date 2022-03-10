@@ -15,6 +15,7 @@ import { Button } from "../atoms/button/Button";
 import { ImageUrlCreate } from "../organisms/ImageUrlCreate";
 import { ChangeJapanese } from "../atoms/ChangeJapanese";
 // カスタムフック
+import { useStyle } from "../custom/useStyle";
 import { useForceUpdate } from "../custom/useForceUpdate";
 // コンテキスト
 import { Context } from "../../App";
@@ -34,7 +35,11 @@ export const Book = memo(() => {
   // Toggel
   const [unExpectErr, setUnExpectErr] = useState(false);
   const [addTypeChange, setAddTypeChange] = useState(false);
+  // メッセージ
+  const [errMsgToggle, setErrMsgToggle] = useState(false);
   // カスタムフック
+  const { messageWindow } = useStyle();
+  const { errorBorderMsg } = messageWindow;
   const [update, { setUpdate }] = useForceUpdate();
   // コンテキスト
   const {
@@ -79,29 +84,37 @@ export const Book = memo(() => {
       (response) => {
         const { url } = response.data;
 
+        // 入力した情報をDBに追加
         const insert = async (bookImage, bookVideo) => {
-          console.log({ bookImage, bookVideo });
-          // 入力した情報をDBに追加
-          await Axios.post(`http://${process.env.REACT_APP_PUBLIC_IP}/insert`, {
-            bookId,
-            username,
-            bookImage,
-            bookVideo,
-            bookContentTitle,
-            bookContentDesc,
-          }).then((response) => {
-            const { result, err } = response.data;
-            console.log({ result, err });
-            // 初期化
-            setImageUrl("");
-            setVideoUrl("");
-            setImageFile("");
-            setVideoFile("");
-            setBookContentTitle("");
-            setBookContentDesc("");
-            // アップデート
-            setTimeout(() => setUpdate(!update), 1000);
-          });
+          // バリデーション
+          if (!bookContentTitle && !bookContentDesc) {
+            setErrMsgToggle(true);
+          } else {
+            console.log("あっている");
+            await Axios.post(
+              `http://${process.env.REACT_APP_PUBLIC_IP}/insert`,
+              {
+                bookId, // デフォルト
+                username, // デフォルト
+                bookImage, // 任意追加 nullを許可
+                bookVideo, // 任意追加 nullを許可
+                bookContentTitle, // 必須追加
+                bookContentDesc, // 必須追加
+              }
+            ).then((response) => {
+              const { result, err } = response.data;
+              console.log({ result, err });
+              // 初期化
+              setImageUrl("");
+              setVideoUrl("");
+              setImageFile("");
+              setVideoFile("");
+              setBookContentTitle("");
+              setBookContentDesc("");
+              // アップデート
+              setTimeout(() => setUpdate(!update), 1000);
+            });
+          }
         };
 
         // 画像パスの生成
@@ -116,14 +129,27 @@ export const Book = memo(() => {
               : videoFile !== "" && videoFile, // videoの値が入っている場合はvideoを渡す
         });
         const bookMedia = url.split("?")[0]; // imageかvideoのURL
-        if (imageFile !== "") {
+
+        if (imageFile) {
           // imageの値が入っている場合
           insert(bookMedia, "");
-        } else if (videoFile !== "") {
+        } else if (videoFile) {
           insert("", bookMedia);
         }
       }
     );
+  };
+
+  const addInform = (e) => {
+    e.target.id === "title"
+      ? setBookContentTitle(e.target.value)
+      : setBookContentDesc(e.target.value);
+    setErrMsgToggle(false);
+  };
+
+  const changeBtn = () => {
+    setAddTypeChange(true);
+    setErrMsgToggle(false);
   };
 
   return (
@@ -299,8 +325,8 @@ export const Book = memo(() => {
                     )}
                   <ImageUrlCreate
                     imageSize="h-full w-screen"
-                    imageStyle="h-full w-full object-cover"
-                    videoStyle="h-full w-full object-cover"
+                    imageStyle="h-full w-full rounded-lg object-cover"
+                    videoStyle="h-full w-full rounded-lg object-cover"
                     acceptType="image/*,video/*"
                     imageUrl={imageUrl}
                     video={{
@@ -361,11 +387,16 @@ export const Book = memo(() => {
                     <label className="flex flex-col text-sm font-bold">
                       タイトル
                       <input
+                        id="title"
                         type="text"
                         placeholder="タイトルを入力"
                         value={bookContentTitle}
-                        onChange={(e) => setBookContentTitle(e.target.value)}
-                        className="w-60 border py-1 px-2 text-sm"
+                        onChange={addInform}
+                        className={[
+                          errMsgToggle
+                            ? errorBorderMsg.showed
+                            : errorBorderMsg.base,
+                        ]}
                       />
                     </label>
                   </div>
@@ -373,17 +404,22 @@ export const Book = memo(() => {
                     <label className="flex flex-col text-sm font-bold">
                       説明
                       <textarea
+                        id="textarea"
                         cols="40"
                         rows="2"
                         placeholder="説明を入力"
                         value={bookContentDesc}
-                        onChange={(e) => setBookContentDesc(e.target.value)}
-                        className="border py-1 px-2 text-sm outline-none"
+                        onChange={addInform}
+                        className={`${[
+                          errMsgToggle
+                            ? errorBorderMsg.showed
+                            : errorBorderMsg.base,
+                        ]} outline-none`}
                       />
                     </label>
                   </div>
                   <button
-                    onClick={() => setAddTypeChange(true)}
+                    onClick={changeBtn}
                     className="mt-2 flex items-center space-x-2 text-sm text-sky-800"
                   >
                     <span className="text-lg">
