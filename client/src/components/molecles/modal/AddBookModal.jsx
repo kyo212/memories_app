@@ -122,6 +122,10 @@ export const AddBookModal = memo(
                   )}
                   <ImageUrlCreate
                     imageUrl={imageUrl}
+                    imageSize={`${[
+                      errMsgToggle && !imageUrl && "border-red-400",
+                    ]} inline-block border h-[215px] w-[260px] `}
+                    imageStyle="h-full w-full object-cover"
                     acceptType="image/*"
                     video={{
                       videoUrl: "",
@@ -129,9 +133,6 @@ export const AddBookModal = memo(
                       videoCtrl: false,
                       videoLoop: false,
                     }}
-                    imageStyle={`${[
-                      errMsgToggle && !imageUrl && "border-red-400",
-                    ]} inline-block border h-[215px] w-[260px] `}
                   />
                 </label>
               </div>

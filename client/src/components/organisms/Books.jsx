@@ -141,6 +141,9 @@ export const Books = memo(
                   </div>
                   <ImageUrlCreate
                     imageUrl={coverImage}
+                    imageSize="h-[215px] w-[260px]"
+                    imageStyle="h-full w-full object-cover"
+                    videoStyle="h-full w-full object-cover"
                     acceptType="image/*"
                     video={{
                       videoUrl: "",
@@ -148,7 +151,6 @@ export const Books = memo(
                       videoCtrl: false,
                       videoLoop: false,
                     }}
-                    imageStyle="h-[215px] w-[260px]"
                   />
                 </div>
               </div>

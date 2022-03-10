@@ -55,7 +55,6 @@ export const Home = memo(() => {
               <label className="mb-4 text-sm">メモリーズ</label>
               <h2 className="space-y-2 rounded-md py-2 px-4 text-sm font-bold">
                 <p>
-                  デジタルな
                   <span>フォトブック</span>に<br />
                   思い出を自由に残そう。
                 </p>
@@ -91,7 +90,7 @@ export const Home = memo(() => {
               <h3 className="mt-10 mb-6 border-b pb-4 text-lg font-bold text-slate-800">
                 memoriesとは
               </h3>
-              <p>memoriesはデジタルなフォトブック。</p>
+              <p>memoriesはフォトブック。</p>
               <br />
               <p>
                 どんな小さな思い出も、何気なく撮った写真も、子供の成長も、趣味も、毎日の日記まで、すべてmemoriesに残すことができます。

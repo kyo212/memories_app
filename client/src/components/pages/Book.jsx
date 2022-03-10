@@ -2,11 +2,12 @@ import { memo, useState, useEffect, useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Axios from "axios";
 // アイコン
-import { HiUpload } from "react-icons/hi";
+import { BsUpload } from "react-icons/bs";
 import { BsChevronDoubleLeft } from "react-icons/bs";
 import { BsChevronDoubleRight } from "react-icons/bs";
 import { BsFillBookmarkFill } from "react-icons/bs";
 import { BsHouse } from "react-icons/bs";
+import { BsArrowRepeat } from "react-icons/bs";
 // コンポーネント UI系
 import { ChangeFont } from "../atoms/ChangeFont";
 import { Button } from "../atoms/button/Button";
@@ -32,6 +33,7 @@ export const Book = memo(() => {
   const [bookContentDesc, setBookContentDesc] = useState("");
   // Toggel
   const [unExpectErr, setUnExpectErr] = useState(false);
+  const [addTypeChange, setAddTypeChange] = useState(false);
   // カスタムフック
   const [update, { setUpdate }] = useForceUpdate();
   // コンテキスト
@@ -124,11 +126,6 @@ export const Book = memo(() => {
     );
   };
 
-  const resetBtn = () => {
-    setImageUrl("");
-    setVideoUrl("");
-  };
-
   return (
     <>
       {unExpectErr ? (
@@ -140,21 +137,22 @@ export const Book = memo(() => {
         </div>
       ) : (
         <div
-          className={`${fontChange} flex h-screen w-screen snap-x overflow-x-scroll`}
+          className={`${fontChange} flex h-screen w-screen snap-x snap-mandatory overflow-scroll`}
         >
           {/* 表紙情報 */}
           {/* 画像 */}
-          <div className="h-full w-screen snap-start bg-white">
-            <div className="h-1/2 w-screen">
+          <div className="h-full w-screen snap-start snap-always bg-white">
+            <div className="flex h-1/2 w-screen items-center justify-center">
               <img
                 src={coverImage}
                 alt="表紙の画像"
-                className="h-full w-full object-cover"
+                className="h-[90%] w-[90%] object-cover"
               />
             </div>
             {/* テキスト */}
             <div className="relative flex h-1/2 w-screen flex-col items-center justify-center">
               <>
+                {/* リボン */}
                 {favorite ? (
                   <span className="absolute top-3 right-3 text-2xl text-red-500">
                     <BsFillBookmarkFill />
@@ -163,13 +161,10 @@ export const Book = memo(() => {
                   <></>
                 )}
               </>
-              {/* テキスト */}
-              <div
-                className="h-[90%] w-[90%]
-text-slate-500"
-              >
-                <div className="mt-10 flex w-full flex-col items-center justify-center">
-                  <h1 className="text-2xl border-b pb-2 text-slate-700">
+              <div className="h-[90%] w-[90%] text-slate-500">
+                <div className="mt-7 flex w-full flex-col items-center justify-center">
+                  {/* タイトル */}
+                  <h1 className="border-b pb-2 text-2xl text-slate-700">
                     {bookTitle}
                   </h1>
                   <div className="my-2 space-y-2 text-center">
@@ -197,106 +192,212 @@ text-slate-500"
               </div>
             </div>
           </div>
-          {/* 取得したコンテンツをmapで回す */}
+
+          {/* コンテンツ */}
           <>
             {bookContents.map(
               (
                 { pageId, bookImage, bookVideo, title, description, date },
                 index
               ) => (
-                <div key={pageId} className="h-full w-screen snap-start">
-                  {/* 画像 */}
-                  <div className="relative h-1/2 w-screen bg-slate-100">
-                    <ImageUrlCreate
-                      imageStyle="h-full w-screen"
-                      acceptType="image/*,video/*"
-                      imageUrl={bookImage}
-                      video={{
-                        videoUrl: bookVideo,
-                        videoAutoPlay: false,
-                        videoCtrl: true,
-                        videoLoop: false,
-                      }}
-                    />
-                  </div>
-                  {/* テキスト */}
-                  <div className="flex h-1/2 w-screen items-center justify-center">
-                    <div className="relative h-[85%] w-[90%]">
-                      <div className="">
-                        <p className="text-xl font-bold text-slate-800">
+                <>
+                  {/* type === "round","square" */}
+
+                  <div
+                    key={pageId}
+                    className="h-screen w-screen snap-start snap-always"
+                  >
+                    {/* 画像 */}
+                    <div
+                      className={[
+                        title && description
+                          ? "relative h-1/2 w-screen"
+                          : !title &&
+                            !description &&
+                            "relative h-screen w-screen",
+                      ]}
+                    >
+                      <ImageUrlCreate
+                        imageSize={[
+                          title && description
+                            ? "h-screen w-screen"
+                            : !title &&
+                              !description &&
+                              "h-screen w-screen flex items-center justify-center",
+                        ]}
+                        imageStyle={[
+                          title && description
+                            ? "h-full w-full object-cover"
+                            : !title &&
+                              !description &&
+                              "h-[70%] w-[75%] object-cover rounded-lg",
+                        ]}
+                        videoStyle={[
+                          title && description
+                            ? "h-full w-full object-cover"
+                            : !title &&
+                              !description &&
+                              "h-[70%] w-[75%] object-cover rounded-lg",
+                        ]}
+                        acceptType="image/*,video/*"
+                        imageUrl={bookImage}
+                        video={{
+                          videoUrl: bookVideo,
+                          videoAutoPlay: false,
+                          videoCtrl: true,
+                          videoLoop: false,
+                        }}
+                      />
+                      {title && !description && (
+                        <p className="absolute bottom-2 left-2 text-xl font-bold text-slate-800">
                           {title}
                         </p>
-                      </div>
-                      <div className="mt-4 w-[80%]">
-                        <p className="text-md text-slate-600">{description}</p>
-                      </div>
-                      <div className="absolute bottom-0 flex space-x-4">
-                        <p className="text-md text-slate-600">{date}</p>
-                        <p>{`${index + 1} / ${bookContents.length}`}</p>
-                        <button></button>
+                      )}
+                    </div>
+                    {/* テキスト */}
+                    <div
+                      className={[
+                        title && description
+                          ? "flex h-1/2 w-screen items-center justify-center"
+                          : !title && !description && "hidden",
+                      ]}
+                    >
+                      <div className="relative h-[85%] w-[90%]">
+                        <div className="">
+                          <p className="text-xl font-bold text-slate-800">
+                            {title}
+                          </p>
+                        </div>
+                        <div className="mt-4 w-[80%]">
+                          <p className="text-md text-slate-600">
+                            {description}
+                          </p>
+                        </div>
                       </div>
                     </div>
+                    <div className="flex space-x-4">
+                      <p className="text-md text-slate-600">{date}</p>
+                      <p>{`${index + 1} / ${bookContents.length}`}</p>
+                    </div>
                   </div>
-                </div>
+                </>
               )
             )}
           </>
-          {/* 追加画面 */}
-          <div className="h-full w-screen snap-start">
-            {/* 画像 */}
-            <div className="relative h-1/2 w-screen bg-slate-100">
-              {!imageUrl &&
-                !videoUrl && ( // 画像と動画を設定されていない時だけ
-                  <div className="absolute top-1/2 left-1/2 flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 transform items-center justify-center rounded-full border bg-white text-2xl font-bold">
-                    <span className="animate-pulse">
-                      <HiUpload />
+
+          {/* 追加画面 画像と動画のみ */}
+          {addTypeChange ? (
+            <div className="h-full w-screen snap-start snap-always">
+              {/* 画像 */}
+              <div className="relative flex h-screen w-screen flex-col items-center justify-center">
+                <div className="relative h-[70%] w-[75%] rounded-lg border border-slate-300 bg-slate-100 object-cover">
+                  {!imageUrl &&
+                    !videoUrl && ( // 画像と動画を設定されていない時だけ
+                      <div className=" absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform rounded-full border p-4 text-xl text-slate-500">
+                        <BsUpload />
+                      </div>
+                    )}
+                  <ImageUrlCreate
+                    imageSize="h-full w-screen"
+                    imageStyle="h-full w-full object-cover"
+                    videoStyle="h-full w-full object-cover"
+                    acceptType="image/*,video/*"
+                    imageUrl={imageUrl}
+                    video={{
+                      videoUrl,
+                      videoAutoPlay: true,
+                      videoCtrl: false,
+                      videoLoop: true,
+                    }}
+                  />
+                </div>
+                <div className="w-[90%]">
+                  <button
+                    onClick={() => setAddTypeChange(false)}
+                    className="mt-2 flex items-center space-x-2 text-sm text-sky-800"
+                  >
+                    <span className="text-lg">
+                      <BsArrowRepeat />
                     </span>
-                  </div>
-                )}
-              <ImageUrlCreate
-                imageStyle="h-full w-screen"
-                acceptType="image/*,video/*"
-                imageUrl={imageUrl}
-                video={{
-                  videoUrl,
-                  videoAutoPlay: true,
-                  videoCtrl: false,
-                  videoLoop: true,
-                }}
-              />
-            </div>
-            {/* テキスト */}
-            <div className="relative flex h-1/2 w-screen items-center justify-center">
-              <div className="h-[82%] w-[90%]">
-                {/* 追加画面 常に最後尾に配置する */}
-                <div className="">
-                  <p className="text-xl">タイトルを入力</p>
-                  <input
-                    type="text"
-                    value={bookContentTitle}
-                    onChange={(e) => setBookContentTitle(e.target.value)}
-                    className="w-60 border py-1 px-2 text-sm"
-                  />
-                </div>
-                <div className="mt-4">
-                  <p className="text-lg">説明</p>
-                  <textarea
-                    cols="40"
-                    rows="2"
-                    value={bookContentDesc}
-                    onChange={(e) => setBookContentDesc(e.target.value)}
-                    className="border py-1 px-2 text-sm outline-none"
-                  />
-                </div>
-                <div className="absolute bottom-0 my-4 w-[90%] space-y-2">
-                  <button onClick={resetBtn} className="text-sm text-blue-800">
-                    画像をリセット
+                    <span>画像と文章を追加</span>
                   </button>
-                  <Button clickBtn={insertItem}>追加する</Button>
+                  <div className="absolute bottom-0 my-4 w-[90%] space-y-2">
+                    <Button clickBtn={insertItem}>追加する</Button>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          ) : (
+            // 追加画面 画像とテキストあり
+            <div className="h-full w-screen snap-start snap-always">
+              {/* 画像 */}
+              <div className="relative h-1/2 w-screen bg-slate-100">
+                {!imageUrl &&
+                  !videoUrl && ( // 画像と動画を設定されていない時だけ
+                    <div className=" absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform rounded-full border p-4 text-xl text-slate-500">
+                      <BsUpload />
+                    </div>
+                  )}
+                <ImageUrlCreate
+                  imageSize="h-full w-screen"
+                  imageStyle="h-full w-full object-cover"
+                  videoStyle="h-full w-full object-cover"
+                  acceptType="image/*,video/*"
+                  imageUrl={imageUrl}
+                  video={{
+                    videoUrl,
+                    videoAutoPlay: true,
+                    videoCtrl: false,
+                    videoLoop: true,
+                  }}
+                />
+              </div>
+
+              {/* テキスト */}
+              <div className="relative flex h-1/2 w-screen items-center justify-center">
+                <div className="h-[82%] w-[90%]">
+                  {/* 追加画面 常に最後尾に配置する */}
+                  <div className="">
+                    <label className="flex flex-col text-sm font-bold">
+                      タイトル
+                      <input
+                        type="text"
+                        placeholder="タイトルを入力"
+                        value={bookContentTitle}
+                        onChange={(e) => setBookContentTitle(e.target.value)}
+                        className="w-60 border py-1 px-2 text-sm"
+                      />
+                    </label>
+                  </div>
+                  <div className="mt-4">
+                    <label className="flex flex-col text-sm font-bold">
+                      説明
+                      <textarea
+                        cols="40"
+                        rows="2"
+                        placeholder="説明を入力"
+                        value={bookContentDesc}
+                        onChange={(e) => setBookContentDesc(e.target.value)}
+                        className="border py-1 px-2 text-sm outline-none"
+                      />
+                    </label>
+                  </div>
+                  <button
+                    onClick={() => setAddTypeChange(true)}
+                    className="mt-2 flex items-center space-x-2 text-sm text-sky-800"
+                  >
+                    <span className="text-lg">
+                      <BsArrowRepeat />
+                    </span>
+                    <span>画像もしくは動画だけを追加</span>
+                  </button>
+                  <div className="absolute bottom-0 my-4 w-[90%] space-y-2">
+                    <Button clickBtn={insertItem}>追加する</Button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       )}
     </>
