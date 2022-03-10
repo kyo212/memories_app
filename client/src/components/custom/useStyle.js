@@ -37,7 +37,7 @@ export const useStyle = () => {
   const searchOpen = {
     base: "w-0 transform rounded-sm py-1 opacity-0 transition-all text-gray-500",
     showed:
-      "w-[116px] transform bg-gray-500 text-white rounded-full placeholder:text-white font-bold shadow-inline px-2 py-2 opacity-100 transition-all text-[8px]",
+      "w-[90px] transform bg-gray-500 text-white rounded-full placeholder:text-white font-bold shadow-inline px-2 py-2 opacity-100 transition-all text-[8px]",
   };
 
   const messageWindow = {

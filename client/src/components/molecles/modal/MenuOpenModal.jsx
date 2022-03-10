@@ -13,11 +13,11 @@ export const MenuOpenModal = ({ loginUser }) => {
   const { menuOpens } = useStyle();
   const { menuOpenBtnAnimation, menuOpenAnimation } = menuOpens;
   // コンテキスト
-  const { modalToggle, setModalToggle, setSearchToggle, setHeaderToggle } =
+  const { menuToggle, setMenuToggle, setSearchToggle, setHeaderToggle } =
     useContext(Context);
 
   const modalOpenClose = () => {
-    setModalToggle(!modalToggle);
+    setMenuToggle(!menuToggle);
     setSearchToggle(false);
     setHeaderToggle(false);
   };
@@ -27,15 +27,15 @@ export const MenuOpenModal = ({ loginUser }) => {
       <button
         onClick={modalOpenClose}
         className={[
-          modalToggle ? menuOpenBtnAnimation.showed : menuOpenBtnAnimation.base,
+          menuToggle ? menuOpenBtnAnimation.showed : menuOpenBtnAnimation.base,
         ]}
       >
         <VscTriangleDown className="scale-125 transform" />
       </button>
-      {modalToggle && (
+      {menuToggle && (
         <div
           className={[
-            modalToggle ? menuOpenAnimation.showed : menuOpenAnimation.base,
+            menuToggle ? menuOpenAnimation.showed : menuOpenAnimation.base,
           ]}
         >
           <div className="flex w-full flex-col space-y-4 text-left">

@@ -1,17 +1,29 @@
-import { memo } from "react";
-// サードパーティ
+import { memo, useContext } from "react";
+// アイコン
 import { AiOutlinePlus } from "react-icons/ai";
+// コンポーネント
+import { Context } from "../../../App";
 
 export const AddBookBtn = memo(({ setModalToggle }) => {
-  const modalToggle = () => setModalToggle(true);
+  // コンテキスト
+  const { setMenuToggle, setSearchToggle, setHeaderToggle } =
+    useContext(Context);
+
+  const modalToggle = () => {
+    setModalToggle(true);
+    // 初期化
+    setSearchToggle(false);
+    setHeaderToggle(false);
+    setMenuToggle(false);
+  };
 
   return (
     <>
-      <div className="fixed bottom-2 right-2 z-10 transform rounded-full">
-        <label className="flex h-12 w-12 items-center justify-center rounded-full border border-gray-300 bg-white shadow-md">
+      <div className="transform rounded-full">
+        <label className="mx-2 flex items-center justify-center rounded-full border border-gray-300 bg-white p-1 shadow-md">
           <button
             onClick={modalToggle}
-            className="text-2xl font-bold text-slate-700"
+            className="text-2xl font-bold text-slate-500"
           >
             <AiOutlinePlus className="transform transition-transform duration-700 hover:rotate-45" />
           </button>

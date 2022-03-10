@@ -170,12 +170,12 @@ text-slate-500"
               >
                 <div className="mt-10 flex w-full flex-col items-center justify-center">
                   <h1 className="text-2xl border-b pb-2 text-slate-700">
-                    太郎の成長日記のしるし。
+                    {bookTitle}
                   </h1>
                   <div className="my-2 space-y-2 text-center">
                     <p className="text-md">{date}</p>
                     <p className="text-xl">
-                      {username || "kyo"}
+                      {username || "gest"}
                       の<ChangeJapanese category={category} />
                     </p>
                   </div>

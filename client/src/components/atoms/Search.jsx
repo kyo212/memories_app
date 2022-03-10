@@ -10,12 +10,12 @@ export const Search = () => {
   // カスタムフック
   const { searchOpen } = useStyle();
   // コンテキスト
-  const { searchToggle, setSearchToggle, setModalToggle, setHeaderToggle } =
+  const { searchToggle, setSearchToggle, setMenuToggle, setHeaderToggle } =
     useContext(Context);
 
   const searchOpenClose = () => {
     setSearchToggle(!searchToggle);
-    setModalToggle(false);
+    setMenuToggle(false);
     setHeaderToggle(false);
   };
 

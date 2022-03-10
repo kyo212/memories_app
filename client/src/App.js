@@ -11,7 +11,7 @@ function App() {
   const [imageUrl, setImageUrl] = useState("");
   const [videoUrl, setVideoUrl] = useState("");
   const [searchToggle, setSearchToggle] = useState(false);
-  const [modalToggle, setModalToggle] = useState(false);
+  const [menuToggle, setMenuToggle] = useState(false);
   const [headerToggle, setHeaderToggle] = useState(false);
 
   return (
@@ -30,8 +30,8 @@ function App() {
           setVideoUrl,
           searchToggle,
           setSearchToggle,
-          modalToggle,
-          setModalToggle,
+          menuToggle,
+          setMenuToggle,
           headerToggle,
           setHeaderToggle,
         }}

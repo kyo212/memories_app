@@ -8,11 +8,11 @@ import { Context } from "../../App";
 export const Header = memo(({ root, children, headerOpen }) => {
   const { headerToggle, setHeaderToggle } = headerOpen;
 
-  const { setModalToggle, setSearchToggle } = useContext(Context);
+  const { setMenuToggle, setSearchToggle } = useContext(Context);
 
   const headerOpenClose = () => {
     setHeaderToggle(!headerToggle);
-    setModalToggle(false);
+    setMenuToggle(false);
     setSearchToggle(false);
   };
 

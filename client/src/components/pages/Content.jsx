@@ -175,6 +175,7 @@ export const Content = memo(() => {
           headerOpen={{ headerToggle, setHeaderToggle }}
         >
           <div className="flex items-center">
+            <AddBookBtn setModalToggle={setModalToggle} />
             <Search />
             <MenuOpenModal loginUser={loginUser} />
           </div>
@@ -217,7 +218,6 @@ export const Content = memo(() => {
                 </SwiperSlide>
               </>
             ))}
-
             <SliderLeft navigationPrevRef={navigationPrevRef} />
             <SliderRight navigationNextRef={navigationNextRef} />
           </Swiper>
@@ -255,8 +255,6 @@ export const Content = memo(() => {
         )}
       </div>
 
-      {/* モーダルボタン */}
-      <AddBookBtn setModalToggle={setModalToggle} />
       {/* モーダルウィンドウ */}
       <AddBookModal
         bookListItems={{ bookTitle, category }}
@@ -285,7 +283,7 @@ export const Content = memo(() => {
           setBookOpen={setBookOpen}
         />
       </div>
-      <p className="text-blue-600 text-sm fixed bottom-0">みんなの</p>
+      <p className="fixed bottom-0 text-sm text-blue-600">みんなの</p>
     </>
   );
 });
