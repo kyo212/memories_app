@@ -148,7 +148,7 @@ export const Books = memo(
                       videoCtrl: false,
                       videoLoop: false,
                     }}
-                    imageStyle="h-[220px] w-[90%]"
+                    imageStyle="h-[215px] w-[260px]"
                   />
                 </div>
               </div>

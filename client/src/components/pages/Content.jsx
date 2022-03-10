@@ -24,6 +24,7 @@ import { MenuOpenModal } from "../molecles/modal/MenuOpenModal";
 import { AddBookBtn } from "../atoms/button/AddBookBtn";
 import { AddBookModal } from "../molecles/modal/AddBookModal";
 // カスタムフック
+import { useStyle } from "../custom/useStyle";
 import { useForceUpdate } from "../custom/useForceUpdate";
 // コンテキスト
 import { Context } from "../../App";
@@ -49,6 +50,8 @@ export const Content = memo(() => {
   const [errMsgToggle, setErrMsgToggle] = useState(false);
   const [sucMsgToggle, setSucMsgToggle] = useState(false);
   // カスタムフック
+  const { modals } = useStyle();
+  const { modalConfirmAnimation } = modals;
   const [update, { setUpdate }] = useForceUpdate();
   // スライダーアイコン
   const navigationPrevRef = useRef(null);
@@ -270,8 +273,8 @@ export const Content = memo(() => {
       <div
         className={[
           confirmWindowOpen
-            ? "fixed top-0 left-0 z-50 mt-20 flex h-screen w-screen transform justify-center overflow-hidden bg-white bg-opacity-80  transition-all duration-700"
-            : "fixed top-0 left-0 -z-50 flex h-screen w-screen transform justify-center overflow-hidden opacity-0 transition-all duration-700",
+            ? modalConfirmAnimation.showed
+            : modalConfirmAnimation.base,
         ]}
       >
         <ConfirmDialog
@@ -282,7 +285,7 @@ export const Content = memo(() => {
           setBookOpen={setBookOpen}
         />
       </div>
-      <p>みんなの</p>
+      <p className="text-blue-600 text-sm fixed bottom-0">みんなの</p>
     </>
   );
 });
