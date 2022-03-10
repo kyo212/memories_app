@@ -282,6 +282,7 @@ export const Content = memo(() => {
           setBookOpen={setBookOpen}
         />
       </div>
+      <p>みんなの</p>
     </>
   );
 });

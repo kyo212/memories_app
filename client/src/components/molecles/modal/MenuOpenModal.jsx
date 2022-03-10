@@ -39,10 +39,13 @@ export const MenuOpenModal = ({ loginUser }) => {
           ]}
         >
           <div className="flex w-full flex-col space-y-4 text-left">
-            <p className="text-md w-full border-b pb-3 font-bold text-slate-700">
-              "{loginUser}"
-              <span className="text-md font-thin">でログイン中</span>
-            </p>
+            <div className="w-full border-b pb-3 leading-8 text-slate-700">
+              <p className="text-md font-bold">
+                "{loginUser}"
+                <span className="text-md font-thin">でログイン中</span>
+              </p>
+              <button className="text-blue-600">ユーザー名を変更</button>
+            </div>
             <button className="w-full bg-opacity-50 px-1 py-2 text-left hover:bg-gray-200">
               <p>並び替え</p>
             </button>
@@ -52,8 +55,11 @@ export const MenuOpenModal = ({ loginUser }) => {
             <button className="w-full bg-opacity-50 px-1 py-2 text-left hover:bg-gray-200">
               <p>ヘルプ</p>
             </button>
-            <div className="w-full h-14 border-t pt-5 flex items-center">
+            <div className="flex h-14 w-full items-center justify-between border-t pt-5">
               <HeaderLogoutBtn />
+              <button className="mx-4 text-sm text-red-600">
+                アカウントを削除
+              </button>
             </div>
           </div>
         </div>
