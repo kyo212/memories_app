@@ -145,6 +145,7 @@ export const Books = memo(
                     imageStyle="h-full w-full object-cover"
                     videoStyle="h-full w-full object-cover"
                     acceptType="image/*"
+                    disabled={true}
                     video={{
                       videoUrl: "",
                       videoAutoPlay: false,

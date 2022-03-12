@@ -202,7 +202,7 @@ export const Content = memo(() => {
                 <SwiperSlide
                   id={index}
                   key={item.bookId}
-                  className="inline-block h-screen w-screen transform snap-start snap-always bg-gradient-to-r from-white to-gray-100 transition-transform ease-in"
+                  className="inline-block h-screen w-screen transform snap-start snap-always bg-gradient-to-r from-white to-gray-200 transition-transform ease-in"
                 >
                   <Books
                     item={item}

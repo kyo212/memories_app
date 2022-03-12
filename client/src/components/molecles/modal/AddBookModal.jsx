@@ -127,6 +127,7 @@ export const AddBookModal = memo(
                     ]} inline-block border h-[215px] w-[260px] `}
                     imageStyle="h-full w-full object-cover"
                     acceptType="image/*"
+                    disabled={false}
                     video={{
                       videoUrl: "",
                       videoAutoPlay: false,

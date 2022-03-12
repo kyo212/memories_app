@@ -53,9 +53,28 @@ export const Book = memo(() => {
     setVideoFile,
   } = useContext(Context);
 
+  // useEffect(() => {
+  //   // ログイン状態を取得
+  //   const getAuth = async () => {
+  //     await Axios.post(
+  //       `http://${process.env.REACT_APP_PUBLIC_IP}/loginState`
+  //     ).then((response) => {
+  //       const { loggedIn } = response.data;
+  //       if (!loggedIn) {
+  //         // ログイン中でない時、"/session"に遷移させる
+  //         // navigate("/session");
+  //       } else {
+  //         setIsAuth(loggedIn);
+  //       }
+  //     });
+  //   };
+  //   getAuth();
+  // }, []);
+
   useEffect(() => {
     // location.stateに値がない場合(urlから直接 mybools/book へアクセスされたとき)にコンテンツを表示させないようにする
     if (location.state) {
+      // locationからデータを取得
       setLocationState(location.state);
     } else {
       setUnExpectErr(true);
@@ -78,7 +97,7 @@ export const Book = memo(() => {
     getItems();
   }, [update]);
 
-  const insertItem = async () => {
+  const insertItem = async (type) => {
     // awsのバケットURLを取得
     await Axios.post(`http://${process.env.REACT_APP_PUBLIC_IP}/s3Url`).then(
       (response) => {
@@ -87,10 +106,17 @@ export const Book = memo(() => {
         // 入力した情報をDBに追加
         const insert = async (bookImage, bookVideo) => {
           // バリデーション
-          if (!bookContentTitle && !bookContentDesc) {
+          if (
+            type === "mediaAndText" &&
+            !bookContentTitle &&
+            !bookContentDesc
+          ) {
+            // type(mediaAndText)かつタイトルと説明が空である場合
             setErrMsgToggle(true);
-          } else {
-            console.log("あっている");
+          } else if (
+            type === "mediaOnly" ||
+            (type === "mediaAndText" && bookContentTitle && bookContentDesc)
+          ) {
             await Axios.post(
               `http://${process.env.REACT_APP_PUBLIC_IP}/insert`,
               {
@@ -227,17 +253,15 @@ export const Book = memo(() => {
                 index
               ) => (
                 <>
-                  {/* type === "round","square" */}
-
                   <div
                     key={pageId}
                     className="h-screen w-screen snap-start snap-always"
                   >
-                    {/* 画像 */}
+                    {/* 画像エリア */}
                     <div
                       className={[
                         title && description
-                          ? "relative h-1/2 w-screen"
+                          ? "relative h-[60%] w-screen"
                           : !title &&
                             !description &&
                             "relative h-screen w-screen",
@@ -246,14 +270,14 @@ export const Book = memo(() => {
                       <ImageUrlCreate
                         imageSize={[
                           title && description
-                            ? "h-screen w-screen"
+                            ? "h-screen w-screen hover:bg-black"
                             : !title &&
                               !description &&
                               "h-screen w-screen flex items-center justify-center",
                         ]}
                         imageStyle={[
                           title && description
-                            ? "h-full w-full object-cover"
+                            ? `h-full w-full object-cover`
                             : !title &&
                               !description &&
                               "h-[70%] w-[75%] object-cover rounded-lg",
@@ -265,6 +289,7 @@ export const Book = memo(() => {
                               !description &&
                               "h-[70%] w-[75%] object-cover rounded-lg",
                         ]}
+                        disabled={true}
                         acceptType="image/*,video/*"
                         imageUrl={bookImage}
                         video={{
@@ -274,21 +299,35 @@ export const Book = memo(() => {
                           videoLoop: false,
                         }}
                       />
-                      {title && !description && (
-                        <p className="absolute bottom-2 left-2 text-xl font-bold text-slate-800">
-                          {title}
-                        </p>
+                      {!title && !description && (
+                        <>
+                          {/* ホバー時黒背景出現 画像と文章がある場合  */}
+                          <div className="absolute top-1/2 left-1/2 h-[40%] w-[75%] -translate-x-1/2 -translate-y-1/2 transform bg-black opacity-0 transition-all hover:opacity-50">
+                            {/* 日付 画像のみの場合 */}
+                            <div className="tranform absolute top-1/2 left-1/2 flex -translate-x-1/2 -translate-y-1/2 select-none space-x-4 text-lg font-bold text-white hover:block">
+                              <p className="text-md ">{date}</p>
+                            </div>
+                          </div>
+                        </>
+                      )}
+                      {!title && !description && (
+                        <>
+                          {/* ページ数カウント */}
+                          <p className="absolute bottom-0 left-1/2 -translate-x-1/2 transform select-none">{`${
+                            index + 1
+                          } / ${bookContents.length}`}</p>
+                        </>
                       )}
                     </div>
                     {/* テキスト */}
                     <div
                       className={[
                         title && description
-                          ? "flex h-1/2 w-screen items-center justify-center"
+                          ? "flex h-[40%] w-screen items-center justify-center"
                           : !title && !description && "hidden",
                       ]}
                     >
-                      <div className="relative h-[85%] w-[90%]">
+                      <div className="relative h-full w-[90%] pt-4">
                         <div className="">
                           <p className="text-xl font-bold text-slate-800">
                             {title}
@@ -299,11 +338,17 @@ export const Book = memo(() => {
                             {description}
                           </p>
                         </div>
+                        {title && description && (
+                          <>
+                            <div className="flex space-x-4">
+                              <p className="text-md text-slate-600">{date}</p>
+                            </div>
+                            <p className="absolute bottom-0 left-1/2 -translate-x-1/2 transform">{`${
+                              index + 1
+                            } / ${bookContents.length}`}</p>
+                          </>
+                        )}
                       </div>
-                    </div>
-                    <div className="flex space-x-4">
-                      <p className="text-md text-slate-600">{date}</p>
-                      <p>{`${index + 1} / ${bookContents.length}`}</p>
                     </div>
                   </div>
                 </>
@@ -328,6 +373,7 @@ export const Book = memo(() => {
                     imageStyle="h-full w-full rounded-lg object-cover"
                     videoStyle="h-full w-full rounded-lg object-cover"
                     acceptType="image/*,video/*"
+                    disabled={false}
                     imageUrl={imageUrl}
                     video={{
                       videoUrl,
@@ -348,7 +394,9 @@ export const Book = memo(() => {
                     <span>画像と文章を追加</span>
                   </button>
                   <div className="absolute bottom-0 my-4 w-[90%] space-y-2">
-                    <Button clickBtn={insertItem}>追加する</Button>
+                    <Button clickBtn={() => insertItem("mediaOnly")}>
+                      追加する
+                    </Button>
                   </div>
                 </div>
               </div>
@@ -369,6 +417,7 @@ export const Book = memo(() => {
                   imageStyle="h-full w-full object-cover"
                   videoStyle="h-full w-full object-cover"
                   acceptType="image/*,video/*"
+                  disabled={false}
                   imageUrl={imageUrl}
                   video={{
                     videoUrl,
@@ -382,7 +431,6 @@ export const Book = memo(() => {
               {/* テキスト */}
               <div className="relative flex h-1/2 w-screen items-center justify-center">
                 <div className="h-[82%] w-[90%]">
-                  {/* 追加画面 常に最後尾に配置する */}
                   <div className="">
                     <label className="flex flex-col text-sm font-bold">
                       タイトル
@@ -428,7 +476,9 @@ export const Book = memo(() => {
                     <span>画像もしくは動画だけを追加</span>
                   </button>
                   <div className="absolute bottom-0 my-4 w-[90%] space-y-2">
-                    <Button clickBtn={insertItem}>追加する</Button>
+                    <Button clickBtn={() => insertItem("mediaAndText")}>
+                      追加する
+                    </Button>
                   </div>
                 </div>
               </div>

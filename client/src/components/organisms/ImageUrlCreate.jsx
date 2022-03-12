@@ -3,7 +3,7 @@ import { memo, useContext } from "react";
 import { Context } from "../../App";
 
 export const ImageUrlCreate = memo(
-  ({ imageUrl, imageSize, imageStyle, videoStyle  ,acceptType, video }) => {
+  ({ imageUrl, imageSize, imageStyle, videoStyle , disabled, acceptType, video }) => {
     // props
     const { videoUrl, videoAutoPlay, videoCtrl, videoLoop } = video;
     // コンテキスト
@@ -37,6 +37,7 @@ export const ImageUrlCreate = memo(
       <label className={`${imageSize}`}>
         <input
           type="file"
+          disabled={disabled}
           onChange={processImage}
           accept={acceptType}
           className="hidden"
