@@ -218,8 +218,11 @@ export const Content = memo(() => {
                 </SwiperSlide>
               </>
             ))}
-            <SliderLeft navigationPrevRef={navigationPrevRef} />
-            <SliderRight navigationNextRef={navigationNextRef} />
+            {/* open状態のまま移動した際に、閉じる処理 */}
+            <span onClick={() => setBookOpen(false)}>
+              <SliderLeft navigationPrevRef={navigationPrevRef} />
+              <SliderRight navigationNextRef={navigationNextRef} />
+            </span>
           </Swiper>
         ) : (
           <>
