@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 // アイコン
 import { BsReply } from "react-icons/bs";
 import { BsReplyFill } from "react-icons/bs";
+import { BsPencil } from "react-icons/bs";
 // コンポーネント
 import { BookRibbon } from "../atoms/style/BookRibbon";
 import { ImageUrlCreate } from "./ImageUrlCreate";
@@ -21,11 +22,18 @@ export const Books = memo(
     bookOpen,
     setBookOpen,
   }) => {
+    // props
     const { bookId, bookTitle, category, coverImage, date, favorite } = item;
+    // Toggle
+    const [bookTitleEdit, setBookTitleEdit] = useState(false);
+    // 情報
+    const [bookOpenId, setBookOpenId] = useState(0);
     // ナビゲーション
     const navigate = useNavigate();
     // カスタムフック
     const { bookOpenAnimation } = useStyle();
+
+    console.log(bookTitle.length > 8);
 
     // スタイル共通化
     const bookStyle =
@@ -35,7 +43,8 @@ export const Books = memo(
     const bookOpenTextStyle =
       "absolute mr-1 border-b py-[2px] px-[5px] text-[12px] hover:font-bold";
 
-    const bookOpenToggle = () => {
+    const bookOpenToggle = (id) => {
+      setBookOpenId(id);
       setBookOpen(!bookOpen);
     };
 
@@ -49,6 +58,10 @@ export const Books = memo(
       const { bookId, favorite } = item;
       favoriteState(bookId, !favorite);
       setBookOpen(false);
+    };
+
+    const bookTitleEditToggle = () => {
+      setBookTitleEdit(!bookTitleEdit);
     };
 
     const toCategoryComponent = (item) => {
@@ -76,29 +89,39 @@ export const Books = memo(
                 {/* 本をめくるアニメーション */}
                 <div // 三角のUI
                   className={[
-                    bookOpen && bookId
+                    bookOpen && bookId === bookOpenId
                       ? bookOpenAnimation.showed
                       : bookOpenAnimation.base,
                   ]}
                 />
                 <button // ひらくボタン
-                  onClick={bookOpenToggle}
+                  onClick={() => bookOpenToggle(bookId)}
                   className={[
-                    bookOpen && bookId
+                    bookOpen && bookId === bookOpenId
                       ? `${bookOpenBtnStyle} opacity-0 duration-300`
                       : `${bookOpenBtnStyle} opacity-100 delay-500`,
                   ]}
                 >
                   <BsReply />
                 </button>
+                <button // タイトル編集ボタン
+                  onClick={bookTitleEditToggle}
+                  className={[
+                    (bookOpen && bookId) || bookTitleEdit
+                      ? "hidden"
+                      : "absolute top-[11%] left-[63%] text-sm text-slate-500",
+                  ]}
+                >
+                  <BsPencil />
+                </button>
                 <div // ひらいた後の要素
                   className={
-                    bookOpen && bookId
+                    bookOpen && bookId === bookOpenId
                       ? "transform text-slate-600 transition-all delay-300 duration-300"
                       : "transform text-slate-600 opacity-0 transition-all"
                   }
                 >
-                  {bookOpen && bookId && (
+                  {bookOpen && bookId === bookOpenId && (
                     <>
                       <button
                         onClick={() => toCategoryComponent(item)}
@@ -129,11 +152,34 @@ export const Books = memo(
                 </div>
                 {/* 本をめくるアニメーション */}
                 {/* 表紙 */}
-                <div className="z-10 flex h-[360px] w-72 flex-col items-center rounded-sm  border border-slate-300 bg-white text-slate-700 shadow-inner sm:h-[600px] sm:w-[500px]">
-                  <div className="text-bold flax mt-8 mb-4 flex-col text-center text-lg">
-                    <p className="border-b">{bookTitle}</p>
-                    <div className="mt-2 flex select-none flex-col items-center text-[12px] leading-5 text-slate-400">
+                <div className="flex h-[360px] w-72 flex-col items-center rounded-sm  border border-slate-300 bg-white text-slate-700 shadow-inner sm:h-[600px] sm:w-[500px]">
+                  <div className="text-bold flax mt-10 mb-8 flex-col text-center text-slate-800">
+                    {!bookTitleEdit ? (
+                      <>
+                        <p
+                          className={[
+                            bookTitle.length >= 10
+                              ? "text-sm"
+                              : bookTitle.length >= 8
+                              ? "text-md"
+                              : "text-2xl",
+                          ]}
+                        >
+                          {bookTitle}
+                        </p>
+                      </>
+                    ) : (
+                      <>
+                        <input
+                          type="text"
+                          className="w-[60%] border px-2 py-1 text-lg"
+                        />
+                        <button onClick={bookTitleEditToggle}>*</button>
+                      </>
+                    )}
+                    <div className="mt-2 flex select-none items-center justify-center text-[12px] leading-5 text-slate-400">
                       <p>{date}</p>
+                      <p className="mx-2">-</p>
                       <p>
                         <ChangeJapanese category={category} />
                       </p>

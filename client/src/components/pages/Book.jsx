@@ -8,6 +8,7 @@ import { BsChevronDoubleRight } from "react-icons/bs";
 import { BsFillBookmarkFill } from "react-icons/bs";
 import { BsHouse } from "react-icons/bs";
 import { BsArrowRepeat } from "react-icons/bs";
+import { BsPencil } from "react-icons/bs";
 // コンポーネント UI系
 import { ChangeFont } from "../atoms/ChangeFont";
 import { Button } from "../atoms/button/Button";
@@ -313,7 +314,7 @@ export const Book = memo(() => {
                       {!title && !description && (
                         <>
                           {/* ページ数カウント */}
-                          <p className="absolute bottom-0 left-1/2 -translate-x-1/2 transform select-none">{`${
+                          <p className="absolute bottom-2 left-1/2 -translate-x-1/2 transform select-none text-slate-500">{`${
                             index + 1
                           } / ${bookContents.length}`}</p>
                         </>
@@ -328,10 +329,13 @@ export const Book = memo(() => {
                       ]}
                     >
                       <div className="relative h-full w-[90%] pt-4">
-                        <div className="">
+                        <div className="relative">
                           <p className="text-xl font-bold text-slate-800">
                             {title}
                           </p>
+                          <button className="absolute top-1/2 right-0 -translate-y-1/2 text-sm">
+                            <BsPencil />
+                          </button>
                         </div>
                         <div className="mt-4 w-[80%]">
                           <p className="text-md text-slate-600">
@@ -340,10 +344,10 @@ export const Book = memo(() => {
                         </div>
                         {title && description && (
                           <>
-                            <div className="flex space-x-4">
-                              <p className="text-md text-slate-600">{date}</p>
+                            <div className="absolute bottom-2 right-0 flex space-x-4 text-slate-500">
+                              <p className="text-md">{date}</p>
                             </div>
-                            <p className="absolute bottom-0 left-1/2 -translate-x-1/2 transform">{`${
+                            <p className="absolute bottom-2 left-1/2 -translate-x-1/2 transform text-slate-500">{`${
                               index + 1
                             } / ${bookContents.length}`}</p>
                           </>
