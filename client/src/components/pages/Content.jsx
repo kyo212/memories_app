@@ -56,13 +56,15 @@ export const Content = memo(() => {
   // スライダーアイコン
   const navigationPrevRef = useRef(null);
   const navigationNextRef = useRef(null);
-  // コンテキストに渡すstate
+  // コンテキスト
   const {
-    setDefaultIndex,
+    setDefaultIndex, // Tabを初期値に戻す
     imageFile,
     setImageUrl,
-    headerToggle,
-    setHeaderToggle,
+    headerToggle, // ヘッダー開閉のトグル
+    setHeaderToggle, // ヘッダー開閉のトグル
+    fillterToggle, // フィルターを適用するかしないか
+    fillterCategory, // フィルタリングする内容
   } = useContext(Context);
 
   useEffect(() => {
@@ -162,6 +164,8 @@ export const Content = memo(() => {
     setUpdate(!update);
   };
 
+  console.log(fillterCategory);
+
   // リロードの間、loading画面を表示させる
   // この記述がないとloadingがすぐtrueになってしまい、"まだなにもありません"が表示されてしまう
   useEffect(() => setTimeout(() => setLoading(true), 1000), []);
@@ -199,9 +203,10 @@ export const Content = memo(() => {
           >
             {bookItems.map((item, index) => (
               <>
-                {/* 条件フィルター */}
-                {false ? (
-                  item.category === "travel" && (
+                {/* フィルター */}
+                {fillterToggle ? (
+                  (item.category === fillterCategory ||
+                    item.favorite === Number(fillterCategory)) && (
                     <SwiperSlide
                       id={index}
                       key={item.bookId}

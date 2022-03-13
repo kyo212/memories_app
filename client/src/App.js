@@ -13,6 +13,9 @@ function App() {
   const [searchToggle, setSearchToggle] = useState(false);
   const [menuToggle, setMenuToggle] = useState(false);
   const [headerToggle, setHeaderToggle] = useState(false);
+  // フィルター
+  const [fillterToggle, setFillterToggle] = useState(false);
+  const [fillterCategory, setFillterCategory] = useState("");
 
   return (
     <>
@@ -34,6 +37,10 @@ function App() {
           setMenuToggle,
           headerToggle,
           setHeaderToggle,
+          fillterToggle,
+          setFillterToggle,
+          fillterCategory,
+          setFillterCategory,
         }}
       >
         <Router />
