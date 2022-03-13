@@ -1,6 +1,6 @@
 import { memo } from "react";
 // アイコン
-import { BsCheckCircleFill } from "react-icons/bs";
+import { SuccessIcon } from "../icon/SuccessIcon";
 // カスタムフック
 import { useStyle } from "../../custom/useStyle";
 import { ChangeJapanese } from "../ChangeJapanese";
@@ -14,9 +14,7 @@ export const SuccessMsgWindow = memo(({ msgToggle, category, msgText }) => {
     <>
       <div className={[msgToggle ? successMsg.showed : successMsg.base]}>
         <p className="flex">
-          <span className="mr-2 text-xl text-green-600 ">
-            <BsCheckCircleFill />
-          </span>
+          <SuccessIcon />
           <ChangeJapanese category={category} />
           {msgText}
         </p>

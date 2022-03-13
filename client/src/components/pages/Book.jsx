@@ -1,5 +1,5 @@
 import { memo, useState, useEffect, useContext } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Axios from "axios";
 // アイコン
 import { BsUpload } from "react-icons/bs";
@@ -23,7 +23,6 @@ import { Context } from "../../App";
 
 export const Book = memo(() => {
   // ルーター
-  const navigate = useNavigate();
   const location = useLocation();
   // 情報
   const [bookContents, setBookContents] = useState([]);

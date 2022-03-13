@@ -19,6 +19,11 @@ export const useStyle = () => {
       showed:
         "fixed top-0 left-0 z-50 mt-20 flex h-screen w-screen transform justify-center overflow-hidden bg-white bg-opacity-80  transition-all duration-700",
     },
+    fillterMenuTabAnimation: {
+      base: "w-[42px] h-8 leading-8 text-indigo-900 m-1 text-center",
+      selected:
+        "w-[42px] h-8 leading-8 transition-all transform font-bold text-center text-slate-600 bg-slate-200 m-1",
+    },
   };
   // menu-open
   const menuOpens = {
@@ -53,8 +58,7 @@ export const useStyle = () => {
     },
     errorBorderMsg: {
       base: "w-full rounded border border-slate-300 px-4 py-2",
-      showed:
-        "w-full rounded border px-4 border border-red-400 py-2",
+      showed: "w-full rounded border px-4 border border-red-400 py-2",
     },
   };
 

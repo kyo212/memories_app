@@ -16,6 +16,7 @@ function App() {
   // フィルター
   const [fillterToggle, setFillterToggle] = useState(false);
   const [fillterCategory, setFillterCategory] = useState("");
+  const [fillterMenu, setFillterMenu] = useState(false);
 
   return (
     <>
@@ -41,6 +42,8 @@ function App() {
           setFillterToggle,
           fillterCategory,
           setFillterCategory,
+          fillterMenu,
+          setFillterMenu,
         }}
       >
         <Router />

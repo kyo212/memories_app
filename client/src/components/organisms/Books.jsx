@@ -80,7 +80,7 @@ export const Books = memo(
                 {/* 本の厚み */}
                 <BookRibbon favorite={favorite} bookId={bookId} />
                 <span
-                  className={`${bookStyle} -right-2 -top-2 rounded-sm  border-slate-300 shadow-3xl`}
+                  className={`${bookStyle} shadow-3xl -right-2 -top-2  rounded-sm border-slate-300`}
                 />
                 <span className={`${bookStyle} -right-[6px] -top-[6px]`} />
                 <span className={`${bookStyle} -right-[4px] -top-[4px]`} />
@@ -107,7 +107,7 @@ export const Books = memo(
                   <div // ひらいた後の要素
                     className={
                       bookOpen && bookId === bookOpenId
-                        ? "absolute flex h-[210px] w-[180px] transform flex-col text-slate-600 transition-all delay-300 duration-300 "
+                        ? "absolute flex h-[240px] w-[190px] transform flex-col p-1 text-slate-600 transition-all delay-300 duration-300 "
                         : "transform text-slate-600 opacity-0 transition-all"
                     }
                   >
@@ -120,16 +120,16 @@ export const Books = memo(
                           ひらく
                         </button>
                         <button
-                          onClick={() => deleteItemToggle(item)}
+                          onClick={() => favoriteBtnToggle(item)}
                           className={`${bookOpenTextStyle}`}
                         >
-                          すてる
+                          おきにいり
                         </button>
                         <button
                           onClick={() => favoriteBtnToggle(item)}
                           className={`${bookOpenTextStyle}`}
                         >
-                          おきにいり
+                          この本を共有
                         </button>
                         <button // タイトル編集ボタン
                           onClick={bookTitleEditToggle}
@@ -139,6 +139,12 @@ export const Books = memo(
                             <BsPencil />
                           </span>
                           編集
+                        </button>
+                        <button
+                          onClick={() => deleteItemToggle(item)}
+                          className={`${bookOpenTextStyle}`}
+                        >
+                          すてる
                         </button>
                         <button
                           onClick={bookOpenToggle}
@@ -185,7 +191,11 @@ export const Books = memo(
                           <ChangeJapanese category={category} />
                         </p>
                       ) : (
-                      <input type="text" placeholder="カテゴリー" className="border px-2 py-1 w-[88px]"/>
+                        <input
+                          type="text"
+                          placeholder="カテゴリー"
+                          className="w-[88px] border px-2 py-1"
+                        />
                       )}
                     </div>
                   </div>

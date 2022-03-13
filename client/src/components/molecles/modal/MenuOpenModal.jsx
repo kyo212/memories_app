@@ -4,6 +4,9 @@ import { VscTriangleDown } from "react-icons/vsc";
 import { BsBoxArrowUpRight } from "react-icons/bs";
 import { BsQuestionCircle } from "react-icons/bs";
 import { BsCaretRightFill } from "react-icons/bs";
+import { BsFillBookmarkFill } from "react-icons/bs";
+import { BsBookmark } from "react-icons/bs";
+import { SuccessIcon } from "../../atoms/icon/SuccessIcon";
 // カスタムフック
 import { useStyle } from "../../custom/useStyle";
 // コンポーネント
@@ -13,10 +16,10 @@ import { Tab } from "../tabs/Tab";
 import { Context } from "../../../App";
 
 export const MenuOpenModal = ({ loginUser }) => {
-  // カテゴリー
   const [fillterMenu, setFillterMenu] = useState(false);
   // カスタムフック
-  const { menuOpens } = useStyle();
+  const { menuOpens, modals } = useStyle();
+  const { fillterMenuTabAnimation } = modals;
   const { menuOpenBtnAnimation, menuOpenAnimation } = menuOpens;
   // コンテキスト
   const {
@@ -26,6 +29,7 @@ export const MenuOpenModal = ({ loginUser }) => {
     setHeaderToggle,
     fillterToggle,
     setFillterToggle,
+    fillterCategory,
     setFillterCategory,
   } = useContext(Context);
 
@@ -37,11 +41,12 @@ export const MenuOpenModal = ({ loginUser }) => {
     setMenuToggle(!menuToggle);
     setSearchToggle(false);
     setHeaderToggle(false);
+    setFillterMenu(false)
   };
 
   const bookFillter = (e) => {
     e.target.id === "favorite" && setFillterCategory("1");
-    setFillterToggle(true);
+    setFillterToggle(true); // フィルターを適用する
   };
 
   const filterMenuToggle = () => {
@@ -80,54 +85,73 @@ export const MenuOpenModal = ({ loginUser }) => {
               <button>降順</button>
               </div> */}
             <button onClick={filterMenuToggle} className={menuListStyle}>
-              <>
-                <span
-                  className={[
-                    fillterMenu ? "mx-2 rotate-90 transform" : "mx-2",
-                  ]}
-                >
-                  <BsCaretRightFill />
-                </span>
-                {fillterToggle ? (
-                  <p className="font-bold text-green-700">フィルタを適用中</p>
-                ) : (
-                  <p>フィルタを適用</p>
-                )}
-              </>
+              <div className="flex items-center">
+                <div className="ml-2 flex items-center">
+                  {fillterToggle ? (
+                    <>
+                      <SuccessIcon />
+                      <p className="font-bold text-green-700">
+                        フィルタを適用中
+                      </p>
+                    </>
+                  ) : (
+                    <>
+                      {fillterMenu ? ( // フィルタが適用されていないとき、フィルタメニューがtrueなら
+                        <BsCaretRightFill className="mr-2 rotate-90 transform" />
+                      ) : (
+                        <BsCaretRightFill className="mr-2" />
+                      )}
+                      <p>フィルタを適用</p>
+                    </>
+                  )}
+                </div>
+              </div>
             </button>
             <div
               className={[
                 fillterMenu
-                  ? "flex h-32 transform flex-col items-start transition-all duration-300"
+                  ? "my-2 flex h-40 transform flex-col items-start rounded-lg border border-slate-300 p-1 transition-all duration-300"
                   : "h-0 transform transition-all duration-300",
               ]}
             >
+              <button
+                id="favorite"
+                onClick={bookFillter}
+                className={[fillterMenu ? "my-2 flex items-center" : "hidden"]}
+              >
+                {fillterCategory === "1" ? (
+                  <>
+                    <span className="mr-2 text-2xl text-red-500">
+                      <BsFillBookmarkFill />
+                    </span>
+                    おきにいりのみ
+                  </>
+                ) : (
+                  <>
+                    <span className="mr-2 text-2xl">
+                      <BsBookmark />
+                    </span>
+                    おきにいりのみ
+                  </>
+                )}
+              </button>
+              <div onClick={bookFillter} className={[!fillterMenu && "hidden"]}>
+                <Tab
+                  animation={fillterMenuTabAnimation}
+                  ulClass={"flex flex-wrap"}
+                  setCategory={setFillterCategory}
+                />
+              </div>
               {fillterToggle && ( // フィルタが適用されているときのみ
                 <button
                   onClick={() => setFillterToggle(false)}
                   className={[
-                    fillterMenu
-                      ? "ml-2 rounded-full border border-slate-600 px-2"
-                      : "hidden",
+                    fillterMenu ? "mx-2 border-b font-bold" : "hidden",
                   ]}
                 >
                   解除
                 </button>
               )}
-              <button
-                id="favorite"
-                onClick={bookFillter}
-                className={[!fillterMenu && "hidden"]}
-              >
-                おきにいりのみ
-              </button>
-              <div onClick={bookFillter} className={[!fillterMenu && "hidden"]}>
-                <Tab
-                  animation={""}
-                  ulClass={"flex flex-wrap"}
-                  setCategory={setFillterCategory}
-                />
-              </div>
             </div>
             <button className={menuListStyle}>
               <span className="text-md mx-2">
