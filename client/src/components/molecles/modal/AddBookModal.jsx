@@ -24,7 +24,7 @@ export const AddBookModal = memo(
     // Contentからのprops
     const { errMsgToggle, setErrMsgToggle } = msgShow;
     const { modalToggle, setModalToggle } = toggle;
-    const { bookTitle, category } = bookListItems;
+    const { bookTitle } = bookListItems;
     const { setBookTitle, setCategory } = setBookListItems;
     // カスタムフック
     const { modals, messageWindow } = useStyle();
@@ -51,17 +51,22 @@ export const AddBookModal = memo(
       setErrMsgToggle(false);
     };
 
+    const clickAdd = () => {
+      insertItem();
+      document.getElementById("main").scrollTop = 0;
+    };
+
     return (
       <>
-        {/* {modalToggle && ( */}
         <div
+          id="main"
           className={`${[
             modalToggle
               ? " fixed top-0 left-0 z-50 h-screen w-screen overflow-y-scroll opacity-100"
-              : "-z-50 -translate-y-full opacity-0",
+              : "hidden",
           ]} transform bg-white transition-all duration-500`}
         >
-          <div className="mt-[10%] mb-[40%]">
+          <div id="modal" className="mt-[10%] mb-[40%]">
             <div className="flex w-full flex-col items-center space-y-4">
               <div className="relative">
                 {/* タイトルバリデーション */}
@@ -152,9 +157,9 @@ export const AddBookModal = memo(
               </div>
             </div>
             <div className="mt-5 flex w-full flex-col items-center">
-              {/* 追加ボタン */}
               <div className="w-[75%]">
-                <Button clickBtn={insertItem}>本を追加する</Button>
+                {/* 追加ボタン */}
+                <Button clickBtn={clickAdd}>本を追加する</Button>
               </div>
             </div>
           </div>

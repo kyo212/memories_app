@@ -223,6 +223,7 @@ export const Content = memo(() => {
               <SliderLeft navigationPrevRef={navigationPrevRef} />
               <SliderRight navigationNextRef={navigationNextRef} />
             </span>
+            <button className="absolute bottom-0 text-sm text-blue-600">みんなの</button>
           </Swiper>
         ) : (
           <>
@@ -288,7 +289,6 @@ export const Content = memo(() => {
           setBookOpen={setBookOpen}
         />
       </div>
-      <p className="fixed bottom-0 text-sm text-blue-600">みんなの</p>
     </>
   );
 });

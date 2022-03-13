@@ -7,7 +7,7 @@ import { Context } from "../../App";
 
 export const Header = memo(({ root, children, headerOpen }) => {
   const { headerToggle, setHeaderToggle } = headerOpen;
-
+  // コンテキスト
   const { setMenuToggle, setSearchToggle } = useContext(Context);
 
   const headerOpenClose = () => {
@@ -25,7 +25,9 @@ export const Header = memo(({ root, children, headerOpen }) => {
       >
         <div className="flex h-12 w-[96%] items-center  justify-between rounded-md ">
           <h1 className="mx-4 select-none font-serif text-xl font-bold text-slate-800">
-            <a href={root}>memories</a>
+            <a href={root}>
+              memories
+            </a>
           </h1>
           <div className="mx-4 flex h-12 items-center">
             <div className="flex h-full space-x-2">{children}</div>

@@ -1,6 +1,8 @@
 import { memo, useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
+// アイコン
+import { BsArrowUp } from "react-icons/bs";
 // コンポーネント
 import { HeaderLoginBtn } from "../atoms/button/HeaderLoginBtn";
 import { HeaderRegBtn } from "../atoms/button/HeaderRegBtn";
@@ -16,6 +18,7 @@ import { Context } from "../../App";
 export const Home = memo(() => {
   const navigate = useNavigate();
   const [category, setCategory] = useState("家族");
+  const [scrollBtn, setScrollBtn] = useState(false);
   // カスタムフック
   const { tabs } = useStyle();
   const { tabAnimation } = tabs;
@@ -36,6 +39,32 @@ export const Home = memo(() => {
     };
     getLoginState();
   }, []);
+
+  useEffect(() => {
+    // 取得し続ける
+    document.addEventListener("scroll", onScroll);
+  });
+
+  const getScrollTop = () =>
+    Math.max(
+      window.pageYOffset,
+      document.documentElement.scrollTop,
+      document.body.scrollTop
+    );
+
+  const onScroll = () => {
+    // position = 現在位置をピクセルで表す
+    const position = getScrollTop();
+    position > 100 ? setScrollBtn(true) : setScrollBtn(false);
+  };
+
+  const clickScrollTop = () => {
+    // top0ピクセルに移動する
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
 
   return (
     <>
@@ -159,6 +188,16 @@ export const Home = memo(() => {
             </div>
           </div>
         </section>
+        <button
+          onClick={clickScrollTop}
+          className={[
+            scrollBtn
+              ? "fixed bottom-4 right-4 transform animate-bounce rounded-full opacity-100 transition-all duration-1000"
+              : "transform opacity-0 transition-all duration-1000",
+          ]}
+        >
+          <BsArrowUp />
+        </button>
       </main>
       <footer>{/* <Footer /> */}</footer>
     </>
