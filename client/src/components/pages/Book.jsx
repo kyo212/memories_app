@@ -68,7 +68,7 @@ export const Book = memo(() => {
           // ログイン中でない時、"/session"に遷移させる
           // navigate("/session");
         } else {
-          // setIsAuth(loggedIn);
+          setIsAuth(loggedIn);
         }
       });
     };

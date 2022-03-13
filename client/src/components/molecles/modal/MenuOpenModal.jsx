@@ -1,4 +1,5 @@
 import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 // アイコン
 import { VscTriangleDown } from "react-icons/vsc";
 import { BsBoxArrowUpRight } from "react-icons/bs";
@@ -16,6 +17,9 @@ import { Tab } from "../tabs/Tab";
 import { Context } from "../../../App";
 
 export const MenuOpenModal = ({ loginUser }) => {
+  // ルータ
+  const navigate = useNavigate();
+  // Toggle
   const [fillterMenu, setFillterMenu] = useState(false);
   // カスタムフック
   const { menuOpens, modals } = useStyle();
@@ -51,6 +55,10 @@ export const MenuOpenModal = ({ loginUser }) => {
 
   const filterMenuToggle = () => {
     setFillterMenu(!fillterMenu);
+  };
+
+  const toPublicComponent = () => {
+    navigate("public");
   };
 
   return (
@@ -159,11 +167,11 @@ export const MenuOpenModal = ({ loginUser }) => {
               </span>
               <p>このアプリの使い方</p>
             </button>
-            <button className={menuListStyle}>
+            <button onClick={toPublicComponent} className={menuListStyle}>
               <span className="text-md mx-2">
                 <BsBoxArrowUpRight />
               </span>
-              <a href="public">みんなの本を見にいく</a>
+              みんなの本を見にいく
             </button>
             <div className="flex h-14 w-full items-center justify-between border-t pt-5">
               <HeaderLogoutBtn />
