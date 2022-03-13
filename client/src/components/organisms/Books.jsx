@@ -33,19 +33,18 @@ export const Books = memo(
     // カスタムフック
     const { bookOpenAnimation } = useStyle();
 
-    console.log(bookTitle.length > 8);
-
     // スタイル共通化
     const bookStyle =
       "absolute -z-20 flex h-[360px] w-72 sm:h-[600px] sm:w-[500px] border bg-gray-100 text-slate-70 block border-slate-400";
     const bookOpenBtnStyle =
       "absolute -top-1 p-3 right-0 -rotate-45 transform text-xl text-slate-400 transition-all";
     const bookOpenTextStyle =
-      "absolute mr-1 border-b py-[2px] px-[5px] text-[12px] hover:font-bold";
+      "mr-1 mt-2 pb-1 border-b border-[#efefef] py-[2px] px-[5px] text-right text-[12px] hover:font-bold";
 
     const bookOpenToggle = (id) => {
       setBookOpenId(id);
       setBookOpen(!bookOpen);
+      setBookTitleEdit(false);
     };
 
     const deleteItemToggle = (item) => {
@@ -62,6 +61,7 @@ export const Books = memo(
 
     const bookTitleEditToggle = () => {
       setBookTitleEdit(!bookTitleEdit);
+      setBookOpen(false);
     };
 
     const toCategoryComponent = (item) => {
@@ -80,7 +80,7 @@ export const Books = memo(
                 {/* 本の厚み */}
                 <BookRibbon favorite={favorite} bookId={bookId} />
                 <span
-                  className={`${bookStyle} -right-2 -top-2 rounded-sm  border-slate-300 shadow-xl`}
+                  className={`${bookStyle} -right-2 -top-2 rounded-sm  border-slate-300 shadow-3xl`}
                 />
                 <span className={`${bookStyle} -right-[6px] -top-[6px]`} />
                 <span className={`${bookStyle} -right-[4px] -top-[4px]`} />
@@ -93,62 +93,62 @@ export const Books = memo(
                       ? bookOpenAnimation.showed
                       : bookOpenAnimation.base,
                   ]}
-                />
-                <button // ひらくボタン
-                  onClick={() => bookOpenToggle(bookId)}
-                  className={[
-                    bookOpen && bookId === bookOpenId
-                      ? `${bookOpenBtnStyle} opacity-0 duration-300`
-                      : `${bookOpenBtnStyle} opacity-100 delay-500`,
-                  ]}
                 >
-                  <BsReply />
-                </button>
-                <button // タイトル編集ボタン
-                  onClick={bookTitleEditToggle}
-                  className={[
-                    (bookOpen && bookId) || bookTitleEdit
-                      ? "hidden"
-                      : "absolute top-[11%] left-[63%] text-sm text-slate-500",
-                  ]}
-                >
-                  <BsPencil />
-                </button>
-                <div // ひらいた後の要素
-                  className={
-                    bookOpen && bookId === bookOpenId
-                      ? "transform text-slate-600 transition-all delay-300 duration-300"
-                      : "transform text-slate-600 opacity-0 transition-all"
-                  }
-                >
-                  {bookOpen && bookId === bookOpenId && (
-                    <>
-                      <button
-                        onClick={() => toCategoryComponent(item)}
-                        className={`${bookOpenTextStyle} top-0 right-0 my-1`}
-                      >
-                        ひらく
-                      </button>
-                      <button
-                        onClick={() => deleteItemToggle(item)}
-                        className={`${bookOpenTextStyle} top-4 right-0 mt-4`}
-                      >
-                        すてる
-                      </button>
-                      <button
-                        onClick={() => favoriteBtnToggle(item)}
-                        className={`${bookOpenTextStyle} top-10 right-0 mt-5`}
-                      >
-                        おきにいり
-                      </button>
-                      <button
-                        onClick={bookOpenToggle}
-                        className="absolute top-[160px] left-[52%] rotate-[125deg] transform p-3 text-xl text-slate-500"
-                      >
-                        <BsReplyFill />
-                      </button>
-                    </>
-                  )}
+                  <button // ひらくボタン
+                    onClick={() => bookOpenToggle(bookId)}
+                    className={[
+                      bookOpen && bookId === bookOpenId
+                        ? `${bookOpenBtnStyle} opacity-0 duration-300`
+                        : `${bookOpenBtnStyle} opacity-100 delay-500`,
+                    ]}
+                  >
+                    <BsReply />
+                  </button>
+                  <div // ひらいた後の要素
+                    className={
+                      bookOpen && bookId === bookOpenId
+                        ? "absolute flex h-[210px] w-[180px] transform flex-col text-slate-600 transition-all delay-300 duration-300 "
+                        : "transform text-slate-600 opacity-0 transition-all"
+                    }
+                  >
+                    {bookOpen && bookId === bookOpenId && (
+                      <>
+                        <button
+                          onClick={() => toCategoryComponent(item)}
+                          className={`${bookOpenTextStyle}`}
+                        >
+                          ひらく
+                        </button>
+                        <button
+                          onClick={() => deleteItemToggle(item)}
+                          className={`${bookOpenTextStyle}`}
+                        >
+                          すてる
+                        </button>
+                        <button
+                          onClick={() => favoriteBtnToggle(item)}
+                          className={`${bookOpenTextStyle}`}
+                        >
+                          おきにいり
+                        </button>
+                        <button // タイトル編集ボタン
+                          onClick={bookTitleEditToggle}
+                          className={`${bookOpenTextStyle} flex items-center justify-end`}
+                        >
+                          <span className="mr-1">
+                            <BsPencil />
+                          </span>
+                          編集
+                        </button>
+                        <button
+                          onClick={bookOpenToggle}
+                          className="absolute bottom-0 w-12 rotate-[125deg] transform p-3 text-xl text-slate-500"
+                        >
+                          <BsReplyFill />
+                        </button>
+                      </>
+                    )}
+                  </div>
                 </div>
                 {/* 本をめくるアニメーション */}
                 {/* 表紙 */}
@@ -159,9 +159,9 @@ export const Books = memo(
                         <p
                           className={[
                             bookTitle.length >= 10
-                              ? "text-sm"
-                              : bookTitle.length >= 8
                               ? "text-md"
+                              : bookTitle.length >= 8
+                              ? "text-lg"
                               : "text-2xl",
                           ]}
                         >
@@ -180,9 +180,13 @@ export const Books = memo(
                     <div className="mt-2 flex select-none items-center justify-center text-[12px] leading-5 text-slate-400">
                       <p>{date}</p>
                       <p className="mx-2">-</p>
-                      <p>
-                        <ChangeJapanese category={category} />
-                      </p>
+                      {!bookTitleEdit ? (
+                        <p>
+                          <ChangeJapanese category={category} />
+                        </p>
+                      ) : (
+                      <input type="text" placeholder="カテゴリー" className="border px-2 py-1 w-[88px]"/>
+                      )}
                     </div>
                   </div>
                   <ImageUrlCreate

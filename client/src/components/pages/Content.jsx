@@ -9,7 +9,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 // アイコン
 import { AiOutlinePlus } from "react-icons/ai";
-import { BsArrowDown } from "react-icons/bs";
+import { BsArrowUp } from "react-icons/bs";
 // コンポーネント UI系
 import { Header } from "../organisms/Header";
 import { Books } from "../organisms/Books";
@@ -202,7 +202,7 @@ export const Content = memo(() => {
                 <SwiperSlide
                   id={index}
                   key={item.bookId}
-                  className="inline-block h-screen w-screen transform snap-start snap-always bg-gradient-to-r from-white to-gray-200 transition-transform ease-in"
+                  className="inline-block h-screen w-screen transform snap-start snap-always  transition-transform ease-in"
                 >
                   <Books
                     item={item}
@@ -230,23 +230,25 @@ export const Content = memo(() => {
               // リロード中はstateがデフォルト値になるから、stateがデフォルト値(リロード中)の場合はloadingを表示させるようにする処理
               <>
                 <div className="w-screen">
-                  <div className="fixed bottom-20 flex h-[75%] w-full flex-col items-center justify-around bg-white">
+                  <div className="fixed top-16 flex h-[50%] w-full flex-col items-center justify-around bg-white">
                     <div>
-                      <p className="text-bold my-2 text-xl font-bold text-slate-500">
-                        まだ何もありません
-                      </p>
-                      <p className="text-bold text-slate-500">
-                        まずは本を追加してみましょう
-                      </p>
-                    </div>
-                    <div className="flex flex-col items-center justify-center">
-                      <p className="text-bold my-8 flex items-center text-slate-500">
-                        <AiOutlinePlus className="mx-2 text-slate-800" />
-                        をクリックして追加
-                      </p>
-                      <p className="flex h-10 w-10 animate-bounce items-center justify-center rounded-full border border-slate-400 bg-white text-slate-800 shadow-md">
-                        <BsArrowDown />
-                      </p>
+                      <div className="flex flex-col items-center justify-center">
+                        <p className="flex h-10 w-10 animate-bounce items-center justify-center rounded-full border border-slate-400 bg-white text-slate-800 shadow-md">
+                          <BsArrowUp />
+                        </p>
+                      </div>
+                      <div className="mt-10 flex flex-col items-center">
+                        <p className="text-bold my-2 text-xl font-bold text-slate-500">
+                          まだ何もありません
+                        </p>
+                        <p className="text-bold text-slate-500">
+                          まずは本を追加してみましょう
+                        </p>
+                        <p className="text-bold my-8 flex items-center text-slate-500">
+                          <AiOutlinePlus className="mx-2 text-slate-800" />
+                          をクリックして追加
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>

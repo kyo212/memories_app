@@ -13,6 +13,9 @@ module.exports = {
         "tab-lover": "url('/images/tab_lover.jpg')",
         "tab-travel": "url('/images/tab_travel.jpg')",
       },
+      boxShadow: {
+        "3xl": "2px 10px 3px 4px rgba(0, 0, 0, 0.1)",
+      },
     },
   },
   plugins: [],
