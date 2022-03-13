@@ -23,7 +23,8 @@ export const Books = memo(
     setBookOpen,
   }) => {
     // props
-    const { bookId, bookTitle, category, coverImage, date, favorite } = item;
+    const { bookId, bookTitle, category, coverImage, date, favorite, share } =
+      item;
     // Toggle
     const [bookTitleEdit, setBookTitleEdit] = useState(false);
     // 情報
@@ -126,7 +127,7 @@ export const Books = memo(
                           おきにいり
                         </button>
                         <button
-                          onClick={() => favoriteBtnToggle(item)}
+                          onClick={() => {}}
                           className={`${bookOpenTextStyle}`}
                         >
                           この本を共有
@@ -159,7 +160,7 @@ export const Books = memo(
                 {/* 本をめくるアニメーション */}
                 {/* 表紙 */}
                 <div className="flex h-[360px] w-72 flex-col items-center rounded-sm  border border-slate-300 bg-white text-slate-700 shadow-inner sm:h-[600px] sm:w-[500px]">
-                  <div className="text-bold flax mt-10 mb-8 flex-col text-center text-slate-800">
+                  <div className="text-bold flax mt-10 mb-8 flex-col text-center font-serif text-slate-800">
                     {!bookTitleEdit ? (
                       <>
                         <p
@@ -213,6 +214,9 @@ export const Books = memo(
                       videoLoop: false,
                     }}
                   />
+                </div>
+                <div className="">
+                  {share ? <p className="text-sm text-green-800">この本は共有中です</p>:<></>}
                 </div>
               </div>
             </div>

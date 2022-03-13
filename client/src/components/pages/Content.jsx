@@ -164,8 +164,6 @@ export const Content = memo(() => {
     setUpdate(!update);
   };
 
-  console.log(fillterCategory);
-
   // リロードの間、loading画面を表示させる
   // この記述がないとloadingがすぐtrueになってしまい、"まだなにもありません"が表示されてしまう
   useEffect(() => setTimeout(() => setLoading(true), 1000), []);
