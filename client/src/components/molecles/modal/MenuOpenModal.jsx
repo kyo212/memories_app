@@ -41,7 +41,7 @@ export const MenuOpenModal = ({ loginUser }) => {
     setMenuToggle(!menuToggle);
     setSearchToggle(false);
     setHeaderToggle(false);
-    setFillterMenu(false)
+    setFillterMenu(false);
   };
 
   const bookFillter = (e) => {
@@ -163,7 +163,7 @@ export const MenuOpenModal = ({ loginUser }) => {
               <span className="text-md mx-2">
                 <BsBoxArrowUpRight />
               </span>
-              みんなの本を見にいく
+              <a href="public">みんなの本を見にいく</a>
             </button>
             <div className="flex h-14 w-full items-center justify-between border-t pt-5">
               <HeaderLogoutBtn />

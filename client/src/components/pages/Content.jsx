@@ -200,14 +200,13 @@ export const Content = memo(() => {
             modules={[Navigation, Pagination]}
           >
             {bookItems.map((item, index) => (
-              <>
+              <div key={item.bookId}>
                 {/* フィルター */}
                 {fillterToggle ? (
                   (item.category === fillterCategory ||
                     item.favorite === Number(fillterCategory)) && (
                     <SwiperSlide
                       id={index}
-                      key={item.bookId}
                       className="inline-block h-screen w-screen transform snap-start snap-always  transition-transform ease-in"
                     >
                       <Books
@@ -242,7 +241,7 @@ export const Content = memo(() => {
                     />
                   </SwiperSlide>
                 )}
-              </>
+              </div>
             ))}
             {/* open状態のまま移動した際に、閉じる処理 */}
             <span onClick={() => setBookOpen(false)}>

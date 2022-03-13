@@ -216,7 +216,13 @@ export const Books = memo(
                   />
                 </div>
                 <div className="">
-                  {share ? <p className="text-sm text-green-800">この本は共有中です</p>:<></>}
+                  {share ? (
+                    <p className="text-sm text-green-800">
+                      このフォトブックは共有中です
+                    </p>
+                  ) : (
+                    <></>
+                  )}
                 </div>
               </div>
             </div>

@@ -1,5 +1,5 @@
 import { memo, useState, useEffect, useContext } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Axios from "axios";
 // アイコン
 import { BsUpload } from "react-icons/bs";
@@ -23,8 +23,10 @@ import { Context } from "../../App";
 
 export const Book = memo(() => {
   // ルーター
+  const navigate = useNavigate();
   const location = useLocation();
   // 情報
+  const [isAuth, setIsAuth] = useState(false);
   const [bookContents, setBookContents] = useState([]);
   const [locationState, setLocationState] = useState([]);
   const { category, bookId, bookTitle, username, coverImage, date, favorite } =
@@ -53,23 +55,25 @@ export const Book = memo(() => {
     setVideoFile,
   } = useContext(Context);
 
-  // useEffect(() => {
-  //   // ログイン状態を取得
-  //   const getAuth = async () => {
-  //     await Axios.post(
-  //       `http://${process.env.REACT_APP_PUBLIC_IP}/loginState`
-  //     ).then((response) => {
-  //       const { loggedIn } = response.data;
-  //       if (!loggedIn) {
-  //         // ログイン中でない時、"/session"に遷移させる
-  //         // navigate("/session");
-  //       } else {
-  //         setIsAuth(loggedIn);
-  //       }
-  //     });
-  //   };
-  //   getAuth();
-  // }, []);
+  console.log(isAuth);
+
+  useEffect(() => {
+    // ログイン状態を取得
+    const getAuth = async () => {
+      await Axios.post(
+        `http://${process.env.REACT_APP_PUBLIC_IP}/loginState`
+      ).then((response) => {
+        const { loggedIn } = response.data;
+        if (!loggedIn) {
+          // ログイン中でない時、"/session"に遷移させる
+          // navigate("/session");
+        } else {
+          // setIsAuth(loggedIn);
+        }
+      });
+    };
+    getAuth();
+  }, []);
 
   useEffect(() => {
     // location.stateに値がない場合(urlから直接 mybools/book へアクセスされたとき)にコンテンツを表示させないようにする

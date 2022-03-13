@@ -162,14 +162,23 @@ app.post("/login", async (req, res) => {
 });
 
 app.post("/getItems", async (req, res) => {
-  const { username } = req.body;
+  const { username, shareId } = req.body;
 
-  const sqlSelect = "SELECT * FROM book_list WHERE username = ?";
-  await db.query(sqlSelect, username, (err, result) => {
-    if (result.length > 0) {
-      res.json({ result: result, err: err });
-    }
-  });
+  if (!shareId) {
+    const sqlUsernameSelect = "SELECT * FROM book_list WHERE username = ?";
+    await db.query(sqlUsernameSelect, username, (err, result) => {
+      if (result.length > 0) {
+        res.json({ result: result, err: err });
+      }
+    });
+  } else {
+    const sqlShareIdSelect = "SELECT * FROM book_list WHERE shareId = ?";
+    await db.query(sqlShareIdSelect, shareId, (err, result) => {
+      if (result.length > 0) {
+        res.json({ result: result, err: err });
+      }
+    });
+  }
 });
 
 app.post("/getBookContent", async (req, res) => {
