@@ -1,20 +1,31 @@
-import { useContext } from "react";
-// サードパーティ
+import { useContext, useState } from "react";
+// アイコン
 import { VscTriangleDown } from "react-icons/vsc";
+import { BsBoxArrowUpRight } from "react-icons/bs";
+import { BsQuestionCircle } from "react-icons/bs";
 // カスタムフック
 import { useStyle } from "../../custom/useStyle";
 // コンポーネント
 import { HeaderLogoutBtn } from "../../atoms/button/HeaderLogoutBtn";
+import { Tab } from "../tabs/Tab";
 // コンテキスト
 import { Context } from "../../../App";
 
 export const MenuOpenModal = ({ loginUser }) => {
+  // カテゴリー
+  const [category, setCategory] = useState("");
   // カスタムフック
   const { menuOpens } = useStyle();
   const { menuOpenBtnAnimation, menuOpenAnimation } = menuOpens;
   // コンテキスト
   const { menuToggle, setMenuToggle, setSearchToggle, setHeaderToggle } =
     useContext(Context);
+
+  console.log(category);
+
+  // スタイル共通化
+  const menuListStyle =
+    "w-full bg-opacity-50 px-1 py-2 text-left hover:bg-gray-200 flex items-center";
 
   const modalOpenClose = () => {
     setMenuToggle(!menuToggle);
@@ -46,14 +57,31 @@ export const MenuOpenModal = ({ loginUser }) => {
               </p>
               <button className="text-blue-600">ユーザー名を変更</button>
             </div>
-            <button className="w-full bg-opacity-50 px-1 py-2 text-left hover:bg-gray-200">
+            {/* <button onClick={} className={menuListStyle}>
               <p>並び替え</p>
             </button>
-            <button className="w-full bg-opacity-50 px-1 py-2 text-left hover:bg-gray-200">
+            <div className="">
+              <button>昇順</button>
+              <button>降順</button>
+              </div> */}
+            <button className={menuListStyle}>
               <p>フィルタを適用</p>
             </button>
-            <button className="w-full bg-opacity-50 px-1 py-2 text-left hover:bg-gray-200">
+            <div className="flex flex-col items-start">
+              <button>おきにいりのみ</button>
+              <Tab animation={""} ulClass={"flex flex-wrap"} setCategory={setCategory} />
+            </div>
+            <button className={menuListStyle}>
+              <span className="text-md mx-2">
+                <BsQuestionCircle />
+              </span>
               <p>ヘルプ</p>
+            </button>
+            <button className={menuListStyle}>
+              <span className="text-md mx-2">
+                <BsBoxArrowUpRight />
+              </span>
+              みんなの本を見る
             </button>
             <div className="flex h-14 w-full items-center justify-between border-t pt-5">
               <HeaderLogoutBtn />

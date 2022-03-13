@@ -199,23 +199,46 @@ export const Content = memo(() => {
           >
             {bookItems.map((item, index) => (
               <>
-                <SwiperSlide
-                  id={index}
-                  key={item.bookId}
-                  className="inline-block h-screen w-screen transform snap-start snap-always  transition-transform ease-in"
-                >
-                  <Books
-                    item={item}
-                    index={index}
-                    bookItems={bookItems}
-                    deleteItem={deleteItem}
-                    favoriteState={favoriteState}
-                    setConfirmWindowOpen={setConfirmWindowOpen}
-                    setDeleteInform={setDeleteInform}
-                    bookOpen={bookOpen}
-                    setBookOpen={setBookOpen}
-                  />
-                </SwiperSlide>
+                {/* 条件フィルター */}
+                {false ? (
+                  item.category === "travel" && (
+                    <SwiperSlide
+                      id={index}
+                      key={item.bookId}
+                      className="inline-block h-screen w-screen transform snap-start snap-always  transition-transform ease-in"
+                    >
+                      <Books
+                        item={item}
+                        index={index}
+                        bookItems={bookItems}
+                        deleteItem={deleteItem}
+                        favoriteState={favoriteState}
+                        setConfirmWindowOpen={setConfirmWindowOpen}
+                        setDeleteInform={setDeleteInform}
+                        bookOpen={bookOpen}
+                        setBookOpen={setBookOpen}
+                      />
+                    </SwiperSlide>
+                  )
+                ) : (
+                  <SwiperSlide
+                    id={index}
+                    key={item.bookId}
+                    className="inline-block h-screen w-screen transform snap-start snap-always  transition-transform ease-in"
+                  >
+                    <Books
+                      item={item}
+                      index={index}
+                      bookItems={bookItems}
+                      deleteItem={deleteItem}
+                      favoriteState={favoriteState}
+                      setConfirmWindowOpen={setConfirmWindowOpen}
+                      setDeleteInform={setDeleteInform}
+                      bookOpen={bookOpen}
+                      setBookOpen={setBookOpen}
+                    />
+                  </SwiperSlide>
+                )}
               </>
             ))}
             {/* open状態のまま移動した際に、閉じる処理 */}
@@ -223,7 +246,6 @@ export const Content = memo(() => {
               <SliderLeft navigationPrevRef={navigationPrevRef} />
               <SliderRight navigationNextRef={navigationNextRef} />
             </span>
-            <button className="absolute bottom-0 text-sm text-blue-600">みんなの</button>
           </Swiper>
         ) : (
           <>

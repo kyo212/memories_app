@@ -150,7 +150,7 @@ export const AddBookModal = memo(
                   </p>
                   <Tab
                     animation={modalTabAnimation}
-                    ulClass=""
+                    ulClass="flex flex-wrap items-center justify-center text-center"
                     setCategory={setCategory}
                   />
                 </label>

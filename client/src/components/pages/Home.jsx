@@ -181,7 +181,7 @@ export const Home = memo(() => {
               </div>
               <Tab
                 animation={tabAnimation}
-                ulClass={"my-5 space-x-1"}
+                ulClass={"my-5 space-x-1 flex flex-wrap items-center justify-center text-center"}
                 setCategory={setCategory}
               />
               <TabInform category={category} />

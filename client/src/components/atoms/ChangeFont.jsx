@@ -12,21 +12,19 @@ export const ChangeFont = memo(({ setFontChange }) => {
   const fontChangeToggle = (e) => {
     if (e.target.id === "serif") {
       setFontChange("font-serif");
-      setFontChangeStyle(!fontChangeStyle);
+      setFontChangeStyle(true);
     } else {
       setFontChange("font-suns");
-      setFontChangeStyle(!fontChangeStyle);
+      setFontChangeStyle(false);
     }
   };
 
   return (
     <div className="flex w-44 transform justify-between text-sm text-slate-800 transition-transform">
       <span
-        className={[
-          fontChangeStyle
-            ? SelectBorderStyle
-            : `${SelectBorderStyle} translate-x-full`,
-        ]}
+        className={`${[
+          !fontChangeStyle && "translate-x-full",
+        ]} ${SelectBorderStyle}`}
       />
       <button
         id="serif"

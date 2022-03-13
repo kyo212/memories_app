@@ -34,7 +34,7 @@ export const Tab = memo(({ animation, ulClass, setCategory }) => {
   return (
     <>
       <ul
-        className={`${ulClass} flex flex-wrap items-center justify-center text-center `}
+        className={`${ulClass}`}
       >
         {tabList.map((tab, index) => (
           <li

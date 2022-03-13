@@ -199,7 +199,7 @@ export const Book = memo(() => {
               <img
                 src={coverImage}
                 alt="表紙の画像"
-                className="h-[90%] w-[90%] object-cover"
+                className="h-full w-screen object-cover"
               />
             </div>
             {/* テキスト */}
