@@ -16,7 +16,7 @@ import { Tab } from "../tabs/Tab";
 // コンテキスト
 import { Context } from "../../../App";
 
-export const MenuOpenModal = ({ loginUser }) => {
+export const MenuOpenModal = ({ loginUser,root, rootText, showMenu }) => {
   // ルータ
   const navigate = useNavigate();
   // Toggle
@@ -58,7 +58,8 @@ export const MenuOpenModal = ({ loginUser }) => {
   };
 
   const toPublicComponent = () => {
-    navigate("public");
+    navigate(`${root}`);
+    setMenuToggle(false);
   };
 
   return (
@@ -83,7 +84,9 @@ export const MenuOpenModal = ({ loginUser }) => {
                 "{loginUser}"
                 <span className="text-md font-thin">でログイン中</span>
               </p>
-              <button className="text-blue-600">ユーザー名を変更</button>
+              {showMenu && (
+                <button className="text-blue-600">ユーザー名を変更</button>
+              )}
             </div>
             {/* <button onClick={} className={menuListStyle}>
               <p>並び替え</p>
@@ -171,14 +174,16 @@ export const MenuOpenModal = ({ loginUser }) => {
               <span className="text-md mx-2">
                 <BsBoxArrowUpRight />
               </span>
-              みんなの本を見にいく
+              {rootText}
             </button>
-            <div className="flex h-14 w-full items-center justify-between border-t pt-5">
-              <HeaderLogoutBtn />
-              <button className="mx-4 text-sm text-red-600">
-                アカウントを削除
-              </button>
-            </div>
+            {showMenu && (
+              <div className="flex h-14 w-full items-center justify-between border-t pt-5">
+                <HeaderLogoutBtn />
+                <button className="mx-4 text-sm text-red-600">
+                  アカウントを削除
+                </button>
+              </div>
+            )}
           </div>
         </div>
       )}

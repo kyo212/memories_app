@@ -14,16 +14,16 @@ import { useStyle } from "../custom/useStyle";
 export const Books = memo(
   ({
     item,
-    index,
-    bookItems,
     favoriteState,
     setConfirmWindowOpen,
     setDeleteInform,
     bookOpen,
+    publicBookMenu,
     setBookOpen,
+    bottomText,
   }) => {
     // props
-    const { bookId, bookTitle, category, coverImage, date, favorite, share } =
+    const { bookId, bookTitle, category, coverImage, date, favorite, shareId } =
       item;
     // Toggle
     const [bookTitleEdit, setBookTitleEdit] = useState(false);
@@ -120,33 +120,37 @@ export const Books = memo(
                         >
                           ひらく
                         </button>
-                        <button
-                          onClick={() => favoriteBtnToggle(item)}
-                          className={`${bookOpenTextStyle}`}
-                        >
-                          おきにいり
-                        </button>
-                        <button
-                          onClick={() => {}}
-                          className={`${bookOpenTextStyle}`}
-                        >
-                          この本を共有
-                        </button>
-                        <button // タイトル編集ボタン
-                          onClick={bookTitleEditToggle}
-                          className={`${bookOpenTextStyle} flex items-center justify-end`}
-                        >
-                          <span className="mr-1">
-                            <BsPencil />
-                          </span>
-                          編集
-                        </button>
-                        <button
-                          onClick={() => deleteItemToggle(item)}
-                          className={`${bookOpenTextStyle}`}
-                        >
-                          すてる
-                        </button>
+                        {publicBookMenu && (
+                          <>
+                            <button
+                              onClick={() => favoriteBtnToggle(item)}
+                              className={`${bookOpenTextStyle}`}
+                            >
+                              おきにいり
+                            </button>
+                            <button
+                              onClick={() => {}}
+                              className={`${bookOpenTextStyle}`}
+                            >
+                              この本を共有
+                            </button>
+                            <button // タイトル編集ボタン
+                              onClick={bookTitleEditToggle}
+                              className={`${bookOpenTextStyle} flex items-center justify-end`}
+                            >
+                              <span className="mr-1">
+                                <BsPencil />
+                              </span>
+                              編集
+                            </button>
+                            <button
+                              onClick={() => deleteItemToggle(item)}
+                              className={`${bookOpenTextStyle}`}
+                            >
+                              すてる
+                            </button>
+                          </>
+                        )}
                         <button
                           onClick={bookOpenToggle}
                           className="absolute bottom-0 w-12 rotate-[125deg] transform p-3 text-xl text-slate-500"
@@ -160,7 +164,7 @@ export const Books = memo(
                 {/* 本をめくるアニメーション */}
                 {/* 表紙 */}
                 <div className="flex h-[360px] w-72 flex-col items-center rounded-sm  border border-slate-300 bg-white text-slate-700 shadow-inner sm:h-[600px] sm:w-[500px]">
-                  <div className="text-bold flax mt-10 mb-8 flex-col text-center font-serif text-slate-800">
+                  <div className="text-bold flax mt-10 mb-8 flex-col text-center text-slate-800">
                     {!bookTitleEdit ? (
                       <>
                         <p
@@ -169,7 +173,7 @@ export const Books = memo(
                               ? "text-md"
                               : bookTitle.length >= 8
                               ? "text-lg"
-                              : "text-2xl",
+                              : "text-xl",
                           ]}
                         >
                           {bookTitle}
@@ -216,9 +220,9 @@ export const Books = memo(
                   />
                 </div>
                 <div className="">
-                  {share ? (
-                    <p className="text-sm text-green-800">
-                      このフォトブックは共有中です
+                  {shareId ? (
+                    <p className="text-sm font-bold text-slate-500 ">
+                      {bottomText}
                     </p>
                   ) : (
                     <></>

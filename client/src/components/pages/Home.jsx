@@ -55,7 +55,7 @@ export const Home = memo(() => {
   const onScroll = () => {
     // position = 現在位置をピクセルで表す
     const position = getScrollTop();
-    position > 100 ? setScrollBtn(true) : setScrollBtn(false);
+    position > 120 ? setScrollBtn(true) : setScrollBtn(false);
   };
 
   const clickScrollTop = () => {
@@ -181,7 +181,9 @@ export const Home = memo(() => {
               </div>
               <Tab
                 animation={tabAnimation}
-                ulClass={"my-5 space-x-1 flex flex-wrap items-center justify-center text-center"}
+                ulClass={
+                  "my-5 space-x-1 flex flex-wrap items-center justify-center text-center"
+                }
                 setCategory={setCategory}
               />
               <TabInform category={category} />
@@ -192,12 +194,16 @@ export const Home = memo(() => {
           onClick={clickScrollTop}
           className={[
             scrollBtn
-              ? "fixed bottom-4 right-4 transform animate-bounce rounded-full opacity-100 transition-all duration-1000"
+              ? "fixed bottom-2 right-2 transform animate-bounce rounded-full border bg-white p-2 opacity-100 shadow-md transition-all duration-1000"
               : "transform opacity-0 transition-all duration-1000",
           ]}
         >
           <BsArrowUp />
         </button>
+        <div className="">
+          さっそくみんなのフォトブックをみる↓
+          <a href="mybooks/public">みんなのフォトブック</a>
+        </div>
       </main>
       <footer>{/* <Footer /> */}</footer>
     </>

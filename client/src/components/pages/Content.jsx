@@ -73,6 +73,7 @@ export const Content = memo(() => {
       Axios.post(`http://${process.env.REACT_APP_PUBLIC_IP}/loginState`).then(
         (response) => {
           const { user } = response.data;
+          console.log({ user, user_0: user[0].username });
           setLoginUser(user[0].username); // セッションに格納されているユーザー情報
         }
       );
@@ -86,7 +87,7 @@ export const Content = memo(() => {
       await Axios.post(`http://${process.env.REACT_APP_PUBLIC_IP}/getItems`, {
         username: loginUser,
       }).then((response) => {
-        const { result, err } = response.data;
+        const { result } = response.data;
         setBookItems(result);
       });
     };
@@ -179,7 +180,12 @@ export const Content = memo(() => {
           <div className="flex items-center">
             <AddBookBtn setModalToggle={setModalToggle} />
             <Search />
-            <MenuOpenModal loginUser={loginUser} />
+            <MenuOpenModal
+              loginUser={loginUser}
+              root="/public"
+              rootText={"みんなのフォトブックを見にいく"}
+              showMenu={true}
+            />
           </div>
         </Header>
       )}
@@ -219,6 +225,8 @@ export const Content = memo(() => {
                         setDeleteInform={setDeleteInform}
                         bookOpen={bookOpen}
                         setBookOpen={setBookOpen}
+                        publicBookMenu={true}
+                        bottomText="このフォトブックは共有中です"
                       />
                     </SwiperSlide>
                   )
@@ -230,14 +238,14 @@ export const Content = memo(() => {
                   >
                     <Books
                       item={item}
-                      index={index}
-                      bookItems={bookItems}
                       deleteItem={deleteItem}
                       favoriteState={favoriteState}
                       setConfirmWindowOpen={setConfirmWindowOpen}
                       setDeleteInform={setDeleteInform}
                       bookOpen={bookOpen}
                       setBookOpen={setBookOpen}
+                      publicBookMenu={true}
+                      bottomText="このフォトブックは共有中です"
                     />
                   </SwiperSlide>
                 )}

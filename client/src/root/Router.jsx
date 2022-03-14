@@ -21,7 +21,8 @@ export const Router = memo(() => {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/mybooks" element={<MyBooks />} />
-        <Route path="/mybooks/public" element={<PublicBooks />} />
+        <Route path="/public" element={<PublicBooks />} />
+        <Route path="/public/book" element={<Book />} />
         <Route path="/mybooks/book" element={<Book />} />
 
         {/* Not found ページ*/}
@@ -31,6 +32,7 @@ export const Router = memo(() => {
         <Route path="register/*" element={<NotFound />} />
         <Route path="mybooks/*" element={<NotFound />} />
         <Route path="mybooks/public/*" element={<NotFound />} />
+        <Route path="mybooks/public/book/*" element={<NotFound />} />
         <Route path="mybooks/book/*" element={<NotFound />} />
       </Routes>
     </div>
