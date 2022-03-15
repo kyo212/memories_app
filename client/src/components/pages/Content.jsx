@@ -1,4 +1,11 @@
-import { memo, useState, useEffect, useContext, useRef } from "react";
+import {
+  memo,
+  useState,
+  useEffect,
+  useContext,
+  useRef,
+  useCallback,
+} from "react";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
 // スライダー
@@ -161,6 +168,16 @@ export const Content = memo(() => {
     await Axios.put(`http://${process.env.REACT_APP_PUBLIC_IP}/put`, {
       id,
       num,
+      type:"favorite"
+    });
+    setUpdate(!update);
+  };
+
+  const shareState = async (id, num) => {
+    await Axios.put(`http://${process.env.REACT_APP_PUBLIC_IP}/put`, {
+      id,
+      num,
+      type: "share",
     });
     setUpdate(!update);
   };
@@ -194,6 +211,11 @@ export const Content = memo(() => {
         {bookItems.length > 0 ? (
           // bookItems(bookの情報を格納している配列)の中の配列の中にデータが存在しない場合(0の場合)は"まだ何もありません"を表示
           <Swiper
+            slidesPerView={2}
+            spaceBetween={260}
+            slidesPerGroup={1}
+            loop={true}
+            loopFillGroupWithBlank={true}
             onInit={(swiper) => {
               swiper.params.navigation.prevEl = navigationPrevRef.current;
               swiper.params.navigation.nextEl = navigationNextRef.current;
@@ -201,6 +223,7 @@ export const Content = memo(() => {
               swiper.navigation.update();
             }}
             pagination={{
+              clickable: true,
               dynamicBullets: true,
             }}
             modules={[Navigation, Pagination]}
@@ -213,13 +236,13 @@ export const Content = memo(() => {
                     item.favorite === Number(fillterCategory)) && (
                     <SwiperSlide
                       id={index}
-                      className="inline-block h-screen w-screen transform snap-start snap-always  transition-transform ease-in"
+                      className="inline-block h-screen w-screen transform snap-center snap-always  transition-transform ease-in"
                     >
                       <Books
                         item={item}
                         index={index}
-                        bookItems={bookItems}
                         deleteItem={deleteItem}
+                        shareState={shareState}
                         favoriteState={favoriteState}
                         setConfirmWindowOpen={setConfirmWindowOpen}
                         setDeleteInform={setDeleteInform}
@@ -239,6 +262,7 @@ export const Content = memo(() => {
                     <Books
                       item={item}
                       deleteItem={deleteItem}
+                      shareState={shareState}
                       favoriteState={favoriteState}
                       setConfirmWindowOpen={setConfirmWindowOpen}
                       setDeleteInform={setDeleteInform}

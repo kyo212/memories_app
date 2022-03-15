@@ -14,6 +14,8 @@ import { useStyle } from "../custom/useStyle";
 export const Books = memo(
   ({
     item,
+    bookItems,
+    shareState,
     favoriteState,
     setConfirmWindowOpen,
     setDeleteInform,
@@ -48,14 +50,20 @@ export const Books = memo(
       setBookTitleEdit(false);
     };
 
-    const deleteItemToggle = (item) => {
-      const { bookId, bookTitle, favorite } = item;
+    const deleteItemToggle = ({ bookId, bookTitle, favorite }) => {
       setConfirmWindowOpen(true); // 確認ダイアログを出現させる
       setDeleteInform({ bookId, bookTitle, favorite }); // 削除するアイテムの情報を保持
     };
 
-    const favoriteBtnToggle = (item) => {
-      const { bookId, favorite } = item;
+    const shareBtnToggle = ({ bookId, shareId }) => {
+      setConfirmWindowOpen(true); // 確認ダイアログを出現させる
+      // 対象のidと現在の共有状態(0か1)の逆をsetStateとして保持する
+      shareState(bookId, !shareId);
+      setBookOpen(false);
+    };
+
+    const favoriteBtnToggle = ({ bookId, favorite }) => {
+      // 対象のidと現在のお気に入り状態(0か1)の逆をsetStateとして保持する
       favoriteState(bookId, !favorite);
       setBookOpen(false);
     };
@@ -129,10 +137,10 @@ export const Books = memo(
                               おきにいり
                             </button>
                             <button
-                              onClick={() => {}}
+                              onClick={() => shareBtnToggle(item)}
                               className={`${bookOpenTextStyle}`}
                             >
-                              この本を共有
+                              共有する
                             </button>
                             <button // タイトル編集ボタン
                               onClick={bookTitleEditToggle}
@@ -221,7 +229,7 @@ export const Books = memo(
                 </div>
                 <div className="">
                   {shareId ? (
-                    <p className="text-sm font-bold text-slate-500 ">
+                    <p className="absolute left-1/2 w-full -translate-x-1/2 transform text-sm font-bold text-slate-500 ">
                       {bottomText}
                     </p>
                   ) : (

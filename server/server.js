@@ -32,9 +32,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
-    origin: [`http://${process.env.PUBLIC_IP}:3000`],
+    origin: `http://${process.env.PUBLIC_IP}:3000`,
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
+    optionsSuccessStatus: 200,
   })
 );
 // const corsOptions = {
@@ -257,19 +258,20 @@ app.post("/s3Url", async (req, res) => {
 });
 
 app.put("/put", async (req, res) => {
-  const { id, num } = req.body;
+  const { id, num, type } = req.body;
 
-  const sqlUpdate = "UPDATE book_list SET favorite = ? WHERE bookId = ?";
-  await db.query(sqlUpdate, [num, id], (err, result) => {
-    res.json({ result: result, err: err });
-  });
+  const sqlFavoriteUpdate =
+    "UPDATE book_list SET favorite = ? WHERE bookId = ?";
+  const sqlShareUpdate = "UPDATE book_list SET shareId = ? WHERE bookId = ?";
 
-  // if (editTitle) {
-  //   const sqlUpdateText = "UPDATE user_contents SET title = ? WHERE id = ?";
-  //   db.query(sqlUpdateText, [newTitle, id], (err, result) => {
-  //     res.json({ result: result, err: err });
-  //   });
-  // }
+  await db.query(
+    (type === "favorite" && sqlFavoriteUpdate) ||
+      (type === "share" && sqlShareUpdate),
+    [num, id],
+    (err, result) => {
+      res.json({ result: result, err: err });
+    }
+  );
 });
 
 app.listen(PORT);
