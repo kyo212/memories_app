@@ -17,7 +17,7 @@ export const ConfirmDialog = memo(
 
     // スタイル共通化
     const msgBtnStyle =
-      "py-1 px-2 mx-2 text-sm rounded-md border hover:bg-gray-500 hover:text-white hover:font-bold";
+      "py-1 px-2 mx-2 text-sm rounded-md border hover:bg-sky-800 hover:text-white hover:font-bold";
 
     const confirmDeleteSelect = (e) => {
       e.target.id === "yes" && deleteItem(deleteId);
@@ -34,7 +34,7 @@ export const ConfirmDialog = memo(
               <div className="flex w-full justify-center">
                 <button
                   onClick={confirmDeleteSelect}
-                  className={`${msgBtnStyle} w-20 border-sky-500 bg-sky-500`}
+                  className={`${msgBtnStyle} w-20 border-sky-500 bg-sky-500 font-bold text-white`}
                 >
                   とじる
                 </button>
