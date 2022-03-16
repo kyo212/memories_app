@@ -176,7 +176,7 @@ export const Content = memo(() => {
 
   const shareState = async (id) => {
     const { bookId, shareId } = id;
-    console.log({ id });
+
     await Axios.put(`http://${process.env.REACT_APP_PUBLIC_IP}/put`, {
       id: bookId,
       num: Number(shareId),
@@ -188,8 +188,6 @@ export const Content = memo(() => {
   // リロードの間、loading画面を表示させる
   // この記述がないとloadingがすぐtrueになってしまい、"まだなにもありません"が表示されてしまう
   useEffect(() => setTimeout(() => setLoading(true), 1000), []);
-
-  console.log(searchInput);
 
   return (
     <>

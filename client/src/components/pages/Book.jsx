@@ -228,9 +228,9 @@ export const Book = memo(() => {
                       の<ChangeJapanese category={category} />
                     </p>
                   </div>
-                  <div className="">
+                  <>
                     <ChangeFont setFontChange={setFontChange} />
-                  </div>
+                  </>
                 </div>
                 <div className="absolute left-0 bottom-0 flex h-10 w-screen items-center justify-center space-x-4 text-xl text-slate-500">
                   <BsChevronDoubleLeft />

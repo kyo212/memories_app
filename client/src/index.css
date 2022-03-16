@@ -28,12 +28,3 @@ button {
 input {
   outline: none;
 }
-
-.corner_box {
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  border-bottom: solid 240px #efefef;
-  border-right: solid 190px rgb(260, 260, 260);
-  box-shadow: 0 2px 4px rgb(200, 200, 200);
-}

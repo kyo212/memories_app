@@ -1,9 +1,13 @@
-import { memo, useCallback, useMemo, useState } from "react";
+import { memo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 // アイコン
 import { BsReply } from "react-icons/bs";
 import { BsReplyFill } from "react-icons/bs";
 import { BsPencil } from "react-icons/bs";
+import { BsShare } from "react-icons/bs";
+import { BsBookmark } from "react-icons/bs";
+import { BsTrash } from "react-icons/bs";
+import { BsSticky } from "react-icons/bs";
 // コンポーネント
 import { BookRibbon } from "../atoms/style/BookRibbon";
 import { ImageUrlCreate } from "./ImageUrlCreate";
@@ -42,7 +46,7 @@ export const Books = memo(
     const bookOpenBtnStyle =
       "absolute -top-1 p-3 right-0 -rotate-45 transform text-xl text-slate-400 transition-all";
     const bookOpenTextStyle =
-      "mr-1 mt-2 pb-1 border-b border-[#efefef] py-[2px] px-[5px] text-right text-[12px] hover:font-bold";
+      "mr-1 mt-2 pb-1 border-b border-b-slate-200 py-[2px] px-[5px] text-right text-[12px] hover:font-bold  flex items-center justify-end";
 
     const bookOpenToggle = (bookId) => {
       setBookOpenId(bookId);
@@ -57,7 +61,6 @@ export const Books = memo(
     };
 
     const shareBtnToggle = ({ bookId, shareId }) => {
-      console.log({ bookId, shareId });
       // 対象のidと現在の共有状態(0か1)の逆をsetStateとして保持する
       shareState({ bookId, shareId: !shareId });
       setBookOpen(false);
@@ -118,7 +121,7 @@ export const Books = memo(
                   <div // ひらいた後の要素
                     className={
                       bookOpen && bookOpenId
-                        ? "absolute flex h-[240px] w-[190px] transform flex-col p-1 text-slate-600 transition-all delay-300 duration-300 "
+                        ? "absolute flex h-[255px] w-[190px] transform flex-col p-1 text-slate-600 transition-all delay-300 duration-300 "
                         : "transform text-slate-600 opacity-0 transition-all"
                     }
                   >
@@ -128,7 +131,10 @@ export const Books = memo(
                           onClick={() => toCategoryComponent(item)}
                           className={`${bookOpenTextStyle}`}
                         >
-                          ひらく
+                          <span>ひらく</span>
+                          <span className="ml-2 text-sky-800">
+                            <BsSticky />
+                          </span>
                         </button>
                         {publicBookMenu && (
                           <>
@@ -136,28 +142,41 @@ export const Books = memo(
                               onClick={() => favoriteBtnToggle(item)}
                               className={`${bookOpenTextStyle}`}
                             >
-                              おきにいり
+                              <span>おきにいり</span>
+                              <span className="ml-2 text-sky-800">
+                                <BsBookmark />
+                              </span>
                             </button>
                             <button
                               onClick={() => shareBtnToggle(item)}
                               className={`${bookOpenTextStyle}`}
                             >
-                              共有する
+                              {shareId ? (
+                                <span>共有をやめる</span>
+                              ) : (
+                                <span>共有する</span>
+                              )}
+                              <span className="ml-2 text-sky-800">
+                                <BsShare />
+                              </span>
                             </button>
                             <button // タイトル編集ボタン
                               onClick={bookTitleEditToggle}
-                              className={`${bookOpenTextStyle} flex items-center justify-end`}
+                              className={`${bookOpenTextStyle}`}
                             >
-                              <span className="mr-1">
+                              <span>編集</span>
+                              <span className="ml-2 text-sky-800">
                                 <BsPencil />
                               </span>
-                              編集
                             </button>
                             <button
                               onClick={() => deleteItemToggle(item)}
                               className={`${bookOpenTextStyle}`}
                             >
-                              すてる
+                              <span>すてる</span>
+                              <span className="ml-2 text-sky-800">
+                                <BsTrash />
+                              </span>
                             </button>
                           </>
                         )}

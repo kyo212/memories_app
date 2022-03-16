@@ -64,7 +64,8 @@ export const useStyle = () => {
 
   const bookOpenAnimation = {
     base: "absolute top-0 right-0 h-1 w-1 transform transition-all duration-500",
-    showed: "corner_box transform transition-all duration-500",
+    showed:
+      "absolute top-0 right-0 border-b-[255px] border-b-slate-200 shadow-md border-r-[190px] border-r-white transform transition-all duration-500",
   };
 
   return {

@@ -17,13 +17,12 @@ export const Search = memo(({ searchInput, setSearchInput }) => {
     setSearchToggle(!searchToggle);
     setMenuToggle(false);
     setHeaderToggle(false);
+    setSearchInput("")
   };
 
   const searchFunction = (e) => {
     setSearchInput(e.target.value);
   };
-
-  console.log(searchInput);
 
   return (
     <div
