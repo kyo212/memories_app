@@ -1,4 +1,4 @@
-import { memo, useState } from "react";
+import { memo, useCallback, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 // アイコン
 import { BsReply } from "react-icons/bs";
@@ -14,10 +14,10 @@ import { useStyle } from "../custom/useStyle";
 export const Books = memo(
   ({
     item,
-    bookItems,
-    shareState,
+    index,
     favoriteState,
     setConfirmWindowOpen,
+    shareState,
     setDeleteInform,
     bookOpen,
     publicBookMenu,
@@ -44,21 +44,22 @@ export const Books = memo(
     const bookOpenTextStyle =
       "mr-1 mt-2 pb-1 border-b border-[#efefef] py-[2px] px-[5px] text-right text-[12px] hover:font-bold";
 
-    const bookOpenToggle = (id) => {
-      setBookOpenId(id);
+    const bookOpenToggle = (bookId) => {
+      setBookOpenId(bookId);
       setBookOpen(!bookOpen);
       setBookTitleEdit(false);
     };
 
     const deleteItemToggle = ({ bookId, bookTitle, favorite }) => {
       setConfirmWindowOpen(true); // 確認ダイアログを出現させる
-      setDeleteInform({ bookId, bookTitle, favorite }); // 削除するアイテムの情報を保持
+      setDeleteInform({ deleteId: bookId, bookTitle, favorite }); // 削除するアイテムの情報を保持
+      setBookOpen(false);
     };
 
     const shareBtnToggle = ({ bookId, shareId }) => {
-      setConfirmWindowOpen(true); // 確認ダイアログを出現させる
+      console.log({ bookId, shareId });
       // 対象のidと現在の共有状態(0か1)の逆をsetStateとして保持する
-      shareState(bookId, !shareId);
+      shareState({ bookId, shareId: !shareId });
       setBookOpen(false);
     };
 
@@ -98,15 +99,16 @@ export const Books = memo(
                 {/* 本をめくるアニメーション */}
                 <div // 三角のUI
                   className={[
-                    bookOpen && bookId === bookOpenId
+                    bookOpen && bookOpenId
                       ? bookOpenAnimation.showed
                       : bookOpenAnimation.base,
                   ]}
                 >
                   <button // ひらくボタン
+                    id="bookOpen"
                     onClick={() => bookOpenToggle(bookId)}
                     className={[
-                      bookOpen && bookId === bookOpenId
+                      bookOpen && bookOpenId
                         ? `${bookOpenBtnStyle} opacity-0 duration-300`
                         : `${bookOpenBtnStyle} opacity-100 delay-500`,
                     ]}
@@ -115,12 +117,12 @@ export const Books = memo(
                   </button>
                   <div // ひらいた後の要素
                     className={
-                      bookOpen && bookId === bookOpenId
+                      bookOpen && bookOpenId
                         ? "absolute flex h-[240px] w-[190px] transform flex-col p-1 text-slate-600 transition-all delay-300 duration-300 "
                         : "transform text-slate-600 opacity-0 transition-all"
                     }
                   >
-                    {bookOpen && bookId === bookOpenId && (
+                    {bookOpen && bookOpenId && (
                       <>
                         <button
                           onClick={() => toCategoryComponent(item)}
@@ -160,7 +162,8 @@ export const Books = memo(
                           </>
                         )}
                         <button
-                          onClick={bookOpenToggle}
+                          id="bookClose"
+                          onClick={() => bookOpenToggle(bookId)}
                           className="absolute bottom-0 w-12 rotate-[125deg] transform p-3 text-xl text-slate-500"
                         >
                           <BsReplyFill />
@@ -227,11 +230,13 @@ export const Books = memo(
                     }}
                   />
                 </div>
-                <div className="">
+                <div>
                   {shareId ? (
-                    <p className="absolute left-1/2 w-full -translate-x-1/2 transform text-sm font-bold text-slate-500 ">
-                      {bottomText}
-                    </p>
+                    <div className="absolute left-1/2 w-full -translate-x-1/2 transform">
+                      <p className="animate-pulse text-sm font-bold text-slate-500 ">
+                        {bottomText}
+                      </p>
+                    </div>
                   ) : (
                     <></>
                   )}

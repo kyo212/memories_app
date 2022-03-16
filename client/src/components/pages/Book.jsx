@@ -55,8 +55,6 @@ export const Book = memo(() => {
     setVideoFile,
   } = useContext(Context);
 
-  console.log(isAuth);
-
   useEffect(() => {
     // ログイン状態を取得
     const getAuth = async () => {

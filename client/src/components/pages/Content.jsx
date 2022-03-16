@@ -43,11 +43,12 @@ import { Context } from "../../App";
 export const Content = memo(() => {
   const navigate = useNavigate();
   // 情報
+  const [bookItems, setBookItems] = useState([]);
   const [bookTitle, setBookTitle] = useState("");
   const [category, setCategory] = useState("diary");
   const [loginUser, setLoginUser] = useState(""); // ログイン中のusername
-  const [bookItems, setBookItems] = useState([]);
   const [deleteInform, setDeleteInform] = useState({});
+  const [searchInput, setSearchInput] = useState("");
   // Toggle
   const [modalToggle, setModalToggle] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -168,15 +169,17 @@ export const Content = memo(() => {
     await Axios.put(`http://${process.env.REACT_APP_PUBLIC_IP}/put`, {
       id,
       num,
-      type:"favorite"
+      type: "favorite",
     });
     setUpdate(!update);
   };
 
-  const shareState = async (id, num) => {
+  const shareState = async (id) => {
+    const { bookId, shareId } = id;
+    console.log({ id });
     await Axios.put(`http://${process.env.REACT_APP_PUBLIC_IP}/put`, {
-      id,
-      num,
+      id: bookId,
+      num: Number(shareId),
       type: "share",
     });
     setUpdate(!update);
@@ -185,6 +188,8 @@ export const Content = memo(() => {
   // リロードの間、loading画面を表示させる
   // この記述がないとloadingがすぐtrueになってしまい、"まだなにもありません"が表示されてしまう
   useEffect(() => setTimeout(() => setLoading(true), 1000), []);
+
+  console.log(searchInput);
 
   return (
     <>
@@ -196,7 +201,7 @@ export const Content = memo(() => {
         >
           <div className="flex items-center">
             <AddBookBtn setModalToggle={setModalToggle} />
-            <Search />
+            <Search searchInput={searchInput} setSearchInput={setSearchInput} />
             <MenuOpenModal
               loginUser={loginUser}
               root="/public"
@@ -211,11 +216,6 @@ export const Content = memo(() => {
         {bookItems.length > 0 ? (
           // bookItems(bookの情報を格納している配列)の中の配列の中にデータが存在しない場合(0の場合)は"まだ何もありません"を表示
           <Swiper
-            slidesPerView={2}
-            spaceBetween={260}
-            slidesPerGroup={1}
-            loop={true}
-            loopFillGroupWithBlank={true}
             onInit={(swiper) => {
               swiper.params.navigation.prevEl = navigationPrevRef.current;
               swiper.params.navigation.nextEl = navigationNextRef.current;
@@ -241,7 +241,6 @@ export const Content = memo(() => {
                       <Books
                         item={item}
                         index={index}
-                        deleteItem={deleteItem}
                         shareState={shareState}
                         favoriteState={favoriteState}
                         setConfirmWindowOpen={setConfirmWindowOpen}
@@ -254,24 +253,31 @@ export const Content = memo(() => {
                     </SwiperSlide>
                   )
                 ) : (
-                  <SwiperSlide
-                    id={index}
-                    key={item.bookId}
-                    className="inline-block h-screen w-screen transform snap-start snap-always  transition-transform ease-in"
-                  >
-                    <Books
-                      item={item}
-                      deleteItem={deleteItem}
-                      shareState={shareState}
-                      favoriteState={favoriteState}
-                      setConfirmWindowOpen={setConfirmWindowOpen}
-                      setDeleteInform={setDeleteInform}
-                      bookOpen={bookOpen}
-                      setBookOpen={setBookOpen}
-                      publicBookMenu={true}
-                      bottomText="このフォトブックは共有中です"
-                    />
-                  </SwiperSlide>
+                  <>
+                    {/* 検索 */}
+                    {item.bookTitle.indexOf(searchInput) > -1 && (
+                      // 一致しない場合は-1、文字列なしは0、部分一致は1以上が返る
+                      // 文字列なしは全てを表示、部分一致は一致しているものを表示、一致しない場合は何も表示させない
+                      <SwiperSlide
+                        id={index}
+                        key={item.bookId}
+                        className="inline-block h-screen w-screen transform snap-start snap-always  transition-transform ease-in"
+                      >
+                        <Books
+                          item={item}
+                          index={index}
+                          shareState={shareState}
+                          favoriteState={favoriteState}
+                          setConfirmWindowOpen={setConfirmWindowOpen}
+                          setDeleteInform={setDeleteInform}
+                          bookOpen={bookOpen}
+                          setBookOpen={setBookOpen}
+                          publicBookMenu={true}
+                          bottomText="このフォトブックは共有中です"
+                        />
+                      </SwiperSlide>
+                    )}
+                  </>
                 )}
               </div>
             ))}

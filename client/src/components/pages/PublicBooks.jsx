@@ -110,7 +110,6 @@ export const PublicBooks = memo(() => {
                         <Books
                           item={item}
                           index={index}
-                          deleteItem=""
                           shareState=""
                           favoriteState=""
                           setConfirmWindowOpen=""
@@ -130,7 +129,6 @@ export const PublicBooks = memo(() => {
                     >
                       <Books
                         item={item}
-                        deleteItem=""
                         shareState=""
                         favoriteState=""
                         setConfirmWindowOpen=""

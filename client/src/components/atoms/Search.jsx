@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { memo, useContext, useState } from "react";
 // アイコン
 import { BsSearch } from "react-icons/bs";
 // カスタムフック
@@ -6,33 +6,43 @@ import { useStyle } from "../custom/useStyle";
 // コンテキスト
 import { Context } from "../../App";
 
-export const Search = () => {
+export const Search = memo(({ searchInput, setSearchInput }) => {
   // カスタムフック
   const { searchOpen } = useStyle();
   // コンテキスト
   const { searchToggle, setSearchToggle, setMenuToggle, setHeaderToggle } =
     useContext(Context);
 
-  const searchOpenClose = () => {
+  const searchClickToggle = () => {
     setSearchToggle(!searchToggle);
     setMenuToggle(false);
     setHeaderToggle(false);
   };
 
+  const searchFunction = (e) => {
+    setSearchInput(e.target.value);
+  };
+
+  console.log(searchInput);
+
   return (
-    <button
+    <div
       className={`${[
-        searchToggle ? "bg-gray-500 text-white" : "text-gray-500 bg-white shadow-md",
+        searchToggle
+          ? "bg-gray-500 text-white"
+          : "bg-white text-gray-500 shadow-md",
       ]} flex items-center rounded-full border border-gray-300`}
     >
       <input
         type="search"
-        placeholder="アルバムを検索"
+        value={searchInput}
+        placeholder="タイトルを検索"
+        onChange={searchFunction}
         className={[searchToggle ? searchOpen.showed : searchOpen.base]}
       />
-      <span onClick={searchOpenClose} className="px-2 py-1">
+      <button onClick={searchClickToggle} className="px-2 py-1">
         <BsSearch />
-      </span>
-    </button>
+      </button>
+    </div>
   );
-};
+});
