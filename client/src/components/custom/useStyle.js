@@ -30,7 +30,7 @@ export const useStyle = () => {
     menuOpenBtnAnimation: {
       base: "transform text-gray-500 ml-2 border border-gray-300 shadow-md bg-white rounded-full p-2 transition-all",
       showed:
-        "rotate-180 transform p-2 ml-2 bg-gray-500 text-white border border-gray-500 rounded-full transition-all",
+        "transform p-2 ml-2 bg-gray-500 text-white border border-gray-500 rounded-full transition-all",
     },
     menuOpenAnimation: {
       base: "fixed top-14 right-6 w-72 rounded-md border bg-white px-3 text-sm text-slate-700 opacity-0 shadow-md",
@@ -40,9 +40,9 @@ export const useStyle = () => {
   };
   // search
   const searchOpen = {
-    base: "w-0 transform rounded-sm py-1 opacity-0 transition-all text-gray-500",
+    base: "w-0 transform absolute top-8 -left-40 rounded-full px-2 py-2 opacity-0 transition-all text-gray-500",
     showed:
-      "w-[120px] transform bg-gray-500 text-white rounded-full placeholder:text-white font-bold shadow-inline px-2 py-2 opacity-100 transition-all text-[8px]",
+      "w-[200px] absolute top-12 -left-32 transform border text-slate-500 rounded-full placeholder:text-slate-500 font-bold shadow-inline px-2 py-2 opacity-100 transition-all text-[12px]",
   };
 
   const messageWindow = {

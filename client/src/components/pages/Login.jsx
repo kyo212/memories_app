@@ -144,8 +144,8 @@ export const Login = memo(() => {
           >
             はじめる
           </button>
-          <a href="/mybooks" className="text-sm text-blue-800">
-            ゲストユーザーではじめる
+          <a href="/public" className="text-sm text-blue-800">
+            みんなのフォトブックを見に行く
           </a>
           <ErrorMsgWindow
             msgToggle={errMsgToggle}

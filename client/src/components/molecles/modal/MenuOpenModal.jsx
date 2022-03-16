@@ -67,11 +67,12 @@ export const MenuOpenModal = ({ loginUser, root, rootText, showMenu }) => {
       <button
         onClick={menuModalToggle}
         className={[
-          menuToggle ? menuOpenBtnAnimation.showed : menuOpenBtnAnimation.base,
+          menuToggle ?`${menuOpenBtnAnimation.showed} rotate-180 transform` : menuOpenBtnAnimation.base,
         ]}
       >
         <VscTriangleDown className="scale-125 transform" />
       </button>
+
       {menuToggle && (
         <div
           className={[
@@ -88,13 +89,13 @@ export const MenuOpenModal = ({ loginUser, root, rootText, showMenu }) => {
                 <button className="text-blue-600">ユーザー名を変更</button>
               )}
             </div>
-            {/* <button onClick={} className={menuListStyle}>
+            <button className={menuListStyle}>
               <p>並び替え</p>
             </button>
             <div className="">
-              <button>昇順</button>
+              <button>日付昇順</button>
               <button>降順</button>
-              </div> */}
+            </div>
             <button onClick={filterMenuToggle} className={menuListStyle}>
               <div className="flex items-center">
                 <div className="ml-2 flex items-center">

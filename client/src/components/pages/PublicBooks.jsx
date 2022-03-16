@@ -20,10 +20,12 @@ import { MenuOpenModal } from "../molecles/modal/MenuOpenModal";
 import { useForceUpdate } from "../custom/useForceUpdate";
 // コンテキスト
 import { Context } from "../../App";
+import { Search } from "../atoms/Search";
 
 export const PublicBooks = memo(() => {
   const [shareItems, setShareItems] = useState([]);
   const [loginUser, setLoginUser] = useState(""); // ログイン中のusername
+  const [searchInput, setSearchInput] = useState("");
   // Toggle
   const [loading, setLoading] = useState(false);
   const [bookOpen, setBookOpen] = useState(false);
@@ -72,7 +74,11 @@ export const PublicBooks = memo(() => {
     <>
       <Header root={"/public"} headerOpen={{ headerToggle, setHeaderToggle }}>
         <div className="flex items-center">
-          {/* <Search /> */}
+          <Search
+            placeholder="タイトルかユーザー名を検索"
+            searchInput={searchInput}
+            setSearchInput={setSearchInput}
+          />
           <MenuOpenModal
             loginUser={loginUser}
             root="/mybooks"
@@ -117,28 +123,34 @@ export const PublicBooks = memo(() => {
                           bookOpen={bookOpen}
                           setBookOpen={setBookOpen}
                           publicBookMenu={false}
-                          bottomText={`${item.username}のフォトブック`}
+                          bottomText={item.username || "gestuser"}
                         />
                       </SwiperSlide>
                     )
                   ) : (
-                    <SwiperSlide
-                      id={index}
-                      key={item.bookId}
-                      className="inline-block h-screen w-screen transform snap-start snap-always  transition-transform ease-in"
-                    >
-                      <Books
-                        item={item}
-                        shareState=""
-                        favoriteState=""
-                        setConfirmWindowOpen=""
-                        setDeleteInform=""
-                        bookOpen={bookOpen}
-                        setBookOpen={setBookOpen}
-                        publicBookMenu={false}
-                        bottomText={`${item.username}のフォトブック`}
-                      />
-                    </SwiperSlide>
+                    <>
+                      {/* 検索 */}
+                      {(item.bookTitle.indexOf(searchInput) > -1 ||
+                        item.username.indexOf(searchInput) > -1) && (
+                        <SwiperSlide
+                          id={index}
+                          key={item.bookId}
+                          className="inline-block h-screen w-screen transform snap-start snap-always  transition-transform ease-in"
+                        >
+                          <Books
+                            item={item}
+                            shareState=""
+                            favoriteState=""
+                            setConfirmWindowOpen=""
+                            setDeleteInform=""
+                            bookOpen={bookOpen}
+                            setBookOpen={setBookOpen}
+                            publicBookMenu={false}
+                            bottomText={item.username || "gestuser"}
+                          />
+                        </SwiperSlide>
+                      )}
+                    </>
                   )}
                 </div>
               ))}
@@ -158,7 +170,7 @@ export const PublicBooks = memo(() => {
                       <div>
                         <div className="flex flex-col items-center justify-center">
                           <p className="flex h-10 w-10 animate-bounce items-center justify-center rounded-full border border-slate-400 bg-white text-slate-800 shadow-md">
-                            {/* <BsArrowUp /> */}
+                            <BsArrowUp />
                           </p>
                         </div>
                         <div className="mt-10 flex flex-col items-center">
@@ -169,7 +181,7 @@ export const PublicBooks = memo(() => {
                             まずは本を追加してみましょう
                           </p>
                           <p className="text-bold my-8 flex items-center text-slate-500">
-                            {/* <AiOutlinePlus className="mx-2 text-slate-800" /> */}
+                            <AiOutlinePlus className="mx-2 text-slate-800" />
                             をクリックして追加
                           </p>
                         </div>

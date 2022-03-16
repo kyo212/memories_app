@@ -212,11 +212,19 @@ app.post("/insert", async (req, res) => {
   if (bookTitle) {
     // bookTitleがtrueなら表紙
     const sqlInsert =
-      "INSERT INTO book_list (username,bookTitle,coverImage,category,date,favorite) VALUES (?,?,?,?,?,?)";
+      "INSERT INTO book_list (username,bookTitle,coverImage,category,date,favorite,shareId) VALUES (?,?,?,?,?,?,?)";
     // usernameは自動で入力される。dateとfavoriteはデフォルト値を設定
     await db.query(
       sqlInsert,
-      [username, bookTitle, coverImage, category, date, (favorite = 0)],
+      [
+        username,
+        bookTitle,
+        coverImage,
+        category,
+        date,
+        (favorite = 0),
+        (shareId = 0),
+      ],
       (err, result) => {
         res.json({ result: result, err: err });
       }

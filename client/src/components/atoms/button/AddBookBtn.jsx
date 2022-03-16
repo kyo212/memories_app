@@ -3,13 +3,18 @@ import { memo, useContext } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 // コンポーネント
 import { Context } from "../../../App";
+// カスタムフック
+import { useStyle } from "../../custom/useStyle";
 
 export const AddBookBtn = memo(({ setModalToggle }) => {
+  // カスタムフック
+  const { menuOpens } = useStyle();
+  const { menuOpenBtnAnimation } = menuOpens;
   // コンテキスト
-  const { setMenuToggle, setSearchToggle, setHeaderToggle } =
+  const { modalToggle, setMenuToggle, setSearchToggle, setHeaderToggle } =
     useContext(Context);
 
-  const modalToggle = () => {
+  const modalMenuToggle = () => {
     setModalToggle(true);
     // 初期化
     setSearchToggle(false);
@@ -19,16 +24,14 @@ export const AddBookBtn = memo(({ setModalToggle }) => {
 
   return (
     <>
-      <div className="transform rounded-full">
-        <label className="mx-2 flex items-center justify-center rounded-full border border-gray-300 bg-white p-1 shadow-md">
-          <button
-            onClick={modalToggle}
-            className="text-2xl font-bold text-slate-500"
-          >
-            <AiOutlinePlus className="transform transition-transform duration-700 hover:rotate-45" />
-          </button>
-        </label>
-      </div>
+      <button
+        onClick={modalMenuToggle}
+        className={[
+          modalToggle ? menuOpenBtnAnimation.showed : menuOpenBtnAnimation.base,
+        ]}
+      >
+        <AiOutlinePlus />
+      </button>
     </>
   );
 });

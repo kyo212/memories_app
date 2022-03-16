@@ -6,9 +6,10 @@ import { useStyle } from "../custom/useStyle";
 // コンテキスト
 import { Context } from "../../App";
 
-export const Search = memo(({ searchInput, setSearchInput }) => {
+export const Search = memo(({ placeholder, searchInput, setSearchInput }) => {
   // カスタムフック
-  const { searchOpen } = useStyle();
+  const { searchOpen, menuOpens } = useStyle();
+  const { menuOpenBtnAnimation } = menuOpens;
   // コンテキスト
   const { searchToggle, setSearchToggle, setMenuToggle, setHeaderToggle } =
     useContext(Context);
@@ -17,7 +18,7 @@ export const Search = memo(({ searchInput, setSearchInput }) => {
     setSearchToggle(!searchToggle);
     setMenuToggle(false);
     setHeaderToggle(false);
-    setSearchInput("")
+    setSearchInput("");
   };
 
   const searchFunction = (e) => {
@@ -25,21 +26,25 @@ export const Search = memo(({ searchInput, setSearchInput }) => {
   };
 
   return (
-    <div
-      className={`${[
-        searchToggle
-          ? "bg-gray-500 text-white"
-          : "bg-white text-gray-500 shadow-md",
-      ]} flex items-center rounded-full border border-gray-300`}
-    >
-      <input
-        type="search"
-        value={searchInput}
-        placeholder="タイトルを検索"
-        onChange={searchFunction}
-        className={[searchToggle ? searchOpen.showed : searchOpen.base]}
-      />
-      <button onClick={searchClickToggle} className="px-2 py-1">
+    <div className="relative flex">
+      <div>
+        <input
+          type="search"
+          value={searchInput}
+          placeholder={placeholder}
+          autoFocus
+          onChange={searchFunction}
+          className={[searchToggle ? searchOpen.showed : searchOpen.base]}
+        />
+      </div>
+      <button
+        onClick={searchClickToggle}
+        className={[
+          searchToggle
+            ? menuOpenBtnAnimation.showed
+            : menuOpenBtnAnimation.base,
+        ]}
+      >
         <BsSearch />
       </button>
     </div>

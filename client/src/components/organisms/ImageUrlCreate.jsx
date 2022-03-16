@@ -43,7 +43,7 @@ export const ImageUrlCreate = memo(
           className="hidden"
         />
         {imageUrl ? ( // propsのimageUrlに値が渡ってきた場合
-          <img src={imageUrl} alt="表紙の画像" className={imageStyle} />
+          <img loading="lazy" src={imageUrl} alt="表紙の画像" className={imageStyle} />
         ) : videoUrl ? ( // propsのvideoUrlに値が渡ってきた場合
           <video
             src={videoUrl}

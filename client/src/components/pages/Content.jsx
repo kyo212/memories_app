@@ -129,23 +129,25 @@ export const Content = memo(() => {
                 coverImage,
                 category,
               }
-            ).then((response) => {
-              const { result, err } = response.data;
-              console.log({ result, err });
-              setModalToggle(false); // モーダルを閉じる
-              setBookTitle(""); // タイトルをデフォルト状態に戻す
-              setDefaultIndex(true); // タブのアニメーションをデフォルトに戻す
-              setSucMsgToggle(true); // 追加完了のメッセージを出す
-              setImageUrl(""); // 画像プレビューをデフォルト状態に戻す
-              // 3秒後にメッセージを閉じる
-              setTimeout(() => {
-                setUpdate(!update);
+            )
+              .then((response) => {
+                setModalToggle(false); // モーダルを閉じる
+                setBookTitle(""); // タイトルをデフォルト状態に戻す
+                setDefaultIndex(true); // タブのアニメーションをデフォルトに戻す
+                setSucMsgToggle(true); // 追加完了のメッセージを出す
+                setImageUrl(""); // 画像プレビューをデフォルト状態に戻す
+                // 3秒後にメッセージを閉じる
                 setTimeout(() => {
-                  setSucMsgToggle(false);
-                  setCategory("diary"); // タブの初期値をデフォルトに戻す
-                }, 2000);
-              }, 1000);
-            });
+                  setUpdate(!update);
+                  setTimeout(() => {
+                    setSucMsgToggle(false);
+                    setCategory("diary"); // タブの初期値をデフォルトに戻す
+                  }, 2000);
+                }, 1000);
+              })
+              .catch((error) => {
+                setErrMsgToggle(true);
+              });
           } else {
             setErrMsgToggle(true);
           }
@@ -199,7 +201,11 @@ export const Content = memo(() => {
         >
           <div className="flex items-center">
             <AddBookBtn setModalToggle={setModalToggle} />
-            <Search searchInput={searchInput} setSearchInput={setSearchInput} />
+            <Search
+              placeholder="タイトルを検索"
+              searchInput={searchInput}
+              setSearchInput={setSearchInput}
+            />
             <MenuOpenModal
               loginUser={loginUser}
               root="/public"
