@@ -16,7 +16,7 @@ import { Tab } from "../tabs/Tab";
 // コンテキスト
 import { Context } from "../../../App";
 
-export const MenuOpenModal = ({ loginUser,root, rootText, showMenu }) => {
+export const MenuOpenModal = ({ loginUser, root, rootText, showMenu }) => {
   // ルータ
   const navigate = useNavigate();
   // Toggle
@@ -81,7 +81,7 @@ export const MenuOpenModal = ({ loginUser,root, rootText, showMenu }) => {
           <div className="flex w-full flex-col text-left">
             <div className="w-full border-b pb-3 leading-8 text-slate-700">
               <p className="text-md font-bold">
-                "{loginUser}"
+                "{loginUser || "gestuser"}"
                 <span className="text-md font-thin">でログイン中</span>
               </p>
               {showMenu && (

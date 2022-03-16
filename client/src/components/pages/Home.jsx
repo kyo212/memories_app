@@ -202,7 +202,7 @@ export const Home = memo(() => {
         </button>
         <div className="">
           さっそくみんなのフォトブックをみる↓
-          <a href="/public/book">みんなのフォトブック</a>
+          <a href="/public">みんなのフォトブック</a>
         </div>
       </main>
       <footer>{/* <Footer /> */}</footer>
