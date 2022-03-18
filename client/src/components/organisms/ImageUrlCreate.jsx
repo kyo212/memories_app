@@ -42,8 +42,10 @@ export const ImageUrlCreate = memo(
           accept={acceptType}
           className="hidden"
         />
-        {imageUrl ? ( // propsのimageUrlに値が渡ってきた場合
+        {imageUrl ? ( 
+          // propsのimageUrlに値が渡ってきた場合
           <img loading="lazy" src={imageUrl} alt="表紙の画像" className={imageStyle} />
+          // lazy = 遅延読み込み 見えている範囲外の画像を後から読み込む
         ) : videoUrl ? ( // propsのvideoUrlに値が渡ってきた場合
           <video
             src={videoUrl}

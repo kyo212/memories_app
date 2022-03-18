@@ -26,27 +26,37 @@ export const Search = memo(({ placeholder, searchInput, setSearchInput }) => {
   };
 
   return (
-    <div className="relative flex">
-      <div>
-        <input
-          type="search"
-          value={searchInput}
-          placeholder={placeholder}
-          autoFocus
-          onChange={searchFunction}
-          className={[searchToggle ? searchOpen.showed : searchOpen.base]}
-        />
-      </div>
-      <button
+    <>
+      <div
         onClick={searchClickToggle}
         className={[
           searchToggle
-            ? menuOpenBtnAnimation.showed
-            : menuOpenBtnAnimation.base,
+            ? "absolute top-0 left-0 h-screen w-screen opacity-0"
+            : "hidden",
         ]}
-      >
-        <BsSearch />
-      </button>
-    </div>
+      />
+      <div className="relative flex">
+        <div>
+          <input
+            type="search"
+            value={searchInput}
+            placeholder={placeholder}
+            autoFocus
+            onChange={searchFunction}
+            className={[searchToggle ? searchOpen.showed : searchOpen.base]}
+          />
+        </div>
+        <button
+          onClick={searchClickToggle}
+          className={[
+            searchToggle
+              ? menuOpenBtnAnimation.showed
+              : menuOpenBtnAnimation.base,
+          ]}
+        >
+          <BsSearch />
+        </button>
+      </div>
+    </>
   );
 });

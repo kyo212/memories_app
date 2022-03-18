@@ -161,11 +161,16 @@ export const Book = memo(() => {
     setErrMsgToggle(false);
   };
 
+  const clickBookScroll = () => {
+    console.log("OK");
+    document.getElementById("bookMain").scrollLeft = 0;
+  };
+
   return (
     <>
       <>
         {unExpectErr ? (
-          <div className="mt-[40%] flex h-screen w-screen flex-col items-center">
+          <div className="mt-[40%] flex h-screen w-screen transform transition-all flex-col items-center">
             <p className="text-xl font-bold">予期せぬエラーが発生しました</p>
             <a href="/mybooks" className="text-sm text-blue-800">
               一覧画面へ戻る
@@ -173,12 +178,13 @@ export const Book = memo(() => {
           </div>
         ) : (
           <div
+            id="bookMain"
             className={`${fontChange} flex h-screen w-screen snap-x snap-mandatory overflow-scroll`}
           >
             {/* 表紙情報 */}
-            {/* 画像 */}
             <div className="h-full w-screen snap-start snap-always bg-white">
               <div className="flex h-1/2 w-screen items-center justify-center">
+                {/* 画像 */}
                 <img
                   src={coverImage}
                   alt="表紙の画像"
@@ -206,7 +212,7 @@ export const Book = memo(() => {
                     <div className="my-2 space-y-2 text-center">
                       <p className="text-md">{date}</p>
                       <p className="text-xl">
-                        {username || "gest"}
+                        {username || "gestuser"}
                         の<ChangeJapanese category={category} />
                       </p>
                     </div>
@@ -214,7 +220,7 @@ export const Book = memo(() => {
                       <ChangeFont setFontChange={setFontChange} />
                     </>
                   </div>
-                  <div className="absolute left-0 bottom-0 flex h-10 w-screen items-center justify-center space-x-4 text-xl text-slate-500">
+                  <div className="fixed left-0 bottom-0 z-50 flex h-10 w-screen items-center justify-center space-x-4 text-xl text-slate-500">
                     <BsChevronDoubleLeft />
                     {/* 最初へ */}
                     <button className="flex w-12 justify-center">
@@ -223,7 +229,7 @@ export const Book = memo(() => {
                       </a>
                     </button>
                     {/* 最後へ */}
-                    <BsChevronDoubleRight />
+                    <BsChevronDoubleRight onClick={clickBookScroll} />
                   </div>
                 </div>
               </div>
@@ -330,7 +336,7 @@ export const Book = memo(() => {
                               <div className="absolute bottom-2 right-0 flex space-x-4 text-slate-500">
                                 <p className="text-md">{date}</p>
                               </div>
-                              <p className="absolute bottom-2 left-1/2 -translate-x-1/2 transform text-slate-500">{`${
+                              <p className="absolute bottom-8 left-1/2 -translate-x-1/2 transform text-slate-500">{`${
                                 index + 1
                               } / ${bookContents.length}`}</p>
                             </>

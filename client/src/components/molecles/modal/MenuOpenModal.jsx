@@ -2,11 +2,13 @@ import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 // アイコン
 import { VscTriangleDown } from "react-icons/vsc";
-import { BsBoxArrowUpRight } from "react-icons/bs";
+import { BsBoxArrowUpRight, BsSortDown } from "react-icons/bs";
 import { BsQuestionCircle } from "react-icons/bs";
 import { BsCaretRightFill } from "react-icons/bs";
 import { BsFillBookmarkFill } from "react-icons/bs";
 import { BsBookmark } from "react-icons/bs";
+import { BsSortUpAlt } from "react-icons/bs";
+import { BsSortUp } from "react-icons/bs";
 import { SuccessIcon } from "../../atoms/icon/SuccessIcon";
 // カスタムフック
 import { useStyle } from "../../custom/useStyle";
@@ -16,11 +18,20 @@ import { Tab } from "../tabs/Tab";
 // コンテキスト
 import { Context } from "../../../App";
 
-export const MenuOpenModal = ({ loginUser, root, rootText, showMenu }) => {
+export const MenuOpenModal = ({
+  loginUser,
+  root,
+  rootText,
+  setUpdate,
+  sortToggle,
+  setSortToggle,
+  showMenu,
+}) => {
   // ルータ
   const navigate = useNavigate();
   // Toggle
   const [fillterMenu, setFillterMenu] = useState(false);
+  const [sortMenu, setSortMenu] = useState(false);
   // カスタムフック
   const { menuOpens, modals } = useStyle();
   const { fillterMenuTabAnimation } = modals;
@@ -55,6 +66,17 @@ export const MenuOpenModal = ({ loginUser, root, rootText, showMenu }) => {
 
   const filterMenuToggle = () => {
     setFillterMenu(!fillterMenu);
+    setSortMenu(false);
+  };
+
+  const bookSort = () => {
+    setSortToggle(!sortToggle);
+    setUpdate((update) => !update);
+  };
+
+  const sortMenuToggle = () => {
+    setSortMenu(!sortMenu);
+    setFillterMenu(false);
   };
 
   const toPublicComponent = () => {
@@ -64,10 +86,21 @@ export const MenuOpenModal = ({ loginUser, root, rootText, showMenu }) => {
 
   return (
     <>
+      <div
+        onClick={menuModalToggle}
+        className={[
+          menuToggle
+            ? "absolute top-0 left-0 h-screen w-screen opacity-0"
+            : "hidden",
+        ]}
+      />
+
       <button
         onClick={menuModalToggle}
         className={[
-          menuToggle ?`${menuOpenBtnAnimation.showed} rotate-180 transform` : menuOpenBtnAnimation.base,
+          menuToggle
+            ? `${menuOpenBtnAnimation.showed} rotate-180 transform`
+            : menuOpenBtnAnimation.base,
         ]}
       >
         <VscTriangleDown className="scale-125 transform" />
@@ -89,32 +122,69 @@ export const MenuOpenModal = ({ loginUser, root, rootText, showMenu }) => {
                 <button className="text-blue-600">ユーザー名を変更</button>
               )}
             </div>
-            <button className={menuListStyle}>
-              <p>並び替え</p>
+
+            <button onClick={sortMenuToggle} className={menuListStyle}>
+              <div className="flex items-center">
+                <div className="ml-2 flex items-center">
+                  {sortMenu ? ( // フィルタが適用されていないとき、フィルタメニューがtrueなら
+                    <BsCaretRightFill className="mr-2 rotate-90 transform" />
+                  ) : (
+                    <BsCaretRightFill className="mr-2" />
+                  )}
+                  <p>並び替えをする</p>
+                </div>
+              </div>
             </button>
-            <div className="">
-              <button>日付昇順</button>
-              <button>降順</button>
+
+            <div
+              className={[
+                sortMenu
+                  ? "flex h-20 transform flex-col items-start  border border-slate-100 p-3 transition-all duration-300"
+                  : "h-0 transform transition-all duration-300",
+              ]}
+            >
+              <div
+                className={[sortMenu ? "flex flex-col items-start" : "hidden"]}
+              >
+                <div className="flex flex-col">
+                  <div className="w-18 mb-2 flex items-center font-bold">
+                    {sortToggle ? (
+                      <span>日付の降順</span>
+                    ) : (
+                      <span>日付の昇順</span>
+                    )}
+                  </div>
+                  <button onClick={bookSort} className="flex">
+                    <span className="mx-2 text-xl">
+                      {sortToggle ? <BsSortUp /> : <BsSortDown />}
+                    </span>
+
+                    {sortToggle ? (
+                      <span>日付昇順にする</span>
+                    ) : (
+                      <span>日付降順にする</span>
+                    )}
+                  </button>
+                </div>
+              </div>
             </div>
+
             <button onClick={filterMenuToggle} className={menuListStyle}>
               <div className="flex items-center">
                 <div className="ml-2 flex items-center">
-                  {fillterToggle ? (
-                    <>
-                      <SuccessIcon />
-                      <p className="font-bold text-green-700">
-                        フィルタを適用中
-                      </p>
-                    </>
+                  {sortMenu ? ( // フィルタが適用されていないとき、フィルタメニューがtrueなら
+                    <BsCaretRightFill className="mr-2 rotate-90 transform" />
                   ) : (
-                    <>
-                      {fillterMenu ? ( // フィルタが適用されていないとき、フィルタメニューがtrueなら
-                        <BsCaretRightFill className="mr-2 rotate-90 transform" />
-                      ) : (
-                        <BsCaretRightFill className="mr-2" />
-                      )}
-                      <p>フィルタを適用</p>
-                    </>
+                    <BsCaretRightFill className="mr-2" />
+                  )}
+                  <p>絞り込みを適用</p>
+                  {fillterToggle && ( // フィルタが適用されているときのみ
+                    <span
+                      onClick={() => setFillterToggle(false)}
+                      className="mx-2 border-b font-bold text-red-600"
+                    >
+                      解除
+                    </span>
                   )}
                 </div>
               </div>
@@ -122,7 +192,7 @@ export const MenuOpenModal = ({ loginUser, root, rootText, showMenu }) => {
             <div
               className={[
                 fillterMenu
-                  ? "my-2 flex h-40 transform flex-col items-start rounded-lg border border-slate-300 p-1 transition-all duration-300"
+                  ? "flex h-40 transform flex-col items-start  border border-slate-100 p-1 transition-all duration-300"
                   : "h-0 transform transition-all duration-300",
               ]}
             >
@@ -131,7 +201,7 @@ export const MenuOpenModal = ({ loginUser, root, rootText, showMenu }) => {
                 onClick={bookFillter}
                 className={[fillterMenu ? "my-2 flex items-center" : "hidden"]}
               >
-                {fillterCategory === "1" ? (
+                {fillterCategory === "1" ? ( // お気に入り状態である場合
                   <>
                     <span className="mr-2 text-2xl text-red-500">
                       <BsFillBookmarkFill />
@@ -154,16 +224,6 @@ export const MenuOpenModal = ({ loginUser, root, rootText, showMenu }) => {
                   setCategory={setFillterCategory}
                 />
               </div>
-              {fillterToggle && ( // フィルタが適用されているときのみ
-                <button
-                  onClick={() => setFillterToggle(false)}
-                  className={[
-                    fillterMenu ? "mx-2 border-b font-bold" : "hidden",
-                  ]}
-                >
-                  解除
-                </button>
-              )}
             </div>
             <button className={menuListStyle}>
               <span className="text-md mx-2">

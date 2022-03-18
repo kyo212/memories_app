@@ -29,6 +29,7 @@ export const PublicBooks = memo(() => {
   // Toggle
   const [loading, setLoading] = useState(false);
   const [bookOpen, setBookOpen] = useState(false);
+  const [sortToggle, setSortToggle] = useState(false);
   // カスタムフック
   const [update, { setUpdate }] = useForceUpdate();
   // スライダーアイコン
@@ -62,11 +63,32 @@ export const PublicBooks = memo(() => {
         shareId: 1,
       }).then((response) => {
         const { result, err } = response.data;
-        setShareItems(result);
+        // 前提1 | 返り値が 0 未満の場合、a を b より小さいインデックスにソート(aが先=昇順)
+        // 前提2 | 返り値が 0 より大きい場合、b を a より小さいインデックスにソート(bが先=降順)
+        if (sortToggle) {
+          const sortResult = result.sort((a, b) => {
+            // a,bには配列の値が最初から2つずつ渡る
+
+            // b > a すなわち昇順の場合,a - b を行い、差が必ず負(0未満)になるため
+            // bよりaが先に並び、降順になる
+            if (b.bookId > a.bookId) return 1;
+
+            // a > b すなわち降順の場合,b - a を行い、差が必ず正(0より大きい)になるため
+            // 昇順になる
+            if (a.bookId > b.bookId) return -1;
+
+            // bookIdはAutoIncrementなため追加順になっている。
+            // 日付も追加した日になっているので、bookIdのソートでも同じ結果になる。
+            return 0; // 返り値が0の場合、ソートを行わない
+          });
+          setShareItems(sortResult);
+        } else {
+          setShareItems(result);
+        }
       });
     };
     getPublicItems();
-  }, []);
+  }, [update]);
 
   useEffect(() => setTimeout(() => setLoading(true), 1000), []);
 
@@ -83,6 +105,9 @@ export const PublicBooks = memo(() => {
             loginUser={loginUser}
             root="/mybooks"
             rootText={"自分のフォトブックに戻る"}
+            sortToggle={sortToggle}
+            setSortToggle={setSortToggle}
+            setUpdate={setUpdate}
             showMenu={false}
           />
         </div>

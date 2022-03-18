@@ -54,6 +54,7 @@ export const Content = memo(() => {
   const [loading, setLoading] = useState(false);
   const [confirmWindowOpen, setConfirmWindowOpen] = useState(false);
   const [bookOpen, setBookOpen] = useState(false);
+  const [sortToggle, setSortToggle] = useState(false);
   // メッセージ
   const [errMsgToggle, setErrMsgToggle] = useState(false);
   const [sucMsgToggle, setSucMsgToggle] = useState(false);
@@ -96,7 +97,29 @@ export const Content = memo(() => {
         username: loginUser,
       }).then((response) => {
         const { result } = response.data;
-        setBookItems(result);
+
+        // 前提1 | 返り値が 0 未満の場合、a を b より小さいインデックスにソート(aが先=昇順)
+        // 前提2 | 返り値が 0 より大きい場合、b を a より小さいインデックスにソート(bが先=降順)
+        if (sortToggle) {
+          const sortResult = result.sort((a, b) => {
+            // a,bには配列の値が最初から2つずつ渡る
+
+            // b > a すなわち昇順の場合,a - b を行い、差が必ず負(0未満)になるため
+            // bよりaが先に並び、降順になる
+            if (b.bookId > a.bookId) return 1;
+
+            // a > b すなわち降順の場合,b - a を行い、差が必ず正(0より大きい)になるため
+            // 昇順になる
+            if (a.bookId > b.bookId) return -1;
+
+            // bookIdはAutoIncrementなため追加順になっている。
+            // 日付も追加した日になっているので、bookIdのソートでも同じ結果になる。
+            return 0; // 返り値が0の場合、ソートを行わない
+          });
+          setBookItems(sortResult);
+        } else {
+          setBookItems(result);
+        }
       });
     };
     getItems();
@@ -195,10 +218,7 @@ export const Content = memo(() => {
     <>
       {/* ヘッダー */}
       {!confirmWindowOpen && (
-        <Header
-          root={"/mybooks"}
-          headerOpen={{ headerToggle, setHeaderToggle }}
-        >
+        <Header root="/mybooks" headerOpen={{ headerToggle, setHeaderToggle }}>
           <div className="flex items-center">
             <AddBookBtn setModalToggle={setModalToggle} />
             <Search
@@ -209,8 +229,11 @@ export const Content = memo(() => {
             <MenuOpenModal
               loginUser={loginUser}
               root="/public"
-              rootText={"みんなのフォトブックを見にいく"}
-              showMenu={true}
+              rootText="みんなのフォトブックを見にいく"
+              sortToggle={sortToggle}
+              setSortToggle={setSortToggle}
+              setUpdate={setUpdate}
+              showMenu
             />
           </div>
         </Header>
@@ -240,7 +263,7 @@ export const Content = memo(() => {
                     item.favorite === Number(fillterCategory)) && (
                     <SwiperSlide
                       id={index}
-                      className="inline-block h-screen w-screen transform snap-center snap-always  transition-transform ease-in"
+                      className="inline-block h-screen w-screen transform snap-center snap-always transition-transform ease-in"
                     >
                       <Books
                         item={item}
@@ -265,7 +288,7 @@ export const Content = memo(() => {
                       <SwiperSlide
                         id={index}
                         key={item.bookId}
-                        className="inline-block h-screen w-screen transform snap-start snap-always  transition-transform ease-in"
+                        className="inline-block h-screen w-screen transform snap-start snap-always transition-transform ease-in"
                       >
                         <Books
                           item={item}

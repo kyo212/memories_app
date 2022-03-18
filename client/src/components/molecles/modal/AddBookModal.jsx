@@ -51,7 +51,7 @@ export const AddBookModal = memo(
       setErrMsgToggle(false);
     };
 
-    const clickAdd = () => {
+    const clickAddScroll = () => {
       insertItem();
       document.getElementById("main").scrollTop = 0;
     };
@@ -159,7 +159,7 @@ export const AddBookModal = memo(
             <div className="mt-5 flex w-full flex-col items-center">
               <div className="w-[75%]">
                 {/* 追加ボタン */}
-                <Button clickBtn={clickAdd}>本を追加する</Button>
+                <Button clickBtn={clickAddScroll}>本を追加する</Button>
               </div>
             </div>
           </div>
