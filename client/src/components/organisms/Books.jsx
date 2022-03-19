@@ -77,9 +77,21 @@ export const Books = memo(
       setBookOpen(false);
     };
 
-    const toCategoryComponent = (item) => {
+    const toCategoryComponent = (
+      { category, bookId, bookTitle, username, coverImage, date, favorite },
+      publicBookMenu
+    ) => {
       navigate(`book`, {
-        state: item,
+        state: {
+          category,
+          bookId,
+          bookTitle,
+          username,
+          coverImage,
+          date,
+          favorite,
+          publicBookMenu,
+        },
       });
     };
 
@@ -128,7 +140,9 @@ export const Books = memo(
                     {bookOpen && bookOpenId && (
                       <>
                         <button
-                          onClick={() => toCategoryComponent(item)}
+                          onClick={() =>
+                            toCategoryComponent(item, publicBookMenu)
+                          }
                           className={`${bookOpenTextStyle}`}
                         >
                           <span>ひらく</span>
