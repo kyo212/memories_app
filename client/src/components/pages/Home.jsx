@@ -3,13 +3,12 @@ import { useNavigate } from "react-router-dom";
 import Axios from "axios";
 // アイコン
 import { BsArrowUp } from "react-icons/bs";
+import { BsBoxArrowUpRight } from "react-icons/bs";
 // コンポーネント
 import { HeaderLoginBtn } from "../atoms/button/HeaderLoginBtn";
 import { HeaderRegBtn } from "../atoms/button/HeaderRegBtn";
-import { Tab } from "../molecles/tabs/Tab";
 import { Footer } from "../organisms/Footer";
 import { Header } from "../organisms/Header";
-import { TabInform } from "../molecles/tabs/TabInform";
 // カスタムフック
 import { useStyle } from "../custom/useStyle";
 // コンテキスト
@@ -90,8 +89,8 @@ export const Home = memo(() => {
                 <p>スマホやパソコンに眠っている思い出の写真も何気ない写真も</p>
               </h2>
             </div>
-            <div className="mt-64 flex w-full justify-center font-bold text-slate-800">
-              <div className="flex h-52 w-52 flex-col justify-center space-y-2 rounded-full border-x border-b bg-white py-4 text-center">
+            <div className="mt-20 flex w-full justify-center font-bold text-slate-800">
+              <div className="flex h-52 w-52 flex-col justify-center space-y-2 rounded-full border-x border-b bg-white bg-opacity-60 py-4 text-center">
                 <p>
                   思い出を
                   <span className="ml-1 text-pink-600">残す</span>
@@ -114,7 +113,7 @@ export const Home = memo(() => {
         </section>
 
         <section>
-          <div className={`${contentStyle} mt-32`}>
+          <div className={`${contentStyle}`}>
             <div className={sentenceStyle}>
               <h3 className="mt-10 mb-8 border-b pb-4 text-xl font-bold text-slate-800">
                 memoriesとは
@@ -149,11 +148,9 @@ export const Home = memo(() => {
               <h3 className="mt-10 mb-6 border-b pb-4 text-lg font-bold text-slate-800">
                 思い出をふりかえることができます
               </h3>
-              <>
-                <p>
-                  スマホでも、パソコンでも、いつでもどこでも思い出を振り返ることができます。
-                </p>
-              </>
+              <p>
+                スマホでも、パソコンでも、いつでもどこでも思い出を振り返ることができます。
+              </p>
             </div>
           </div>
           <div className={`${contentStyle} bg-slate-100`}>
@@ -161,8 +158,9 @@ export const Home = memo(() => {
               <h3 className="mt-10 mb-6 border-b pb-4 text-lg font-bold text-slate-800">
                 みんなに思い出を見せることができます
               </h3>
-              <div className="">
-                <p></p>
+              <div className="space-y-4 rounded-md bg-white p-6 shadow-md">
+                <p>つくったフォトブックはみんなに共有することができます。</p>
+                <p>共有されたフォトブックは誰でも見ることができます。</p>
               </div>
             </div>
           </div>
@@ -171,28 +169,7 @@ export const Home = memo(() => {
               <h3 className="mt-10 mb-6 border-b pb-4 text-lg font-bold text-slate-800">
                 みんなの思い出を知ることができます
               </h3>
-            </div>
-          </div>
-          <div className={`${contentStyle} bg-slate-100`}>
-            <div className={sentenceStyle}>
-              <h3 className="mt-10 mb-6 border-b pb-4 text-lg font-bold text-slate-800">
-                memoriesの特徴
-              </h3>
-              <div className="rounded-lg bg-white p-4 leading-8 text-slate-700 shadow-md">
-                <p>
-                  カテゴリーがたくさんあるから
-                  <br />
-                  どんな思い出も残せます。
-                </p>
-              </div>
-              <Tab
-                animation={tabAnimation}
-                ulClass={
-                  "my-5 space-x-1 flex flex-wrap items-center justify-center text-center"
-                }
-                setCategory={setCategory}
-              />
-              <TabInform category={category} />
+              <p>みんなの共有されたフォトブックを見ることができます。</p>
             </div>
           </div>
         </section>
@@ -206,9 +183,13 @@ export const Home = memo(() => {
         >
           <BsArrowUp />
         </button>
-        <div className="">
-          さっそくみんなのフォトブックをみる↓
-          <a href="/public">みんなのフォトブック</a>
+        <div className="flex items-center justify-center">
+          <div className="mt-4 mb-20 flex items-center rounded-xl border bg-sky-600 px-3 py-2 text-sm text-white shadow-md font-bold">
+            <BsBoxArrowUpRight />
+            <a href="/public" className="ml-2">
+              みんなのフォトブック
+            </a>
+          </div>
         </div>
       </main>
       <footer>{/* <Footer /> */}</footer>
