@@ -183,7 +183,6 @@ export const Register = memo(() => {
                 </div>
               </div>
               <button
-                type="submit"
                 onClick={register}
                 className={[
                   checkBoxFirst && checkBoxSecond

@@ -32,10 +32,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
-    origin: `http://${process.env.PUBLIC_IP}:3000`,
+    origin: [`http://${process.env.PUBLIC_IP}:3000`],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
-    optionsSuccessStatus: 200,
   })
 );
 // const corsOptions = {

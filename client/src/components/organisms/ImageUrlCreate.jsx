@@ -50,7 +50,7 @@ export const ImageUrlCreate = memo(
           <video
             src={videoUrl}
             controls={videoCtrl}
-            autoPlay={videoAutoPlay}
+            autoPlay={videoAutoPlay} 
             muted
             playsInline
             loop={videoLoop}

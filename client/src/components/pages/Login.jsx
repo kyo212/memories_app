@@ -136,7 +136,6 @@ export const Login = memo(() => {
             パスワードを忘れた場合
           </a>
           <button
-            type="submit"
             onClick={login}
             className={
               "mt-6 mb-4 rounded-md bg-sky-600 p-2 px-4 font-bold text-white shadow-md"
