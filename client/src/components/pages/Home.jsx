@@ -83,10 +83,10 @@ export const Home = memo(() => {
               <label className="mb-4 text-sm">メモリーズ</label>
               <h2 className="space-y-2 rounded-md py-2 px-4 text-sm font-bold">
                 <p>
-                  <span>フォトブック</span>に<br />
+                  フォトブックに
+                  <br />
                   思い出を自由に残そう。
                 </p>
-                <p>スマホやパソコンに眠っている思い出の写真も何気ない写真も</p>
               </h2>
             </div>
             <div className="mt-20 flex w-full justify-center font-bold text-slate-800">
@@ -121,7 +121,7 @@ export const Home = memo(() => {
               <div className="text-md space-y-2">
                 <p>思い出を残すフォトブックとして使えます。</p>
                 <p>
-                  どんな小さな思い出も、大切な思い出も、memoriesに残しましょう。
+                  どんな小さな思い出も、大切な思い出も、memoriesに残すことができます。
                 </p>
               </div>
             </div>
@@ -177,14 +177,14 @@ export const Home = memo(() => {
           onClick={clickScrollTop}
           className={[
             scrollBtn
-              ? "fixed bottom-2 right-2 transform animate-bounce rounded-full border bg-white p-2 opacity-100 shadow-md transition-all duration-1000"
+              ? "fixed bottom-2 right-2 transform animate-bounce rounded-full border bg-white p-4 opacity-100 shadow-md transition-all duration-1000"
               : "transform opacity-0 transition-all duration-1000",
           ]}
         >
           <BsArrowUp />
         </button>
         <div className="flex items-center justify-center">
-          <div className="mt-4 mb-20 flex items-center rounded-xl border bg-sky-600 px-3 py-2 text-sm text-white shadow-md font-bold">
+          <div className="mt-4 mb-20 flex items-center rounded-xl border bg-sky-600 px-3 py-2 text-sm font-bold text-white shadow-md">
             <BsBoxArrowUpRight />
             <a href="/public" className="ml-2">
               みんなのフォトブック

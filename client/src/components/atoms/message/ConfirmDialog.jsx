@@ -17,24 +17,23 @@ export const ConfirmDialog = memo(
 
     // スタイル共通化
     const msgBtnStyle =
-      "py-1 px-2 mx-2 text-sm rounded-md border hover:bg-sky-800 hover:text-white hover:font-bold";
+      "py-1 px-2 mx-2 text-sm rounded-md border hover:text-white hover:font-bold";
 
     const confirmDeleteSelect = (e) => {
       e.target.id === "yes" && deleteItem(deleteId);
       setBookOpen(false);
-      setConfirmWindowOpen(false); // 確認ダイアログをとじる
     };
 
     return (
       <>
-        <div className="flex h-40 w-[90%] flex-col items-center justify-center space-y-4 rounded-lg border-2 border-gray-200 bg-white py-4 px-2 text-gray-700 shadow-2xl">
+        <div className="flex h-40 w-[90%] flex-col items-center justify-center space-y-4 rounded-lg border-2 border-gray-200 bg-white py-6 px-6 text-gray-700 shadow-2xl">
           {favorite ? (
             <>
               <p>お気に入り中の本は削除できません</p>
               <div className="flex w-full justify-center">
                 <button
                   onClick={confirmDeleteSelect}
-                  className={`${msgBtnStyle} w-20 border-sky-500 bg-sky-500 font-bold text-white`}
+                  className={`${msgBtnStyle} w-20 border-sky-500 bg-sky-500 font-bold text-white hover:bg-sky-800`}
                 >
                   とじる
                 </button>
@@ -45,8 +44,15 @@ export const ConfirmDialog = memo(
               <div className="leading-6">
                 <p className="flex">
                   <ErrIcon />
-                  <span className="ml-1 font-bold">{`${bookTitle}`}</span>を
-                  {`${message}`}
+                  {bookTitle === "" ? (
+                    <p>{message}</p>
+                  ) : (
+                    <>
+                      <span className="ml-1text-md font-bold">
+                        "{bookTitle}"を{message}
+                      </span>
+                    </>
+                  )}
                 </p>
                 <p className="text-[12px] text-slate-500">
                   <span className="mr-1">※</span>
@@ -58,13 +64,13 @@ export const ConfirmDialog = memo(
                 <button
                   id="yes"
                   onClick={confirmDeleteSelect}
-                  className={`${msgBtnStyle} border-red-500 bg-red-500 font-bold text-white hover:bg-white hover:text-white`}
+                  className={`${msgBtnStyle} border-red-500 bg-red-500 font-bold text-white hover:bg-red-700 hover:text-white`}
                 >
                   削除
                 </button>
                 <button
                   onClick={() => setConfirmWindowOpen(false)}
-                  className={`${msgBtnStyle} border-slate-500`}
+                  className={`${msgBtnStyle} border-slate-500 hover:bg-slate-500`}
                 >
                   いいえ
                 </button>

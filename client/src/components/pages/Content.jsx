@@ -183,11 +183,12 @@ export const Content = memo(() => {
   const deleteItem = async (id) => {
     await Axios.delete(
       `http://${process.env.REACT_APP_PUBLIC_IP}/delete/${id}`
-    ).then(() => {
+    ).then((response) => {
       // DBから値を消してもstateには残っているため最後だけ初期化する
       bookItems.length === 1 && setBookItems([]);
       setUpdate(!update);
     });
+    setConfirmWindowOpen(false)
   };
 
   const favoriteState = async (id, num) => {

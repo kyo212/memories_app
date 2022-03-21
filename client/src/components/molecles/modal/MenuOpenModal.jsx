@@ -126,7 +126,7 @@ export const MenuOpenModal = ({
             <button onClick={sortMenuToggle} className={menuListStyle}>
               <div className="flex items-center">
                 <div className="ml-2 flex items-center">
-                  {sortMenu ? ( // フィルタが適用されていないとき、フィルタメニューがtrueなら
+                  {sortMenu ? ( 
                     <BsCaretRightFill className="mr-2 rotate-90 transform" />
                   ) : (
                     <BsCaretRightFill className="mr-2" />
@@ -172,7 +172,7 @@ export const MenuOpenModal = ({
             <button onClick={filterMenuToggle} className={menuListStyle}>
               <div className="flex items-center">
                 <div className="ml-2 flex items-center">
-                  {sortMenu ? ( // フィルタが適用されていないとき、フィルタメニューがtrueなら
+                  {fillterMenu ? ( // フィルタが適用されていないとき、フィルタメニューがtrueなら
                     <BsCaretRightFill className="mr-2 rotate-90 transform" />
                   ) : (
                     <BsCaretRightFill className="mr-2" />

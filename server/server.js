@@ -253,8 +253,19 @@ app.delete("/delete/:id", async (req, res) => {
   const { id } = req.params;
   const sqlDelete =
     "DELETE List,Content FROM book_list As List LEFT JOIN book_content As Content ON List.bookId = Content.bookId WHERE List.bookId = ?";
-  // book_listとbook_contentから同じbookIdのロウを削除
+
+  // book_listとbook_contentから同じbookIdの行を削除
+
   await db.query(sqlDelete, [id], (err, result) => {
+    res.json({ result: result, err: err });
+  });
+});
+
+app.delete("/deletePage/:id", async (req, res) => {
+  const { id } = req.params;
+  const sqlDeletePage = "DELETE FROM book_content WHERE pageId = ?";
+
+  await db.query(sqlDeletePage, [id], (err, result) => {
     res.json({ result: result, err: err });
   });
 });

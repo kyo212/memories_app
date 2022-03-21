@@ -12,6 +12,7 @@ import { BsUpload } from "react-icons/bs";
 import { BsFillBookmarkFill } from "react-icons/bs";
 import { BsArrowRepeat } from "react-icons/bs";
 import { BsPencil } from "react-icons/bs";
+import { BsTrash } from "react-icons/bs";
 // コンポーネント UI系
 import { ChangeFont } from "../atoms/ChangeFont";
 import { Button } from "../atoms/button/Button";
@@ -23,6 +24,7 @@ import { useStyle } from "../custom/useStyle";
 import { useForceUpdate } from "../custom/useForceUpdate";
 // コンテキスト
 import { Context } from "../../App";
+import { ConfirmDialog } from "../atoms/message/ConfirmDialog";
 
 export const Book = memo(() => {
   // ルーター
@@ -47,10 +49,13 @@ export const Book = memo(() => {
   // Toggel
   const [unExpectErr, setUnExpectErr] = useState(false);
   const [addTypeChange, setAddTypeChange] = useState(false);
+  const [confirmWindowOpen, setConfirmWindowOpen] = useState(false);
+  const [deleteInform, setDeleteInform] = useState({});
   // メッセージ
   const [errMsgToggle, setErrMsgToggle] = useState(false);
   // カスタムフック
-  const { messageWindow } = useStyle();
+  const { messageWindow, modals } = useStyle();
+  const { modalConfirmAnimation } = modals;
   const { errorBorderMsg } = messageWindow;
   const [update, { setUpdate }] = useForceUpdate();
   // コンテキスト
@@ -64,6 +69,9 @@ export const Book = memo(() => {
     videoFile,
     setVideoFile,
   } = useContext(Context);
+
+  // スタイル共通か
+  const iconStyle = "absolute text-lg text-slate-500 hover:text-slate-800";
 
   useEffect(() => {
     // location.stateに値がない場合(urlから直接 mybools/book へアクセスされたとき)にコンテンツを表示させないようにする
@@ -158,6 +166,22 @@ export const Book = memo(() => {
         }
       }
     );
+  };
+
+  const deleteItem = async (id) => {
+    await Axios.delete(
+      `http://${process.env.REACT_APP_PUBLIC_IP}/deletePage/${id}`
+    ).then(() => {
+      // DBから値を消してもstateには残っているため最後だけ初期化する
+      // bookItems.length === 1 && setBookItems([]);
+      setUpdate(!update);
+    });
+    setConfirmWindowOpen(false);
+  };
+
+  const deleteItemToggle = (deleteId, bookTitle) => {
+    setConfirmWindowOpen(true);
+    setDeleteInform({ deleteId, bookTitle });
   };
 
   const addInform = (e) => {
@@ -313,14 +337,12 @@ export const Book = memo(() => {
                                   <p className="text-md ">{date}</p>
                                 </div>
                               </div>
-                            </>
-                          )}
-                          {!title && !description && (
-                            <>
-                              {/* ページ数カウント */}
-                              {/* <p className="absolute bottom-2 left-1/2 -translate-x-1/2 transform select-none text-slate-500">{`${
-                                index + 1
-                              } / ${bookContents.length}`}</p> */}
+                              <button
+                                onClick={() => deleteItemToggle(pageId, title)}
+                                className={`${iconStyle} bottom-4 right-4`}
+                              >
+                                <BsTrash />
+                              </button>
                             </>
                           )}
                         </div>
@@ -337,7 +359,15 @@ export const Book = memo(() => {
                               <p className="text-xl font-bold text-slate-800">
                                 {title}
                               </p>
-                              <button className="absolute top-1/2 right-0 -translate-y-1/2 text-sm">
+                              <button
+                                onClick={() => deleteItemToggle(pageId, title)}
+                                className={`${iconStyle} right-0 top-1/2 -translate-y-1/2`}
+                              >
+                                <BsTrash />
+                              </button>
+                              <button
+                                className={`${iconStyle} right-8 top-1/2 -translate-y-1/2`}
+                              >
                                 <BsPencil />
                               </button>
                             </div>
@@ -347,14 +377,9 @@ export const Book = memo(() => {
                               </p>
                             </div>
                             {title && description && (
-                              <>
-                                <div className="absolute bottom-2 right-0 flex space-x-4 text-slate-500">
-                                  <p className="text-md">{date}</p>
-                                </div>
-                                {/* <p className="absolute bottom-8 left-1/2 -translate-x-1/2 transform text-slate-500">{`${
-                                  index + 1
-                                } / ${bookContents.length}`}</p> */}
-                              </>
+                              <div className="absolute bottom-2 right-0 flex space-x-4 text-slate-500">
+                                <p className="text-md">{date}</p>
+                              </div>
                             )}
                           </div>
                         </div>
@@ -440,7 +465,7 @@ export const Book = memo(() => {
                     {/* テキスト */}
                     <div className="relative flex h-1/2 w-screen items-center justify-center">
                       <div className="h-[82%] w-[90%]">
-                        <div className="">
+                        <div>
                           <label className="flex flex-col text-sm font-bold">
                             タイトル
                             <input
@@ -498,6 +523,21 @@ export const Book = memo(() => {
           </div>
         )}
       </>
+      <div
+        className={[
+          confirmWindowOpen
+            ? `${modalConfirmAnimation.showed} mt-0 pt-[50%]`
+            : `${modalConfirmAnimation.base} pt-0`,
+        ]}
+      >
+        <ConfirmDialog
+          message="削除しますか？"
+          deleteInform={deleteInform} // 削除するアイテムのid
+          deleteItem={deleteItem} // 削除する関数
+          setConfirmWindowOpen={setConfirmWindowOpen}
+          setBookOpen=""
+        />
+      </div>
     </>
   );
 });
