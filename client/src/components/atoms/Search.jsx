@@ -43,7 +43,9 @@ export const Search = memo(({ placeholder, searchInput, setSearchInput }) => {
             placeholder={placeholder}
             autoFocus
             onChange={searchFunction}
-            className={[searchToggle ? searchOpen.showed : searchOpen.base]}
+            className={`${[
+              searchToggle ? searchOpen.showed : searchOpen.base,
+            ]} focus:border-sky-600`}
           />
         </div>
         <button

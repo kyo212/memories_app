@@ -258,21 +258,19 @@ export const Book = memo(() => {
                           <ChangeFont setFontChange={setFontChange} />
                         </>
                       </div>
-                      <div className="fixed left-2 bottom-2 z-50 flex items-center text-slate-500">
-                        <button className="text-sm">
-                          {publicBookMenu ? (
-                            // 通常
-                            <a href="/mybooks">前へ戻る</a>
-                          ) : (
-                            // publicな時
-                            <a href="/public">前へ戻る</a>
-                          )}
-                        </button>
-                      </div>
                     </div>
                   </div>
                 </div>
               </SwiperSlide>
+              <button className="fixed left-2 bottom-2 z-50 flex items-center text-sm text-slate-500">
+                {publicBookMenu ? (
+                  // 通常
+                  <a href="/mybooks">前へ戻る</a>
+                ) : (
+                  // publicな時
+                  <a href="/public">前へ戻る</a>
+                )}
+              </button>
 
               {/* コンテンツ */}
               <>
@@ -427,7 +425,7 @@ export const Book = memo(() => {
                           </span>
                           <span>画像と文章を追加</span>
                         </button>
-                        <div className="absolute bottom-0 my-4 w-[90%] space-y-2">
+                        <div className="absolute bottom-5 my-4 w-[90%] space-y-2">
                           <Button clickBtn={() => insertItem("mediaOnly")}>
                             追加する
                           </Button>
@@ -463,9 +461,9 @@ export const Book = memo(() => {
                     </div>
 
                     {/* テキスト */}
-                    <div className="relative flex h-1/2 w-screen items-center justify-center">
+                    <div className="relative flex h-1/2 w-screen justify-center">
                       <div className="h-[82%] w-[90%]">
-                        <div>
+                        <div className="mt-3">
                           <label className="flex flex-col text-sm font-bold">
                             タイトル
                             <input
@@ -474,15 +472,15 @@ export const Book = memo(() => {
                               placeholder="タイトルを入力"
                               value={bookContentTitle}
                               onChange={addInform}
-                              className={[
+                              className={`${[
                                 errMsgToggle
                                   ? errorBorderMsg.showed
                                   : errorBorderMsg.base,
-                              ]}
+                              ]} focus:border-sky-600`}
                             />
                           </label>
                         </div>
-                        <div className="mt-4">
+                        <div className="mt-2">
                           <label className="flex flex-col text-sm font-bold">
                             説明
                             <textarea
@@ -496,7 +494,7 @@ export const Book = memo(() => {
                                 errMsgToggle
                                   ? errorBorderMsg.showed
                                   : errorBorderMsg.base,
-                              ]} outline-none`}
+                              ]} outline-none focus:border-sky-600`}
                             />
                           </label>
                         </div>
@@ -509,7 +507,7 @@ export const Book = memo(() => {
                           </span>
                           <span>画像もしくは動画だけを追加</span>
                         </button>
-                        <div className="absolute bottom-0 my-4 w-[90%] space-y-2">
+                        <div className="absolute bottom-5 my-4 w-[90%] space-y-2">
                           <Button clickBtn={() => insertItem("mediaAndText")}>
                             追加する
                           </Button>
