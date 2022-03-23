@@ -1,4 +1,4 @@
-import { useContext, memo } from "react";
+import { useContext, memo, useState } from "react";
 // カスタムフック
 import { useStyle } from "../../custom/useStyle";
 // アイコン
@@ -34,9 +34,10 @@ export const AddBookModal = memo(
     const { imageUrl, setDefaultIndex, setImageUrl } = useContext(Context);
 
     const inputInform = (e) => {
-      // 情報の保持
-      setBookTitle(e.target.value);
-      // Toggle
+      if (e.target.value.length <= 12) {
+        setBookTitle(e.target.value);
+      }
+      // 追加時に足りない情報があった場合に出るエラーの際、情報を入力し始めたらエラーメッセージをオフにする
       setErrMsgToggle(false);
     };
 
@@ -99,6 +100,16 @@ export const AddBookModal = memo(
                     ]}
                   />
                 </label>
+                <div className="flex justify-end">
+                  {bookTitle.length === 12 && (
+                    <p className="text-sm text-red-600">
+                      タイトルは12文字が最大です。
+                    </p>
+                  )}
+                  <p className="ml-8 text-sm text-slate-500">
+                    {bookTitle.length}/12
+                  </p>
+                </div>
               </div>
 
               <div className="relative">

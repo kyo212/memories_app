@@ -58,8 +58,8 @@ app.use(
 // routes
 app.post("/register", async (req, res) => {
   const { username, password } = req.body;
-  if (username === "" || password === "") {
-    res.json({ result: false, msg: "入力してください" });
+  if (!username || !password) {
+    res.json({ result: false, msg: "入力してください。" });
   } else {
     const sqlSelect = "SELECT * FROM users WHERE username = ?";
     const sqlInsert = "INSERT INTO users (username,password) VALUE (?,?)";
@@ -78,7 +78,7 @@ app.post("/register", async (req, res) => {
         });
         res.json({ result: true, msg: "新規登録が完了しました。" });
       } else {
-        res.json({ result: false, msg: "ユーザー名が重複しています。" });
+        res.json({ result: false, msg: "このユーザー名は既に使用されています。" });
       }
     });
   }

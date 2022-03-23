@@ -50,7 +50,7 @@ export const Register = memo(() => {
   }, []);
 
   const register = async () => {
-    if (checkBoxFirst && checkBoxSecond) {
+    if (password.length >= 6) {
       await Axios.post(`http://${process.env.REACT_APP_PUBLIC_IP}/register`, {
         username,
         password,
@@ -58,20 +58,18 @@ export const Register = memo(() => {
         const { result, msg } = response.data;
         console.log(result, msg);
         if (!result) {
-          // usernameまたはpasswordが空の場合,usernameが重複既に存在している場合
+          // usernameまたはpasswordが空の場合,usernameが既に存在している場合
           setErrMsgText(msg);
           setErrMsgToggle(true);
-          setTimeout(() => {
-            setErrMsgToggle(false);
-          }, 3000);
-          setUsername("");
-          setPassword("");
         } else {
           // 新規登録に成功後、自動ログインする。
           setLoading(true);
           setTimeout(() => login(), 1000);
         }
       });
+    } else {
+      // パスワードが6文字以下の場合
+      setErrMsgToggle(true);
     }
   };
 
@@ -95,9 +93,19 @@ export const Register = memo(() => {
   };
 
   const inputInform = (e) => {
-    e.target.id === "username"
-      ? setUsername(e.target.value)
-      : setPassword(e.target.value);
+    if (e.target.id === "username" && e.target.value.length <= 12) {
+      setUsername(e.target.value);
+    } else if (e.target.id === "password" && e.target.value.length <= 32) {
+      let targetVal = e.target.value;
+      if (targetVal.match(/^[\x20-\x7e]*$/)) {
+        // \x20-\x7e - すべてのASCII(アスキー)文字に一致する正規表現
+        // 半角英数字と記号のみ 半角カナ文字NG
+        const newStr = targetVal.split(" ").join("");
+        // splitの引数は区切り文字。上記の場合、空白が入力されたら空白で区切ると言う意味。「abc def」は["abc","def"]と一つの配列にまとまる。この配列内の要素をjoinメソッドによって連結させる。
+        // join - 引数未指定の場合は連結後、コンマで区切られる。引数が""の場合は連結後の区切り文字がなくなる。"-"の場合はハイフンで区切られる。
+        setPassword(newStr);
+      }
+    }
     setErrMsgToggle(false);
   };
 
@@ -125,38 +133,86 @@ export const Register = memo(() => {
                 </a>
                 から
               </p>
-              <form className="relative mt-8 mb-2 w-[210px] space-y-2 text-center">
-                <input
-                  id="username"
-                  type="text"
-                  value={username}
-                  onChange={inputInform}
-                  autoFocus
-                  placeholder="ユーザーネーム"
-                  className={
-                    errMsgToggle ? errorBorderMsg.showed : errorBorderMsg.base
-                  }
-                />
-                <input
-                  id="password"
-                  type={passToggle ? "text" : "password"}
-                  value={password}
-                  onChange={inputInform}
-                  placeholder="パスワード"
-                  className={
-                    errMsgToggle ? errorBorderMsg.showed : errorBorderMsg.base
-                  }
-                />
-                <span
-                  onClick={() => setPassToggle(!passToggle)}
-                  className="absolute right-2 top-[50px] text-2xl text-slate-600"
-                >
-                  {passToggle ? (
-                    <BsFillEyeFill />
-                  ) : (
-                    <BsFillEyeSlashFill className="text-slate-400" />
-                  )}
-                </span>
+              <form className="relative mt-8 mb-2 w-[280px] space-y-2 text-center">
+                <div>
+                  <input
+                    id="username"
+                    type="text"
+                    value={username}
+                    onChange={inputInform}
+                    autoFocus
+                    placeholder="ユーザー名"
+                    className={
+                      errMsgToggle &&
+                      (!username ||
+                        errMsgText === "このユーザー名は既に使用されています。")
+                        ? // errMsgToggle + !username = 空欄の場合
+                          // errMsgToggle + username = 重複時
+                          errorBorderMsg.showed
+                        : errorBorderMsg.base
+                    }
+                  />
+                  <div className="relative h-4 w-full text-sm">
+                    <div className="absolute left-0 top-0 text-red-600">
+                      {errMsgToggle && !username ? (
+                        <p>ユーザー名を入力してください。</p>
+                      ) : errMsgToggle &&
+                        errMsgText ===
+                          "このユーザー名は既に使用されています。" ? (
+                        <p>{errMsgText}</p>
+                      ) : (
+                        username.length === 12 && (
+                          <p>文字数が最大です。</p>
+                        )
+                      )}
+                    </div>
+                    <p className="absolute right-0 top-0 text-sm text-slate-500">
+                      {username.length}/12
+                    </p>
+                  </div>
+                </div>
+                <div className="relative">
+                  <input
+                    id="password"
+                    type={passToggle ? "text" : "password"}
+                    value={password}
+                    onChange={inputInform}
+                    placeholder="パスワード"
+                    className={
+                      errMsgToggle && (!password || password.length < 6)
+                        ? errorBorderMsg.showed
+                        : errorBorderMsg.base
+                    }
+                  />
+                  <div className="flex justify-between">
+                    {errMsgToggle && password.length < 6 ? (
+                      <p className="text-sm text-red-600">
+                        6文字以上入力してください。
+                      </p>
+                    ) : password.length === 32 ? (
+                      <p className="text-sm text-red-600">
+                        文字数が最大です。
+                      </p>
+                    ) : (
+                      <p className="text-[12px] text-slate-500">
+                        6文字以上32文字以内、半角英数字のみ、スペースなし
+                      </p>
+                    )}
+                    <p className="ml-2 text-sm text-slate-500">
+                      {password.length}/32
+                    </p>
+                  </div>
+                  <span
+                    onClick={() => setPassToggle(!passToggle)}
+                    className="absolute right-2 top-2 text-2xl text-slate-600"
+                  >
+                    {passToggle ? (
+                      <BsFillEyeFill />
+                    ) : (
+                      <BsFillEyeSlashFill className="text-slate-400" />
+                    )}
+                  </span>
+                </div>
               </form>
               <div className="my-4 space-y-2 text-sm text-slate-800">
                 <div className="flex items-center">
@@ -175,14 +231,13 @@ export const Register = memo(() => {
                     onClick={() => setCheckBoxSecond(!checkBoxSecond)}
                   />
                   <label className="ml-1">
-                    <a className="font-bold text-blue-800">
-                      推奨するブラウザ
-                    </a>
-                    に同意する
+                    <a className="font-bold text-blue-800">推奨するブラウザ</a>
+                    について確認しました
                   </label>
                 </div>
               </div>
               <button
+                disabled={!checkBoxFirst || !checkBoxSecond} // チェックなしの場合にdisabled状態にする
                 onClick={register}
                 className={[
                   checkBoxFirst && checkBoxSecond
@@ -192,11 +247,7 @@ export const Register = memo(() => {
               >
                 登録してはじめる
               </button>
-              <ErrorMsgWindow
-                msgToggle={errMsgToggle}
-                msgText={errMsgText}
-                headerText="注意"
-              />
+              {/* <ErrorMsgWindow msgToggle={errMsgToggle} msgText={errMsgText} /> */}
             </div>
           </div>
           <Footer />

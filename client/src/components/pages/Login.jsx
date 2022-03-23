@@ -57,9 +57,6 @@ export const Login = memo(() => {
       console.log({ auth, token, result, msg });
       setErrMsgText(msg);
       setErrMsgToggle(true);
-      setTimeout(() => {
-        setErrMsgToggle(false);
-      }, 3000);
       Axios.post(`http://${process.env.REACT_APP_PUBLIC_IP}/isUserAuth`).then(
         (response) => {
           const { auth, msg } = response.data;
@@ -71,11 +68,14 @@ export const Login = memo(() => {
   };
 
   const inputInfrom = (e) => {
-    e.target.id === "username"
-      ? setUsername(e.target.value)
-      : setPassword(e.target.value);
-    setErrMsgToggle(false);
+    if (e.target.id === "username" && e.target.value.length <= 12) {
+      setUsername(e.target.value);
+    } else if (e.target.id === "password" && e.target.value.length <= 32) {
+      setPassword(e.target.value);
+    }
+    setErrMsgToggle(false); // エラーを解除
   };
+
   const toggleIcon = () => setPassToggle(!passToggle);
 
   return (
@@ -99,38 +99,82 @@ export const Login = memo(() => {
             </a>
             から
           </p>
-          <form className="relative mt-8 mb-2 w-[210px] space-y-2 text-center">
-            <input
-              id="username"
-              type="text"
-              value={username}
-              onChange={inputInfrom}
-              autoFocus
-              placeholder="ユーザーネーム"
-              className={[
-                errMsgToggle ? errorBorderMsg.showed : errorBorderMsg.base,
-              ]}
-            />
-            <input
-              id="password"
-              type={passToggle ? "text" : "password"}
-              value={password}
-              onChange={inputInfrom}
-              placeholder="パスワード"
-              className={[
-                errMsgToggle ? errorBorderMsg.showed : errorBorderMsg.base,
-              ]}
-            />
-            <span
-              onClick={toggleIcon}
-              className="absolute right-2 top-[50px] text-2xl text-slate-600"
-            >
-              {passToggle ? (
-                <BsFillEyeFill />
-              ) : (
-                <BsFillEyeSlashFill className="text-slate-400" />
-              )}
-            </span>
+          <form className="relative mt-8 mb-2 w-[280px] space-y-2 text-center">
+            <div>
+              <input
+                id="username"
+                type="text"
+                value={username}
+                onChange={inputInfrom}
+                autoFocus
+                placeholder="ユーザー名"
+                className={[
+                  errMsgToggle && !username
+                    ? errorBorderMsg.showed
+                    : errorBorderMsg.base,
+                ]}
+              />
+              <div className="relative h-4 w-full text-sm">
+                <div className="absolute left-0 top-0">
+                  {errMsgToggle && !username ? (
+                    <p className="text-red-600">
+                      ユーザー名を入力してください。
+                    </p>
+                  ) : (
+                    username.length === 12 && (
+                      <p className="text-sm text-red-600">
+                        文字数が最大です。
+                      </p>
+                    )
+                  )}
+                </div>
+                <p className="absolute right-0 top-0 text-slate-500">
+                  {username.length}/12
+                </p>
+              </div>
+            </div>
+            <div className="relative">
+              <input
+                id="password"
+                type={passToggle ? "text" : "password"}
+                value={password}
+                onChange={inputInfrom}
+                placeholder="パスワード"
+                className={[
+                  errMsgToggle && (!password || password.length < 6)
+                    ? errorBorderMsg.showed
+                    : errorBorderMsg.base,
+                ]}
+              />
+              <div className="flex justify-between">
+                {errMsgToggle && password.length < 6 ? (
+                  <p className="text-sm text-red-600">
+                    6文字以上入力してください。
+                  </p>
+                ) : password.length === 32 ? (
+                  <p className="text-sm text-red-600">
+                    文字数が最大です。
+                  </p>
+                ) : (
+                  <p className="text-[12px] text-slate-500">
+                    6文字以上32文字以内、半角英数字のみ、スペースなし
+                  </p>
+                )}
+                <p className="ml-2 text-sm text-slate-500">
+                  {password.length}/32
+                </p>
+              </div>
+              <span
+                onClick={toggleIcon}
+                className="absolute right-2 top-2 text-2xl text-slate-600"
+              >
+                {passToggle ? (
+                  <BsFillEyeFill />
+                ) : (
+                  <BsFillEyeSlashFill className="text-slate-400" />
+                )}
+              </span>
+            </div>
           </form>
           <a href="/password-change" className="text-sm text-blue-800">
             パスワードを忘れた場合
@@ -143,14 +187,7 @@ export const Login = memo(() => {
           >
             はじめる
           </button>
-          <a href="/public" className="text-sm text-blue-800">
-            みんなのフォトブックを見に行く
-          </a>
-          <ErrorMsgWindow
-            msgToggle={errMsgToggle}
-            msgText={errMsgText}
-            headerText="注意"
-          />
+          {/* <ErrorMsgWindow msgToggle={errMsgToggle} msgText={errMsgText} /> */}
         </div>
       </div>
       <Footer />

@@ -4,7 +4,7 @@ import { ErrIcon } from "../icon/ErrIcon";
 // カスタムフック
 import { useStyle } from "../../custom/useStyle";
 
-export const ErrorMsgWindow = memo(({ msgToggle, msgText, headerText }) => {
+export const ErrorMsgWindow = memo(({ msgToggle, msgText }) => {
   const { messageWindow } = useStyle();
   const { errorMsg } = messageWindow;
   // msgToggle → bool値 // msgText → メッセージテキスト

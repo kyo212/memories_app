@@ -13,6 +13,7 @@ import { BsFillBookmarkFill } from "react-icons/bs";
 import { BsArrowRepeat } from "react-icons/bs";
 import { BsPencil } from "react-icons/bs";
 import { BsTrash } from "react-icons/bs";
+import { BsBoxArrowUpLeft } from "react-icons/bs";
 // コンポーネント UI系
 import { ChangeFont } from "../atoms/ChangeFont";
 import { Button } from "../atoms/button/Button";
@@ -100,72 +101,75 @@ export const Book = memo(() => {
   }, [update]);
 
   const insertItem = async (type) => {
-    // awsのバケットURLを取得
-    await Axios.post(`http://${process.env.REACT_APP_PUBLIC_IP}/s3Url`).then(
-      (response) => {
-        const { url } = response.data;
+    if (!imageFile && !videoFile) {
+      setErrMsgToggle(true);
+    } else {
+      // awsのバケットURLを取得
+      await Axios.post(`http://${process.env.REACT_APP_PUBLIC_IP}/s3Url`).then(
+        (response) => {
+          const { url } = response.data;
 
-        // 入力した情報をDBに追加
-        const insert = async (bookImage, bookVideo) => {
-          // バリデーション
-          if (
-            type === "mediaAndText" &&
-            !bookContentTitle &&
-            !bookContentDesc
-          ) {
-            // type(mediaAndText)かつタイトルと説明が空である場合
-            setErrMsgToggle(true);
-          } else if (
-            type === "mediaOnly" ||
-            (type === "mediaAndText" && bookContentTitle && bookContentDesc)
-          ) {
-            await Axios.post(
-              `http://${process.env.REACT_APP_PUBLIC_IP}/insert`,
-              {
-                bookId, // デフォルト
-                username, // デフォルト
-                bookImage, // 任意追加 nullを許可
-                bookVideo, // 任意追加 nullを許可
-                bookContentTitle, // 必須追加
-                bookContentDesc, // 必須追加
-              }
-            ).then((response) => {
-              const { result, err } = response.data;
-              console.log({ result, err });
-              // 初期化
-              setImageUrl("");
-              setVideoUrl("");
-              setImageFile("");
-              setVideoFile("");
-              setBookContentTitle("");
-              setBookContentDesc("");
-              // アップデート
-              setTimeout(() => setUpdate(!update), 1000);
-            });
+          // 入力した情報をDBに追加
+          const insert = async (bookImage, bookVideo) => {
+            // バリデーション
+            if (
+              type === "mediaAndText" &&
+              !bookContentTitle &&
+              !bookContentDesc
+            ) {
+              // type(mediaAndText)かつタイトルと説明が空である場合
+              setErrMsgToggle(true);
+            } else if (
+              type === "mediaOnly" ||
+              (type === "mediaAndText" && bookContentTitle && bookContentDesc)
+            ) {
+              await Axios.post(
+                `http://${process.env.REACT_APP_PUBLIC_IP}/insert`,
+                {
+                  bookId, // デフォルト
+                  username, // デフォルト
+                  bookImage, // 任意追加 nullを許可
+                  bookVideo, // 任意追加 nullを許可
+                  bookContentTitle, // 必須追加
+                  bookContentDesc, // 必須追加
+                }
+              ).then((response) => {
+                const { result, err } = response.data;
+                console.log({ result, err });
+                // 初期化
+                setImageUrl("");
+                setVideoUrl("");
+                setImageFile("");
+                setVideoFile("");
+                setBookContentTitle("");
+                setBookContentDesc("");
+                // アップデート
+                setTimeout(() => setUpdate(!update), 1000);
+              });
+            }
+          };
+
+          // 画像パスの生成
+          fetch(url, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+            body:
+              imageFile !== "" // imageの値が入っている場合
+                ? imageFile // imageを渡す
+                : videoFile !== "" && videoFile, // videoの値が入っている場合はvideoを渡す
+          });
+          const bookMedia = url.split("?")[0]; // imageかvideoのURL
+
+          if (imageFile) {
+            insert(bookMedia, "");
+          } else if (videoFile) {
+            insert("", bookMedia);
           }
-        };
-
-        // 画像パスの生成
-        fetch(url, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-          body:
-            imageFile !== "" // imageの値が入っている場合
-              ? imageFile // imageを渡す
-              : videoFile !== "" && videoFile, // videoの値が入っている場合はvideoを渡す
-        });
-        const bookMedia = url.split("?")[0]; // imageかvideoのURL
-
-        if (imageFile) {
-          // imageの値が入っている場合
-          insert(bookMedia, "");
-        } else if (videoFile) {
-          insert("", bookMedia);
         }
-      }
-    );
+      );
+    }
   };
 
   const deleteItem = async (id) => {
@@ -185,14 +189,20 @@ export const Book = memo(() => {
   };
 
   const addInform = (e) => {
-    e.target.id === "title"
-      ? setBookContentTitle(e.target.value)
-      : setBookContentDesc(e.target.value);
+    if (e.target.id === "title" && e.target.value.length <= 25) {
+      setBookContentTitle(e.target.value);
+    } else if (e.target.id === "description" && e.target.value.length <= 60) {
+      setBookContentDesc(e.target.value);
+    }
     setErrMsgToggle(false);
   };
 
-  const changeBtn = () => {
-    setAddTypeChange(true);
+  const changeBtn = (e) => {
+    if (e.target.id === "mediaAndTextBtn") {
+      setAddTypeChange(false);
+    } else {
+      setAddTypeChange(true);
+    }
     setErrMsgToggle(false);
   };
 
@@ -265,11 +275,30 @@ export const Book = memo(() => {
               <button className="fixed left-2 bottom-2 z-50 flex items-center text-sm text-slate-500">
                 {publicBookMenu ? (
                   // 通常
-                  <a href="/mybooks">前へ戻る</a>
+                  <a href="/mybooks" className="flex items-center">
+                    <span className="mr-1">
+                      <BsBoxArrowUpLeft />
+                    </span>
+                    戻る
+                  </a>
                 ) : (
                   // publicな時
-                  <a href="/public">前へ戻る</a>
+                  <a href="/public">
+                    <BsBoxArrowUpLeft />
+                  </a>
                 )}
+              </button>
+              <button
+                onClick={() => {
+                  window.scrollTo({
+                    top: 0, //上からの位置
+                    left: 100, //左からの位置
+                    behavior: "smooth", //smoothでスクロールしながら移動
+                  });
+                }}
+                className="fixed left-16 bottom-2 z-50 flex items-center text-sm text-slate-500"
+              >
+                追加
               </button>
 
               {/* コンテンツ */}
@@ -354,22 +383,22 @@ export const Book = memo(() => {
                         >
                           <div className="relative h-full w-[90%] pt-4">
                             <div className="relative">
-                              <p className="text-xl font-bold text-slate-800">
+                              <p className="w-[80%] text-lg font-bold text-slate-800">
                                 {title}
                               </p>
                               <button
                                 onClick={() => deleteItemToggle(pageId, title)}
-                                className={`${iconStyle} right-0 top-1/2 -translate-y-1/2`}
+                                className={`${iconStyle} right-0 top-2 -translate-y-1/2`}
                               >
                                 <BsTrash />
                               </button>
                               <button
-                                className={`${iconStyle} right-8 top-1/2 -translate-y-1/2`}
+                                className={`${iconStyle} right-8 top-2 -translate-y-1/2`}
                               >
                                 <BsPencil />
                               </button>
                             </div>
-                            <div className="mt-4 w-[80%]">
+                            <div className="mt-4 w-full">
                               <p className="text-md text-slate-600">
                                 {description}
                               </p>
@@ -387,67 +416,23 @@ export const Book = memo(() => {
                 )}
               </>
 
-              {/* 追加画面 画像と動画のみ */}
-              <SwiperSlide>
-                {addTypeChange ? (
-                  <div className="h-full w-screen snap-start snap-always">
-                    {/* 画像 */}
-                    <div className="relative flex h-screen w-screen flex-col items-center justify-center">
-                      <div className="relative h-[70%] w-[75%] rounded-lg border border-slate-300 bg-slate-100 object-cover">
-                        {!imageUrl &&
-                          !videoUrl && ( // 画像と動画を設定されていない時だけ
-                            <div className=" absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform rounded-full border p-4 text-xl text-slate-500">
-                              <BsUpload />
-                            </div>
-                          )}
-                        <ImageUrlCreate
-                          imageSize="h-full w-screen"
-                          imageStyle="h-full w-full rounded-lg object-cover"
-                          videoStyle="h-full w-full rounded-lg object-cover"
-                          acceptType="image/*,video/*"
-                          disabled={false}
-                          imageUrl={imageUrl}
-                          video={{
-                            videoUrl,
-                            videoAutoPlay: true,
-                            videoCtrl: false,
-                            videoLoop: true,
-                          }}
-                        />
-                      </div>
-                      <div className="w-[90%]">
-                        <button
-                          onClick={() => setAddTypeChange(false)}
-                          className="mt-2 flex items-center space-x-2 text-sm text-sky-800"
-                        >
-                          <span className="text-lg">
-                            <BsArrowRepeat />
-                          </span>
-                          <span>画像と文章を追加</span>
-                        </button>
-                        <div className="absolute bottom-5 my-4 w-[90%] space-y-2">
-                          <Button clickBtn={() => insertItem("mediaOnly")}>
-                            追加する
-                          </Button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ) : (
-                  // 追加画面 画像とテキストあり
-                  <div className="h-screen w-screen snap-start snap-always">
-                    {/* 画像 */}
-                    <div className="relative h-1/2 w-screen bg-slate-100">
+              {/* 追加画面 画像・動画のみ */}
+              <div className=""></div>
+              {addTypeChange ? (
+                <div className="h-full w-screen snap-start snap-always">
+                  {/* 画像 */}
+                  <div className="relative flex h-screen w-screen flex-col items-center justify-center">
+                    <div className="relative h-[70%] w-[75%] rounded-lg border border-slate-300 bg-slate-100 object-cover">
                       {!imageUrl &&
                         !videoUrl && ( // 画像と動画を設定されていない時だけ
-                          <div className=" absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform rounded-full border p-4 text-xl text-slate-500">
+                          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform rounded-full border-2 bg-white p-4 text-xl text-slate-500">
                             <BsUpload />
                           </div>
                         )}
                       <ImageUrlCreate
                         imageSize="h-full w-screen"
-                        imageStyle="h-full w-full object-cover"
-                        videoStyle="h-full w-full object-cover"
+                        imageStyle="h-full w-full rounded-lg object-cover"
+                        videoStyle="h-full w-full rounded-lg object-cover"
                         acceptType="image/*,video/*"
                         disabled={false}
                         imageUrl={imageUrl}
@@ -459,64 +444,151 @@ export const Book = memo(() => {
                         }}
                       />
                     </div>
-
-                    {/* テキスト */}
-                    <div className="relative flex h-1/2 w-screen justify-center">
-                      <div className="h-[82%] w-[90%]">
-                        <div className="mt-3">
-                          <label className="flex flex-col text-sm font-bold">
-                            タイトル
-                            <input
-                              id="title"
-                              type="text"
-                              placeholder="タイトルを入力"
-                              value={bookContentTitle}
-                              onChange={addInform}
-                              className={`${[
-                                errMsgToggle
-                                  ? errorBorderMsg.showed
-                                  : errorBorderMsg.base,
-                              ]} focus:border-sky-600`}
-                            />
-                          </label>
-                        </div>
-                        <div className="mt-2">
-                          <label className="flex flex-col text-sm font-bold">
-                            説明
-                            <textarea
-                              id="textarea"
-                              cols="40"
-                              rows="2"
-                              placeholder="説明を入力"
-                              value={bookContentDesc}
-                              onChange={addInform}
-                              className={`${[
-                                errMsgToggle
-                                  ? errorBorderMsg.showed
-                                  : errorBorderMsg.base,
-                              ]} outline-none focus:border-sky-600`}
-                            />
-                          </label>
-                        </div>
-                        <button
-                          onClick={changeBtn}
-                          className="mt-2 flex items-center space-x-2 text-sm text-sky-800"
-                        >
-                          <span className="text-lg">
-                            <BsArrowRepeat />
-                          </span>
-                          <span>画像もしくは動画だけを追加</span>
-                        </button>
-                        <div className="absolute bottom-5 my-4 w-[90%] space-y-2">
-                          <Button clickBtn={() => insertItem("mediaAndText")}>
-                            追加する
-                          </Button>
-                        </div>
+                    {errMsgToggle && !imageFile && !videoFile && (
+                      <p className="mx-2 mt-1 text-sm text-red-600">
+                        画像を選択してください。
+                      </p>
+                    )}
+                    <div className="w-[90%]">
+                      <button
+                        id="mediaAndTextBtn"
+                        onClick={changeBtn}
+                        className="mt-2 flex items-center space-x-2 text-sm text-sky-800"
+                      >
+                        <span className="text-lg">
+                          <BsArrowRepeat />
+                        </span>
+                        画像と文章を追加
+                      </button>
+                      <div className="absolute bottom-5 my-4 w-[90%] space-y-2">
+                        <Button clickBtn={() => insertItem("mediaOnly")}>
+                          追加する
+                        </Button>
                       </div>
                     </div>
                   </div>
-                )}
-              </SwiperSlide>
+                </div>
+              ) : (
+                // 追加画面 画像とテキストあり
+                <div className="h-screen w-screen snap-start snap-always">
+                  {/* 画像 */}
+                  <div className="relative h-1/2 w-screen bg-slate-100">
+                    {!imageUrl &&
+                      !videoUrl && ( // 画像と動画を設定されていない時だけ
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform rounded-full border-2 bg-white p-4 text-xl text-slate-500">
+                          <BsUpload />
+                        </div>
+                      )}
+                    <ImageUrlCreate
+                      imageSize="h-full w-screen"
+                      imageStyle="h-full w-full object-cover"
+                      videoStyle="h-full w-full object-cover"
+                      acceptType="image/*,video/*"
+                      disabled={false}
+                      imageUrl={imageUrl}
+                      video={{
+                        videoUrl,
+                        videoAutoPlay: true,
+                        videoCtrl: false,
+                        videoLoop: true,
+                      }}
+                    />
+                  </div>
+                  {errMsgToggle && !imageFile && !videoFile && (
+                    <p className="mx-2 mt-1 text-sm text-red-600">
+                      画像を選択してください。
+                    </p>
+                  )}
+
+                  {/* テキスト */}
+                  <div className="relative flex h-1/2 w-screen justify-center">
+                    <div className="h-[82%] w-[90%]">
+                      <div className="relative mt-3">
+                        <label className="flex flex-col text-sm font-bold">
+                          タイトル
+                          <input
+                            id="title"
+                            type="text"
+                            placeholder="タイトルを入力"
+                            value={bookContentTitle}
+                            onChange={addInform}
+                            className={`${[
+                              errMsgToggle && !bookContentTitle
+                                ? errorBorderMsg.showed
+                                : errorBorderMsg.base,
+                            ]} focus:border-sky-600`}
+                          />
+                        </label>
+                        {
+                          <p className="absolute right-0 top-full text-sm text-slate-500">
+                            {bookContentTitle.length}/25
+                          </p>
+                        }
+                      </div>
+                      {errMsgToggle && !bookContentTitle ? (
+                        <p className="text-sm text-red-600">
+                          タイトルを入力してください。
+                        </p>
+                      ) : (
+                        bookContentTitle.length === 25 && (
+                          <p className="text-sm text-red-600">
+                            文字数が最大です。
+                          </p>
+                        )
+                      )}
+                      <div className="relative mt-2">
+                        <label className="flex flex-col text-sm font-bold">
+                          説明
+                          <textarea
+                            id="description"
+                            cols="40"
+                            rows="2"
+                            placeholder="説明を入力"
+                            value={bookContentDesc}
+                            onChange={addInform}
+                            className={`${[
+                              errMsgToggle && !bookContentDesc
+                                ? errorBorderMsg.showed
+                                : errorBorderMsg.base,
+                            ]} outline-none focus:border-sky-600`}
+                          />
+                        </label>
+                        {
+                          <p className="absolute right-0 top-full text-sm text-slate-500">
+                            {bookContentDesc.length}/60
+                          </p>
+                        }
+                      </div>
+                      {errMsgToggle && !bookContentDesc ? (
+                        <p className="text-sm text-red-600">
+                          説明を入力してください。
+                        </p>
+                      ) : (
+                        bookContentDesc.length === 60 && (
+                          <p className="text-sm text-red-600">
+                            文字数が最大です。
+                          </p>
+                        )
+                      )}
+                      <button
+                        id="mediaOnlyBtn"
+                        onClick={changeBtn}
+                        className="mt-2 flex items-center space-x-2 text-sm text-sky-800"
+                      >
+                        <span className="text-lg">
+                          <BsArrowRepeat />
+                        </span>
+                        画像か動画だけを追加
+                      </button>
+                      <div className="absolute bottom-5 my-4 w-[90%] space-y-2">
+                        <Button clickBtn={() => insertItem("mediaAndText")}>
+                          追加する
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
             </Swiper>
           </div>
         )}
