@@ -1,13 +1,16 @@
 import { memo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 // アイコン
-import { BsReply } from "react-icons/bs";
-import { BsReplyFill } from "react-icons/bs";
-import { BsPencil } from "react-icons/bs";
-import { BsShare } from "react-icons/bs";
-import { BsBookmark } from "react-icons/bs";
-import { BsTrash } from "react-icons/bs";
-import { BsSticky } from "react-icons/bs";
+import {
+  BsReply,
+  BsX,
+  BsReplyFill,
+  BsPencil,
+  BsShare,
+  BsBookmark,
+  BsTrash,
+  BsSticky,
+} from "react-icons/bs";
 // コンポーネント
 import { BookRibbon } from "../atoms/style/BookRibbon";
 import { ImageUrlCreate } from "./ImageUrlCreate";
@@ -38,7 +41,8 @@ export const Books = memo(
     // ナビゲーション
     const navigate = useNavigate();
     // カスタムフック
-    const { bookOpenAnimation } = useStyle();
+    const { messageWindow, bookOpenAnimation } = useStyle();
+    const { errorBorderMsg } = messageWindow;
 
     // スタイル共通化
     const bookStyle =
@@ -224,28 +228,28 @@ export const Books = memo(
                         </p>
                       </>
                     ) : (
-                      <>
-                        <input
-                          type="text"
-                          className="w-[60%] border px-2 py-1 text-lg"
-                        />
-                        <button onClick={bookTitleEditToggle}>*</button>
-                      </>
+                      <div className="flex items-center">
+                        <div className="h-8 w-40 text-sm">
+                          <input
+                            type="text"
+                            placeholder="タイトルを編集する"
+                            className={`${errorBorderMsg.base} focus:border-sky-600`}
+                          />
+                        </div>
+                        <button
+                          onClick={bookTitleEditToggle}
+                          className="text-xl"
+                        >
+                          <BsX />
+                        </button>
+                      </div>
                     )}
                     <div className="mt-2 flex select-none items-center justify-center text-[12px] leading-5 text-slate-400">
                       <p>{date}</p>
                       <p className="mx-2">-</p>
-                      {!bookTitleEdit ? (
-                        <p>
-                          <ChangeJapanese category={category} />
-                        </p>
-                      ) : (
-                        <input
-                          type="text"
-                          placeholder="カテゴリー"
-                          className="w-[88px] border px-2 py-1"
-                        />
-                      )}
+                      <p>
+                        <ChangeJapanese category={category} />
+                      </p>
                     </div>
                   </div>
                   <ImageUrlCreate

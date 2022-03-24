@@ -68,10 +68,12 @@ export const Login = memo(() => {
   };
 
   const inputInfrom = (e) => {
-    if (e.target.id === "username" && e.target.value.length <= 12) {
-      setUsername(e.target.value);
-    } else if (e.target.id === "password" && e.target.value.length <= 32) {
-      setPassword(e.target.value);
+    const id = e.target.id;
+    const value = e.target.value;
+    if (id === "username" && value.length <= 12) {
+      setUsername(value);
+    } else if (id === "password" && value.length <= 32) {
+      setPassword(value);
     }
     setErrMsgToggle(false); // エラーを解除
   };
@@ -122,9 +124,7 @@ export const Login = memo(() => {
                     </p>
                   ) : (
                     username.length === 12 && (
-                      <p className="text-sm text-red-600">
-                        文字数が最大です。
-                      </p>
+                      <p className="text-sm text-red-600">文字数が最大です。</p>
                     )
                   )}
                 </div>
@@ -152,9 +152,7 @@ export const Login = memo(() => {
                     6文字以上入力してください。
                   </p>
                 ) : password.length === 32 ? (
-                  <p className="text-sm text-red-600">
-                    文字数が最大です。
-                  </p>
+                  <p className="text-sm text-red-600">文字数が最大です。</p>
                 ) : (
                   <p className="text-[12px] text-slate-500">
                     6文字以上32文字以内、半角英数字のみ、スペースなし

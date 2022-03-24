@@ -34,8 +34,9 @@ export const AddBookModal = memo(
     const { imageUrl, setDefaultIndex, setImageUrl } = useContext(Context);
 
     const inputInform = (e) => {
-      if (e.target.value.length <= 12) {
-        setBookTitle(e.target.value);
+      const value = e.target.value;
+      if (value.length <= 12) {
+        setBookTitle(value);
       }
       // 追加時に足りない情報があった場合に出るエラーの際、情報を入力し始めたらエラーメッセージをオフにする
       setErrMsgToggle(false);

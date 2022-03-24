@@ -78,7 +78,10 @@ app.post("/register", async (req, res) => {
         });
         res.json({ result: true, msg: "新規登録が完了しました。" });
       } else {
-        res.json({ result: false, msg: "このユーザー名は既に使用されています。" });
+        res.json({
+          result: false,
+          msg: "このユーザー名は既に使用されています。",
+        });
       }
     });
   }
@@ -276,20 +279,28 @@ app.post("/s3Url", async (req, res) => {
 });
 
 app.put("/put", async (req, res) => {
-  const { id, num, type } = req.body;
+  const { id, num, type, title, description } = req.body;
 
   const sqlFavoriteUpdate =
     "UPDATE book_list SET favorite = ? WHERE bookId = ?";
   const sqlShareUpdate = "UPDATE book_list SET shareId = ? WHERE bookId = ?";
+  const sqlTextUpdate =
+    "UPDATE book_content SET title = ?, description = ? WHERE pageId = ?";
 
-  await db.query(
-    (type === "favorite" && sqlFavoriteUpdate) ||
-      (type === "share" && sqlShareUpdate),
-    [num, id],
-    (err, result) => {
+  if (type === "editText") {
+    await db.query(sqlTextUpdate, [title, description, id], (err, result) => {
       res.json({ result: result, err: err });
-    }
-  );
+    });
+  } else {
+    await db.query(
+      (type === "favorite" && sqlFavoriteUpdate) ||
+        (type === "share" && sqlShareUpdate),
+      [num, id],
+      (err, result) => {
+        res.json({ result: result, err: err });
+      }
+    );
+  }
 });
 
 app.listen(PORT);

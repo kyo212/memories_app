@@ -6,7 +6,6 @@ export const ConfirmDialog = memo(
   ({
     message,
     setConfirmWindowOpen,
-    setBookOpen,
     deleteItem,
     deleteInform,
   }) => {
@@ -21,7 +20,7 @@ export const ConfirmDialog = memo(
 
     const confirmDeleteSelect = (e) => {
       e.target.id === "yes" && deleteItem(deleteId);
-      setBookOpen(false);
+      setConfirmWindowOpen(false)
     };
 
     return (

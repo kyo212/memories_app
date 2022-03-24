@@ -93,17 +93,19 @@ export const Register = memo(() => {
   };
 
   const inputInform = (e) => {
-    if (e.target.id === "username" && e.target.value.length <= 12) {
-      setUsername(e.target.value);
-    } else if (e.target.id === "password" && e.target.value.length <= 32) {
-      let targetVal = e.target.value;
+    const id = e.target.id;
+    const value = e.target.value;
+    if (id === "username" && value.length <= 12) {
+      setUsername(value);
+    } else if (id === "password" && value.length <= 32) {
+      const targetVal = value;
       if (targetVal.match(/^[\x20-\x7e]*$/)) {
         // \x20-\x7e - すべてのASCII(アスキー)文字に一致する正規表現
         // 半角英数字と記号のみ 半角カナ文字NG
-        const newStr = targetVal.split(" ").join("");
-        // splitの引数は区切り文字。上記の場合、空白が入力されたら空白で区切ると言う意味。「abc def」は["abc","def"]と一つの配列にまとまる。この配列内の要素をjoinメソッドによって連結させる。
+        const newValue = targetVal.split(" ").join("");
+        // splitの引数は区切り文字。上記の場合、空白が入力されたらそこで区切ると言う意味。「abc def」は["abc","def"]のように、一つの配列にまとまる。この配列内の要素をjoinメソッドによって連結させる。
         // join - 引数未指定の場合は連結後、コンマで区切られる。引数が""の場合は連結後の区切り文字がなくなる。"-"の場合はハイフンで区切られる。
-        setPassword(newStr);
+        setPassword(newValue);
       }
     }
     setErrMsgToggle(false);
@@ -161,9 +163,7 @@ export const Register = memo(() => {
                           "このユーザー名は既に使用されています。" ? (
                         <p>{errMsgText}</p>
                       ) : (
-                        username.length === 12 && (
-                          <p>文字数が最大です。</p>
-                        )
+                        username.length === 12 && <p>文字数が最大です。</p>
                       )}
                     </div>
                     <p className="absolute right-0 top-0 text-sm text-slate-500">
@@ -190,9 +190,7 @@ export const Register = memo(() => {
                         6文字以上入力してください。
                       </p>
                     ) : password.length === 32 ? (
-                      <p className="text-sm text-red-600">
-                        文字数が最大です。
-                      </p>
+                      <p className="text-sm text-red-600">文字数が最大です。</p>
                     ) : (
                       <p className="text-[12px] text-slate-500">
                         6文字以上32文字以内、半角英数字のみ、スペースなし

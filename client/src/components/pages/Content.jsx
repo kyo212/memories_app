@@ -188,13 +188,13 @@ export const Content = memo(() => {
       bookItems.length === 1 && setBookItems([]);
       setUpdate(!update);
     });
-    setConfirmWindowOpen(false)
+    setConfirmWindowOpen(false);
   };
 
   const favoriteState = async (id, num) => {
     await Axios.put(`http://${process.env.REACT_APP_PUBLIC_IP}/put`, {
       id,
-      num,
+      num: Number(num),
       type: "favorite",
     });
     setUpdate(!update);
@@ -376,7 +376,6 @@ export const Content = memo(() => {
           deleteInform={deleteInform} // 削除するアイテムのid
           deleteItem={deleteItem} // 削除する関数
           setConfirmWindowOpen={setConfirmWindowOpen}
-          setBookOpen={setBookOpen}
         />
       </div>
     </>

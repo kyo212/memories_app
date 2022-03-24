@@ -2,14 +2,15 @@ import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 // アイコン
 import { VscTriangleDown } from "react-icons/vsc";
-import { BsBoxArrowUpRight, BsSortDown } from "react-icons/bs";
-import { BsQuestionCircle } from "react-icons/bs";
-import { BsCaretRightFill } from "react-icons/bs";
-import { BsFillBookmarkFill } from "react-icons/bs";
-import { BsBookmark } from "react-icons/bs";
-import { BsSortUpAlt } from "react-icons/bs";
-import { BsSortUp } from "react-icons/bs";
-import { SuccessIcon } from "../../atoms/icon/SuccessIcon";
+import {
+  BsBoxArrowUpRight,
+  BsSortDown,
+  BsQuestionCircle,
+  BsCaretRightFill,
+  BsFillBookmarkFill,
+  BsBookmark,
+  BsSortUp,
+} from "react-icons/bs";
 // カスタムフック
 import { useStyle } from "../../custom/useStyle";
 // コンポーネント
@@ -56,6 +57,7 @@ export const MenuOpenModal = ({
     setMenuToggle(!menuToggle);
     setSearchToggle(false);
     setHeaderToggle(false);
+    setSortMenu(false);
     setFillterMenu(false);
   };
 
@@ -126,7 +128,7 @@ export const MenuOpenModal = ({
             <button onClick={sortMenuToggle} className={menuListStyle}>
               <div className="flex items-center">
                 <div className="ml-2 flex items-center">
-                  {sortMenu ? ( 
+                  {sortMenu ? (
                     <BsCaretRightFill className="mr-2 rotate-90 transform" />
                   ) : (
                     <BsCaretRightFill className="mr-2" />
