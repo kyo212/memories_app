@@ -193,21 +193,12 @@ export const PublicBooks = memo(() => {
                   <div className="w-screen">
                     <div className="fixed top-16 flex h-[50%] w-full flex-col items-center justify-around bg-white">
                       <div>
-                        <div className="flex flex-col items-center justify-center">
-                          <p className="flex h-10 w-10 animate-bounce items-center justify-center rounded-full border border-slate-400 bg-white text-slate-800 shadow-md">
-                            <BsArrowUp />
-                          </p>
-                        </div>
                         <div className="mt-10 flex flex-col items-center">
                           <p className="text-bold my-2 text-xl font-bold text-slate-500">
                             まだ何もありません
                           </p>
-                          <p className="text-bold text-slate-500">
-                            まずは本を追加してみましょう
-                          </p>
-                          <p className="text-bold my-8 flex items-center text-slate-500">
-                            <AiOutlinePlus className="mx-2 text-slate-800" />
-                            をクリックして追加
+                          <p className="text-bold w-[80%] text-slate-500">
+                            自分のフォトブックを共有するか、みんなのフォトブックが共有されるまで待ちましょう
                           </p>
                         </div>
                       </div>

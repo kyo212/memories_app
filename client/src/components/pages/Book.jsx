@@ -239,7 +239,7 @@ export const Book = memo(() => {
   };
 
   const editConfirm = async (id) => {
-    if (bookContentEditTitle && bookContentEditDesc) {
+    if (bookContentEditTitle || bookContentEditDesc) {
       await Axios.put(`http://${process.env.REACT_APP_PUBLIC_IP}/put`, {
         id,
         title: bookContentEditTitle,
@@ -387,14 +387,14 @@ export const Book = memo(() => {
                                 ? `h-full w-full object-cover`
                                 : !title &&
                                   !description &&
-                                  "h-[70%] w-[75%] object-cover rounded-lg",
+                                  "h-[80%] w-[85%] object-cover rounded-lg",
                             ]}
                             videoStyle={[
                               title && description
                                 ? "h-full w-full object-cover"
                                 : !title &&
                                   !description &&
-                                  "h-[70%] w-[75%] object-cover rounded-lg",
+                                  "h-[80%] w-[85%] object-cover rounded-lg",
                             ]}
                             disabled={true}
                             acceptType="image/*,video/*"

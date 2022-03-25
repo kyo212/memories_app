@@ -284,13 +284,24 @@ app.put("/put", async (req, res) => {
   const sqlFavoriteUpdate =
     "UPDATE book_list SET favorite = ? WHERE bookId = ?";
   const sqlShareUpdate = "UPDATE book_list SET shareId = ? WHERE bookId = ?";
+  const sqlTitleUpdate = "UPDATE book_content SET title = ? WHERE pageId = ?";
+  const sqlDescUpdate =
+    "UPDATE book_content SET description = ? WHERE pageId = ?";
   const sqlTextUpdate =
     "UPDATE book_content SET title = ?, description = ? WHERE pageId = ?";
 
   if (type === "editText") {
-    await db.query(sqlTextUpdate, [title, description, id], (err, result) => {
-      res.json({ result: result, err: err });
-    });
+    await db.query(
+      (title && description && sqlTextUpdate) ||
+        (title && !description && sqlTitleUpdate) ||
+        (!title && description && sqlDescUpdate),
+      (title && description && [title, description, id]) ||
+        (title && !description && [title, id]) ||
+        (!title && description && [description, id]),
+      (err, result) => {
+        res.json({ result: result, err: err });
+      }
+    );
   } else {
     await db.query(
       (type === "favorite" && sqlFavoriteUpdate) ||

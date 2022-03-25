@@ -74,9 +74,6 @@ export const AddBookModal = memo(
                 {/* タイトルバリデーション */}
                 {errMsgToggle && !bookTitle && (
                   <p className="flex text-sm text-red-600">
-                    <span className="absolute top-1/2 -left-7">
-                      <ErrIcon />
-                    </span>
                     タイトルを入力してください
                   </p>
                 )}
@@ -122,9 +119,6 @@ export const AddBookModal = memo(
                 {/* エラーバリデーション */}
                 {errMsgToggle && !imageUrl && (
                   <p className="flex text-sm text-red-600">
-                    <span className="absolute top-1/2 -left-7">
-                      <ErrIcon />
-                    </span>
                     表紙の画像を設定してください
                   </p>
                 )}
