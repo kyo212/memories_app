@@ -111,7 +111,8 @@ export const Login = memo(() => {
                 autoFocus
                 placeholder="ユーザー名"
                 className={[
-                  errMsgToggle && !username
+                  (errMsgToggle && !username) ||
+                  (errMsgToggle && errMsgText === "ユーザーが見つかりません。")
                     ? errorBorderMsg.showed
                     : errorBorderMsg.base,
                 ]}
