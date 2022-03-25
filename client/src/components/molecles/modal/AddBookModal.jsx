@@ -1,4 +1,4 @@
-import { useContext, memo, useState } from "react";
+import { useContext, memo } from "react";
 // カスタムフック
 import { useStyle } from "../../custom/useStyle";
 // アイコン

@@ -34,8 +34,6 @@ export const Books = memo(
     // props
     const { bookId, bookTitle, category, coverImage, date, favorite, shareId } =
       item;
-    // Toggle
-    const [bookTitleEdit, setBookTitleEdit] = useState(false);
     // 情報
     const [bookOpenId, setBookOpenId] = useState(0);
     // ナビゲーション
@@ -55,7 +53,6 @@ export const Books = memo(
     const bookOpenToggle = (bookId) => {
       setBookOpenId(bookId);
       setBookOpen(!bookOpen);
-      setBookTitleEdit(false);
     };
 
     const deleteItemToggle = ({ bookId, bookTitle, favorite }) => {
@@ -73,11 +70,6 @@ export const Books = memo(
     const favoriteBtnToggle = ({ bookId, favorite }) => {
       // 対象のidと現在のお気に入り状態(0か1)の逆をsetStateとして保持する
       favoriteState(bookId, !favorite);
-      setBookOpen(false);
-    };
-
-    const bookTitleEditToggle = () => {
-      setBookTitleEdit(!bookTitleEdit);
       setBookOpen(false);
     };
 
@@ -178,15 +170,6 @@ export const Books = memo(
                                 <BsShare />
                               </span>
                             </button>
-                            <button // タイトル編集ボタン
-                              onClick={bookTitleEditToggle}
-                              className={`${bookOpenTextStyle}`}
-                            >
-                              <span>編集</span>
-                              <span className="ml-2 text-sky-800">
-                                <BsPencil />
-                              </span>
-                            </button>
                             <button
                               onClick={() => deleteItemToggle(item)}
                               className={`${bookOpenTextStyle}`}
@@ -213,37 +196,17 @@ export const Books = memo(
                 {/* 表紙 */}
                 <div className="flex h-[360px] w-72 flex-col items-center rounded-sm  border border-slate-300 bg-white text-slate-700 shadow-inner sm:h-[600px] sm:w-[500px]">
                   <div className="text-bold flax mt-10 mb-8 flex-col text-center text-slate-800">
-                    {!bookTitleEdit ? (
-                      <>
-                        <p
-                          className={[
-                            bookTitle.length >= 10
-                              ? "text-md"
-                              : bookTitle.length >= 8
-                              ? "text-lg"
-                              : "text-xl",
-                          ]}
-                        >
-                          {bookTitle}
-                        </p>
-                      </>
-                    ) : (
-                      <div className="flex items-center">
-                        <div className="h-8 w-40 text-sm">
-                          <input
-                            type="text"
-                            placeholder="タイトルを編集する"
-                            className={`${errorBorderMsg.base} focus:border-sky-600`}
-                          />
-                        </div>
-                        <button
-                          onClick={bookTitleEditToggle}
-                          className="text-xl"
-                        >
-                          <BsX />
-                        </button>
-                      </div>
-                    )}
+                    <p
+                      className={[
+                        bookTitle.length >= 10
+                          ? "text-md"
+                          : bookTitle.length >= 8
+                          ? "text-lg"
+                          : "text-xl",
+                      ]}
+                    >
+                      {bookTitle}
+                    </p>
                     <div className="mt-2 flex select-none items-center justify-center text-[12px] leading-5 text-slate-400">
                       <p>{date}</p>
                       <p className="mx-2">-</p>
