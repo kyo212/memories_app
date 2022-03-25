@@ -127,6 +127,7 @@ export const Login = memo(() => {
                       <p className="text-sm text-red-600">文字数が最大です。</p>
                     )
                   )}
+                  {errMsgToggle && <p className="text-red-600">{errMsgText}</p>}
                 </div>
                 <p className="absolute right-0 top-0 text-slate-500">
                   {username.length}/12
