@@ -403,7 +403,7 @@ export const Book = memo(() => {
                               videoUrl: bookVideo,
                               videoAutoPlay: true,
                               videoCtrl: true,
-                              videoLoop: false,
+                              videoLoop: true,
                             }}
                           />
                           {!title && !description && (
