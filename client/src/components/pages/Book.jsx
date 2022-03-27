@@ -401,7 +401,7 @@ export const Book = memo(() => {
                             imageUrl={bookImage}
                             video={{
                               videoUrl: bookVideo,
-                              videoAutoPlay: false,
+                              videoAutoPlay: true,
                               videoCtrl: true,
                               videoLoop: false,
                             }}

@@ -334,7 +334,7 @@ export const Content = memo(() => {
                         <p className="text-bold text-slate-500">
                           まずは本を追加してみましょう
                         </p>
-                        <p className="text-bold my-8 flex items-center text-slate-500">
+                        <p className="text-bold my-8 flex items-center text-slate-500">ヘッダーの
                           <AiOutlinePlus className="mx-2 text-slate-800" />
                           をクリックして追加
                         </p>

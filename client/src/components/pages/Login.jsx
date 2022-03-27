@@ -7,10 +7,8 @@ import { useStyle } from "../custom/useStyle";
 import { HeaderRegBtn } from "../atoms/button/HeaderRegBtn";
 import { Footer } from "../organisms/Footer";
 import { Header } from "../organisms/Header";
-import { ErrorMsgWindow } from "../atoms/message/ErrorMsgWindow";
-// サードパーティ
-import { BsFillEyeFill } from "react-icons/bs";
-import { BsFillEyeSlashFill } from "react-icons/bs";
+// アイコン
+import { BsFillEyeFill, BsFillEyeSlashFill } from "react-icons/bs";
 // コンテキスト
 import { Context } from "../../App";
 
@@ -20,6 +18,7 @@ import { Context } from "../../App";
 
 export const Login = memo(() => {
   const navigate = useNavigate();
+  // Toggle
   const [passToggle, setPassToggle] = useState(false);
   // 情報
   const [username, setUsername] = useState("");
