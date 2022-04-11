@@ -10,7 +10,6 @@ import { ImageUrlCreate } from "../../organisms/ImageUrlCreate";
 import { Button } from "../../atoms/button/Button";
 // コンテキスト
 import { Context } from "../../../App";
-import { ErrIcon } from "../../atoms/icon/ErrIcon";
 
 export const AddBookModal = memo(
   ({
@@ -80,14 +79,14 @@ export const AddBookModal = memo(
                 <label className="flex flex-col">
                   {!errMsgToggle && (
                     <p className="text-sm font-bold text-slate-700">
-                      本のタイトル
+                      フォトブックのタイトル
                     </p>
                   )}
                   <input
                     type="text"
                     value={bookTitle}
                     autoFocus
-                    placeholder="本のタイトルを入力"
+                    placeholder="フォトブックのタイトルを入力"
                     onChange={inputInform}
                     className={[
                       `${
@@ -165,7 +164,7 @@ export const AddBookModal = memo(
             <div className="mt-5 flex w-full flex-col items-center">
               <div className="w-[75%]">
                 {/* 追加ボタン */}
-                <Button clickBtn={clickAddScroll}>本を追加する</Button>
+                <Button clickBtn={clickAddScroll}>フォトブックを追加する</Button>
               </div>
             </div>
           </div>
