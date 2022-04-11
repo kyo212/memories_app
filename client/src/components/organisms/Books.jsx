@@ -3,9 +3,7 @@ import { useNavigate } from "react-router-dom";
 // アイコン
 import {
   BsReply,
-  BsX,
   BsReplyFill,
-  BsPencil,
   BsShare,
   BsBookmark,
   BsTrash,
@@ -39,8 +37,7 @@ export const Books = memo(
     // ナビゲーション
     const navigate = useNavigate();
     // カスタムフック
-    const { messageWindow, bookOpenAnimation } = useStyle();
-    const { errorBorderMsg } = messageWindow;
+    const { bookOpenAnimation } = useStyle();
 
     // スタイル共通化
     const bookStyle =

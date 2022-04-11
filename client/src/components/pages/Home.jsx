@@ -7,20 +7,13 @@ import { BsBoxArrowUpRight } from "react-icons/bs";
 // コンポーネント
 import { HeaderLoginBtn } from "../atoms/button/HeaderLoginBtn";
 import { HeaderRegBtn } from "../atoms/button/HeaderRegBtn";
-import { Footer } from "../organisms/Footer";
 import { Header } from "../organisms/Header";
-// カスタムフック
-import { useStyle } from "../custom/useStyle";
 // コンテキスト
 import { Context } from "../../App";
 
 export const Home = memo(() => {
   const navigate = useNavigate();
-  const [category, setCategory] = useState("家族");
   const [scrollBtn, setScrollBtn] = useState(false);
-  // カスタムフック
-  const { tabs } = useStyle();
-  const { tabAnimation } = tabs;
   // コンテキスト
   const { headerToggle, setHeaderToggle } = useContext(Context);
   // スタイル共通化
@@ -184,7 +177,7 @@ export const Home = memo(() => {
           <BsArrowUp />
         </button>
         <div className="flex items-center justify-center">
-          <div className="mt-4 mb-20 flex items-center rounded-xl border bg-sky-600 px-3 py-2 text-sm font-bold text-white shadow-md">
+          <div className="mt-4 mb-20 flex items-center rounded-xl border bg-sky-600 px-3 py-2 text-sm font-bold text-white shadow-md active:bg-sky-900">
             <BsBoxArrowUpRight />
             <a href="/public" className="ml-2">
               みんなのフォトブック

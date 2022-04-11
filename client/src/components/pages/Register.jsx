@@ -239,7 +239,7 @@ export const Register = memo(() => {
                 onClick={register}
                 className={[
                   checkBoxFirst && checkBoxSecond
-                    ? "my-6 rounded-md bg-sky-600 p-2 px-4 font-bold text-white shadow-md"
+                    ? "my-6 rounded-md bg-sky-600 p-2 px-4 font-bold text-white shadow-md active:bg-sky-900"
                     : "my-6 cursor-not-allowed rounded-md bg-sky-900 p-2 px-4 font-bold text-white opacity-40 shadow-md",
                 ]}
               >

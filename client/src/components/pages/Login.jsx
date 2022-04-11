@@ -181,7 +181,7 @@ export const Login = memo(() => {
           <button
             onClick={login}
             className={
-              "mt-6 mb-4 rounded-md bg-sky-600 p-2 px-4 font-bold text-white shadow-md"
+              "mt-6 mb-4 rounded-md bg-sky-600 p-2 px-4 font-bold text-white shadow-md active:bg-sky-900"
             }
           >
             はじめる
