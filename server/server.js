@@ -151,7 +151,6 @@ app.post("/login", async (req, res) => {
             auth: true,
             token: token,
             result: result,
-            msg: "ログインが完了しました。",
           });
         } else {
           res.json({ result: false, msg: "パスワードが間違っています。" });

@@ -170,11 +170,11 @@ export const Home = memo(() => {
           onClick={clickScrollTop}
           className={[
             scrollBtn
-              ? "fixed bottom-2 right-2 transform animate-bounce rounded-full border bg-white p-4 opacity-100 shadow-md transition-all duration-1000"
+              ? "fixed bottom-2 right-2 transform animate-bounce rounded-full border border-black bg-slate-800 p-4 opacity-70 shadow-md transition-all duration-1000"
               : "transform opacity-0 transition-all duration-1000",
           ]}
         >
-          <BsArrowUp />
+          <BsArrowUp className="text-white" />
         </button>
         <div className="flex items-center justify-center">
           <div className="mt-4 mb-20 flex items-center rounded-xl border bg-sky-600 px-3 py-2 text-sm font-bold text-white shadow-md active:bg-sky-900">

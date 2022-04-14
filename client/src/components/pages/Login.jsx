@@ -52,14 +52,12 @@ export const Login = memo(() => {
       username,
       password,
     }).then((response) => {
-      const { auth, token, result, msg } = response.data;
-      console.log({ auth, token, result, msg });
+      const { msg } = response.data;
       setErrMsgText(msg);
       setErrMsgToggle(true);
       Axios.post(`http://${process.env.REACT_APP_PUBLIC_IP}/isUserAuth`).then(
         (response) => {
-          const { auth, msg } = response.data;
-          console.log({ auth, msg });
+          const { auth } = response.data;
           auth && navigate(`/mybooks`);
         }
       );
@@ -72,7 +70,10 @@ export const Login = memo(() => {
     if (id === "username" && value.length <= 12) {
       setUsername(value);
     } else if (id === "password" && value.length <= 32) {
-      setPassword(value);
+      if (value.match(/^[\x20-\x7e]*$/)) {
+        const newValue = value.split(" ").join("");
+        setPassword(newValue);
+      }
     }
     setErrMsgToggle(false); // エラーを解除
   };
@@ -186,7 +187,6 @@ export const Login = memo(() => {
           >
             はじめる
           </button>
-          {/* <ErrorMsgWindow msgToggle={errMsgToggle} msgText={errMsgText} /> */}
         </div>
       </div>
       <Footer />

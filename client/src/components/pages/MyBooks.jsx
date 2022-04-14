@@ -1,5 +1,4 @@
 import { memo, useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import Axios from "axios";
 // コンポーネント
 import { Content } from "./Content";
@@ -9,7 +8,6 @@ import { Content } from "./Content";
 // ------------------------------------------
 
 export const MyBooks = memo(() => {
-  const navigate = useNavigate();
   const [isAuth, setIsAuth] = useState(false);
 
   useEffect(() => {

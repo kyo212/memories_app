@@ -98,11 +98,10 @@ export const Register = memo(() => {
     if (id === "username" && value.length <= 12) {
       setUsername(value);
     } else if (id === "password" && value.length <= 32) {
-      const targetVal = value;
-      if (targetVal.match(/^[\x20-\x7e]*$/)) {
+      if (value.match(/^[\x20-\x7e]*$/)) {
         // \x20-\x7e - すべてのASCII(アスキー)文字に一致する正規表現
         // 半角英数字と記号のみ 半角カナ文字NG
-        const newValue = targetVal.split(" ").join("");
+        const newValue = value.split(" ").join("");
         // splitの引数は区切り文字。上記の場合、空白が入力されたらそこで区切ると言う意味。「abc def」は["abc","def"]のように、一つの配列にまとまる。この配列内の要素をjoinメソッドによって連結させる。
         // join - 引数未指定の場合は連結後、コンマで区切られる。引数が""の場合は連結後の区切り文字がなくなる。"-"の場合はハイフンで区切られる。
         setPassword(newValue);
@@ -245,7 +244,6 @@ export const Register = memo(() => {
               >
                 登録してはじめる
               </button>
-              {/* <ErrorMsgWindow msgToggle={errMsgToggle} msgText={errMsgText} /> */}
             </div>
           </div>
           <Footer />
