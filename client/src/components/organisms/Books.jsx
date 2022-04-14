@@ -98,7 +98,7 @@ export const Books = memo(
                 {/* 本の厚み */}
                 <BookRibbon favorite={favorite} bookId={bookId} />
                 <span
-                  className={`${bookStyle} shadow-3xl -right-2 -top-2  rounded-sm border-slate-300`}
+                  className={`${bookStyle} -right-2 -top-2  rounded-sm border-slate-300`}
                 />
                 <span className={`${bookStyle} -right-[6px] -top-[6px]`} />
                 <span className={`${bookStyle} -right-[4px] -top-[4px]`} />
