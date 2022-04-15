@@ -1,5 +1,5 @@
 import { memo, useState, useEffect, useContext } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Axios from "axios";
 // スライダー
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -31,7 +31,6 @@ import { ConfirmDialog } from "../atoms/message/ConfirmDialog";
 
 export const Book = memo(() => {
   // ルーター
-  const navigate = useNavigate();
   const location = useLocation();
   // 情報
   const [bookContents, setBookContents] = useState([]);
@@ -724,8 +723,8 @@ export const Book = memo(() => {
       <div
         className={[
           confirmWindowOpen
-            ? `${modalConfirmAnimation.showed} mt-0 pt-[50%]`
-            : `${modalConfirmAnimation.base} pt-0`,
+            ? `${modalConfirmAnimation.showed} pt-32`
+            : `${modalConfirmAnimation.base}`,
         ]}
       >
         <ConfirmDialog

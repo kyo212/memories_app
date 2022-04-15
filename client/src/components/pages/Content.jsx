@@ -142,7 +142,6 @@ export const Content = memo(() => {
         const insert = async () => {
           if (imageFile !== "" && bookTitle !== "") {
             // 入力した情報をDBに追加
-            console.log(category);
             await Axios.post(
               `http://${process.env.REACT_APP_PUBLIC_IP}/insert`,
               {
@@ -366,8 +365,8 @@ export const Content = memo(() => {
       <div
         className={[
           confirmWindowOpen
-            ? modalConfirmAnimation.showed
-            : modalConfirmAnimation.base,
+            ? `${modalConfirmAnimation.showed} pt-32`
+            : `${modalConfirmAnimation.base}`,
         ]}
       >
         <ConfirmDialog

@@ -1,6 +1,7 @@
 import { memo, useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
+import homeImage from "../../images/home_1.svg";
 // アイコン
 import { BsArrowUp } from "react-icons/bs";
 import { BsBoxArrowUpRight } from "react-icons/bs";
@@ -10,6 +11,7 @@ import { HeaderRegBtn } from "../atoms/button/HeaderRegBtn";
 import { Header } from "../organisms/Header";
 // コンテキスト
 import { Context } from "../../App";
+import { Button } from "../atoms/button/Button";
 
 export const Home = memo(() => {
   const navigate = useNavigate();
@@ -82,25 +84,10 @@ export const Home = memo(() => {
                 </p>
               </h2>
             </div>
-            <div className="mt-20 flex w-full justify-center font-bold text-slate-800">
-              <div className="flex h-52 w-52 flex-col justify-center space-y-2 rounded-full border-x border-b bg-white bg-opacity-60 py-4 text-center">
-                <p>
-                  思い出を
-                  <span className="ml-1 text-pink-600">残す</span>
-                </p>
-                <p>
-                  思い出を
-                  <span className="ml-1 text-blue-600">振り返る</span>
-                </p>
-                <p>
-                  思い出を
-                  <span className=" ml-1 text-amber-600">共有する</span>
-                </p>
-                <p>
-                  思い出を
-                  <span className=" ml-1 text-green-600">知る</span>
-                </p>
-              </div>
+            <div className="flex w-full justify-center">
+              <button className="flex items-center rounded-xl bg-sky-600 px-3 py-2 text-sm font-bold text-white shadow-md active:bg-sky-900">
+                ゲストユーザーで始める
+              </button>
             </div>
           </div>
         </section>
@@ -111,7 +98,8 @@ export const Home = memo(() => {
               <h3 className="mt-10 mb-8 border-b pb-4 text-xl font-bold text-slate-800">
                 memoriesとは
               </h3>
-              <div className="text-md space-y-2">
+              <img src={homeImage} alt="" />
+              <div className="text-md mt-10 space-y-2">
                 <p>思い出を残すフォトブックとして使えます。</p>
                 <p>
                   どんな小さな思い出も、大切な思い出も、memoriesに残すことができます。
