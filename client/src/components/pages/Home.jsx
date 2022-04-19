@@ -84,11 +84,6 @@ export const Home = memo(() => {
                 </p>
               </h2>
             </div>
-            <div className="flex w-full justify-center">
-              <button className="flex items-center rounded-xl bg-sky-600 px-3 py-2 text-sm font-bold text-white shadow-md active:bg-sky-900">
-                ゲストユーザーで始める
-              </button>
-            </div>
           </div>
         </section>
 

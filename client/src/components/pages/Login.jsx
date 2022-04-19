@@ -70,6 +70,7 @@ export const Login = memo(() => {
     if (id === "username" && value.length <= 12) {
       setUsername(value);
     } else if (id === "password" && value.length <= 32) {
+      // バリデーション
       if (value.match(/^[\x20-\x7e]*$/)) {
         const newValue = value.split(" ").join("");
         setPassword(newValue);
