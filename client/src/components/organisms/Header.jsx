@@ -24,7 +24,7 @@ export const Header = memo(({ root, children, headerOpen }) => {
         ]} fixed z-40 mt-2 flex h-[50px] w-full transform justify-center transition-transform`}
       >
         <div className="flex h-12 w-[96%] items-center  justify-between rounded-md ">
-          <h1 className="mx-4 select-none font-serif text-xl font-bold text-slate-800">
+          <h1 className="mx-4 select-none font-serif text-xl font-bold text-slate-800 sm:text-2xl">
             <a href={root}>memories</a>
           </h1>
           <div className="mx-4 flex h-12 items-center">
