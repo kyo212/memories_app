@@ -5,6 +5,8 @@ import homeImage1 from "../../images/home_image1.png";
 import homeImage2 from "../../images/home_image2.png";
 import homeImage3 from "../../images/home_image3.png";
 import homeImage4 from "../../images/home_image4.png";
+import homeImage5 from "../../images/home_image5.png";
+import homeImage6 from "../../images/home_image6.png";
 // アイコン
 import { BsArrowUp } from "react-icons/bs";
 import { BsBoxArrowUpRight } from "react-icons/bs";
@@ -106,11 +108,8 @@ export const Home = memo(() => {
                   : "-translate-y-10 opacity-0",
               ]} transform space-y-2 rounded-md py-2 px-4 text-xl font-bold text-slate-700 transition-all delay-700 duration-1000`}
             >
-              <p>
-                フォトブックに
-                <br />
-                思い出を自由に残そう。
-              </p>
+              <p>フォトブックに</p>
+              <p>思い出を自由に残そう。</p>
             </h2>
           </div>
         </section>
@@ -129,7 +128,7 @@ export const Home = memo(() => {
                   alt="イメージイラスト"
                   className="col-span-3"
                 />
-                <div className="text-md col-span-4 mt-10 space-y-2 text-left lg:mt-0 lg:text-xl">
+                <div className="text-md col-span-4 mt-10 space-y-2 rounded-md bg-white px-12 py-8 text-left shadow-md lg:mt-0 lg:text-lg">
                   <p>思い出を残すフォトブックとして使えます。</p>
                   <p>
                     どんな小さな思い出も、大切な思い出も、memoriesに残すことができます。
@@ -138,22 +137,29 @@ export const Home = memo(() => {
               </div>
             </div>
           </div>
-          <div className={`${contentStyle} bg-slate-100`}>
+          <div className={`${contentStyle} bg-slate-50`}>
             <div className={sentenceStyle}>
               <h3
                 className={`mt-10 mb-6 w-full border-b pb-4 text-lg font-bold text-slate-800 ${responsiveText}`}
               >
                 たくさんのフォトブックをつくることができます
               </h3>
-              <div className="space-y-4 rounded-md bg-white p-6 shadow-md">
-                <p className="font-bold">表紙を作成</p>
-                <p>
-                  フォトブックのタイトルを入力して、表紙に載せたい画像とカテゴリーを選ぶだけで簡単作成。
-                </p>
-                <p className="font-bold">フォトブックをつくる</p>
-                <p>
-                  表紙を作成したら、あとは好きな写真を載せて自由にフォトブックをつくるだけ。
-                </p>
+              <div className="grid-cols-7 items-center gap-10 lg:grid">
+                <div className="col-span-4 space-y-4 rounded-md bg-white px-12 py-8 shadow-md lg:text-lg">
+                  <p className="font-bold">表紙を作成</p>
+                  <p>
+                    フォトブックのタイトルを入力して、表紙に載せたい画像とカテゴリーを選ぶだけで簡単作成。
+                  </p>
+                  <p className="font-bold">フォトブックをつくる</p>
+                  <p>
+                    表紙を作成したら、あとは好きな写真を載せて自由にフォトブックをつくるだけ。
+                  </p>
+                </div>
+                <img
+                  src={homeImage4}
+                  alt="イメージイラスト"
+                  className="col-span-3"
+                />
               </div>
             </div>
           </div>
@@ -164,21 +170,37 @@ export const Home = memo(() => {
               >
                 思い出をふりかえることができます
               </h3>
-              <p>
-                スマホでも、パソコンでも、いつでもどこでも思い出を振り返ることができます。
-              </p>
+              <div className="grid-cols-7 items-center gap-10 lg:grid">
+                <img
+                  src={homeImage1}
+                  alt="イメージイラスト"
+                  className="col-span-3"
+                />
+                <div className="col-span-4 rounded-md bg-white px-12 py-8 shadow-md lg:text-lg">
+                  <p>
+                    スマホでも、パソコンでも、いつでもどこでも思い出を振り返ることができます。
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
-          <div className={`${contentStyle} bg-slate-100`}>
+          <div className={`${contentStyle} bg-slate-50`}>
             <div className={sentenceStyle}>
               <h3
                 className={`mt-10 mb-6 border-b pb-4 text-lg font-bold text-slate-800 ${responsiveText}`}
               >
                 みんなに思い出を見せることができます
               </h3>
-              <div className="space-y-4 rounded-md bg-white p-6 shadow-md">
-                <p>つくったフォトブックはみんなに共有することができます。</p>
-                <p>共有されたフォトブックは誰でも見ることができます。</p>
+              <div className="grid-cols-7 items-center gap-10 lg:grid">
+                <div className="col-span-4 space-y-4 rounded-md bg-white p-6 shadow-md lg:text-lg">
+                  <p>つくったフォトブックはみんなに共有することができます。</p>
+                  <p>共有されたフォトブックは誰でも見ることができます。</p>
+                </div>
+                <img
+                  src={homeImage5}
+                  alt="イメージイラスト"
+                  className="col-span-3"
+                />
               </div>
             </div>
           </div>
@@ -189,7 +211,16 @@ export const Home = memo(() => {
               >
                 みんなの思い出を知ることができます
               </h3>
-              <p>みんなの共有されたフォトブックを見ることができます。</p>
+              <div className="grid-cols-7 items-center gap-10 lg:grid">
+                <img
+                  src={homeImage6}
+                  alt="イメージイラスト"
+                  className="col-span-3"
+                />
+                <p className="col-span-3 space-y-4 rounded-md bg-white p-6 shadow-md lg:text-lg">
+                  みんなの共有されたフォトブックを見ることができます。
+                </p>
+              </div>
             </div>
           </div>
         </section>
@@ -212,7 +243,6 @@ export const Home = memo(() => {
           </div>
         </div>
       </main>
-      <footer>{/* <Footer /> */}</footer>
     </>
   );
 });
