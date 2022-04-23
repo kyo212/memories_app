@@ -1,7 +1,10 @@
 import { memo, useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
-import homeImage from "../../images/home_1.svg";
+import homeImage1 from "../../images/home_image1.png";
+import homeImage2 from "../../images/home_image2.png";
+import homeImage3 from "../../images/home_image3.png";
+import homeImage4 from "../../images/home_image4.png";
 // アイコン
 import { BsArrowUp } from "react-icons/bs";
 import { BsBoxArrowUpRight } from "react-icons/bs";
@@ -19,8 +22,11 @@ export const Home = memo(() => {
   // コンテキスト
   const { headerToggle, setHeaderToggle } = useContext(Context);
   // スタイル共通化
-  const contentStyle = "mb-10 pb-10 flex w-full justify-center text-center";
-  const sentenceStyle = "w-[85%] leading-6";
+  const contentStyle =
+    "mb-10 pb-10 flex w-full justify-center text-center lg:pb-20";
+  const sentenceStyle = "w-[85%] leading-6 lg:w-[70%]";
+  const responsiveText =
+    "sm:pb-6 sm:text-2xl md:text-3xl lg:my-24 xl:pb-10 xl:text-4xl";
 
   useEffect(() => {
     const getLoginState = () => {
@@ -80,7 +86,7 @@ export const Home = memo(() => {
                 animationTopText
                   ? "translate-y-0"
                   : "-translate-y-10  opacity-10",
-              ]} transform text-3xl font-bold text-slate-700 transition-all duration-1000 sm:mb-4 sm:text-[50px] md:mb-8 md:text-[80px]`}
+              ]} transform text-3xl font-bold text-slate-700 transition-all duration-1000 sm:mb-4 sm:text-[50px] md:mb-8 md:text-[60px] lg:text-[70px]`}
             >
               memories
             </h1>
@@ -98,7 +104,7 @@ export const Home = memo(() => {
                 animationTopText
                   ? "translate-y-0"
                   : "-translate-y-10 opacity-0",
-              ]} transform space-y-2 rounded-md py-2 px-4 text-xl text-slate-700 font-bold transition-all delay-700 duration-1000`}
+              ]} transform space-y-2 rounded-md py-2 px-4 text-xl font-bold text-slate-700 transition-all delay-700 duration-1000`}
             >
               <p>
                 フォトブックに
@@ -112,21 +118,31 @@ export const Home = memo(() => {
         <section>
           <div className={`${contentStyle}`}>
             <div className={sentenceStyle}>
-              <h3 className="mt-10 mb-8 border-b pb-4 text-xl font-bold text-slate-800">
+              <h3
+                className={`my-10 border-b text-xl font-bold text-slate-800 ${responsiveText}`}
+              >
                 memoriesとは
               </h3>
-              <img src={homeImage} alt="" />
-              <div className="text-md mt-10 space-y-2">
-                <p>思い出を残すフォトブックとして使えます。</p>
-                <p>
-                  どんな小さな思い出も、大切な思い出も、memoriesに残すことができます。
-                </p>
+              <div className="grid-cols-7 items-center gap-10 lg:grid">
+                <img
+                  src={homeImage3}
+                  alt="イメージイラスト"
+                  className="col-span-3"
+                />
+                <div className="text-md col-span-4 mt-10 space-y-2 text-left lg:mt-0 lg:text-xl">
+                  <p>思い出を残すフォトブックとして使えます。</p>
+                  <p>
+                    どんな小さな思い出も、大切な思い出も、memoriesに残すことができます。
+                  </p>
+                </div>
               </div>
             </div>
           </div>
           <div className={`${contentStyle} bg-slate-100`}>
             <div className={sentenceStyle}>
-              <h3 className="mt-10 mb-6 w-full border-b pb-4 text-lg font-bold text-slate-800">
+              <h3
+                className={`mt-10 mb-6 w-full border-b pb-4 text-lg font-bold text-slate-800 ${responsiveText}`}
+              >
                 たくさんのフォトブックをつくることができます
               </h3>
               <div className="space-y-4 rounded-md bg-white p-6 shadow-md">
@@ -143,7 +159,9 @@ export const Home = memo(() => {
           </div>
           <div className={contentStyle}>
             <div className={sentenceStyle}>
-              <h3 className="mt-10 mb-6 border-b pb-4 text-lg font-bold text-slate-800">
+              <h3
+                className={`mt-10 mb-6 border-b pb-4 text-lg font-bold text-slate-800 ${responsiveText}`}
+              >
                 思い出をふりかえることができます
               </h3>
               <p>
@@ -153,7 +171,9 @@ export const Home = memo(() => {
           </div>
           <div className={`${contentStyle} bg-slate-100`}>
             <div className={sentenceStyle}>
-              <h3 className="mt-10 mb-6 border-b pb-4 text-lg font-bold text-slate-800">
+              <h3
+                className={`mt-10 mb-6 border-b pb-4 text-lg font-bold text-slate-800 ${responsiveText}`}
+              >
                 みんなに思い出を見せることができます
               </h3>
               <div className="space-y-4 rounded-md bg-white p-6 shadow-md">
@@ -164,7 +184,9 @@ export const Home = memo(() => {
           </div>
           <div className={contentStyle}>
             <div className={sentenceStyle}>
-              <h3 className="mt-10 mb-6 border-b pb-4 text-lg font-bold text-slate-800">
+              <h3
+                className={`mt-10 mb-6 border-b pb-4 text-lg font-bold text-slate-800 ${responsiveText}`}
+              >
                 みんなの思い出を知ることができます
               </h3>
               <p>みんなの共有されたフォトブックを見ることができます。</p>
