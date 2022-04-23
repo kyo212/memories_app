@@ -11,7 +11,6 @@ import { HeaderRegBtn } from "../atoms/button/HeaderRegBtn";
 import { Header } from "../organisms/Header";
 // コンテキスト
 import { Context } from "../../App";
-import { Button } from "../atoms/button/Button";
 
 export const Home = memo(() => {
   const navigate = useNavigate();
@@ -40,10 +39,12 @@ export const Home = memo(() => {
   });
 
   const getScrollTop = () =>
+    // Math.max - 引数に与えられた数値の中で一番大きい数値を返す。
     Math.max(
+      // 垂直方向のスクロール量。それぞれ返す結果は同じ。
       window.pageYOffset,
-      document.documentElement.scrollTop,
-      document.body.scrollTop
+      document.documentElement.scrollTop, // 標準モード
+      document.body.scrollTop // 互換モード
     );
 
   const onScroll = () => {
@@ -74,7 +75,7 @@ export const Home = memo(() => {
           <div className="w-[90%]">
             {/* bg-white */}
             <div className="mt-4 flex h-56 w-full flex-col items-center justify-center space-y-2 text-center ">
-              <h1 className="mt-2 text-3xl font-bold ">memories</h1>
+              <h1 className="mt-2 text-3xl font-bold">memories</h1>
               <label className="mb-4 text-sm">メモリーズ</label>
               <h2 className="space-y-2 rounded-md py-2 px-4 text-sm font-bold">
                 <p>

@@ -37,10 +37,7 @@ app.use(
     credentials: true,
   })
 );
-// const corsOptions = {
-//   origin: `http://${process.env.PUBLIC_IP}:3000`,
-//   optionsSuccessStatus: 200,
-// };
+
 app.use(cookieParser());
 app.use(
   session({
@@ -139,7 +136,6 @@ app.post("/login", async (req, res) => {
             httpOnly: true,
             // secure: true, // httpsプロトコル上のリクエストのみ受け付ける。httpには送信しない
             maxAge: 10000,
-            // signed: true,
           });
 
           // トークンの生成 ↑-------------------------------------------------
