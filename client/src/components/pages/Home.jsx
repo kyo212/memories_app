@@ -15,6 +15,7 @@ import { Context } from "../../App";
 export const Home = memo(() => {
   const navigate = useNavigate();
   const [scrollBtn, setScrollBtn] = useState(false);
+  const [animationTopText, setAnimationTopText] = useState(false);
   // コンテキスト
   const { headerToggle, setHeaderToggle } = useContext(Context);
   // スタイル共通化
@@ -36,7 +37,8 @@ export const Home = memo(() => {
   useEffect(() => {
     // 取得し続ける
     document.addEventListener("scroll", onScroll);
-  });
+    setAnimationTopText(true);
+  }, []);
 
   const getScrollTop = () =>
     // Math.max - 引数に与えられた数値の中で一番大きい数値を返す。
@@ -71,20 +73,39 @@ export const Home = memo(() => {
       </header>
       <main className="h-full w-full text-slate-800">
         {/* bg-image */}
-        <section className="bg-bg-image flex h-screen justify-center bg-cover pt-14 sm:h-full">
-          <div className="w-[90%]">
-            {/* bg-white */}
-            <div className="mt-4 flex h-56 w-full flex-col items-center justify-center space-y-2 text-center ">
-              <h1 className="mt-2 text-3xl font-bold">memories</h1>
-              <label className="mb-4 text-sm">メモリーズ</label>
-              <h2 className="space-y-2 rounded-md py-2 px-4 text-sm font-bold">
-                <p>
-                  フォトブックに
-                  <br />
-                  思い出を自由に残そう。
-                </p>
-              </h2>
-            </div>
+        <section className="bg-bg-image flex h-screen justify-center bg-cover sm:h-full">
+          <div className="flex h-screen w-full flex-col items-center justify-center space-y-2 text-center">
+            <h1
+              className={`${[
+                animationTopText
+                  ? "translate-y-0"
+                  : "-translate-y-10  opacity-10",
+              ]} transform text-3xl font-bold text-slate-700 transition-all duration-1000 sm:mb-4 sm:text-[50px] md:mb-8 md:text-[80px]`}
+            >
+              memories
+            </h1>
+            <p
+              className={`${[
+                animationTopText
+                  ? "translate-y-0"
+                  : "-translate-y-10  opacity-0",
+              ]} sm:text-md mb-4 transform text-sm transition-all delay-300 duration-1000 md:mb-4 md:text-xl`}
+            >
+              メモリーズ
+            </p>
+            <h2
+              className={`${[
+                animationTopText
+                  ? "translate-y-0"
+                  : "-translate-y-10 opacity-0",
+              ]} transform space-y-2 rounded-md py-2 px-4 text-xl text-slate-700 font-bold transition-all delay-700 duration-1000`}
+            >
+              <p>
+                フォトブックに
+                <br />
+                思い出を自由に残そう。
+              </p>
+            </h2>
           </div>
         </section>
 
