@@ -99,7 +99,7 @@ export const Book = memo(() => {
           bookId: location.state.bookId,
         }
       ).then((response) => {
-        const { result, err } = response.data;
+        const { result } = response.data;
         setBookContents(result);
       });
     };
@@ -218,6 +218,7 @@ export const Book = memo(() => {
   const addPageModalToggle = () => {
     setAddPageModal(!addPageModal);
     setErrMsgToggle(false);
+    setImageFile("");
   };
 
   const editToggle = (id) => {
@@ -337,7 +338,7 @@ export const Book = memo(() => {
                 {/* publicBookMenu = true(通常) false(共有) */}
                 <a
                   href={[publicBookMenu ? "/mybooks" : "/public"]}
-                  className="flex items-center"
+                  className="flex items-center bg-white py-1 px-2"
                 >
                   <span className="mr-1">
                     <BsBoxArrowUpLeft />
@@ -348,7 +349,7 @@ export const Book = memo(() => {
               {publicBookMenu && (
                 <button
                   onClick={addPageModalToggle}
-                  className="fixed left-16 bottom-2 z-50 flex items-center text-sm text-slate-500"
+                  className="fixed left-16 bottom-2 z-50 flex items-center bg-white py-1 px-2 text-sm text-slate-500"
                 >
                   追加
                 </button>
@@ -362,12 +363,12 @@ export const Book = memo(() => {
                     index
                   ) => (
                     <SwiperSlide key={pageId}>
-                      <div className="h-screen w-screen snap-start snap-always bg-white">
+                      <div className="h-screen w-screen snap-start snap-always grid-cols-2 bg-white lg:grid">
                         {/* 画像エリア */}
                         <div
                           className={[
                             title && description
-                              ? "relative h-[60%] w-screen"
+                              ? "relative h-[60%] w-screen lg:h-auto lg:w-auto"
                               : !title &&
                                 !description &&
                                 "relative h-screen w-screen",
@@ -431,7 +432,7 @@ export const Book = memo(() => {
                         <div
                           className={[
                             title && description
-                              ? "flex h-[40%] w-screen items-center justify-center"
+                              ? "flex h-[40%] w-screen items-center justify-center lg:h-auto lg:w-auto"
                               : !title && !description && "hidden",
                           ]}
                         >
@@ -591,9 +592,9 @@ export const Book = memo(() => {
                   </div>
                 ) : (
                   // 追加画面 画像とテキストあり
-                  <div className="h-screen w-screen snap-start snap-always bg-white">
+                  <div className="h-screen w-screen snap-start snap-always grid-cols-2 gap-4 bg-white lg:grid">
                     {/* 画像 */}
-                    <div className="relative h-1/2 w-screen bg-slate-100">
+                    <div className="relative h-1/2 w-screen bg-slate-100 lg:h-auto lg:w-auto">
                       {!imageUrl &&
                         !videoUrl && ( // 画像と動画を設定されていない時だけ
                           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform rounded-full border-2 bg-white p-4 text-xl text-slate-500">
@@ -614,16 +615,16 @@ export const Book = memo(() => {
                           videoLoop: true,
                         }}
                       />
+                      {errMsgToggle && !imageFile && !videoFile && (
+                        <p className="mx-2 mt-1 text-sm text-red-600">
+                          画像を選択してください。
+                        </p>
+                      )}
                     </div>
-                    {errMsgToggle && !imageFile && !videoFile && (
-                      <p className="mx-2 mt-1 text-sm text-red-600">
-                        画像を選択してください。
-                      </p>
-                    )}
 
                     {/* テキスト */}
-                    <div className="relative flex h-1/2 w-screen justify-center bg-white">
-                      <div className="h-[82%] w-[90%]">
+                    <div className="relative flex h-1/2 w-screen justify-center bg-white lg:justify-start">
+                      <div className="h-[82%] w-[360px]">
                         <div className="relative mt-3">
                           <label className="flex flex-col text-sm font-bold">
                             タイトル
@@ -706,7 +707,7 @@ export const Book = memo(() => {
                         >
                           閉じる
                         </button>
-                        <div className="absolute bottom-5 my-4 w-[90%] space-y-2">
+                        <div className="absolute bottom-5 my-4 w-[360px] space-y-2">
                           <Button clickBtn={() => insertItem("mediaAndText")}>
                             追加する
                           </Button>

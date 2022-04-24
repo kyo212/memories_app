@@ -67,7 +67,7 @@ export const AddBookModal = memo(
               : "hidden",
           ]} transform bg-white transition-all duration-500`}
         >
-          <div id="modal" className="mt-[10%] mb-[40%]">
+          <div id="modal" className="mt-[60px] mb-[150px]">
             <div className="flex w-full flex-col items-center space-y-4">
               <div className="relative">
                 {/* タイトルバリデーション */}
@@ -93,7 +93,7 @@ export const AddBookModal = memo(
                         errMsgToggle && !bookTitle
                           ? errorBorderMsg.showed
                           : errorBorderMsg.base
-                      } w-[260px] focus:border-sky-600`,
+                      } w-[260px] focus:border-sky-600 md:w-[440px]`,
                     ]}
                   />
                 </label>
@@ -134,7 +134,7 @@ export const AddBookModal = memo(
                     imageUrl={imageUrl}
                     imageSize={`${[
                       errMsgToggle && !imageUrl && "border-red-400",
-                    ]} inline-block border h-[215px] w-[260px] `}
+                    ]} inline-block border h-[215px] w-[260px] md:w-[440px] md:h-[395px]`}
                     imageStyle="h-full w-full object-cover"
                     acceptType="image/*"
                     disabled={false}
@@ -148,7 +148,7 @@ export const AddBookModal = memo(
                 </label>
               </div>
 
-              <div className="w-[260px] text-sm">
+              <div className="w-[260px] text-sm md:w-[440px]">
                 <label className="flex flex-col">
                   <p className="text-sm font-bold text-slate-700">
                     カテゴリーを選ぶ
@@ -161,10 +161,12 @@ export const AddBookModal = memo(
                 </label>
               </div>
             </div>
-            <div className="mt-5 flex w-full flex-col items-center">
-              <div className="w-[75%]">
+            <div className="mt-7 flex w-full flex-col items-center">
+              <div className="w-[240px] ">
                 {/* 追加ボタン */}
-                <Button clickBtn={clickAddScroll}>フォトブックを追加する</Button>
+                <Button clickBtn={clickAddScroll}>
+                  フォトブックを追加する
+                </Button>
               </div>
             </div>
           </div>
