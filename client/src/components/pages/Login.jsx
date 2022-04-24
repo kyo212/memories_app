@@ -2,6 +2,7 @@ import { memo, useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
 // カスタムフック
+import { useSegment } from "../custom/useSegment";
 import { useStyle } from "../custom/useStyle";
 // コンポーネント
 import { HeaderRegBtn } from "../atoms/button/HeaderRegBtn";
@@ -27,6 +28,7 @@ export const Login = memo(() => {
   const [errMsgText, setErrMsgText] = useState("");
   const [errMsgToggle, setErrMsgToggle] = useState(false);
   // カスタムフック
+  const { countGrapheme } = useSegment();
   const { messageWindow } = useStyle(); // アニメーション
   const { errorBorderMsg } = messageWindow;
   // コンテキスト
@@ -67,9 +69,10 @@ export const Login = memo(() => {
   const inputInfrom = (e) => {
     const id = e.target.id;
     const value = e.target.value;
-    if (id === "username" && value.length <= 12) {
+    const num = countGrapheme(value);
+    if (id === "username" && num <= 12) {
       setUsername(value);
-    } else if (id === "password" && value.length <= 32) {
+    } else if (id === "password" && num <= 32) {
       // バリデーション
       if (value.match(/^[\x20-\x7e]*$/)) {
         const newValue = value.split(" ").join("");

@@ -10,8 +10,8 @@ import { HeaderLoginBtn } from "../atoms/button/HeaderLoginBtn";
 import { Footer } from "../organisms/Footer";
 import { Header } from "../organisms/Header";
 import { Loading } from "../atoms/style/Loading";
-import { ErrorMsgWindow } from "../atoms/message/ErrorMsgWindow";
 // カスタムフック
+import { useSegment } from "../custom/useSegment";
 import { useStyle } from "../custom/useStyle";
 // コンテキスト
 import { Context } from "../../App";
@@ -31,6 +31,7 @@ export const Register = memo(() => {
   // Toggle
   const [loading, setLoading] = useState(false);
   // カスタムフック
+  const { countGrapheme } = useSegment();
   const { messageWindow } = useStyle();
   const { errorBorderMsg } = messageWindow;
   // コンテキスト
@@ -56,7 +57,6 @@ export const Register = memo(() => {
         password,
       }).then((response) => {
         const { result, msg } = response.data;
-        console.log(result, msg);
         if (!result) {
           // usernameまたはpasswordが空の場合,usernameが既に存在している場合
           setErrMsgText(msg);
@@ -78,14 +78,12 @@ export const Register = memo(() => {
       username,
       password,
     }).then((response) => {
-      const { auth, token, result, msg } = response.data;
-      console.log({ auth, token, result, msg });
+      const { msg } = response.data;
       setErrMsgText(msg);
       setErrMsgToggle(true);
       Axios.post(`http://${process.env.REACT_APP_PUBLIC_IP}/isUserAuth`).then(
         (response) => {
-          const { auth, msg } = response.data;
-          console.log({ auth, msg });
+          const { auth } = response.data;
           auth && navigate(`/mybooks`);
         }
       );
@@ -95,9 +93,10 @@ export const Register = memo(() => {
   const inputInform = (e) => {
     const id = e.target.id;
     const value = e.target.value;
-    if (id === "username" && value.length <= 12) {
+    const num = countGrapheme(value);
+    if (id === "username" && num <= 12) {
       setUsername(value);
-    } else if (id === "password" && value.length <= 32) {
+    } else if (id === "password" && num <= 32) {
       if (value.match(/^[\x20-\x7e]*$/)) {
         // \x20-\x7e - すべてのASCII(アスキー)文字に一致する正規表現
         // 半角英数字と記号のみ 半角カナ文字NG

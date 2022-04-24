@@ -10,6 +10,7 @@ import { ImageUrlCreate } from "../../organisms/ImageUrlCreate";
 import { Button } from "../../atoms/button/Button";
 // コンテキスト
 import { Context } from "../../../App";
+import { useSegment } from "../../custom/useSegment";
 
 export const AddBookModal = memo(
   ({
@@ -26,6 +27,7 @@ export const AddBookModal = memo(
     const { bookTitle } = bookListItems;
     const { setBookTitle, setCategory } = setBookListItems;
     // カスタムフック
+    const { countGrapheme } = useSegment();
     const { modals, messageWindow } = useStyle();
     const { modalTabAnimation } = modals;
     const { errorBorderMsg } = messageWindow;
@@ -34,7 +36,8 @@ export const AddBookModal = memo(
 
     const inputInform = (e) => {
       const value = e.target.value;
-      if (value.length <= 12) {
+      const num = countGrapheme(value);
+      if (num <= 12) {
         setBookTitle(value);
       }
       // 追加時に足りない情報があった場合に出るエラーの際、情報を入力し始めたらエラーメッセージをオフにする
