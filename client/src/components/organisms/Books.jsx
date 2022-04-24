@@ -41,7 +41,7 @@ export const Books = memo(
 
     // スタイル共通化
     const bookStyle =
-      "absolute -z-20 flex h-[360px] w-72 sm:h-[600px] sm:w-[500px] border bg-gray-100 text-slate-70 block border-slate-400";
+      "absolute -z-20 flex h-[360px] w-72 md:h-[480px] md:w-[408px] border bg-gray-100 text-slate-70 block border-slate-400";
     const bookOpenBtnStyle =
       "absolute -top-1 p-3 right-0 -rotate-45 transform text-xl text-slate-400 transition-all";
     const bookOpenTextStyle =
@@ -191,7 +191,7 @@ export const Books = memo(
                 </div>
                 {/* 本をめくるアニメーション */}
                 {/* 表紙 */}
-                <div className="flex h-[360px] w-72 flex-col items-center rounded-sm  border border-slate-300 bg-white text-slate-700 shadow-inner sm:h-[600px] sm:w-[500px]">
+                <div className="flex h-[360px] w-[288px] flex-col items-center rounded-sm border border-slate-300 bg-white text-slate-700 shadow-inner md:h-[480px] md:w-[408px]">
                   <div className="text-bold flax mt-10 mb-8 flex-col text-center text-slate-800">
                     <p
                       className={[
@@ -214,7 +214,7 @@ export const Books = memo(
                   </div>
                   <ImageUrlCreate
                     imageUrl={coverImage}
-                    imageSize="h-[215px] w-[260px]"
+                    imageSize="h-[215px] w-[260px] md:h-[310px] md:w-[355px]"
                     imageStyle="h-full w-full object-cover"
                     videoStyle="h-full w-full object-cover"
                     acceptType="image/*"

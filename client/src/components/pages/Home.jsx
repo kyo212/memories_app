@@ -24,11 +24,13 @@ export const Home = memo(() => {
   // コンテキスト
   const { headerToggle, setHeaderToggle } = useContext(Context);
   // スタイル共通化
-  const contentStyle =
-    "mb-10 pb-10 flex w-full justify-center text-center lg:pb-20";
+  const contentStyle = "mb-8 flex w-full justify-center text-center lg:pb-20";
   const sentenceStyle = "w-[85%] leading-6 lg:w-[70%]";
   const responsiveText =
     "sm:pb-6 sm:text-2xl md:text-3xl lg:my-24 xl:pb-10 xl:text-4xl";
+  const homeImageStyle =
+    "col-span-3 my-0 mx-auto h-52 w-52 md:h-72 md:w-72 lg:h-full lg:w-full";
+  const gridStyle = "grid-cols-7 items-center gap-10 md:grid";
 
   useEffect(() => {
     const getLoginState = () => {
@@ -106,7 +108,7 @@ export const Home = memo(() => {
                 animationTopText
                   ? "translate-y-0"
                   : "-translate-y-10 opacity-0",
-              ]} transform space-y-2 rounded-md py-2 px-4 text-xl font-bold text-slate-700 transition-all delay-700 duration-1000`}
+              ]} transform space-y-2 rounded-md py-2 px-4 text-sm font-bold text-slate-700 transition-all delay-700 duration-1000 md:text-lg`}
             >
               <p>フォトブックに</p>
               <p>思い出を自由に残そう。</p>
@@ -118,17 +120,17 @@ export const Home = memo(() => {
           <div className={`${contentStyle}`}>
             <div className={sentenceStyle}>
               <h3
-                className={`my-10 border-b text-xl font-bold text-slate-800 ${responsiveText}`}
+                className={`mt-10 border-b pb-4 text-xl font-bold text-slate-800 ${responsiveText}`}
               >
                 memoriesとは
               </h3>
-              <div className="grid-cols-7 items-center gap-10 lg:grid">
+              <div className={gridStyle}>
                 <img
                   src={homeImage3}
                   alt="イメージイラスト"
-                  className="col-span-3"
+                  className={homeImageStyle}
                 />
-                <div className="text-md col-span-4 mt-10 space-y-2 rounded-md bg-white px-12 py-8 text-left shadow-md lg:mt-0 lg:text-lg">
+                <div className="text-md col-span-4 space-y-2 rounded-md bg-white px-12 py-8 text-left shadow-md lg:text-lg">
                   <p>思い出を残すフォトブックとして使えます。</p>
                   <p>
                     どんな小さな思い出も、大切な思い出も、memoriesに残すことができます。
@@ -144,7 +146,7 @@ export const Home = memo(() => {
               >
                 たくさんのフォトブックをつくることができます
               </h3>
-              <div className="grid-cols-7 items-center gap-10 lg:grid">
+              <div className={gridStyle}>
                 <div className="col-span-4 space-y-4 rounded-md bg-white px-12 py-8 shadow-md lg:text-lg">
                   <p className="font-bold">表紙を作成</p>
                   <p>
@@ -158,7 +160,7 @@ export const Home = memo(() => {
                 <img
                   src={homeImage4}
                   alt="イメージイラスト"
-                  className="col-span-3"
+                  className={homeImageStyle}
                 />
               </div>
             </div>
@@ -170,11 +172,11 @@ export const Home = memo(() => {
               >
                 思い出をふりかえることができます
               </h3>
-              <div className="grid-cols-7 items-center gap-10 lg:grid">
+              <div className={gridStyle}>
                 <img
                   src={homeImage1}
                   alt="イメージイラスト"
-                  className="col-span-3"
+                  className={homeImageStyle}
                 />
                 <div className="col-span-4 rounded-md bg-white px-12 py-8 shadow-md lg:text-lg">
                   <p>
@@ -191,7 +193,7 @@ export const Home = memo(() => {
               >
                 みんなに思い出を見せることができます
               </h3>
-              <div className="grid-cols-7 items-center gap-10 lg:grid">
+              <div className={gridStyle}>
                 <div className="col-span-4 space-y-4 rounded-md bg-white p-6 shadow-md lg:text-lg">
                   <p>つくったフォトブックはみんなに共有することができます。</p>
                   <p>共有されたフォトブックは誰でも見ることができます。</p>
@@ -199,7 +201,7 @@ export const Home = memo(() => {
                 <img
                   src={homeImage5}
                   alt="イメージイラスト"
-                  className="col-span-3"
+                  className={homeImageStyle}
                 />
               </div>
             </div>
@@ -211,11 +213,11 @@ export const Home = memo(() => {
               >
                 みんなの思い出を知ることができます
               </h3>
-              <div className="grid-cols-7 items-center gap-10 lg:grid">
+              <div className={gridStyle}>
                 <img
                   src={homeImage6}
                   alt="イメージイラスト"
-                  className="col-span-3"
+                  className={homeImageStyle}
                 />
                 <p className="col-span-3 space-y-4 rounded-md bg-white p-6 shadow-md lg:text-lg">
                   みんなの共有されたフォトブックを見ることができます。
@@ -235,7 +237,7 @@ export const Home = memo(() => {
           <BsArrowUp className="text-white" />
         </button>
         <div className="flex items-center justify-center">
-          <div className="mt-4 mb-20 flex items-center rounded-xl border bg-sky-600 px-3 py-2 text-sm font-bold text-white shadow-md active:bg-sky-900">
+          <div className="mt-4 mb-20 flex items-center rounded-xl border bg-sky-600 px-3 py-2 text-sm font-bold text-white shadow-md active:bg-sky-900 md:px-6 md:py-4 md:text-lg">
             <BsBoxArrowUpRight />
             <a href="/public" className="ml-2">
               みんなのフォトブック
