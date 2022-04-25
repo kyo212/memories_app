@@ -20,7 +20,7 @@ import { Context } from "../../App";
 export const Login = memo(() => {
   const navigate = useNavigate();
   // Toggle
-  const [passToggle, setPassToggle] = useState(false);
+  const [passwordShow, setPasswordShow] = useState(false);
   // 情報
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -82,14 +82,14 @@ export const Login = memo(() => {
     setErrMsgToggle(false); // エラーを解除
   };
 
-  const toggleIcon = () => setPassToggle(!passToggle);
+  const toggleIcon = () => setPasswordShow(!passwordShow);
 
   return (
     <>
       <Header root={"/"} headerOpen={{ headerToggle, setHeaderToggle }}>
         <HeaderRegBtn />
       </Header>
-      <div className="flex h-[85%] w-screen items-center justify-center bg-white">
+      <div className="flex h-screen w-screen items-center justify-center bg-white">
         <div className="flex h-[400px] w-[400px] flex-col items-center justify-center rounded-md">
           <h1 className="my-10 text-2xl font-bold text-slate-600">
             ログインする
@@ -142,7 +142,7 @@ export const Login = memo(() => {
             <div className="relative">
               <input
                 id="password"
-                type={passToggle ? "text" : "password"}
+                type={passwordShow ? "text" : "password"}
                 value={password}
                 onChange={inputInfrom}
                 placeholder="パスワード"
@@ -172,7 +172,7 @@ export const Login = memo(() => {
                 onClick={toggleIcon}
                 className="absolute right-2 top-2 text-2xl text-slate-600"
               >
-                {passToggle ? (
+                {passwordShow ? (
                   <BsFillEyeFill />
                 ) : (
                   <BsFillEyeSlashFill className="text-slate-400" />
@@ -193,7 +193,6 @@ export const Login = memo(() => {
           </button>
         </div>
       </div>
-      <Footer />
     </>
   );
 });

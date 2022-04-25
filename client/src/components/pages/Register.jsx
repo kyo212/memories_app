@@ -7,9 +7,9 @@ import { BsFillEyeFill } from "react-icons/bs";
 import { BsFillEyeSlashFill } from "react-icons/bs";
 // コンポーネント
 import { HeaderLoginBtn } from "../atoms/button/HeaderLoginBtn";
-import { Footer } from "../organisms/Footer";
 import { Header } from "../organisms/Header";
 import { Loading } from "../atoms/style/Loading";
+import { TermsOfService } from "./TermsOfService";
 // カスタムフック
 import { useSegment } from "../custom/useSegment";
 import { useStyle } from "../custom/useStyle";
@@ -19,9 +19,6 @@ import { Context } from "../../App";
 export const Register = memo(() => {
   const navigate = useNavigate();
 
-  const [passToggle, setPassToggle] = useState(false);
-  const [checkBoxFirst, setCheckBoxFirst] = useState(false);
-  const [checkBoxSecond, setCheckBoxSecond] = useState(false);
   // 情報
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -30,6 +27,10 @@ export const Register = memo(() => {
   const [errMsgToggle, setErrMsgToggle] = useState(false);
   // Toggle
   const [loading, setLoading] = useState(false);
+  const [passwordShow, setPasswordShow] = useState(false);
+  const [checkBoxFirst, setCheckBoxFirst] = useState(false);
+  const [checkBoxSecond, setCheckBoxSecond] = useState(false);
+  const [termsOfServiceModal, setTermsOfServiceModal] = useState(false);
   // カスタムフック
   const { countGrapheme } = useSegment();
   const { messageWindow } = useStyle();
@@ -109,6 +110,10 @@ export const Register = memo(() => {
     setErrMsgToggle(false);
   };
 
+  const termsOfServiceModalToggle = () => {
+    setTermsOfServiceModal(!termsOfServiceModal);
+  };
+
   return (
     <>
       {loading ? (
@@ -118,7 +123,7 @@ export const Register = memo(() => {
           <Header root={"/"} headerOpen={{ headerToggle, setHeaderToggle }}>
             <HeaderLoginBtn />
           </Header>
-          <div className="flex h-[85%] w-screen items-center justify-center bg-white">
+          <div className="flex h-screen w-screen items-center justify-center bg-white">
             <div className="flex h-[400px] w-[400px] flex-col items-center justify-center rounded-md">
               <h1 className="my-10 text-2xl font-bold text-slate-600">
                 新規登録をする
@@ -172,7 +177,7 @@ export const Register = memo(() => {
                 <div className="relative">
                   <input
                     id="password"
-                    type={passToggle ? "text" : "password"}
+                    type={passwordShow ? "text" : "password"}
                     value={password}
                     onChange={inputInform}
                     placeholder="パスワード"
@@ -199,10 +204,10 @@ export const Register = memo(() => {
                     </p>
                   </div>
                   <span
-                    onClick={() => setPassToggle(!passToggle)}
+                    onClick={() => setPasswordShow(!passwordShow)}
                     className="absolute right-2 top-2 text-2xl text-slate-600"
                   >
-                    {passToggle ? (
+                    {passwordShow ? (
                       <BsFillEyeFill />
                     ) : (
                       <BsFillEyeSlashFill className="text-slate-400" />
@@ -216,20 +221,26 @@ export const Register = memo(() => {
                     type="checkbox"
                     onClick={() => setCheckBoxFirst(!checkBoxFirst)}
                   />
-                  <label className="ml-1">
-                    <a className="font-bold text-blue-800">利用規約</a>
-                    に同意する
-                  </label>
+                  <button
+                    onClick={termsOfServiceModalToggle}
+                    className="ml-1 cursor-pointer border-b border-blue-800 font-bold text-blue-800"
+                  >
+                    利用規約
+                  </button>
+                  に同意する
                 </div>
                 <div className="flex items-center">
                   <input
                     type="checkbox"
                     onClick={() => setCheckBoxSecond(!checkBoxSecond)}
                   />
-                  <label className="ml-1">
-                    <a className="font-bold text-blue-800">推奨するブラウザ</a>
-                    について確認しました
-                  </label>
+                  <button
+                    onClick={""}
+                    className="ml-1 cursor-pointer border-b border-blue-800 font-bold text-blue-800"
+                  >
+                    推奨するブラウザ
+                  </button>
+                  について確認しました
                 </div>
               </div>
               <button
@@ -244,8 +255,10 @@ export const Register = memo(() => {
                 登録してはじめる
               </button>
             </div>
+            {termsOfServiceModal && (
+              <TermsOfService onClickToggle={termsOfServiceModalToggle} />
+            )}
           </div>
-          <Footer />
         </>
       )}
     </>
