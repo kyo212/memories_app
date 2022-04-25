@@ -1,19 +1,12 @@
-import { AiOutlinePlus } from "react-icons/ai";
+import { memo } from "react";
 
-export const TermsOfService = ({ onClickToggle }) => {
+export const TermsOfService = memo(({ onClickToggle }) => {
   return (
     <>
       <div
         onClick={onClickToggle}
         className="absolute z-50 h-screen w-screen bg-black bg-opacity-70"
-      >
-        <button
-          className="absolute right-0 top-0 p-3 text-4xl text-gray-600 hover:bg-black hover:bg-opacity-40 hover:text-white"
-          onClick={onClickToggle}
-        >
-          <AiOutlinePlus className="rotate-45 transform" />
-        </button>
-      </div>
+      />
       <div className="absolute top-1/2 left-1/2 z-50 h-[70%] w-[70%] -translate-x-1/2 -translate-y-1/2 transform space-y-4 overflow-scroll border-2 bg-white px-10 py-12 leading-8">
         <h1 className="text-4xl font-bold">利用規約</h1>
         <p>
@@ -217,4 +210,4 @@ export const TermsOfService = ({ onClickToggle }) => {
       </div>
     </>
   );
-};
+});

@@ -1,16 +1,16 @@
 import { useContext, memo } from "react";
 // カスタムフック
+import { useSegment } from "../../custom/useSegment";
 import { useStyle } from "../../custom/useStyle";
 // アイコン
-import { AiOutlinePlus } from "react-icons/ai";
 import { BsUpload } from "react-icons/bs";
 // コンポーネント
 import { Tab } from "../tabs/Tab";
 import { ImageUrlCreate } from "../../organisms/ImageUrlCreate";
 import { Button } from "../../atoms/button/Button";
+import { CloseBtn } from "../../atoms/button/CloseBtn";
 // コンテキスト
 import { Context } from "../../../App";
-import { useSegment } from "../../custom/useSegment";
 
 export const AddBookModal = memo(
   ({
@@ -174,12 +174,7 @@ export const AddBookModal = memo(
             </div>
           </div>
           {/* 閉じるボタン */}
-          <button
-            className="absolute right-0 top-0 p-3 text-4xl text-gray-600 hover:bg-black hover:bg-opacity-40 hover:text-white"
-            onClick={closeButton}
-          >
-            <AiOutlinePlus className="rotate-45 transform" />
-          </button>
+          <CloseBtn onClickClose={closeButton} />
         </div>
         {/* )} */}
       </>
