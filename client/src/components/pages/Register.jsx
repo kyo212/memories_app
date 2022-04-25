@@ -31,6 +31,7 @@ export const Register = memo(() => {
   const [checkBoxFirst, setCheckBoxFirst] = useState(false);
   const [checkBoxSecond, setCheckBoxSecond] = useState(false);
   const [termsOfServiceModal, setTermsOfServiceModal] = useState(false);
+  const [browserModal, setBrowserModal] = useState(false);
   // カスタムフック
   const { countGrapheme } = useSegment();
   const { messageWindow } = useStyle();
@@ -110,8 +111,14 @@ export const Register = memo(() => {
     setErrMsgToggle(false);
   };
 
-  const termsOfServiceModalToggle = () => {
-    setTermsOfServiceModal(!termsOfServiceModal);
+  const confirmPages = (e) => {
+    const id = e.target.id;
+
+    if (id === "termsOfService") {
+      setTermsOfServiceModal(!termsOfServiceModal);
+    } else {
+      setBrowserModal(!browserModal);
+    }
   };
 
   return (
@@ -222,7 +229,8 @@ export const Register = memo(() => {
                     onClick={() => setCheckBoxFirst(!checkBoxFirst)}
                   />
                   <button
-                    onClick={termsOfServiceModalToggle}
+                    id="termsOfService"
+                    onClick={confirmPages}
                     className="ml-1 cursor-pointer border-b border-blue-800 font-bold text-blue-800"
                   >
                     利用規約
@@ -235,10 +243,11 @@ export const Register = memo(() => {
                     onClick={() => setCheckBoxSecond(!checkBoxSecond)}
                   />
                   <button
-                    onClick={""}
+                    id="browser"
+                    onClick={confirmPages}
                     className="ml-1 cursor-pointer border-b border-blue-800 font-bold text-blue-800"
                   >
-                    推奨するブラウザ
+                    推奨環境・ブラウザについて
                   </button>
                   について確認しました
                 </div>
@@ -256,7 +265,12 @@ export const Register = memo(() => {
               </button>
             </div>
             {termsOfServiceModal && (
-              <TermsOfService onClickToggle={termsOfServiceModalToggle} />
+              <TermsOfService onClickToggle={confirmPages} />
+            )}
+            {browserModal && (
+              <>
+                <p>aaa</p>
+              </>
             )}
           </div>
         </>
