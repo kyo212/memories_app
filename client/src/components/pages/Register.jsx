@@ -10,6 +10,7 @@ import { HeaderLoginBtn } from "../atoms/button/HeaderLoginBtn";
 import { Header } from "../organisms/Header";
 import { Loading } from "../atoms/style/Loading";
 import { TermsOfService } from "./TermsOfService";
+import { Browser } from "./Browser";
 // カスタムフック
 import { useSegment } from "../custom/useSegment";
 import { useStyle } from "../custom/useStyle";
@@ -115,9 +116,12 @@ export const Register = memo(() => {
     const id = e.target.id;
 
     if (id === "termsOfService") {
-      setTermsOfServiceModal(!termsOfServiceModal);
+      setTermsOfServiceModal(true);
+    } else if (id === "browser") {
+      setBrowserModal(true);
     } else {
-      setBrowserModal(!browserModal);
+      setTermsOfServiceModal(false);
+      setBrowserModal(false);
     }
   };
 
@@ -267,11 +271,7 @@ export const Register = memo(() => {
             {termsOfServiceModal && (
               <TermsOfService onClickToggle={confirmPages} />
             )}
-            {browserModal && (
-              <>
-                <p>aaa</p>
-              </>
-            )}
+            {browserModal && <Browser onClickToggle={confirmPages} />}
           </div>
         </>
       )}

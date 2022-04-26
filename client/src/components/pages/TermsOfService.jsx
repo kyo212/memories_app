@@ -5,7 +5,6 @@ export const TermsOfService = memo(({ onClickToggle }) => {
   return (
     <>
       <div
-        id="termsOfService"
         onClick={onClickToggle}
         className="absolute z-50 h-screen w-screen bg-black bg-opacity-70"
       />
@@ -133,7 +132,6 @@ export const TermsOfService = memo(({ onClickToggle }) => {
             <ol className="ml-4 mt-4 list-decimal">
               <li>本規約のいずれかの条項に違反した場合</li>
               <li>登録事項に虚偽の事実があることが判明した場合</li>
-              <li>料金等の支払債務の不履行があった場合</li>
               <li>当社からの連絡に対し，一定期間返答がない場合</li>
               <li>本サービスについて，最終の利用から一定期間利用がない場合</li>
               <li>その他，当社が本サービスの利用を適当でないと判断した場合</li>
