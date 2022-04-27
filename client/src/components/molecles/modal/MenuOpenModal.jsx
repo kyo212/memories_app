@@ -86,6 +86,10 @@ export const MenuOpenModal = ({
     setMenuToggle(false);
   };
 
+  const toHelpPage = () => {
+    navigate("/help");
+  };
+
   return (
     <>
       <div
@@ -96,7 +100,6 @@ export const MenuOpenModal = ({
             : "hidden",
         ]}
       />
-
       <button
         onClick={menuModalToggle}
         className={[
@@ -227,7 +230,7 @@ export const MenuOpenModal = ({
                 />
               </div>
             </div>
-            <button className={menuListStyle}>
+            <button onClick={toHelpPage} className={menuListStyle}>
               <span className="text-md mx-2">
                 <BsQuestionCircle />
               </span>

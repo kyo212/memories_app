@@ -29,22 +29,25 @@ export const Browser = memo(({ onClickToggle }) => {
         </h2>
         <h3 className="text-xl font-bold">ブラウザ</h3>
         <ul className="ml-8 list-disc">
-          <li>Google Chrome (最新バージョン)</li>
-          <li>FireFox （最新バージョン）</li>
+          <li>Google Chrome</li>
+          <li>FireFox</li>
           <li>Edge</li>
-          <li>Safari （最新バージョン）</li>
-          <li>Internet Explorer 11（一部利用できないサービスがあります。）</li>
+          <li>Safari</li>
         </ul>
-        <p>
-          タブレット　/ スマートフォン ブラウザ
-          Android（最新バージョンの標準ブラウザ）
-          iOS（最新バージョンの標準ブラウザ） Google Chrome（最新バージョン）
-          ※推奨環境以外でご覧いただいた場合、
-          本サイトがご利用できない、もしくは正しく表示されない可能性がございます。
-          ※正しくご利用いただくため、下記項目を設定していただくことをおすすめいたします。
-          ・スタイルシートを有効にする ・JavaScript を有効にする ・Cookie
-          利用を有効にする
-        </p>
+        <h2 className="border-b border-slate-300 pb-3 text-3xl font-bold">
+          タブレット / スマートフォン
+        </h2>
+        <h3 className="text-xl font-bold">ブラウザ</h3>
+        <ul className="ml-8 mb-10 list-disc">
+          <li>FireFox</li>
+          <li>Edge</li>
+          <li>Safari</li>
+        </ul>
+        ※推奨環境以外でご覧いただいた場合、
+        本サイトがご利用できない、もしくは正しく表示されない可能性がございます。
+        ※正しくご利用いただくため、下記項目を設定していただくことをおすすめいたします。
+        ・スタイルシートを有効にする ・JavaScript を有効にする ・Cookie
+        利用を有効にする
       </div>
     </>
   );

@@ -9,8 +9,8 @@ import { Register } from "../components/pages/Register";
 import { NotFound } from "./NotFound";
 import { Session } from "./Session";
 import { PublicBooks } from "../components/pages/PublicBooks";
-// コンポーネント カテゴリーページ
 import { Book } from "../components/pages/Book";
+import { Help } from "../components/pages/Help";
 
 export const Router = memo(() => {
   return (
@@ -22,6 +22,7 @@ export const Router = memo(() => {
         <Route path="/register" element={<Register />} />
         <Route path="/mybooks" element={<MyBooks />} />
         <Route path="/public" element={<PublicBooks />} />
+        <Route path="/help" element={<Help />} />
         <Route path="/public/book" element={<Book />} />
         <Route path="/mybooks/book" element={<Book />} />
 
@@ -34,6 +35,7 @@ export const Router = memo(() => {
         <Route path="mybooks/public/*" element={<NotFound />} />
         <Route path="mybooks/public/book/*" element={<NotFound />} />
         <Route path="mybooks/book/*" element={<NotFound />} />
+        <Route path="help/*" element={<NotFound />} />
       </Routes>
     </div>
   );
