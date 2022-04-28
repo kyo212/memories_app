@@ -1,5 +1,5 @@
 import { memo, useState, useEffect, useContext } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Axios from "axios";
 // スライダー
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -31,6 +31,7 @@ import { ConfirmDialog } from "../atoms/message/ConfirmDialog";
 
 export const Book = memo(() => {
   // ルーター
+  const navigate = useNavigate();
   const location = useLocation();
   // 情報
   const [bookContents, setBookContents] = useState([]);
@@ -77,8 +78,10 @@ export const Book = memo(() => {
     setVideoFile,
   } = useContext(Context);
 
-  // スタイル共通か
+  // スタイル共通化
   const iconStyle = "absolute text-lg text-slate-500 hover:text-slate-800";
+  const confirmWindowStyle =
+    "flex h-40 w-[360px] transform flex-col items-center justify-center space-y-4 rounded-lg border-2 border-gray-200 bg-white py-6 px-6 text-gray-700 transition-all duration-700 md:w-[580px]";
 
   useEffect(() => {
     // location.stateに値がない場合(urlから直接 mybools/book へアクセスされたとき)にコンテンツを表示させないようにする
@@ -263,15 +266,28 @@ export const Book = memo(() => {
     setBookContentEditTitle("");
   };
 
+  const toMybooks = () => {
+    if (publicBookMenu) {
+      navigate("/mybooks");
+    } else {
+      navigate("/public");
+    }
+  };
+
   return (
     <>
       <>
         {unExpectErr ? (
-          <div className="mt-[40%] flex h-screen w-screen transform flex-col items-center transition-all">
+          <div className="flex h-screen w-screen transform flex-col items-center justify-center transition-all">
             <p className="text-xl font-bold">予期せぬエラーが発生しました</p>
-            <a href="/mybooks" className="text-sm text-blue-800">
+            <button
+              onClick={() => {
+                navigate("/mybooks");
+              }}
+              className="text-sm text-blue-800"
+            >
               一覧画面へ戻る
-            </a>
+            </button>
           </div>
         ) : (
           <div
@@ -336,15 +352,15 @@ export const Book = memo(() => {
               </SwiperSlide>
               <button className="fixed left-2 bottom-2 z-50 flex items-center text-sm text-slate-500">
                 {/* publicBookMenu = true(通常) false(共有) */}
-                <a
-                  href={[publicBookMenu ? "/mybooks" : "/public"]}
+                <button
+                  onClick={toMybooks}
                   className="flex items-center bg-white py-1 px-2"
                 >
                   <span className="mr-1">
                     <BsBoxArrowUpLeft />
                   </span>
                   戻る
-                </a>
+                </button>
               </button>
               {publicBookMenu && (
                 <button
@@ -724,16 +740,24 @@ export const Book = memo(() => {
       <div
         className={[
           confirmWindowOpen
-            ? `${modalConfirmAnimation.showed} pt-32`
+            ? `${modalConfirmAnimation.showed}`
             : `${modalConfirmAnimation.base}`,
         ]}
       >
-        <ConfirmDialog
-          message="削除しますか？"
-          deleteInform={deleteInform} // 削除するアイテムのid
-          deleteItem={deleteItem} // 削除する関数
-          setConfirmWindowOpen={setConfirmWindowOpen}
-        />
+        <div
+          className={[
+            confirmWindowOpen
+              ? `${confirmWindowStyle} translate-y-32`
+              : `${confirmWindowStyle} -translate-y-full shadow-2xl`,
+          ]}
+        >
+          <ConfirmDialog
+            message="削除しますか？"
+            deleteInform={deleteInform} // 削除するアイテムのid
+            deleteItem={deleteItem} // 削除する関数
+            setConfirmWindowOpen={setConfirmWindowOpen}
+          />
+        </div>
       </div>
     </>
   );

@@ -70,7 +70,7 @@ export const Books = memo(
       setBookOpen(false);
     };
 
-    const toCategoryComponent = (
+    const toBookContent = (
       { category, bookId, bookTitle, username, coverImage, date, favorite },
       publicBookMenu
     ) => {
@@ -134,14 +134,12 @@ export const Books = memo(
                       <>
                         <button
                           onClick={() =>
-                            toCategoryComponent(item, publicBookMenu)
+                            toBookContent(item, publicBookMenu)
                           }
                           className={`${bookOpenTextStyle}`}
                         >
-                          <span>ひらく</span>
-                          <span className="ml-2 text-sky-800">
-                            <BsSticky />
-                          </span>
+                          ひらく
+                          <BsSticky className="ml-2 text-sky-800" />
                         </button>
                         {publicBookMenu && (
                           <>

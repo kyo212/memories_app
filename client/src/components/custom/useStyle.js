@@ -28,9 +28,9 @@ export const useStyle = () => {
   // menu-open
   const menuOpens = {
     menuOpenBtnAnimation: {
-      base: "transform text-gray-500 ml-2 border border-gray-300 shadow-md bg-white rounded-full p-2 transition-all",
+      base: "transform text-gray-500 ml-2 border border-gray-300 shadow-md bg-white rounded-full p-2 md:p-3 md:ml-3 transition-all",
       showed:
-        "transform p-2 ml-2 bg-gray-500 text-white border border-gray-500 rounded-full transition-all",
+        "transform p-2 ml-2 bg-gray-500 text-white border border-gray-500 rounded-full transition-all md:p-3 md:ml-3",
     },
     menuOpenAnimation: {
       base: "fixed top-14 right-6 w-72 rounded-md border bg-white px-3 text-sm text-slate-700 opacity-0 shadow-md",

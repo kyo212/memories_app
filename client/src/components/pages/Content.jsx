@@ -1,10 +1,4 @@
-import {
-  memo,
-  useState,
-  useEffect,
-  useContext,
-  useRef,
-} from "react";
+import { memo, useState, useEffect, useContext, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
 // スライダー
@@ -74,6 +68,10 @@ export const Content = memo(() => {
     fillterToggle, // フィルターを適用するかしないか
     fillterCategory, // フィルタリングする内容
   } = useContext(Context);
+
+  // スタイル共通化
+  const confirmWindowStyle =
+    "flex h-40 w-[360px] transform flex-col items-center justify-center space-y-4 rounded-lg border-2 border-gray-200 bg-white py-6 px-6 text-gray-700 transition-all duration-700 md:w-[580px]";
 
   useEffect(() => {
     // ユーザーネームをセッションから取得
@@ -333,7 +331,8 @@ export const Content = memo(() => {
                         <p className="text-bold text-slate-500">
                           まずは本を追加してみましょう
                         </p>
-                        <p className="text-bold my-8 flex items-center text-slate-500">ヘッダーの
+                        <p className="text-bold my-8 flex items-center text-slate-500">
+                          ヘッダーの
                           <AiOutlinePlus className="mx-2 text-slate-800" />
                           をクリックして追加
                         </p>
@@ -365,16 +364,24 @@ export const Content = memo(() => {
       <div
         className={[
           confirmWindowOpen
-            ? `${modalConfirmAnimation.showed} pt-32`
+            ? `${modalConfirmAnimation.showed}`
             : `${modalConfirmAnimation.base}`,
         ]}
       >
-        <ConfirmDialog
-          message="削除しますか？"
-          deleteInform={deleteInform} // 削除するアイテムのid
-          deleteItem={deleteItem} // 削除する関数
-          setConfirmWindowOpen={setConfirmWindowOpen}
-        />
+        <div
+          className={[
+            confirmWindowOpen
+              ? `${confirmWindowStyle} translate-y-32 shadow-2xl`
+              : `${confirmWindowStyle} -translate-y-full`,
+          ]}
+        >
+          <ConfirmDialog
+            message="削除しますか？"
+            deleteInform={deleteInform} // 削除するアイテムのid
+            deleteItem={deleteItem} // 削除する関数
+            setConfirmWindowOpen={setConfirmWindowOpen}
+          />
+        </div>
       </div>
     </>
   );

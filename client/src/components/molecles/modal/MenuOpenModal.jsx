@@ -87,6 +87,7 @@ export const MenuOpenModal = ({
   };
 
   const toHelpPage = () => {
+    setMenuToggle(false);
     navigate("/help");
   };
 
