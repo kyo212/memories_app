@@ -88,7 +88,7 @@ export const MenuOpenModal = ({
 
   const toHelpPage = () => {
     setMenuToggle(false);
-    navigate("/help");
+    navigate("/help", { state: { root: "fromMenuModal" } });
   };
 
   return (
@@ -232,15 +232,11 @@ export const MenuOpenModal = ({
               </div>
             </div>
             <button onClick={toHelpPage} className={menuListStyle}>
-              <span className="text-md mx-2">
-                <BsQuestionCircle />
-              </span>
-              <p>このアプリの使い方</p>
+              <BsQuestionCircle className="text-md mx-2" />
+              このアプリの使い方
             </button>
             <button onClick={toPublicComponent} className={menuListStyle}>
-              <span className="text-md mx-2">
-                <BsBoxArrowUpRight />
-              </span>
+              <BsBoxArrowUpRight className="text-md mx-2" />
               {rootText}
             </button>
             {showMenu && (

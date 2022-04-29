@@ -2,7 +2,6 @@ import { memo, useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
 import homeImage1 from "../../images/home_image1.png";
-import homeImage2 from "../../images/home_image2.png";
 import homeImage3 from "../../images/home_image3.png";
 import homeImage4 from "../../images/home_image4.png";
 import homeImage5 from "../../images/home_image5.png";
@@ -10,6 +9,7 @@ import homeImage6 from "../../images/home_image6.png";
 // アイコン
 import { BsArrowUp } from "react-icons/bs";
 import { BsBoxArrowUpRight } from "react-icons/bs";
+import { BsQuestionCircle } from "react-icons/bs";
 // コンポーネント
 import { HeaderLoginBtn } from "../atoms/button/HeaderLoginBtn";
 import { HeaderRegBtn } from "../atoms/button/HeaderRegBtn";
@@ -73,10 +73,17 @@ export const Home = memo(() => {
     });
   };
 
+  const toHelpPage = () => {
+    navigate("help", { state: { root: "fromHome" } });
+  };
+
   return (
     <>
       <header>
         <Header root={"/"} headerOpen={{ headerToggle, setHeaderToggle }}>
+          <button onClick={toHelpPage} className={""}>
+            <BsQuestionCircle className="text-md mx-2 h-6 w-6 rounded-full bg-white bg-opacity-40 text-slate-500" />
+          </button>
           <HeaderLoginBtn />
           <HeaderRegBtn />
         </Header>
@@ -231,7 +238,7 @@ export const Home = memo(() => {
           className={[
             scrollBtn
               ? "fixed bottom-2 right-2 transform animate-bounce rounded-full border border-black bg-slate-800 p-4 opacity-70 shadow-md transition-all duration-1000"
-              : "transform opacity-0 transition-all duration-1000",
+              : "fixed -bottom-20 right-2 transform p-4 opacity-0 transition-all duration-1000",
           ]}
         >
           <BsArrowUp className="text-white" />

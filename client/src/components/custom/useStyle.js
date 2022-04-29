@@ -15,7 +15,7 @@ export const useStyle = () => {
         "rounded-full w-[78px] h-10 leading-10 border bg-white shadow-inner translate-y-1 transition-all transform font-bold text-slate-600 bg-slate-200 m-1",
     },
     modalConfirmAnimation: {
-      base: "fixed top-0 left-0 -z-50 flex h-screen w-screen transform justify-center overflow-hidden opacity-0 transition-all duration-700",
+      base: "fixed -top-full left-0 -z-50 flex h-screen w-screen transform justify-center overflow-hidden opacity-0 transition-all duration-700",
       showed:
         "fixed top-0 left-0 z-50 flex h-screen w-screen transform justify-center overflow-hidden bg-white bg-opacity-80 transition-all duration-700",
     },

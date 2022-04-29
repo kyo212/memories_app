@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Axios from "axios";
 // スライダー
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper";
+import { Navigation, Pagination, Mousewheel } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -194,6 +194,7 @@ export const Book = memo(() => {
   };
 
   const deleteItemToggle = (deleteId, bookTitle) => {
+    setEdit(false);
     setConfirmWindowOpen(true);
     setDeleteInform({ deleteId, bookTitle });
   };
@@ -228,6 +229,8 @@ export const Book = memo(() => {
     setThisPageId(id);
     setEdit(!edit);
     setErrMsgToggle(false);
+    setBookContentEditTitle("");
+    setBookContentEditDesc("");
   };
 
   const editInform = (e) => {
@@ -299,15 +302,16 @@ export const Book = memo(() => {
                 clickable: true,
                 dynamicBullets: true,
               }}
-              modules={[Navigation, Pagination]}
+              mousewheel={false}
+              modules={[Navigation, Pagination, Mousewheel]}
             >
               {/* 表紙情報 */}
               <SwiperSlide>
                 <div
                   key={bookId}
-                  className="h-screen w-screen snap-start snap-always bg-white"
+                  className="h-screen w-screen snap-start snap-always bg-white lg:flex"
                 >
-                  <div className="flex h-1/2 w-screen items-center justify-center">
+                  <div className="flex h-1/2 w-screen items-center justify-center lg:h-auto">
                     {/* 画像 */}
                     <img
                       src={coverImage}
@@ -316,7 +320,7 @@ export const Book = memo(() => {
                     />
                   </div>
                   {/* テキスト */}
-                  <div className="relative flex h-1/2 w-screen flex-col items-center justify-center">
+                  <div className="relative flex h-1/2 w-screen flex-col items-center justify-center lg:h-screen">
                     <>
                       {/* リボン */}
                       {favorite ? (
@@ -327,7 +331,7 @@ export const Book = memo(() => {
                         <></>
                       )}
                     </>
-                    <div className="h-[90%] w-[90%] text-slate-500">
+                    <div className="h-[90%] w-[90%] items-center text-slate-500 lg:flex">
                       <div className="mt-7 flex w-full flex-col items-center justify-center">
                         {/* タイトル */}
                         <h1 className="border-b pb-2 text-2xl text-slate-700">
@@ -350,17 +354,13 @@ export const Book = memo(() => {
                   </div>
                 </div>
               </SwiperSlide>
-              <button className="fixed left-2 bottom-2 z-50 flex items-center text-sm text-slate-500">
+              <button
+                onClick={toMybooks}
+                className="fixed left-2 bottom-2 z-50 flex items-center bg-white py-1 px-2 text-sm text-slate-500"
+              >
                 {/* publicBookMenu = true(通常) false(共有) */}
-                <button
-                  onClick={toMybooks}
-                  className="flex items-center bg-white py-1 px-2"
-                >
-                  <span className="mr-1">
-                    <BsBoxArrowUpLeft />
-                  </span>
-                  戻る
-                </button>
+                <BsBoxArrowUpLeft className="mr-1" />
+                戻る
               </button>
               {publicBookMenu && (
                 <button
@@ -459,26 +459,26 @@ export const Book = memo(() => {
                                   onClick={() =>
                                     deleteItemToggle(pageId, title)
                                   }
-                                  className={`${iconStyle} right-0 top-2 -translate-y-1/2`}
+                                  className={`${iconStyle} right-3 top-5 -translate-y-1/2`}
                                 >
                                   <BsTrash />
                                 </button>
                                 <button
                                   onClick={() => editToggle(pageId)}
-                                  className={`${iconStyle} right-8 top-2 -translate-y-1/2`}
+                                  className={`${iconStyle} right-11 top-5 -translate-y-1/2`}
                                 >
                                   <BsPencil />
                                 </button>
                               </div>
                             )}
                             {edit && pageId === thisPageId ? (
-                              <div className="relative w-60">
+                              <div className="relative w-[86%]">
                                 <input
                                   id="editTitle"
                                   type="text"
                                   value={bookContentEditTitle}
                                   onChange={editInform}
-                                  placeholder="タイトルを編集"
+                                  placeholder={title}
                                   className={`${errorBorderMsg.base} focus:border-sky-600`}
                                 />
                                 {bookContentEditTitle.length === 25 && (
@@ -491,7 +491,7 @@ export const Book = memo(() => {
                                 </p>
                               </div>
                             ) : (
-                              <p className="w-[80%] text-lg font-bold text-slate-800">
+                              <p className="w-[80%] text-lg font-bold text-slate-800 md:text-2xl lg:mt-6 lg:ml-4 lg:text-4xl">
                                 {title}
                               </p>
                             )}
@@ -502,7 +502,7 @@ export const Book = memo(() => {
                                   type="text"
                                   value={bookContentEditDesc}
                                   onChange={editInform}
-                                  placeholder="説明を編集"
+                                  placeholder={description}
                                   className={`${errorBorderMsg.base} outline-none focus:border-sky-600`}
                                 />
                                 {bookContentEditDesc.length === 60 && (
@@ -513,21 +513,19 @@ export const Book = memo(() => {
                                 <p className="absolute right-0 top-full text-sm text-slate-500">
                                   {bookContentEditDesc.length}/60
                                 </p>
+                                <button
+                                  onClick={() => editConfirm(pageId)}
+                                  className="lg:text-md absolute top-full left-0 rounded-full bg-sky-700 px-4 py-1 text-sm font-bold text-white active:bg-sky-800"
+                                >
+                                  確定
+                                </button>
                               </div>
                             ) : (
-                              <div className="mt-4 w-full">
-                                <p className="text-md break-words text-slate-600">
+                              <div className="mt-4 w-full lg:ml-3">
+                                <p className="text-md break-words text-slate-600 md:text-xl lg:text-2xl">
                                   {description}
                                 </p>
                               </div>
-                            )}
-                            {edit && pageId === thisPageId && (
-                              <button
-                                onClick={() => editConfirm(pageId)}
-                                className="absolute bottom-14 left-0 rounded-full bg-sky-700 px-4 py-1 text-sm font-bold text-white active:bg-sky-800"
-                              >
-                                確定
-                              </button>
                             )}
                             {title && description && (
                               <div className="absolute bottom-2 right-0 flex space-x-4 text-slate-500">

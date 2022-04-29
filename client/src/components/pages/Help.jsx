@@ -3,13 +3,18 @@ import { CloseBtn } from "../atoms/button/CloseBtn";
 // 画像
 import helpImage1 from "../../images/help_image1.png";
 
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export const Help = memo(({ onClickToggle }) => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const toMybooks = () => {
-    navigate("/mybooks");
+    if (location.state.root === "fromHome") {
+      navigate("/");
+    } else {
+      navigate("/mybooks");
+    }
   };
 
   return (
