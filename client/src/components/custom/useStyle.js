@@ -33,9 +33,9 @@ export const useStyle = () => {
         "transform p-2 ml-2 bg-gray-500 text-white border rounded-full transition-all md:p-3",
     },
     menuOpenAnimation: {
-      base: "fixed top-14 right-6 w-72 rounded-md border bg-white px-3 text-sm text-slate-700 opacity-0 shadow-md",
+      base: "fixed top-20 right-6 w-72 rounded-md border bg-white px-3 text-sm text-slate-700 opacity-0 shadow-md",
       showed:
-        "fixed top-14 right-6 w-72 rounded-md border bg-white py-4 px-3 text-sm text-slate-700 shadow-md",
+        "fixed top-20 right-6 w-72 rounded-md border bg-white py-4 px-3 text-sm text-slate-700 shadow-md",
     },
   };
   // search
