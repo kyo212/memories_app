@@ -51,22 +51,27 @@ export const Help = memo(() => {
             />
           </>
         )}
-        <div className="w-[80%] space-y-4 overflow-scroll bg-white leading-8">
+        <div className="w-[90%] space-y-4 overflow-scroll bg-white leading-8 md:w-[80%]">
           <button
             onClick={toMybooks}
-            className="flex items-center rounded-md border bg-sky-600 px-2 font-bold text-white active:bg-sky-900"
+            className="mt-6 flex items-center rounded-md border bg-sky-600 px-2 font-bold text-white active:bg-sky-900"
           >
             <BsArrow90DegUp className="mr-2" />
             戻る
           </button>
           <h1 className="text-4xl font-bold">使い方ガイド</h1>
           <div className="py-6 px-4">
-            <h2 className="mb-2 text-2xl">1 フォトブックの追加</h2>
+            <div className="flex space-x-2">
+              <p className="flex h-8 w-8 items-center justify-center bg-slate-500 p-2 text-white">
+                1
+              </p>
+              <h2 className="mb-2 text-2xl">フォトブックの追加</h2>
+            </div>
             <p className="text-sm">※ 画像をクリックして拡大</p>
-            <div className="flex">
+            <div className="mt-6 flex overflow-scroll border">
               {imageArry.map((image, index) => (
                 <div key={image.src} className="flex">
-                  <div className="mt-6 border bg-slate-100 p-6">
+                  <div className="border bg-slate-100 p-6">
                     <div className="flex w-56 items-center text-sm">
                       <p className="my-2 mr-2 flex h-6 w-6 items-center justify-center rounded-full bg-slate-400 p-3 text-white">
                         {index + 1}
