@@ -15,6 +15,7 @@ import {
   BsPencil,
   BsTrash,
   BsBoxArrowUpLeft,
+  BsArrow90DegUp,
 } from "react-icons/bs";
 // コンポーネント UI系
 import { ChangeFont } from "../atoms/ChangeFont";
@@ -354,19 +355,23 @@ export const Book = memo(() => {
                   </div>
                 </div>
               </SwiperSlide>
-              <button
+              {/* publicBookMenu = true(通常) false(共有) */}
+              {/* <button
                 onClick={toMybooks}
                 className="fixed left-2 bottom-2 z-50 flex items-center bg-white py-1 px-2 text-sm text-slate-500"
               >
-                {/* publicBookMenu = true(通常) false(共有) */}
                 <BsBoxArrowUpLeft className="mr-1" />
+                戻る
+              </button> */}
+              <button
+                onClick={toMybooks}
+                className="fixed left-2 bottom-2 z-50 flex items-center rounded-md bg-sky-600 px-2 font-bold text-white active:bg-sky-900"
+              >
+                <BsArrow90DegUp className="mr-2" />
                 戻る
               </button>
               {publicBookMenu && (
-                <button
-                  onClick={addPageModalToggle}
-                  className="fixed left-16 bottom-2 z-50 flex items-center bg-white py-1 px-2 text-sm text-slate-500"
-                >
+                <button className="fixed left-24 bottom-2 z-50 flex items-center rounded-md bg-sky-600 px-2 font-bold text-white active:bg-sky-900">
                   追加
                 </button>
               )}

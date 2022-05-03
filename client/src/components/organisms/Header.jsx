@@ -28,7 +28,9 @@ export const Header = memo(({ root, children, headerOpen }) => {
             <a href={root}>memories</a>
           </h1>
           <div className="mx-4 flex h-12 items-center">
-            <div className="flex justify-between h-12 w-[200px]">{children}</div>
+            <div className="flex h-12 w-full items-center space-x-2">
+              {children}
+            </div>
             <button
               onClick={headerOpenClose}
               className={`${[
