@@ -14,9 +14,9 @@ function App() {
   const [menuToggle, setMenuToggle] = useState(false);
   const [headerToggle, setHeaderToggle] = useState(false);
   // フィルター
-  const [fillterToggle, setFillterToggle] = useState(false);
-  const [fillterCategory, setFillterCategory] = useState("");
-  const [fillterMenu, setFillterMenu] = useState(false);
+  const [filterToggle, setFillterToggle] = useState(false);
+  const [filterCategory, setFillterCategory] = useState("");
+  const [filterMenu, setFillterMenu] = useState(false);
 
   return (
     <>
@@ -38,11 +38,11 @@ function App() {
           setMenuToggle,
           headerToggle,
           setHeaderToggle,
-          fillterToggle,
+          filterToggle,
           setFillterToggle,
-          fillterCategory,
+          filterCategory,
           setFillterCategory,
-          fillterMenu,
+          filterMenu,
           setFillterMenu,
         }}
       >

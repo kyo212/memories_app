@@ -31,11 +31,11 @@ export const MenuOpenModal = ({
   // ルータ
   const navigate = useNavigate();
   // Toggle
-  const [fillterMenu, setFillterMenu] = useState(false);
+  const [filterMenu, setFillterMenu] = useState(false);
   const [sortMenu, setSortMenu] = useState(false);
   // カスタムフック
   const { menuOpens, modals } = useStyle();
-  const { fillterMenuTabAnimation } = modals;
+  const { filterMenuTabAnimation } = modals;
   const { menuOpenBtnAnimation, menuOpenAnimation } = menuOpens;
   // コンテキスト
   const {
@@ -43,9 +43,9 @@ export const MenuOpenModal = ({
     setMenuToggle,
     setSearchToggle,
     setHeaderToggle,
-    fillterToggle,
+    filterToggle,
     setFillterToggle,
-    fillterCategory,
+    filterCategory,
     setFillterCategory,
   } = useContext(Context);
 
@@ -67,7 +67,7 @@ export const MenuOpenModal = ({
   };
 
   const filterMenuToggle = () => {
-    setFillterMenu(!fillterMenu);
+    setFillterMenu(!filterMenu);
     setSortMenu(false);
   };
 
@@ -178,26 +178,29 @@ export const MenuOpenModal = ({
             <button onClick={filterMenuToggle} className={menuListStyle}>
               <div className="flex items-center">
                 <div className="ml-2 flex items-center">
-                  {fillterMenu ? ( // フィルタが適用されていないとき、フィルタメニューがtrueなら
+                  {filterMenu ? ( // フィルタが適用されていないとき、フィルタメニューがtrueなら
                     <BsCaretRightFill className="mr-2 rotate-90 transform" />
                   ) : (
                     <BsCaretRightFill className="mr-2" />
                   )}
                   <p>絞り込みを適用</p>
-                  {fillterToggle && ( // フィルタが適用されているときのみ
-                    <span
-                      onClick={() => setFillterToggle(false)}
+                  {filterToggle && ( // フィルタが適用されているときのみ
+                    <button
+                      onClick={() => {
+                        setFillterToggle(false);
+                        setFillterCategory("");
+                      }}
                       className="mx-2 border-b font-bold text-red-600"
                     >
                       解除
-                    </span>
+                    </button>
                   )}
                 </div>
               </div>
             </button>
             <div
               className={[
-                fillterMenu
+                filterMenu
                   ? "flex h-40 transform flex-col items-start  border border-slate-100 p-1 transition-all duration-300"
                   : "h-0 transform transition-all duration-300",
               ]}
@@ -205,9 +208,9 @@ export const MenuOpenModal = ({
               <button
                 id="favorite"
                 onClick={bookFillter}
-                className={[fillterMenu ? "my-2 flex items-center" : "hidden"]}
+                className={[filterMenu ? "my-2 flex items-center" : "hidden"]}
               >
-                {fillterCategory === "1" ? ( // お気に入り状態である場合
+                {filterCategory === "1" ? ( // お気に入り状態である場合
                   <>
                     <span className="mr-2 text-2xl text-red-500">
                       <BsFillBookmarkFill />
@@ -223,9 +226,9 @@ export const MenuOpenModal = ({
                   </>
                 )}
               </button>
-              <div onClick={bookFillter} className={[!fillterMenu && "hidden"]}>
+              <div onClick={bookFillter} className={[!filterMenu && "hidden"]}>
                 <Tab
-                  animation={fillterMenuTabAnimation}
+                  animation={filterMenuTabAnimation}
                   ulClass={"flex flex-wrap"}
                   setCategory={setFillterCategory}
                 />

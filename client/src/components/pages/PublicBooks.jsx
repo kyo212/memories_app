@@ -39,8 +39,8 @@ export const PublicBooks = memo(() => {
   const {
     headerToggle, // ヘッダー開閉のトグル
     setHeaderToggle, // ヘッダー開閉のトグル
-    fillterToggle, // フィルターを適用するかしないか
-    fillterCategory, // フィルタリングする内容
+    filterToggle, // フィルターを適用するかしないか
+    filterCategory, // フィルタリングする内容
   } = useContext(Context);
 
   useEffect(() => {
@@ -131,9 +131,9 @@ export const PublicBooks = memo(() => {
               {shareItems.map((item, index) => (
                 <div key={item.bookId}>
                   {/* フィルター */}
-                  {fillterToggle ? (
-                    (item.category === fillterCategory ||
-                      item.favorite === Number(fillterCategory)) && (
+                  {filterToggle ? (
+                    (item.category === filterCategory ||
+                      item.favorite === Number(filterCategory)) && (
                       <SwiperSlide
                         id={index}
                         className="inline-block h-screen w-screen transform snap-start snap-always  transition-transform ease-in"

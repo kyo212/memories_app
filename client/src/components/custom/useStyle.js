@@ -19,7 +19,7 @@ export const useStyle = () => {
       showed:
         "fixed top-0 left-0 z-50 flex h-screen w-screen transform justify-center overflow-hidden bg-white bg-opacity-80 transition-all duration-700",
     },
-    fillterMenuTabAnimation: {
+    filterMenuTabAnimation: {
       base: "w-[42px] h-8 leading-8 text-indigo-900 m-1 text-center",
       selected:
         "w-[42px] h-8 leading-8 transition-all transform font-bold text-center text-slate-600 bg-slate-200 m-1",
