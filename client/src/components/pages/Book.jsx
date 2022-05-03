@@ -341,7 +341,7 @@ export const Book = memo(() => {
                         <div className="mt-2 space-y-2 text-center">
                           <p className="text-sm">{date}</p>
                           <p className="text-lg">
-                            {username || "gestuser"}
+                            {username || "gestUser"}
                             <span className="ml-2">
                               <ChangeJapanese category={category} />
                             </span>
@@ -356,22 +356,18 @@ export const Book = memo(() => {
                 </div>
               </SwiperSlide>
               {/* publicBookMenu = true(通常) false(共有) */}
-              {/* <button
+              <button
                 onClick={toMybooks}
                 className="fixed left-2 bottom-2 z-50 flex items-center bg-white py-1 px-2 text-sm text-slate-500"
               >
                 <BsBoxArrowUpLeft className="mr-1" />
                 戻る
-              </button> */}
-              <button
-                onClick={toMybooks}
-                className="fixed left-2 bottom-2 z-50 flex items-center rounded-md bg-sky-600 px-2 font-bold text-white active:bg-sky-900"
-              >
-                <BsArrow90DegUp className="mr-2" />
-                戻る
               </button>
               {publicBookMenu && (
-                <button className="fixed left-24 bottom-2 z-50 flex items-center rounded-md bg-sky-600 px-2 font-bold text-white active:bg-sky-900">
+                <button
+                  onClick={addPageModalToggle}
+                  className="fixed left-16 bottom-2 z-50 flex items-center bg-white py-1 px-2 text-sm text-slate-500"
+                >
                   追加
                 </button>
               )}

@@ -17,7 +17,7 @@ const PORT = process.env.PORT;
 // コンポーネント
 const db = require("./db/db").db;
 const { verifyJWT } = require("./middleware/verifyJWT");
-const { genereateUploadURL } = require("./s3/s3");
+const { generateUploadURL } = require("./s3/s3");
 
 app.use(
   "/static",
@@ -269,7 +269,7 @@ app.delete("/deletePage/:id", async (req, res) => {
 });
 
 app.post("/s3Url", async (req, res) => {
-  const url = await genereateUploadURL();
+  const url = await generateUploadURL();
   res.json({ url });
 });
 

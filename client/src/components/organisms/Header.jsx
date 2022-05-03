@@ -20,8 +20,8 @@ export const Header = memo(({ root, children, headerOpen }) => {
     <>
       <div
         className={`${[
-          headerToggle && "-translate-y-full",
-        ]} fixed z-40 mt-2 flex h-[50px] w-full transform justify-center transition-transform`}
+          headerToggle ? "-translate-y-full" : "delay-500",
+        ]} fixed z-40 flex h-[50px] w-full transform items-center justify-center transition-transform md:h-[60px]`}
       >
         <div className="flex h-12 w-[96%] items-center  justify-between rounded-md">
           <h1 className="mx-4 select-none font-serif text-xl font-bold text-slate-800 sm:text-2xl">
@@ -31,16 +31,24 @@ export const Header = memo(({ root, children, headerOpen }) => {
             <div className="flex h-12 w-full items-center space-x-2">
               {children}
             </div>
-            <button
-              onClick={headerOpenClose}
+            <div
               className={`${[
                 headerToggle
-                  ? "translate-y-12 bg-gray-500 text-white delay-500"
-                  : "bg-white text-slate-500 shadow-md",
-              ]} ml-2 transform cursor-pointer rounded-full border border-gray-300 p-2 transition-all md:ml-3 md:p-3`}
+                  ? "flex h-[50px] translate-y-full transform items-center justify-center text-white transition-all delay-500 md:h-[60px]"
+                  : "transform transition-all",
+              ]} `}
             >
-              {headerToggle ? <BsChevronDoubleDown /> : <BsChevronDoubleUp />}
-            </button>
+              <button
+                onClick={headerOpenClose}
+                className={`${[
+                  headerToggle
+                    ? "bg-gray-500 text-white"
+                    : "bg-white text-slate-500",
+                ]} ml-2 cursor-pointer rounded-full border border-gray-400 p-2 md:ml-3 md:p-3`}
+              >
+                {headerToggle ? <BsChevronDoubleDown /> : <BsChevronDoubleUp />}
+              </button>
+            </div>
           </div>
         </div>
       </div>

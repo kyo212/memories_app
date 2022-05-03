@@ -18,7 +18,7 @@ const s3 = new aws.S3({
   signatureVersion: "v4",
 });
 
-async function genereateUploadURL() {
+async function generateUploadURL() {
   const rawBytes = await randomBytes(16);
   const imageName = rawBytes.toString("hex");
 
@@ -32,4 +32,4 @@ async function genereateUploadURL() {
   return uploadURL;
 }
 
-exports.genereateUploadURL = genereateUploadURL;
+exports.generateUploadURL = generateUploadURL;
