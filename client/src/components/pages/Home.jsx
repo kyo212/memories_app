@@ -81,9 +81,6 @@ export const Home = memo(() => {
     <>
       <header>
         <Header root={"/"} headerOpen={{ headerToggle, setHeaderToggle }}>
-          <button onClick={toHelpPage} className={""}>
-            <BsQuestionCircle className="text-md mx-2 h-6 w-6 rounded-full bg-white bg-opacity-40 text-slate-500" />
-          </button>
           <HeaderLoginBtn />
           <HeaderRegBtn />
         </Header>
@@ -251,6 +248,9 @@ export const Home = memo(() => {
             </a>
           </div>
         </div>
+        <button onClick={toHelpPage} className={""}>
+          <BsQuestionCircle className="text-md fixed bottom-4 left-2 mx-2 h-6 w-6 rounded-full border bg-white text-slate-500" />
+        </button>
       </main>
     </>
   );
