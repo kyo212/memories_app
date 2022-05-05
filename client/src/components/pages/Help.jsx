@@ -51,7 +51,7 @@ export const Help = memo(() => {
             />
           </>
         )}
-        <div className="w-[90%] space-y-4 overflow-scroll bg-white leading-8 md:w-[80%]">
+        <div className="w-[90%] space-y-4 bg-white leading-8 md:w-[80%]">
           <button
             onClick={toMybooks}
             className="mt-6 flex items-center rounded-md border bg-sky-600 px-2 font-bold text-white active:bg-sky-900"
@@ -68,7 +68,7 @@ export const Help = memo(() => {
               <h2 className="mb-2 text-2xl">フォトブックの追加</h2>
             </div>
             <p className="text-sm">※ 画像をクリックして拡大</p>
-            <div className="mt-6 flex overflow-scroll border">
+            <div className="mt-6 flex overflow-x-scroll border">
               {imageArry.map((image, index) => (
                 <div key={image.src} className="flex">
                   <div className="border bg-slate-100 p-6">
