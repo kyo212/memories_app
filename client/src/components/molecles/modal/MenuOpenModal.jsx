@@ -31,7 +31,7 @@ export const MenuOpenModal = ({
   // ルータ
   const navigate = useNavigate();
   // Toggle
-  const [filterMenu, setFillterMenu] = useState(false);
+  const [filterMenu, setFilterMenu] = useState(false);
   const [sortMenu, setSortMenu] = useState(false);
   // カスタムフック
   const { menuOpens, modals } = useStyle();
@@ -44,9 +44,9 @@ export const MenuOpenModal = ({
     setSearchToggle,
     setHeaderToggle,
     filterToggle,
-    setFillterToggle,
+    setFilterToggle,
     filterCategory,
-    setFillterCategory,
+    setFilterCategory,
   } = useContext(Context);
 
   // スタイル共通化
@@ -58,16 +58,16 @@ export const MenuOpenModal = ({
     setSearchToggle(false);
     setHeaderToggle(false);
     setSortMenu(false);
-    setFillterMenu(false);
+    setFilterMenu(false);
   };
 
-  const bookFillter = (e) => {
-    e.target.id === "favorite" && setFillterCategory("1");
-    setFillterToggle(true); // フィルターを適用する
+  const bookFilter = (e) => {
+    e.target.id === "favorite" && setFilterCategory("1");
+    setFilterToggle(true); // フィルターを適用する
   };
 
   const filterMenuToggle = () => {
-    setFillterMenu(!filterMenu);
+    setFilterMenu(!filterMenu);
     setSortMenu(false);
   };
 
@@ -78,7 +78,7 @@ export const MenuOpenModal = ({
 
   const sortMenuToggle = () => {
     setSortMenu(!sortMenu);
-    setFillterMenu(false);
+    setFilterMenu(false);
   };
 
   const toPublicComponent = () => {
@@ -187,8 +187,8 @@ export const MenuOpenModal = ({
                   {filterToggle && ( // フィルタが適用されているときのみ
                     <button
                       onClick={() => {
-                        setFillterToggle(false);
-                        setFillterCategory("");
+                        setFilterToggle(false);
+                        setFilterCategory("");
                       }}
                       className="mx-2 border-b font-bold text-red-600"
                     >
@@ -207,7 +207,7 @@ export const MenuOpenModal = ({
             >
               <button
                 id="favorite"
-                onClick={bookFillter}
+                onClick={bookFilter}
                 className={[filterMenu ? "my-2 flex items-center" : "hidden"]}
               >
                 {filterCategory === "1" ? ( // お気に入り状態である場合
@@ -226,11 +226,11 @@ export const MenuOpenModal = ({
                   </>
                 )}
               </button>
-              <div onClick={bookFillter} className={[!filterMenu && "hidden"]}>
+              <div onClick={bookFilter} className={[!filterMenu && "hidden"]}>
                 <Tab
                   animation={filterMenuTabAnimation}
                   ulClass={"flex flex-wrap"}
-                  setCategory={setFillterCategory}
+                  setCategory={setFilterCategory}
                 />
               </div>
             </div>

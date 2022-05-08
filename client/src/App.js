@@ -14,9 +14,9 @@ function App() {
   const [menuToggle, setMenuToggle] = useState(false);
   const [headerToggle, setHeaderToggle] = useState(false);
   // フィルター
-  const [filterToggle, setFillterToggle] = useState(false);
-  const [filterCategory, setFillterCategory] = useState("");
-  const [filterMenu, setFillterMenu] = useState(false);
+  const [filterToggle, setFilterToggle] = useState(false);
+  const [filterCategory, setFilterCategory] = useState("");
+  const [filterMenu, setFilterMenu] = useState(false);
 
   return (
     <>
@@ -39,11 +39,11 @@ function App() {
           headerToggle,
           setHeaderToggle,
           filterToggle,
-          setFillterToggle,
+          setFilterToggle,
           filterCategory,
-          setFillterCategory,
+          setFilterCategory,
           filterMenu,
-          setFillterMenu,
+          setFilterMenu,
         }}
       >
         <Router />

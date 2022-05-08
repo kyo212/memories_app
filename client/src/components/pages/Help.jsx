@@ -68,7 +68,7 @@ export const Help = memo(() => {
               <h2 className="mb-2 text-2xl">フォトブックの追加</h2>
             </div>
             <p className="text-sm">※ 画像をクリックして拡大</p>
-            <div className="mt-6 flex overflow-x-scroll border">
+            <div className="mt-6 flex overflow-x-scroll">
               {imageArry.map((image, index) => (
                 <div key={image.src} className="flex">
                   <div className="border bg-slate-100 p-6">
