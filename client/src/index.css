@@ -19,7 +19,8 @@ code {
 }
 
 a,
-button {
+button,
+img {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   outline: none;
   user-select: none;
