@@ -73,7 +73,7 @@ export const ImageUrlCreate = memo(
             className={videoStyle}
           />
         ) : (
-          <img src={""} alt="表紙の画像" className="h-full w-full opacity-0" />
+          <img src={""} alt="フォトブックの画像" className="h-full w-full opacity-0" />
         )}
       </label>
     );

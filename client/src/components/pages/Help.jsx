@@ -1,6 +1,6 @@
 import { memo, useState } from "react";
 // アイコン
-import { BsChevronRight, BsArrow90DegUp } from "react-icons/bs";
+import { BsChevronRight } from "react-icons/bs";
 // 画像
 import helpImage1 from "../../images/help_image1.png";
 import helpImage2 from "../../images/help_image2.png";
@@ -65,8 +65,8 @@ export const Help = memo(() => {
                   ※ 画像をクリックして拡大
                 </p>
               </div>
-              <div className="mt-6 flex overflow-x-scroll">
-                <ul className="flex">
+              <div className="mt-6 flex">
+                <ul className="flex overflow-x-scroll">
                   <li className="flex">
                     <div className="relative flex flex-col items-center border bg-slate-100 p-8">
                       <p className="absolute top-0 left-2 my-2 mr-2 flex h-6 w-6 items-center justify-center rounded-full bg-slate-400 p-3 text-white">
