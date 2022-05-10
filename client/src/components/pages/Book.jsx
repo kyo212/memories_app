@@ -638,7 +638,7 @@ export const Book = memo(() => {
                     </div>
 
                     {/* テキスト */}
-                    <div className="relative flex h-1/2 w-screen justify-center bg-white lg:justify-start">
+                    <div className="relative flex h-1/2 w-screen justify-center bg-white lg:block lg:h-full lg:w-full">
                       <div className="h-[82%] w-[360px]">
                         <div className="relative mt-3">
                           <label className="flex flex-col text-sm font-bold">

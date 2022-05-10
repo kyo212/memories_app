@@ -320,16 +320,14 @@ export const Content = memo(() => {
                   <div className="fixed top-16 flex h-[50%] w-full flex-col items-center justify-around bg-white">
                     <div>
                       <div className="flex flex-col items-center justify-center">
-                        <p className="flex h-10 w-10 animate-bounce items-center justify-center rounded-full border border-slate-400 bg-white text-slate-800 shadow-md">
-                          <BsArrowUp />
-                        </p>
+                        <BsArrowUp className="animate-bounce text-2xl text-slate-700" />
                       </div>
                       <div className="mt-10 flex flex-col items-center">
                         <p className="text-bold my-2 text-xl font-bold text-slate-500">
                           まだ何もありません
                         </p>
                         <p className="text-bold text-slate-500">
-                          まずは本を追加してみましょう
+                          まずはフォトブックを追加してみましょう
                         </p>
                         <p className="text-bold my-8 flex items-center text-slate-500">
                           ヘッダーの
