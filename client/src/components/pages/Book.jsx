@@ -15,7 +15,7 @@ import {
   BsPencil,
   BsTrash,
   BsBoxArrowUpLeft,
-  BsArrow90DegUp,
+  BsChevronDoubleLeft,
 } from "react-icons/bs";
 // コンポーネント UI系
 import { ChangeFont } from "../atoms/ChangeFont";
@@ -60,6 +60,7 @@ export const Book = memo(() => {
   const [addPageModal, setAddPageModal] = useState(false);
   const [deleteInform, setDeleteInform] = useState({});
   const [edit, setEdit] = useState(false);
+  const [bottomMenu, setBottomMenu] = useState(false);
   // メッセージ
   const [errMsgToggle, setErrMsgToggle] = useState(false);
   // カスタムフック
@@ -356,21 +357,41 @@ export const Book = memo(() => {
                 </div>
               </SwiperSlide>
               {/* publicBookMenu = true(通常) false(共有) */}
-              <button
-                onClick={toMybooks}
-                className="fixed left-2 bottom-2 z-50 flex items-center bg-white py-1 px-2 text-sm text-slate-500"
+              <div
+                className={`${[
+                  bottomMenu && "-translate-x-full",
+                ]} fixed bottom-0 z-50 h-10 w-[109px] transform transition-all duration-1000`}
               >
-                <BsBoxArrowUpLeft className="mr-1" />
-                戻る
-              </button>
-              {publicBookMenu && (
                 <button
-                  onClick={addPageModalToggle}
-                  className="fixed left-16 bottom-2 z-50 flex items-center bg-white py-1 px-2 text-sm text-slate-500"
+                  onClick={toMybooks}
+                  className="fixed left-2 bottom-2 z-50 flex items-center bg-white py-2 px-2 text-sm text-slate-500"
                 >
-                  追加
+                  <BsBoxArrowUpLeft className="mr-1" />
+                  戻る
                 </button>
-              )}
+                {publicBookMenu && (
+                  <button
+                    onClick={addPageModalToggle}
+                    className="fixed left-16 bottom-2 z-50 flex items-center bg-white py-2 px-2 text-sm text-slate-500"
+                  >
+                    追加
+                  </button>
+                )}
+                <button
+                  onClick={() => {
+                    setBottomMenu(!bottomMenu);
+                  }}
+                  className={`${[
+                    bottomMenu && "lg:opacity-30",
+                  ]} fixed left-[108px] bottom-2 z-50 rounded-r-xl bg-white py-[10px] px-2 transition-all duration-1000`}
+                >
+                  <BsChevronDoubleLeft
+                    className={`${[
+                      bottomMenu ? "rotate-180" : "rotate-0",
+                    ]} transition-all duration-1000`}
+                  />
+                </button>
+              </div>
 
               {/* コンテンツ */}
               <>
