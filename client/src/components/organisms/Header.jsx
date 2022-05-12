@@ -23,12 +23,12 @@ export const Header = memo(({ root, children, headerOpen }) => {
           headerToggle ? "-translate-y-full" : "delay-500",
         ]} fixed z-40 flex h-[70px] w-full transform items-center justify-center transition-transform md:h-[80px]`}
       >
-        <div className="flex h-12 w-[96%] items-center  justify-between rounded-md">
+        <div className="flex h-14 w-[96%] items-center  justify-between rounded-md">
           <h1 className="mx-4 select-none font-serif text-xl font-bold text-slate-800 sm:text-2xl">
             <a href={root}>memories</a>
           </h1>
-          <div className="mx-4 flex h-12 items-center">
-            <div className="flex h-12 w-full items-center space-x-2">
+          <div className="mx-4 flex h-14 items-center">
+            <div className="flex h-14 w-full items-center space-x-2">
               {children}
             </div>
             <div

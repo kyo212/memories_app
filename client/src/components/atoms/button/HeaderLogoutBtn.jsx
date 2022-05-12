@@ -16,10 +16,11 @@ export const HeaderLogoutBtn = () => {
   };
 
   return (
-    <button onClick={logout} className="relative h-14 outline-none">
-      <p className="transform rounded-full border border-blue-700 bg-sky-700 p-2 text-[12px] font-bold text-white transition-all hover:bg-white hover:text-blue-700">
-        ログアウト
-      </p>
+    <button
+      onClick={logout}
+      className="h-14 transform rounded-full border border-blue-700 bg-sky-700 p-2 text-[12px] font-bold text-white outline-none transition-all hover:bg-white hover:text-blue-700"
+    >
+      ログアウト
     </button>
   );
 };
