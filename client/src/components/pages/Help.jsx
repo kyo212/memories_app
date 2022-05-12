@@ -66,7 +66,7 @@ export const Help = memo(() => {
                 </p>
               </div>
               <div className="mt-6 flex">
-                <ul className="flex overflow-x-scroll">
+                <ul className="flex overflow-scroll">
                   <li className="flex">
                     <div className="relative flex flex-col items-center border bg-slate-100 p-8">
                       <p className="absolute top-0 left-2 my-2 mr-2 flex h-6 w-6 items-center justify-center rounded-full bg-slate-400 p-3 text-white">
@@ -153,7 +153,7 @@ export const Help = memo(() => {
                 </div>
                 <p className="text-sm">※ 画像をクリックして拡大</p>
               </div>
-              <div className="mt-6 flex overflow-x-scroll">
+              <div className="mt-6 flex overflow-scroll">
                 <ul className="flex">
                   <li className="flex">
                     <div className="relative flex flex-col items-center border bg-slate-100 p-8">

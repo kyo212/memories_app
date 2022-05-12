@@ -81,7 +81,8 @@ export const Book = memo(() => {
   } = useContext(Context);
 
   // スタイル共通化
-  const iconStyle = "absolute text-lg text-slate-500 hover:text-slate-800";
+  const iconStyle =
+    "fixed text-lg lg:bottom-5 bottom-10 text-slate-500 hover:text-slate-800";
   const confirmWindowStyle =
     "flex h-40 w-[360px] transform flex-col items-center justify-center space-y-4 rounded-lg border-2 border-gray-200 bg-white py-6 px-6 text-gray-700 transition-all duration-700 md:w-[580px]";
 
@@ -449,7 +450,7 @@ export const Book = memo(() => {
                               {/* ホバー時黒背景出現 画像と文章がある場合  */}
                               <div className="absolute top-1/2 left-1/2 h-[40%] w-[75%] -translate-x-1/2 -translate-y-1/2 transform bg-black opacity-0 transition-all hover:opacity-50">
                                 {/* 日付 画像のみの場合 */}
-                                <div className="tranform absolute top-1/2 left-1/2 flex -translate-x-1/2 -translate-y-1/2 select-none space-x-4 text-lg font-bold text-white hover:block">
+                                <div className="absolute top-1/2 left-1/2 flex -translate-x-1/2 -translate-y-1/2 transform select-none space-x-4 text-lg font-bold text-white hover:block">
                                   <p className="text-md ">{date}</p>
                                 </div>
                               </div>
@@ -481,20 +482,20 @@ export const Book = memo(() => {
                                   onClick={() =>
                                     deleteItemToggle(pageId, title)
                                   }
-                                  className={`${iconStyle} right-3 top-5 -translate-y-1/2`}
+                                  className={`${iconStyle} right-7`}
                                 >
                                   <BsTrash />
                                 </button>
                                 <button
                                   onClick={() => editToggle(pageId)}
-                                  className={`${iconStyle} right-11 top-5 -translate-y-1/2`}
+                                  className={`${iconStyle} right-16`}
                                 >
                                   <BsPencil />
                                 </button>
                               </div>
                             )}
                             {edit && pageId === thisPageId ? (
-                              <div className="relative w-[86%]">
+                              <div className="relative w-full">
                                 <input
                                   id="editTitle"
                                   type="text"
@@ -513,7 +514,7 @@ export const Book = memo(() => {
                                 </p>
                               </div>
                             ) : (
-                              <p className="w-[80%] text-lg font-bold text-slate-800 md:text-2xl lg:mt-6 lg:ml-4 lg:text-4xl">
+                              <p className="w-full text-xl font-bold text-slate-800 md:text-2xl lg:mt-6 lg:ml-4 lg:text-4xl">
                                 {title}
                               </p>
                             )}
@@ -607,9 +608,7 @@ export const Book = memo(() => {
                           onClick={typeChangeToggle}
                           className="mt-2 flex items-center space-x-2 text-sm text-sky-800"
                         >
-                          <span className="text-lg">
-                            <BsArrowRepeat />
-                          </span>
+                          <BsArrowRepeat className="text-lg" />
                           画像と文章を追加
                         </button>
                         <button
@@ -659,7 +658,7 @@ export const Book = memo(() => {
                     </div>
 
                     {/* テキスト */}
-                    <div className="relative flex h-1/2 w-screen justify-center bg-white lg:block lg:h-full lg:w-full">
+                    <div className="relative flex h-1/2 w-screen justify-center bg-white lg:block lg:w-full">
                       <div className="h-[82%] w-[360px]">
                         <div className="relative mt-3">
                           <label className="flex flex-col text-sm font-bold">
@@ -677,7 +676,6 @@ export const Book = memo(() => {
                               ]} focus:border-sky-600`}
                             />
                           </label>
-
                           <p className="absolute right-0 top-full text-sm text-slate-500">
                             {bookContentTitle.length}/25
                           </p>
