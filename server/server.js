@@ -134,7 +134,7 @@ app.post("/login", async (req, res) => {
           // 応答ヘッダーのクッキーにトークンを格納
           res.cookie("token", token, {
             httpOnly: true,
-            // secure: true, // httpsプロトコル上のリクエストのみ受け付ける。httpには送信しない
+            secure: true, // httpsプロトコル上のリクエストのみ受け付ける。httpには送信しない
             maxAge: 10000,
           });
 
