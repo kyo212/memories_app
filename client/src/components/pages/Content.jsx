@@ -40,6 +40,7 @@ export const Content = memo(() => {
   const [bookTitle, setBookTitle] = useState("");
   const [category, setCategory] = useState("diary");
   const [loginUser, setLoginUser] = useState(""); // ログイン中のusername
+  const [searchResult, setSearchResult] = useState("");
   const [deleteInform, setDeleteInform] = useState({});
   const [searchInput, setSearchInput] = useState("");
   // Toggle
@@ -279,7 +280,8 @@ export const Content = memo(() => {
                 ) : (
                   <>
                     {/* 検索 */}
-                    {item.bookTitle.indexOf(searchInput) > -1 && (
+                    {
+                    item.bookTitle.indexOf(searchInput) > -1 && (
                       // 一致しない場合は-1、文字列なしは0、部分一致は1以上が返る
                       // 文字列なしは全てを表示、部分一致は一致しているものを表示、一致しない場合は何も表示させない
                       <SwiperSlide
