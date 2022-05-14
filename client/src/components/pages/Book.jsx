@@ -341,13 +341,13 @@ export const Book = memo(() => {
                           {bookTitle}
                         </h1>
                         <div className="mt-2 space-y-2 text-center">
-                          <p className="text-sm">{date}</p>
-                          <p className="text-lg">
-                            {username || "gestUser"}
-                            <span className="ml-2">
+                          <div className="flex items-center space-x-4 text-sm">
+                            <p>{date}</p>
+                            <p>
                               <ChangeJapanese category={category} />
-                            </span>
-                          </p>
+                            </p>
+                          </div>
+                          <p className="text-lg">{username || "gestUser"}</p>
                         </div>
                         <div className="mt-8">
                           <ChangeFont setFontChange={setFontChange} />
