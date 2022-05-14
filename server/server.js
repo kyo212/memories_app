@@ -23,7 +23,8 @@ app.use(
   "/static",
   express.static(path.join(__dirname, "../client/build/static"))
 );
-app.get("*", function (req, res) {
+app.use('/favicon.ico', express.static('../client/build/favicon.ico'));
+app.get("*", (req, res) => {
   res.sendFile("index.html", {
     root: path.join(__dirname, "../client/build"),
   });
