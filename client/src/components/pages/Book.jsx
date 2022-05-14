@@ -226,6 +226,9 @@ export const Book = memo(() => {
     setAddPageModal(!addPageModal);
     setErrMsgToggle(false);
     setImageFile("");
+    setImageUrl("");
+    setBookContentTitle("");
+    setBookContentDesc("");
   };
 
   const editToggle = (id) => {
