@@ -147,8 +147,10 @@ export const Login = memo(() => {
                 onChange={inputInform}
                 placeholder="パスワード"
                 className={[
-                  (errMsgToggle && (!password || password.length < 6)) ||
-                  errMsgText === "パスワードが間違っています。"
+                  errMsgToggle &&
+                  (!password ||
+                    password.length < 6 ||
+                    errMsgText === "パスワードが間違っています。")
                     ? errorBorderMsg.showed
                     : errorBorderMsg.base,
                 ]}
