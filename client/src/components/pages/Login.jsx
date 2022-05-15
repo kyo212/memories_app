@@ -66,7 +66,7 @@ export const Login = memo(() => {
     });
   };
 
-  const inputInfrom = (e) => {
+  const inputInform = (e) => {
     const id = e.target.id;
     const value = e.target.value;
     const num = countGrapheme(value);
@@ -109,7 +109,7 @@ export const Login = memo(() => {
                 id="email"
                 type="text"
                 value={email}
-                onChange={inputInfrom}
+                onChange={inputInform}
                 autoFocus
                 placeholder="メールアドレス"
                 className={[
@@ -130,7 +130,10 @@ export const Login = memo(() => {
                       <p className="text-sm text-red-600">文字数が最大です。</p>
                     )
                   )}
-                  {errMsgToggle && <p className="text-red-600">{errMsgText}</p>}
+                  {errMsgToggle &&
+                    errMsgText !== "パスワードが間違っています。" && (
+                      <p className="text-red-600">{errMsgText}</p>
+                    )}
                 </div>
                 <p className="absolute right-0 top-0 text-slate-500">
                   {email.length}/40
@@ -142,10 +145,11 @@ export const Login = memo(() => {
                 id="password"
                 type={passwordShow ? "text" : "password"}
                 value={password}
-                onChange={inputInfrom}
+                onChange={inputInform}
                 placeholder="パスワード"
                 className={[
-                  errMsgToggle && (!password || password.length < 6)
+                  (errMsgToggle && (!password || password.length < 6)) ||
+                  errMsgText === "パスワードが間違っています。"
                     ? errorBorderMsg.showed
                     : errorBorderMsg.base,
                 ]}
@@ -155,6 +159,9 @@ export const Login = memo(() => {
                   <p className="text-sm text-red-600">
                     6文字以上入力してください。
                   </p>
+                ) : errMsgToggle &&
+                  errMsgText === "パスワードが間違っています。" ? (
+                  <p className="text-sm text-red-600">{errMsgText}</p>
                 ) : password.length === 32 ? (
                   <p className="text-sm text-red-600">文字数が最大です。</p>
                 ) : (
