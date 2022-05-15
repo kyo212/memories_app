@@ -55,13 +55,13 @@ app.use(
 
 // routes
 app.post("/register", async (req, res) => {
-  const { username, password } = req.body;
-  if (!username || !password) {
+  const { email, password } = req.body;
+  if (!email || !password) {
     res.json({ result: false, msg: "入力してください。" });
   } else {
-    const sqlSelect = "SELECT * FROM users WHERE username = ?";
-    const sqlInsert = "INSERT INTO users (username,password) VALUE (?,?)";
-    await db.query(sqlSelect, [username], (err, result) => {
+    const sqlSelect = "SELECT * FROM users WHERE email = ?";
+    const sqlInsert = "INSERT INTO users (email,password) VALUE (?,?)";
+    await db.query(sqlSelect, [email], (err, result) => {
       if (err) {
         console.log(err);
       }
@@ -70,7 +70,7 @@ app.post("/register", async (req, res) => {
         const saltRounds = 10;
         bcrypt.hash(password, saltRounds, (err, hash) => {
           console.log(hash);
-          db.query(sqlInsert, [username, hash], (err, result) => {
+          db.query(sqlInsert, [email, hash], (err, result) => {
             console.log(err);
           });
         });
@@ -113,10 +113,10 @@ app.post("/logout", (req, res) => {
 });
 
 app.post("/login", async (req, res) => {
-  const { username, password } = req.body;
+  const { email, password } = req.body;
 
-  const sqlSelect = "SELECT * FROM users WHERE username = ?";
-  await db.query(sqlSelect, [username], (err, result) => {
+  const sqlSelect = "SELECT * FROM users WHERE email = ?";
+  await db.query(sqlSelect, [email], (err, result) => {
     if (err) {
       console.log(err);
     } else if (result.length > 0) {
@@ -161,11 +161,11 @@ app.post("/login", async (req, res) => {
 });
 
 app.post("/getItems", async (req, res) => {
-  const { username, shareId } = req.body;
+  const { email, shareId } = req.body;
 
   if (!shareId) {
-    const sqlUsernameSelect = "SELECT * FROM book_list WHERE username = ?";
-    await db.query(sqlUsernameSelect, username, (err, result) => {
+    const sqlEmailSelect = "SELECT * FROM book_list WHERE email = ?";
+    await db.query(sqlEmailSelect, email, (err, result) => {
       if (result.length > 0) {
         res.json({ result: result, err: err });
       }
@@ -190,7 +190,7 @@ app.post("/getBookContent", async (req, res) => {
 
 app.post("/insert", async (req, res) => {
   const {
-    username,
+    email,
     bookTitle,
     coverImage,
     category,
@@ -210,12 +210,12 @@ app.post("/insert", async (req, res) => {
   if (bookTitle) {
     // bookTitleがtrueなら表紙
     const sqlInsert =
-      "INSERT INTO book_list (username,bookTitle,coverImage,category,date,favorite,shareId) VALUES (?,?,?,?,?,?,?)";
-    // usernameは自動で入力される。dateとfavoriteはデフォルト値を設定
+      "INSERT INTO book_list (email,bookTitle,coverImage,category,date,favorite,shareId) VALUES (?,?,?,?,?,?,?)";
+    // emailは自動で入力される。dateとfavoriteはデフォルト値を設定
     await db.query(
       sqlInsert,
       [
-        username,
+        email,
         bookTitle,
         coverImage,
         category,
@@ -229,12 +229,12 @@ app.post("/insert", async (req, res) => {
     );
   } else {
     const sqlContentInsert =
-      "INSERT INTO book_content (bookId,username,bookImage,bookVideo,title,description,date) VALUES (?,?,?,?,?,?,?)";
+      "INSERT INTO book_content (bookId,email,bookImage,bookVideo,title,description,date) VALUES (?,?,?,?,?,?,?)";
     await db.query(
       sqlContentInsert,
       [
         bookId,
-        username,
+        email,
         bookImage,
         bookVideo,
         bookContentTitle,

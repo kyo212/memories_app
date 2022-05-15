@@ -21,7 +21,7 @@ export const Register = memo(() => {
   const navigate = useNavigate();
 
   // 情報
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   // メッセージ
   const [errMsgText, setErrMsgText] = useState("");
@@ -56,12 +56,12 @@ export const Register = memo(() => {
   const register = async () => {
     if (password.length >= 6) {
       await Axios.post(`http://${process.env.REACT_APP_PUBLIC_IP}/register`, {
-        username,
+        email,
         password,
       }).then((response) => {
         const { result, msg } = response.data;
         if (!result) {
-          // usernameまたはpasswordが空の場合,usernameが既に存在している場合
+          // emailまたはpasswordが空の場合,emailが既に存在している場合
           setErrMsgText(msg);
           setErrMsgToggle(true);
         } else {
@@ -78,7 +78,7 @@ export const Register = memo(() => {
 
   const login = async () => {
     await Axios.post(`http://${process.env.REACT_APP_PUBLIC_IP}/login`, {
-      username,
+      email,
       password,
     }).then((response) => {
       const { msg } = response.data;
@@ -97,8 +97,8 @@ export const Register = memo(() => {
     const id = e.target.id;
     const value = e.target.value;
     const num = countGrapheme(value);
-    if (id === "username" && num <= 40) {
-      setUsername(value);
+    if (id === "email" && num <= 40) {
+      setEmail(value);
     } else if (id === "password" && num <= 32) {
       if (value.match(/^[\x20-\x7e]*$/)) {
         // \x20-\x7e - すべてのASCII(アスキー)文字に一致する正規表現
@@ -152,37 +152,37 @@ export const Register = memo(() => {
               <form className="relative mt-8 mb-2 w-[280px] space-y-2 text-center">
                 <div>
                   <input
-                    id="username"
+                    id="email"
                     type="text"
-                    value={username}
+                    value={email}
                     onChange={inputInform}
                     autoFocus
                     placeholder="メールアドレス"
                     className={
                       errMsgToggle &&
-                      (!username ||
+                      (!email ||
                         errMsgText ===
                           "このメールアドレスは既に使用されています。")
-                        ? // errMsgToggle + !username = 空欄の場合
-                          // errMsgToggle + username = 重複時
+                        ? // errMsgToggle + !email = 空欄の場合
+                          // errMsgToggle + email = 重複時
                           errorBorderMsg.showed
                         : errorBorderMsg.base
                     }
                   />
                   <div className="relative h-4 w-full text-sm">
                     <div className="absolute left-0 top-0 text-red-600">
-                      {errMsgToggle && !username ? (
+                      {errMsgToggle && !email ? (
                         <p>メールアドレスを入力してください。</p>
                       ) : errMsgToggle &&
                         errMsgText ===
                           "このメールアドレスは既に使用されています。" ? (
                         <p>{errMsgText}</p>
                       ) : (
-                        username.length === 40 && <p>文字数が最大です。</p>
+                        email.length === 40 && <p>文字数が最大です。</p>
                       )}
                     </div>
                     <p className="absolute right-0 top-0 text-sm text-slate-500">
-                      {username.length}/40
+                      {email.length}/40
                     </p>
                   </div>
                 </div>

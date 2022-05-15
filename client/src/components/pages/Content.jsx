@@ -39,7 +39,7 @@ export const Content = memo(() => {
   const [bookItems, setBookItems] = useState([]);
   const [bookTitle, setBookTitle] = useState("");
   const [category, setCategory] = useState("diary");
-  const [loginUser, setLoginUser] = useState(""); // ログイン中のusername
+  const [loginUser, setLoginUser] = useState(""); // ログイン中のemail
   const [deleteInform, setDeleteInform] = useState({});
   const [searchText, setSearchText] = useState("");
   // Toggle
@@ -75,23 +75,23 @@ export const Content = memo(() => {
 
   useEffect(() => {
     // ユーザーネームをセッションから取得
-    const getUsername = () => {
+    const getEmail = () => {
       Axios.post(`http://${process.env.REACT_APP_PUBLIC_IP}/loginState`).then(
         (response) => {
           const { user } = response.data;
-          console.log({ user, user_0: user[0].username });
-          setLoginUser(user[0].username); // セッションに格納されているユーザー情報
+          console.log({ user, user_0: user[0].email });
+          setLoginUser(user[0].email); // セッションに格納されているユーザー情報
         }
       );
     };
-    getUsername();
+    getEmail();
   }, []);
 
   // ログインしているユーザーを元にデータを取得
   useEffect(() => {
     const getItems = async () => {
       await Axios.post(`http://${process.env.REACT_APP_PUBLIC_IP}/getItems`, {
-        username: loginUser,
+        email: loginUser,
       }).then((response) => {
         const { result } = response.data;
 
@@ -143,7 +143,7 @@ export const Content = memo(() => {
             await Axios.post(
               `http://${process.env.REACT_APP_PUBLIC_IP}/insert`,
               {
-                username: loginUser,
+                email: loginUser,
                 bookTitle,
                 coverImage,
                 category,

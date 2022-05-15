@@ -24,7 +24,7 @@ import { Search } from "../atoms/Search";
 
 export const PublicBooks = memo(() => {
   const [shareItems, setShareItems] = useState([]);
-  const [loginUser, setLoginUser] = useState(""); // ログイン中のusername
+  const [loginUser, setLoginUser] = useState(""); // ログイン中のemail
   const [searchText, setSearchText] = useState("");
   // Toggle
   const [loading, setLoading] = useState(false);
@@ -45,16 +45,16 @@ export const PublicBooks = memo(() => {
 
   useEffect(() => {
     // ユーザーネームをセッションから取得
-    const getUsername = () => {
+    const getEmail = () => {
       Axios.post(`http://${process.env.REACT_APP_PUBLIC_IP}/loginState`).then(
         (response) => {
           const { user } = response.data;
-          console.log({ user, user_0: user[0].username });
-          setLoginUser(user[0].username); // セッションに格納されているユーザー情報
+          console.log({ user, user_0: user[0].email });
+          setLoginUser(user[0].email); // セッションに格納されているユーザー情報
         }
       );
     };
-    getUsername();
+    getEmail();
   }, []);
 
   useEffect(() => {
@@ -148,7 +148,7 @@ export const PublicBooks = memo(() => {
                           bookOpen={bookOpen}
                           setBookOpen={setBookOpen}
                           publicBookMenu={false}
-                          bottomText={item.username || "gestuser"}
+                          bottomText={item.email || "gestuser"}
                         />
                       </SwiperSlide>
                     )
@@ -156,7 +156,7 @@ export const PublicBooks = memo(() => {
                     <>
                       {/* 検索 */}
                       {(item.bookTitle.indexOf(searchText) > -1 ||
-                        item.username.indexOf(searchText) > -1) && (
+                        item.email.indexOf(searchText) > -1) && (
                         <SwiperSlide
                           id={index}
                           key={item.bookId}
@@ -171,7 +171,7 @@ export const PublicBooks = memo(() => {
                             bookOpen={bookOpen}
                             setBookOpen={setBookOpen}
                             publicBookMenu={false}
-                            bottomText={item.username || "gestuser"}
+                            bottomText={item.email || "gestuser"}
                           />
                         </SwiperSlide>
                       )}

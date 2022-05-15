@@ -71,7 +71,7 @@ export const Books = memo(
     };
 
     const toBookContent = (
-      { category, bookId, bookTitle, username, coverImage, date, favorite },
+      { category, bookId, bookTitle, email, coverImage, date, favorite },
       publicBookMenu
     ) => {
       navigate(`book`, {
@@ -79,7 +79,7 @@ export const Books = memo(
           category,
           bookId,
           bookTitle,
-          username,
+          email,
           coverImage,
           date,
           favorite,
@@ -133,9 +133,7 @@ export const Books = memo(
                     {bookOpen && bookOpenId && (
                       <>
                         <button
-                          onClick={() =>
-                            toBookContent(item, publicBookMenu)
-                          }
+                          onClick={() => toBookContent(item, publicBookMenu)}
                           className={`${bookOpenTextStyle}`}
                         >
                           ひらく

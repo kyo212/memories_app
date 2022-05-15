@@ -22,7 +22,7 @@ export const Login = memo(() => {
   // Toggle
   const [passwordShow, setPasswordShow] = useState(false);
   // 情報
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   // メッセージ
   const [errMsgText, setErrMsgText] = useState("");
@@ -51,7 +51,7 @@ export const Login = memo(() => {
   const login = async () => {
     // ログイン認証の関数
     await Axios.post(`http://${process.env.REACT_APP_PUBLIC_IP}/login`, {
-      username,
+      email,
       password,
     }).then((response) => {
       const { msg } = response.data;
@@ -70,8 +70,8 @@ export const Login = memo(() => {
     const id = e.target.id;
     const value = e.target.value;
     const num = countGrapheme(value);
-    if (id === "username" && num <= 40) {
-      setUsername(value);
+    if (id === "email" && num <= 40) {
+      setEmail(value);
     } else if (id === "password" && num <= 32) {
       // バリデーション
       if (value.match(/^[\x20-\x7e]*$/)) {
@@ -108,14 +108,14 @@ export const Login = memo(() => {
           <form className="relative mt-8 mb-2 w-[280px] space-y-2 text-center">
             <div>
               <input
-                id="username"
+                id="email"
                 type="text"
-                value={username}
+                value={email}
                 onChange={inputInfrom}
                 autoFocus
                 placeholder="メールアドレス"
                 className={[
-                  (errMsgToggle && !username) ||
+                  (errMsgToggle && !email) ||
                   (errMsgToggle && errMsgText === "ユーザーが見つかりません。")
                     ? errorBorderMsg.showed
                     : errorBorderMsg.base,
@@ -123,19 +123,19 @@ export const Login = memo(() => {
               />
               <div className="relative h-4 w-full text-sm">
                 <div className="absolute left-0 top-0">
-                  {errMsgToggle && !username ? (
+                  {errMsgToggle && !email ? (
                     <p className="text-red-600">
                       メールアドレスを入力してください。
                     </p>
                   ) : (
-                    username.length === 40 && (
+                    email.length === 40 && (
                       <p className="text-sm text-red-600">文字数が最大です。</p>
                     )
                   )}
                   {errMsgToggle && <p className="text-red-600">{errMsgText}</p>}
                 </div>
                 <p className="absolute right-0 top-0 text-slate-500">
-                  {username.length}/40
+                  {email.length}/40
                 </p>
               </div>
             </div>
