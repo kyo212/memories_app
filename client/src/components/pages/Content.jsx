@@ -34,13 +34,12 @@ import { Context } from "../../App";
 // ------------------------------------------
 
 export const Content = memo(() => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   // 情報
   const [bookItems, setBookItems] = useState([]);
   const [bookTitle, setBookTitle] = useState("");
   const [category, setCategory] = useState("diary");
   const [loginUser, setLoginUser] = useState(""); // ログイン中のusername
-  const [searchResult, setSearchResult] = useState("");
   const [deleteInform, setDeleteInform] = useState({});
   const [searchText, setSearchText] = useState("");
   // Toggle

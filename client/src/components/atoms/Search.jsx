@@ -18,7 +18,6 @@ export const Search = memo(({ placeholder, searchText, setSearchText }) => {
     setSearchToggle(!searchToggle);
     setMenuToggle(false);
     setHeaderToggle(false);
-    setSearchText("");
   };
 
   const searchFunction = (e) => {
@@ -39,7 +38,7 @@ export const Search = memo(({ placeholder, searchText, setSearchText }) => {
         <div>
           <input
             type="search"
-            value={searchText}
+            // value=""
             placeholder={placeholder}
             autoFocus
             onChange={searchFunction}
