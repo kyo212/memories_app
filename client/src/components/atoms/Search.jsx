@@ -6,7 +6,7 @@ import { useStyle } from "../custom/useStyle";
 // コンテキスト
 import { Context } from "../../App";
 
-export const Search = memo(({ placeholder, searchInput, setSearchInput }) => {
+export const Search = memo(({ placeholder, searchText, setSearchText }) => {
   // カスタムフック
   const { searchOpen, menuOpens } = useStyle();
   const { menuOpenBtnAnimation } = menuOpens;
@@ -18,11 +18,11 @@ export const Search = memo(({ placeholder, searchInput, setSearchInput }) => {
     setSearchToggle(!searchToggle);
     setMenuToggle(false);
     setHeaderToggle(false);
-    setSearchInput("");
+    setSearchText("");
   };
 
   const searchFunction = (e) => {
-    setSearchInput(e.target.value);
+    setSearchText(e.target.value);
   };
 
   return (
@@ -39,7 +39,7 @@ export const Search = memo(({ placeholder, searchInput, setSearchInput }) => {
         <div>
           <input
             type="search"
-            value={searchInput}
+            value={searchText}
             placeholder={placeholder}
             autoFocus
             onChange={searchFunction}

@@ -517,7 +517,7 @@ export const Book = memo(() => {
                                 </p>
                               </div>
                             ) : (
-                              <p className="w-full text-xl font-bold text-slate-800 md:text-2xl lg:mt-6 lg:ml-4 lg:text-4xl">
+                              <p className="w-full text-xl font-bold text-slate-800 md:text-2xl lg:mt-6 lg:text-4xl">
                                 {title}
                               </p>
                             )}

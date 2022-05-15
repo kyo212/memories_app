@@ -25,7 +25,7 @@ import { Search } from "../atoms/Search";
 export const PublicBooks = memo(() => {
   const [shareItems, setShareItems] = useState([]);
   const [loginUser, setLoginUser] = useState(""); // ログイン中のusername
-  const [searchInput, setSearchInput] = useState("");
+  const [searchText, setSearchText] = useState("");
   // Toggle
   const [loading, setLoading] = useState(false);
   const [bookOpen, setBookOpen] = useState(false);
@@ -98,8 +98,8 @@ export const PublicBooks = memo(() => {
         <div className="flex items-center">
           <Search
             placeholder="タイトルかユーザー名を検索"
-            searchInput={searchInput}
-            setSearchInput={setSearchInput}
+            searchText={searchText}
+            setSearchText={setSearchText}
           />
           <MenuOpenModal
             loginUser={loginUser}
@@ -155,8 +155,8 @@ export const PublicBooks = memo(() => {
                   ) : (
                     <>
                       {/* 検索 */}
-                      {(item.bookTitle.indexOf(searchInput) > -1 ||
-                        item.username.indexOf(searchInput) > -1) && (
+                      {(item.bookTitle.indexOf(searchText) > -1 ||
+                        item.username.indexOf(searchText) > -1) && (
                         <SwiperSlide
                           id={index}
                           key={item.bookId}
