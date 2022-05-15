@@ -21,6 +21,7 @@ export const Register = memo(() => {
   const navigate = useNavigate();
 
   // 情報
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   // メッセージ
@@ -54,8 +55,9 @@ export const Register = memo(() => {
   }, []);
 
   const register = async () => {
-    if (password.length >= 6) {
+    if (password.length >= 6 || email.indexOf("@") > -1) {
       await Axios.post(`http://${process.env.REACT_APP_PUBLIC_IP}/register`, {
+        username,
         email,
         password,
       }).then((response) => {
@@ -108,6 +110,8 @@ export const Register = memo(() => {
         // join - 引数未指定の場合は連結後、コンマで区切られる。引数が""の場合は連結後の区切り文字がなくなる。"-"の場合はハイフンで区切られる。
         setPassword(newValue);
       }
+    } else if (id === "username" && num <= 12) {
+      setUsername(value);
     }
     setErrMsgToggle(false);
   };
@@ -136,20 +140,54 @@ export const Register = memo(() => {
           </Header>
           <div className="flex h-screen w-screen items-center justify-center bg-white">
             <div className="flex h-[400px] w-[400px] flex-col items-center justify-center rounded-md">
-              <h1 className="my-10 text-2xl font-bold text-slate-600">
+              <h1 className="my-7 text-2xl font-bold text-slate-600">
                 新規登録をする
               </h1>
               <p className="text-sm text-slate-600">
-                新規登録がお済みの方は
-                <a
-                  href="/login"
+                <button
+                  onClick={() => navigate("/login")}
                   className="border-b border-blue-400 text-blue-800"
                 >
                   ログイン
-                </a>
-                から
+                </button>
+                はこちら
               </p>
               <form className="relative mt-8 mb-2 w-[280px] space-y-2 text-center">
+                <div>
+                  <input
+                    id="username"
+                    type="text"
+                    value={username}
+                    onChange={inputInform}
+                    autoFocus
+                    placeholder="ユーザー名"
+                    className={
+                      errMsgToggle &&
+                      (!username ||
+                        errMsgText === "このユーザー名は既に使用されています。")
+                        ? // errMsgToggle + !email = 空欄の場合
+                          // errMsgToggle + email = 重複時
+                          errorBorderMsg.showed
+                        : errorBorderMsg.base
+                    }
+                  />
+                  <div className="relative h-4 w-full text-sm">
+                    <div className="absolute left-0 top-0 text-red-600">
+                      {errMsgToggle && !username ? (
+                        <p>ユーザー名を入力してください。</p>
+                      ) : errMsgToggle &&
+                        errMsgText ===
+                          "このユーザー名は既に使用されています。" ? (
+                        <p>{errMsgText}</p>
+                      ) : (
+                        username.length === 12 && <p>文字数が最大です。</p>
+                      )}
+                    </div>
+                    <p className="absolute right-0 top-0 text-sm text-slate-500">
+                      {username.length}/12
+                    </p>
+                  </div>
+                </div>
                 <div>
                   <input
                     id="email"
@@ -159,10 +197,13 @@ export const Register = memo(() => {
                     autoFocus
                     placeholder="メールアドレス"
                     className={
-                      errMsgToggle &&
-                      (!email ||
-                        errMsgText ===
-                          "このメールアドレスは既に使用されています。")
+                      (errMsgToggle &&
+                        (!email ||
+                          errMsgText ===
+                            "このメールアドレスは既に使用されています。")) ||
+                      (errMsgToggle &&
+                        (email.indexOf("@") === -1 ||
+                          email.indexOf(".") === -1))
                         ? // errMsgToggle + !email = 空欄の場合
                           // errMsgToggle + email = 重複時
                           errorBorderMsg.showed
@@ -171,7 +212,11 @@ export const Register = memo(() => {
                   />
                   <div className="relative h-4 w-full text-sm">
                     <div className="absolute left-0 top-0 text-red-600">
-                      {errMsgToggle && !email ? (
+                      {errMsgToggle && email.indexOf("@") === -1 ? (
+                        <p>無効な形式です。"@"をつけてください。</p>
+                      ) : errMsgToggle && email.indexOf(".") === -1 ? (
+                        <p>フォーマットが正しくありません。</p>
+                      ) : errMsgToggle && !email ? (
                         <p>メールアドレスを入力してください。</p>
                       ) : errMsgToggle &&
                         errMsgText ===
@@ -227,7 +272,7 @@ export const Register = memo(() => {
                   </span>
                 </div>
               </form>
-              <div className="my-4 space-y-2 text-sm text-slate-800">
+              <div className="w-72 space-y-2 bg-slate-200 p-4 text-sm text-slate-800">
                 <div className="flex items-center">
                   <input
                     type="checkbox"
@@ -252,7 +297,7 @@ export const Register = memo(() => {
                     onClick={confirmPages}
                     className="ml-1 cursor-pointer border-b border-blue-800 font-bold text-blue-800"
                   >
-                    推奨環境・ブラウザについて
+                    推奨環境
                   </button>
                   について確認しました
                 </div>

@@ -1,5 +1,4 @@
 import { memo, useState, useEffect, useContext, useRef } from "react";
-import { useNavigate } from "react-router-dom";
 import Axios from "axios";
 // スライダー
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -74,13 +73,13 @@ export const Content = memo(() => {
     "flex h-40 w-[360px] transform flex-col items-center justify-center space-y-4 rounded-lg border-2 border-gray-200 bg-white py-6 px-6 text-gray-700 transition-all duration-700 md:w-[580px]";
 
   useEffect(() => {
-    // ユーザーネームをセッションから取得
+    // ユーザー名をセッションから取得
     const getEmail = () => {
       Axios.post(`http://${process.env.REACT_APP_PUBLIC_IP}/loginState`).then(
         (response) => {
           const { user } = response.data;
-          console.log({ user, user_0: user[0].email });
-          setLoginUser(user[0].email); // セッションに格納されているユーザー情報
+          console.log({ user, user_0: user[0].username });
+          setLoginUser(user[0].username); // セッションに格納されているユーザー情報
         }
       );
     };

@@ -91,19 +91,17 @@ export const Login = memo(() => {
       </Header>
       <div className="flex h-screen w-screen items-center justify-center bg-white">
         <div className="flex h-[400px] w-[400px] flex-col items-center justify-center rounded-md">
-          <h1 className="my-10 text-2xl font-bold text-slate-600">
+          <h1 className="my-7 text-2xl font-bold text-slate-600">
             ログインする
           </h1>
           <p className="text-center text-sm text-slate-600">
-            まだ新規登録がお済みでない場合は
-            <br />
-            <a
-              href="/register"
+            <button
+              onClick={() => navigate("/register")}
               className="border-b border-blue-400 text-blue-800"
             >
               新規登録
-            </a>
-            から
+            </button>
+            はこちら
           </p>
           <form className="relative mt-8 mb-2 w-[280px] space-y-2 text-center">
             <div>

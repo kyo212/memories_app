@@ -55,13 +55,14 @@ app.use(
 
 // routes
 app.post("/register", async (req, res) => {
-  const { email, password } = req.body;
-  if (!email || !password) {
+  const { username, email, password } = req.body;
+  if (!username || !email || !password) {
     res.json({ result: false, msg: "入力してください。" });
   } else {
-    const sqlSelect = "SELECT * FROM users WHERE email = ?";
-    const sqlInsert = "INSERT INTO users (email,password) VALUE (?,?)";
-    await db.query(sqlSelect, [email], (err, result) => {
+    const sqlSelect = "SELECT * FROM users WHERE username = ? OR email = ?";
+    const sqlInsert =
+      "INSERT INTO users (username,email,password) VALUE (?,?,?)";
+    await db.query(sqlSelect, [username, email], (err, result) => {
       if (err) {
         console.log(err);
       }
@@ -70,12 +71,17 @@ app.post("/register", async (req, res) => {
         const saltRounds = 10;
         bcrypt.hash(password, saltRounds, (err, hash) => {
           console.log(hash);
-          db.query(sqlInsert, [email, hash], (err, result) => {
+          db.query(sqlInsert, [username, email, hash], (err, result) => {
             console.log(err);
           });
         });
         res.json({ result: true, msg: "新規登録が完了しました。" });
-      } else {
+      } else if (result[0].username === username) {
+        res.json({
+          result: false,
+          msg: "このユーザー名は既に使用されています。",
+        });
+      } else if (result[0].email === email) {
         res.json({
           result: false,
           msg: "このメールアドレスは既に使用されています。",

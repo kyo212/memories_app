@@ -6,9 +6,6 @@ import { Navigation, Pagination } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-// アイコン
-import { AiOutlinePlus } from "react-icons/ai";
-import { BsArrowUp } from "react-icons/bs";
 // コンポーネント UI系
 import { Header } from "../organisms/Header";
 import { Books } from "../organisms/Books";
@@ -44,13 +41,13 @@ export const PublicBooks = memo(() => {
   } = useContext(Context);
 
   useEffect(() => {
-    // ユーザーネームをセッションから取得
+    // ユーザー名をセッションから取得
     const getEmail = () => {
       Axios.post(`http://${process.env.REACT_APP_PUBLIC_IP}/loginState`).then(
         (response) => {
           const { user } = response.data;
-          console.log({ user, user_0: user[0].email });
-          setLoginUser(user[0].email); // セッションに格納されているユーザー情報
+          console.log({ user, user_0: user[0].username });
+          setLoginUser(user[0].username); // セッションに格納されているユーザー情報
         }
       );
     };
