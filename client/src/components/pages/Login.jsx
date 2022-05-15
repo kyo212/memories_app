@@ -125,15 +125,14 @@ export const Login = memo(() => {
                     <p className="text-red-600">
                       メールアドレスを入力してください。
                     </p>
+                  ) : errMsgToggle &&
+                    errMsgText !== "パスワードが間違っています。" ? (
+                    <p className="text-red-600">{errMsgText}</p>
                   ) : (
                     email.length === 40 && (
                       <p className="text-sm text-red-600">文字数が最大です。</p>
                     )
                   )}
-                  {errMsgToggle &&
-                    errMsgText !== "パスワードが間違っています。" && (
-                      <p className="text-red-600">{errMsgText}</p>
-                    )}
                 </div>
                 <p className="absolute right-0 top-0 text-slate-500">
                   {email.length}/40
