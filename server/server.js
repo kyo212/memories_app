@@ -23,7 +23,7 @@ app.use(
   "/static",
   express.static(path.join(__dirname, "../client/build/static"))
 );
-app.use('/favicon.ico', express.static('../client/build/favicon.ico'));
+app.use("/favicon.ico", express.static("../client/build/favicon.ico"));
 app.get("*", (req, res) => {
   res.sendFile("index.html", {
     root: path.join(__dirname, "../client/build"),
@@ -66,7 +66,7 @@ app.post("/register", async (req, res) => {
         console.log(err);
       }
       if (!result.length > 0) {
-        // データが返ってこない（同じユーザー名がない）場合はパスワードをハッシュ化する。
+        // データが返ってこない（同じメールアドレスがない）場合はパスワードをハッシュ化する。
         const saltRounds = 10;
         bcrypt.hash(password, saltRounds, (err, hash) => {
           console.log(hash);
@@ -78,7 +78,7 @@ app.post("/register", async (req, res) => {
       } else {
         res.json({
           result: false,
-          msg: "このユーザー名は既に使用されています。",
+          msg: "このメールアドレスは既に使用されています。",
         });
       }
     });
@@ -124,7 +124,7 @@ app.post("/login", async (req, res) => {
       bcrypt.compare(password, result[0].password, (err, response) => {
         // response - 一致したらtrue,しなかったらfalse
         if (response) {
-          // ユーザー名とパスワードの認証が完了している状態
+          // メールアドレスとパスワードの認証が完了している状態
 
           // トークンの生成 ↓-------------------------------------------------
           const id = result[0].userId; // DBからuserIdを取得して格納
@@ -154,7 +154,7 @@ app.post("/login", async (req, res) => {
         }
       });
     } else {
-      // resultが[]の場合、ユーザー名が見つからなかった事になる。
+      // resultが[]の場合、メールアドレスが見つからなかった事になる。
       res.json({ result: false, msg: "ユーザーが見つかりません。" });
     }
   });

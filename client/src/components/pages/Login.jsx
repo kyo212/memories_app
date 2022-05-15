@@ -70,7 +70,7 @@ export const Login = memo(() => {
     const id = e.target.id;
     const value = e.target.value;
     const num = countGrapheme(value);
-    if (id === "username" && num <= 12) {
+    if (id === "username" && num <= 40) {
       setUsername(value);
     } else if (id === "password" && num <= 32) {
       // バリデーション
@@ -113,7 +113,7 @@ export const Login = memo(() => {
                 value={username}
                 onChange={inputInfrom}
                 autoFocus
-                placeholder="ユーザー名"
+                placeholder="メールアドレス"
                 className={[
                   (errMsgToggle && !username) ||
                   (errMsgToggle && errMsgText === "ユーザーが見つかりません。")
@@ -125,17 +125,17 @@ export const Login = memo(() => {
                 <div className="absolute left-0 top-0">
                   {errMsgToggle && !username ? (
                     <p className="text-red-600">
-                      ユーザー名を入力してください。
+                      メールアドレスを入力してください。
                     </p>
                   ) : (
-                    username.length === 12 && (
+                    username.length === 40 && (
                       <p className="text-sm text-red-600">文字数が最大です。</p>
                     )
                   )}
                   {errMsgToggle && <p className="text-red-600">{errMsgText}</p>}
                 </div>
                 <p className="absolute right-0 top-0 text-slate-500">
-                  {username.length}/12
+                  {username.length}/40
                 </p>
               </div>
             </div>

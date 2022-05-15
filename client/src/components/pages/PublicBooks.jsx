@@ -97,7 +97,7 @@ export const PublicBooks = memo(() => {
       <Header root={"/public"} headerOpen={{ headerToggle, setHeaderToggle }}>
         <div className="flex items-center">
           <Search
-            placeholder="タイトルかユーザー名を検索"
+            placeholder="タイトルかメールアドレスを検索"
             searchText={searchText}
             setSearchText={setSearchText}
           />

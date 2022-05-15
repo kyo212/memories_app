@@ -125,7 +125,7 @@ export const MenuOpenModal = ({
                 <span className="text-md font-thin">でログイン中</span>
               </p>
               {showMenu && (
-                <button className="text-blue-600">ユーザー名を変更</button>
+                <button className="text-blue-600">メールアドレスを変更</button>
               )}
             </div>
 

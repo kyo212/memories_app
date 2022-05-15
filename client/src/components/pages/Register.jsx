@@ -97,7 +97,7 @@ export const Register = memo(() => {
     const id = e.target.id;
     const value = e.target.value;
     const num = countGrapheme(value);
-    if (id === "username" && num <= 12) {
+    if (id === "username" && num <= 40) {
       setUsername(value);
     } else if (id === "password" && num <= 32) {
       if (value.match(/^[\x20-\x7e]*$/)) {
@@ -157,11 +157,12 @@ export const Register = memo(() => {
                     value={username}
                     onChange={inputInform}
                     autoFocus
-                    placeholder="ユーザー名"
+                    placeholder="メールアドレス"
                     className={
                       errMsgToggle &&
                       (!username ||
-                        errMsgText === "このユーザー名は既に使用されています。")
+                        errMsgText ===
+                          "このメールアドレスは既に使用されています。")
                         ? // errMsgToggle + !username = 空欄の場合
                           // errMsgToggle + username = 重複時
                           errorBorderMsg.showed
@@ -171,17 +172,17 @@ export const Register = memo(() => {
                   <div className="relative h-4 w-full text-sm">
                     <div className="absolute left-0 top-0 text-red-600">
                       {errMsgToggle && !username ? (
-                        <p>ユーザー名を入力してください。</p>
+                        <p>メールアドレスを入力してください。</p>
                       ) : errMsgToggle &&
                         errMsgText ===
-                          "このユーザー名は既に使用されています。" ? (
+                          "このメールアドレスは既に使用されています。" ? (
                         <p>{errMsgText}</p>
                       ) : (
-                        username.length === 12 && <p>文字数が最大です。</p>
+                        username.length === 40 && <p>文字数が最大です。</p>
                       )}
                     </div>
                     <p className="absolute right-0 top-0 text-sm text-slate-500">
-                      {username.length}/12
+                      {username.length}/40
                     </p>
                   </div>
                 </div>
