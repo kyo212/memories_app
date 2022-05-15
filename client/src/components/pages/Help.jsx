@@ -10,8 +10,15 @@ export const Help = memo(() => {
   const [previewWindow, setPreviewWindow] = useState(false);
   const [previewImageSrc, setPreviewImageSrc] = useState("");
   // 画像
-  const { helpImage1, helpImage2, helpImage3 } = ImportImages();
-  
+  const {
+    helpImage1,
+    helpImage2,
+    helpImage3,
+    helpImage4,
+    helpImage5,
+    helpImage6,
+  } = ImportImages();
+
   const toMybooks = () => {
     if (location.state.root === "fromHome") {
       navigate("/");
@@ -150,13 +157,13 @@ export const Help = memo(() => {
                       </p>
                       <div className="flex h-24 w-72 text-sm">
                         <p>
-                          追加ボタンをタップして入力ウィンドウを表示させます。
+                          横スクロールまたは矢印のタップで次のフォトブックへ移動することができます。
                         </p>
                       </div>
-                      <div onClick={() => imagePreview(helpImage1)}>
+                      <div onClick={() => imagePreview(helpImage5)}>
                         <img
-                          src={helpImage1}
-                          alt="追加の使い方ガイド"
+                          src={helpImage5}
+                          alt="フォトブックの使い方ガイド"
                           className="w-72 cursor-pointer border border-slate-300"
                         />
                       </div>
@@ -168,19 +175,14 @@ export const Help = memo(() => {
                         2
                       </p>
                       <div className="flex h-24 w-72 text-sm">
-                        <ol className="ml-4 list-decimal">
-                          <li>フォトブックのタイトルを入力。</li>
-                          <li>任意の画像を写真フォルダから選択。</li>
-                          <li>
-                            カテゴリーを選択。
-                            <br />※ デフォルトは「日記」カテゴリー
-                          </li>
-                        </ol>
+                        <p>
+                          フォトブックの表紙には追加時に選択したカテゴリーと作成日が表示されます。また、矢印をタップすることにより、メニューを開くことができます。
+                        </p>
                       </div>
-                      <div onClick={() => imagePreview(helpImage2)}>
+                      <div onClick={() => imagePreview(helpImage4)}>
                         <img
-                          src={helpImage2}
-                          alt="追加の使い方ガイド"
+                          src={helpImage4}
+                          alt="フォトブックの使い方ガイド"
                           className="w-72 cursor-pointer border border-slate-300"
                         />
                       </div>
@@ -192,19 +194,14 @@ export const Help = memo(() => {
                         3
                       </p>
                       <div className="h-24 w-72 text-sm">
-                        <ol className="ml-4 list-disc">
-                          <li>
-                            「フォトブックを追加する」ボタンをタップしてフォトブックを追加します。
-                          </li>
-                          <li>
-                            閉じるボタンを押すことにより、入力のキャンセルが行われます。
-                          </li>
-                        </ol>
+                        <p>
+                          開く・お気に入り・共有・削除の4つのメニューが選択できます。
+                        </p>
                       </div>
-                      <div onClick={() => imagePreview(helpImage3)}>
+                      <div onClick={() => imagePreview(helpImage6)}>
                         <img
-                          src={helpImage3}
-                          alt="追加の使い方ガイド"
+                          src={helpImage6}
+                          alt="フォトブックの使い方ガイド"
                           className="w-72 cursor-pointer border border-slate-300"
                         />
                       </div>
