@@ -56,9 +56,9 @@ export const Login = memo(() => {
       email,
       password,
     }).then((response) => {
-      const { msg } = response.data;
+      const { msg, result } = response.data;
+      !result && setErrMsgToggle(true);
       setErrMsgText(msg);
-      setErrMsgToggle(true);
       Axios.post(`http://${process.env.REACT_APP_PUBLIC_IP}/isUserAuth`).then(
         (response) => {
           const { auth } = response.data;
