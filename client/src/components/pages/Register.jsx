@@ -195,7 +195,7 @@ export const Register = memo(() => {
                 <div>
                   <input
                     id="email"
-                    type="text"
+                    type="email"
                     value={email}
                     onChange={inputInform}
                     autoFocus
