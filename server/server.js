@@ -170,14 +170,14 @@ app.post("/getItems", async (req, res) => {
     const sqlEmailSelect = "SELECT * FROM book_list WHERE username = ?";
     await db.query(sqlEmailSelect, username, (err, result) => {
       if (result.length > 0) {
-        res.json({ result: result, err: err });
+        res.json({ result, err });
       }
     });
   } else {
     const sqlShareIdSelect = "SELECT * FROM book_list WHERE shareId = ?";
     await db.query(sqlShareIdSelect, shareId, (err, result) => {
       if (result.length > 0) {
-        res.json({ result: result, err: err });
+        res.json({ result, err });
       }
     });
   }
@@ -187,7 +187,7 @@ app.post("/getBookContent", async (req, res) => {
   const { bookId } = req.body;
   const sqlSelect = "SELECT * FROM book_content WHERE bookId = ?";
   await db.query(sqlSelect, bookId, (err, result) => {
-    res.json({ result: result, err: err });
+    res.json({ result, err });
   });
 });
 
@@ -227,7 +227,7 @@ app.post("/insert", async (req, res) => {
         (shareId = 0),
       ],
       (err, result) => {
-        res.json({ result: result, err: err });
+        res.json({ result, err });
       }
     );
   } else {
@@ -245,7 +245,7 @@ app.post("/insert", async (req, res) => {
         date,
       ],
       (err, result) => {
-        res.json({ result: result, err: err });
+        res.json({ result, err });
       }
     );
   }
@@ -259,7 +259,7 @@ app.delete("/delete/:id", async (req, res) => {
   // book_listとbook_contentから同じbookIdの行を削除
 
   await db.query(sqlDelete, [id], (err, result) => {
-    res.json({ result: result, err: err });
+    res.json({ result, err });
   });
 });
 
@@ -268,7 +268,7 @@ app.delete("/deletePage/:id", async (req, res) => {
   const sqlDeletePage = "DELETE FROM book_content WHERE pageId = ?";
 
   await db.query(sqlDeletePage, [id], (err, result) => {
-    res.json({ result: result, err: err });
+    res.json({ result, err });
   });
 });
 
@@ -298,7 +298,7 @@ app.put("/put", async (req, res) => {
         (title && !description && [title, id]) ||
         (!title && description && [description, id]),
       (err, result) => {
-        res.json({ result: result, err: err });
+        res.json({ result, err });
       }
     );
   } else {
@@ -307,7 +307,7 @@ app.put("/put", async (req, res) => {
         (type === "share" && sqlShareUpdate),
       [num, id],
       (err, result) => {
-        res.json({ result: result, err: err });
+        res.json({ result, err });
       }
     );
   }
