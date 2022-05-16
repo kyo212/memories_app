@@ -71,7 +71,7 @@ export const Books = memo(
     };
 
     const toBookContent = (
-      { category, bookId, bookTitle, email, coverImage, date, favorite },
+      { category, bookId, bookTitle, username, coverImage, date, favorite },
       publicBookMenu
     ) => {
       navigate(`book`, {
@@ -79,7 +79,7 @@ export const Books = memo(
           category,
           bookId,
           bookTitle,
-          email,
+          username,
           coverImage,
           date,
           favorite,

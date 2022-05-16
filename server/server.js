@@ -164,11 +164,11 @@ app.post("/login", async (req, res) => {
 });
 
 app.post("/getItems", async (req, res) => {
-  const { email, shareId } = req.body;
+  const { username, shareId } = req.body;
 
   if (!shareId) {
-    const sqlEmailSelect = "SELECT * FROM book_list WHERE email = ?";
-    await db.query(sqlEmailSelect, email, (err, result) => {
+    const sqlEmailSelect = "SELECT * FROM book_list WHERE username = ?";
+    await db.query(sqlEmailSelect, username, (err, result) => {
       if (result.length > 0) {
         res.json({ result: result, err: err });
       }
@@ -213,12 +213,12 @@ app.post("/insert", async (req, res) => {
   if (bookTitle) {
     // bookTitleがtrueなら表紙
     const sqlInsert =
-      "INSERT INTO book_list (email,bookTitle,coverImage,category,date,favorite,shareId) VALUES (?,?,?,?,?,?,?)";
+      "INSERT INTO book_list (username,bookTitle,coverImage,category,date,favorite,shareId) VALUES (?,?,?,?,?,?,?)";
     // emailは自動で入力される。dateとfavoriteはデフォルト値を設定
     await db.query(
       sqlInsert,
       [
-        email,
+        username,
         bookTitle,
         coverImage,
         category,
@@ -232,12 +232,12 @@ app.post("/insert", async (req, res) => {
     );
   } else {
     const sqlContentInsert =
-      "INSERT INTO book_content (bookId,email,bookImage,bookVideo,title,description,date) VALUES (?,?,?,?,?,?,?)";
+      "INSERT INTO book_content (bookId,username,bookImage,bookVideo,title,description,date) VALUES (?,?,?,?,?,?,?)";
     await db.query(
       sqlContentInsert,
       [
         bookId,
-        email,
+        username,
         bookImage,
         bookVideo,
         bookContentTitle,

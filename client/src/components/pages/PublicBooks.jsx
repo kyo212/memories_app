@@ -42,7 +42,7 @@ export const PublicBooks = memo(() => {
 
   useEffect(() => {
     // ユーザー名をセッションから取得
-    const getEmail = () => {
+    const getUsername = () => {
       Axios.post(`http://${process.env.REACT_APP_PUBLIC_IP}/loginState`).then(
         (response) => {
           const { user } = response.data;
@@ -51,7 +51,7 @@ export const PublicBooks = memo(() => {
         }
       );
     };
-    getEmail();
+    getUsername();
   }, []);
 
   useEffect(() => {
@@ -145,7 +145,7 @@ export const PublicBooks = memo(() => {
                           bookOpen={bookOpen}
                           setBookOpen={setBookOpen}
                           publicBookMenu={false}
-                          bottomText={item.email || "gestuser"}
+                          bottomText={item.username || "gestuser"}
                         />
                       </SwiperSlide>
                     )
@@ -153,7 +153,7 @@ export const PublicBooks = memo(() => {
                     <>
                       {/* 検索 */}
                       {(item.bookTitle.indexOf(searchText) > -1 ||
-                        item.email.indexOf(searchText) > -1) && (
+                        item.username.indexOf(searchText) > -1) && (
                         <SwiperSlide
                           id={index}
                           key={item.bookId}
@@ -168,7 +168,7 @@ export const PublicBooks = memo(() => {
                             bookOpen={bookOpen}
                             setBookOpen={setBookOpen}
                             publicBookMenu={false}
-                            bottomText={item.email || "gestuser"}
+                            bottomText={item.username || "gestuser"}
                           />
                         </SwiperSlide>
                       )}

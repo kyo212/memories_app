@@ -74,7 +74,7 @@ export const Content = memo(() => {
 
   useEffect(() => {
     // ユーザー名をセッションから取得
-    const getEmail = () => {
+    const getUsername = () => {
       Axios.post(`http://${process.env.REACT_APP_PUBLIC_IP}/loginState`).then(
         (response) => {
           const { user } = response.data;
@@ -83,14 +83,14 @@ export const Content = memo(() => {
         }
       );
     };
-    getEmail();
+    getUsername();
   }, []);
 
   // ログインしているユーザーを元にデータを取得
   useEffect(() => {
     const getItems = async () => {
       await Axios.post(`http://${process.env.REACT_APP_PUBLIC_IP}/getItems`, {
-        email: loginUser,
+        username: loginUser,
       }).then((response) => {
         const { result } = response.data;
 

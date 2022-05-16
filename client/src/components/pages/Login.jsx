@@ -86,7 +86,6 @@ export const Login = memo(() => {
     setErrMsgToggle(false); // エラーを解除
   };
 
-  console.log(countNumber.num);
   const toggleIcon = () => setPasswordShow(!passwordShow);
 
   return (

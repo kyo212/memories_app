@@ -41,7 +41,7 @@ export const Book = memo(() => {
     category,
     bookId,
     bookTitle,
-    email,
+    username,
     coverImage,
     date,
     favorite,
@@ -139,7 +139,7 @@ export const Book = memo(() => {
                 `http://${process.env.REACT_APP_PUBLIC_IP}/insert`,
                 {
                   bookId, // デフォルト
-                  email, // デフォルト
+                  username, // デフォルト
                   bookImage, // 任意追加 nullを許可
                   bookVideo, // 任意追加 nullを許可
                   bookContentTitle, // 必須追加
@@ -350,7 +350,7 @@ export const Book = memo(() => {
                               <ChangeJapanese category={category} />
                             </p>
                           </div>
-                          <p className="text-lg">{email || "gestUser"}</p>
+                          <p className="text-lg">{username || "gestUser"}</p>
                         </div>
                         <div className="mt-8">
                           <ChangeFont setFontChange={setFontChange} />
