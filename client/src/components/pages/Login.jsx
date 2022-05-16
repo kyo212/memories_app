@@ -21,6 +21,7 @@ export const Login = memo(() => {
   // Toggle
   const [passwordShow, setPasswordShow] = useState(false);
   // 情報
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [countNumber, setCountNumber] = useState({ id: "", num: 0 });
@@ -51,6 +52,7 @@ export const Login = memo(() => {
   const login = async () => {
     // ログイン認証の関数
     await Axios.post(`http://${process.env.REACT_APP_PUBLIC_IP}/login`, {
+      username,
       email,
       password,
     }).then((response) => {
@@ -73,6 +75,7 @@ export const Login = memo(() => {
     setCountNumber({ id, num });
     if (id === "email" && num < 40) {
       setEmail(value);
+      setUsername(value);
     } else if (id === "password" && num < 32) {
       // バリデーション
       if (value.match(/^[\x20-\x7e]*$/)) {
@@ -113,7 +116,7 @@ export const Login = memo(() => {
                 value={email}
                 onChange={inputInform}
                 autoFocus
-                placeholder="メールアドレス"
+                placeholder="メールアドレスまたはユーザー名"
                 className={[
                   (errMsgToggle &&
                     (!email || errMsgText === "userIsNotFound")) ||
@@ -126,12 +129,10 @@ export const Login = memo(() => {
                 <div className="absolute left-0 top-0">
                   {errMsgToggle && !email ? (
                     <p className="text-red-600">
-                      メールアドレスを入力してください。
+                      メールアドレスまたはユーザー名を入力してください。
                     </p>
                   ) : errMsgToggle && errMsgText !== "passwordFalse" ? (
-                    <p className="text-red-600">
-                      ユーザーが見つかりません。
-                    </p>
+                    <p className="text-red-600">ユーザーが見つかりません。</p>
                   ) : (
                     countNumber.id === "email" &&
                     countNumber.num === 40 && (

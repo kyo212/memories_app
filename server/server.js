@@ -116,10 +116,10 @@ app.post("/logout", (req, res) => {
 });
 
 app.post("/login", async (req, res) => {
-  const { email, password } = req.body;
+  const { username, email, password } = req.body;
 
-  const sqlSelect = "SELECT * FROM users WHERE email = ?";
-  await db.query(sqlSelect, [email], (err, result) => {
+  const sqlSelect = "SELECT * FROM users WHERE username = ? OR email = ?";
+  await db.query(sqlSelect, [username,email], (err, result) => {
     if (err) {
       console.log(err);
     } else if (result.length > 0) {
