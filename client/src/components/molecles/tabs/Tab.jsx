@@ -25,7 +25,7 @@ export const Tab = memo(({ animation, ulClass, setCategory }) => {
     defaultIndex && setTabListSelected(tabList[0]);
   }, [defaultIndex]);
 
-  const tabCliced = (index) => {
+  const tabClicked = (index) => {
     setTabListSelected(tabList[index]);
     setCategory(tabList[index]);
     setDefaultIndex(false);
@@ -44,7 +44,7 @@ export const Tab = memo(({ animation, ulClass, setCategory }) => {
                 ? animation.base
                 : animation.selected,
             ]}
-            onClick={() => tabCliced(index)}
+            onClick={() => tabClicked(index)}
           >
             <button className="cursor-pointer">
               <ChangeJapanese category={tab} />

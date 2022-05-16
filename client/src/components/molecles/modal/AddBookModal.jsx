@@ -1,4 +1,4 @@
-import { useContext, memo } from "react";
+import { useContext, memo, useState } from "react";
 // カスタムフック
 import { useSegment } from "../../custom/useSegment";
 import { useStyle } from "../../custom/useStyle";
@@ -21,6 +21,8 @@ export const AddBookModal = memo(
     bookListItems,
     setBookListItems,
   }) => {
+    // 情報
+    const [countNumber, setCountNumber] = useState(0);
     // Contentからのprops
     const { errMsgToggle, setErrMsgToggle } = msgShow;
     const { modalToggle, setModalToggle } = toggle;
@@ -37,7 +39,8 @@ export const AddBookModal = memo(
     const inputInform = (e) => {
       const value = e.target.value;
       const num = countGrapheme(value);
-      if (num <= 12) {
+      setCountNumber(num);
+      if (num < 12) {
         setBookTitle(value);
       }
       // 追加時に足りない情報があった場合に出るエラーの際、情報を入力し始めたらエラーメッセージをオフにする
@@ -93,21 +96,21 @@ export const AddBookModal = memo(
                     onChange={inputInform}
                     className={[
                       `${
-                        errMsgToggle && !bookTitle
+                        (errMsgToggle && !bookTitle) || countNumber === 12
                           ? errorBorderMsg.showed
                           : errorBorderMsg.base
-                      } w-[260px] focus:border-sky-600 md:w-[440px]`,
+                      } w-[260px] md:w-[440px]`,
                     ]}
                   />
                 </label>
                 <div className="flex justify-end">
-                  {bookTitle.length === 12 && (
+                  {countNumber === 12 && (
                     <p className="text-sm text-red-600">
                       タイトルは12文字が最大です。
                     </p>
                   )}
                   <p className="ml-8 text-sm text-slate-500">
-                    {bookTitle.length}/12
+                    {countNumber}/12
                   </p>
                 </div>
               </div>

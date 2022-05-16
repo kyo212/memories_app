@@ -20,21 +20,23 @@ import {
 // コンポーネント UI系
 import { ChangeFont } from "../atoms/ChangeFont";
 import { Button } from "../atoms/button/Button";
+import { ConfirmDialog } from "../atoms/message/ConfirmDialog";
 // コンポーネント 処理系
 import { ImageUrlCreate } from "../organisms/ImageUrlCreate";
 import { ChangeJapanese } from "../atoms/ChangeJapanese";
 // カスタムフック
 import { useStyle } from "../custom/useStyle";
 import { useForceUpdate } from "../custom/useForceUpdate";
+import { useSegment } from "../custom/useSegment";
 // コンテキスト
 import { Context } from "../../App";
-import { ConfirmDialog } from "../atoms/message/ConfirmDialog";
 
 export const Book = memo(() => {
   // ルーター
   const navigate = useNavigate();
   const location = useLocation();
   // 情報
+  const [countNumber, setCountNumber] = useState({ id: "", num: 0 });
   const [bookContents, setBookContents] = useState([]);
   const [locationState, setLocationState] = useState([]);
   const {
@@ -68,6 +70,7 @@ export const Book = memo(() => {
   const { modalConfirmAnimation } = modals;
   const { errorBorderMsg } = messageWindow;
   const [update, { setUpdate }] = useForceUpdate();
+  const { countGrapheme } = useSegment();
   // コンテキスト
   const {
     imageUrl,
@@ -203,16 +206,23 @@ export const Book = memo(() => {
   };
 
   const addInform = (e) => {
-    if (e.target.id === "title" && e.target.value.length <= 25) {
-      setBookContentTitle(e.target.value);
-    } else if (e.target.id === "description" && e.target.value.length <= 60) {
-      setBookContentDesc(e.target.value);
+    const id = e.target.id;
+    const value = e.target.value;
+    const num = countGrapheme(value);
+    setCountNumber({ id, num });
+
+    if (id === "title" && num < 25) {
+      setBookContentTitle(value);
+    } else if (id === "description" && num < 60) {
+      setBookContentDesc(value);
     }
     setErrMsgToggle(false);
   };
 
   const typeChangeToggle = (e) => {
-    if (e.target.id === "mediaAndTextBtn") {
+    const id = e.target.id;
+
+    if (id === "mediaAndTextBtn") {
       setAddTypeChange(false);
     } else {
       setAddTypeChange(true);
@@ -242,9 +252,11 @@ export const Book = memo(() => {
   const editInform = (e) => {
     const id = e.target.id;
     const value = e.target.value;
-    if (id === "editTitle" && value.length <= 25) {
+    const num = countGrapheme(value);
+
+    if (id === "editTitle" && num < 25) {
       setBookContentEditTitle(value);
-    } else if (id === "editDesc" && value.length <= 60) {
+    } else if (id === "editDesc" && num < 60) {
       setBookContentEditDesc(value);
     }
     setErrMsgToggle(false);
@@ -257,17 +269,11 @@ export const Book = memo(() => {
         title: bookContentEditTitle,
         description: bookContentEditDesc,
         type: "editText",
-      })
-        .then((response) => {
-          const { result, err } = response.data;
-          console.log({ result, err });
-          setEdit(false);
-        })
-        .catch(() => {
-          console.log(
-            "何らかのエラーが発生しました。もう一度やり直してください。"
-          );
-        });
+      }).then((response) => {
+        const { result, err } = response.data;
+        console.log({ result, err });
+        setEdit(false);
+      });
       setUpdate(!update);
     }
     setEdit(false);
@@ -330,9 +336,7 @@ export const Book = memo(() => {
                     <>
                       {/* リボン */}
                       {favorite ? (
-                        <span className="absolute top-3 right-3 text-2xl text-red-500">
-                          <BsFillBookmarkFill />
-                        </span>
+                        <BsFillBookmarkFill className="absolute top-3 right-3 text-2xl text-red-500" />
                       ) : (
                         <></>
                       )}
@@ -673,14 +677,17 @@ export const Book = memo(() => {
                               value={bookContentTitle}
                               onChange={addInform}
                               className={`${[
-                                errMsgToggle && !bookContentTitle
+                                (errMsgToggle && !bookContentTitle) ||
+                                (countNumber.id === "title" &&
+                                  countNumber.num === 25)
                                   ? errorBorderMsg.showed
                                   : errorBorderMsg.base,
-                              ]} focus:border-sky-600`}
+                              ]}`}
                             />
                           </label>
                           <p className="absolute right-0 top-full text-sm text-slate-500">
-                            {bookContentTitle.length}/25
+                            {countNumber.id === "title" &&
+                              `${countNumber.num}/25`}
                           </p>
                         </div>
                         {errMsgToggle && !bookContentTitle ? (
@@ -688,7 +695,8 @@ export const Book = memo(() => {
                             タイトルを入力してください。
                           </p>
                         ) : (
-                          bookContentTitle.length === 25 && (
+                          countNumber.id === "title" &&
+                          countNumber.num === 25 && (
                             <p className="text-sm text-red-600">
                               文字数が最大です。
                             </p>
@@ -705,15 +713,18 @@ export const Book = memo(() => {
                               value={bookContentDesc}
                               onChange={addInform}
                               className={`${[
-                                errMsgToggle && !bookContentDesc
+                                (errMsgToggle && !bookContentDesc) ||
+                                (countNumber.id === "description" &&
+                                  countNumber.num === 60)
                                   ? errorBorderMsg.showed
                                   : errorBorderMsg.base,
-                              ]} outline-none focus:border-sky-600`}
+                              ]} outline-none`}
                             />
                           </label>
                           {
                             <p className="absolute right-0 top-full text-sm text-slate-500">
-                              {bookContentDesc.length}/60
+                              {countNumber.id === "description" &&
+                                `${countNumber.num}/60`}
                             </p>
                           }
                         </div>
@@ -722,7 +733,8 @@ export const Book = memo(() => {
                             説明を入力してください。
                           </p>
                         ) : (
-                          bookContentDesc.length === 60 && (
+                          countNumber.id === "description" &&
+                          countNumber.num === 60 && (
                             <p className="text-sm text-red-600">
                               文字数が最大です。
                             </p>
