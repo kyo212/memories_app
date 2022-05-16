@@ -142,7 +142,7 @@ export const Content = memo(() => {
             await Axios.post(
               `http://${process.env.REACT_APP_PUBLIC_IP}/insert`,
               {
-                email: loginUser,
+                username: loginUser,
                 bookTitle,
                 coverImage,
                 category,
