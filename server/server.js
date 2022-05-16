@@ -57,39 +57,35 @@ app.use(
 // routes
 app.post("/register", async (req, res) => {
   const { username, email, password } = req.body;
-  if (!username || !email || !password) {
-    res.json({ result: false, msg: "pleaseEnter" });
-  } else {
-    const sqlSelect = "SELECT * FROM users WHERE username = ? OR email = ?";
-    const sqlInsert =
-      "INSERT INTO users (username,email,password) VALUE (?,?,?)";
-    await db.query(sqlSelect, [username, email], (err, result) => {
-      if (err) {
-        console.log(err);
-      }
-      if (!result.length > 0) {
-        // データが返ってこない（同じメールアドレスがない）場合はパスワードをハッシュ化する。
-        const saltRounds = 10;
-        bcrypt.hash(password, saltRounds, (err, hash) => {
-          console.log(hash);
-          db.query(sqlInsert, [username, email, hash], (err, result) => {
-            console.log(err);
-          });
+
+  const sqlSelect = "SELECT * FROM users WHERE username = ? OR email = ?";
+  const sqlInsert = "INSERT INTO users (username,email,password) VALUE (?,?,?)";
+  await db.query(sqlSelect, [username, email], (err, result) => {
+    if (err) {
+      console.log(err);
+    }
+    if (!result.length > 0) {
+      // データが返ってこない（同じメールアドレスがない）場合はパスワードをハッシュ化する。
+      const saltRounds = 10;
+      bcrypt.hash(password, saltRounds, (err, hash) => {
+        console.log(hash);
+        db.query(sqlInsert, [username, email, hash], (err, result) => {
+          console.log(err);
         });
-        res.json({ result: truncateSync});
-      } else if (result[0].username === username) {
-        res.json({
-          result: false,
-          msg: "alreadyUsername",
-        });
-      } else if (result[0].email === email) {
-        res.json({
-          result: false,
-          msg: "alreadyEmail",
-        });
-      }
-    });
-  }
+      });
+      res.json({ result: true });
+    } else if (result[0].username === username) {
+      res.json({
+        result: false,
+        msg: "alreadyUsername",
+      });
+    } else if (result[0].email === email) {
+      res.json({
+        result: false,
+        msg: "alreadyEmail",
+      });
+    }
+  });
 });
 
 // jwt検証

@@ -55,7 +55,14 @@ export const Register = memo(() => {
   }, []);
 
   const register = async () => {
-    if (password.length >= 6 || email.indexOf("@") > -1) {
+    console.log(email.indexOf("@") > -1);
+
+    if (
+      (username || email || password) &&
+      password.length >= 6 &&
+      email.indexOf("@") > -1 &&
+      email.indexOf(".") > -1
+    ) {
       await Axios.post(`http://${process.env.REACT_APP_PUBLIC_IP}/register`, {
         username,
         email,
@@ -73,7 +80,6 @@ export const Register = memo(() => {
         }
       });
     } else {
-      // パスワードが6文字以下の場合
       setErrMsgToggle(true);
     }
   };
@@ -114,6 +120,7 @@ export const Register = memo(() => {
       setUsername(value);
     }
     setErrMsgToggle(false);
+    setErrMsgText("");
   };
 
   const confirmPages = (e) => {
@@ -162,12 +169,10 @@ export const Register = memo(() => {
                     autoFocus
                     placeholder="ユーザー名"
                     className={
-                      errMsgToggle &&
-                      (!username ||
-                        errMsgText === "alreadyUsername")
-                        ? // errMsgToggle + !email = 空欄の場合
-                          // errMsgToggle + email = 重複時
-                          errorBorderMsg.showed
+                      (errMsgToggle &&
+                        (!username || errMsgText === "alreadyUsername")) ||
+                      username.length === 12
+                        ? errorBorderMsg.showed
                         : errorBorderMsg.base
                     }
                   />
@@ -175,9 +180,7 @@ export const Register = memo(() => {
                     <div className="absolute left-0 top-0 text-red-600">
                       {errMsgToggle && !username ? (
                         <p>ユーザー名を入力してください。</p>
-                      ) : errMsgToggle &&
-                        errMsgText ===
-                          "alreadyUsername" ? (
+                      ) : errMsgToggle && errMsgText === "alreadyUsername" ? (
                         <p>このユーザー名は既に使用されています。</p>
                       ) : (
                         username.length === 12 && <p>文字数が最大です。</p>
@@ -199,28 +202,23 @@ export const Register = memo(() => {
                     className={
                       (errMsgToggle &&
                         (!email ||
-                          errMsgText ===
-                            "alreadyEmail")) ||
-                      (errMsgToggle &&
-                        (email.indexOf("@") === -1 ||
-                          email.indexOf(".") === -1))
-                        ? // errMsgToggle + !email = 空欄の場合
-                          // errMsgToggle + email = 重複時
-                          errorBorderMsg.showed
+                          errMsgText === "alreadyEmail" ||
+                          email.indexOf("@") === -1 ||
+                          email.indexOf(".") === -1)) ||
+                      email.length === 40
+                        ? errorBorderMsg.showed
                         : errorBorderMsg.base
                     }
                   />
                   <div className="relative h-4 w-full text-sm">
                     <div className="absolute left-0 top-0 text-red-600">
-                      {errMsgToggle && email.indexOf("@") === -1 ? (
+                      {errMsgToggle && !email ? (
+                        <p>メールアドレスを入力してください。</p>
+                      ) : errMsgToggle && email.indexOf("@") === -1 ? (
                         <p>無効な形式です。"@"をつけてください。</p>
                       ) : errMsgToggle && email.indexOf(".") === -1 ? (
                         <p>フォーマットが正しくありません。</p>
-                      ) : errMsgToggle && !email ? (
-                        <p>メールアドレスを入力してください。</p>
-                      ) : errMsgToggle &&
-                        errMsgText ===
-                          "alreadyEmail" ? (
+                      ) : errMsgToggle && errMsgText === "alreadyEmail" ? (
                         <p>このメールアドレスは既に使用されています。</p>
                       ) : (
                         email.length === 40 && <p>文字数が最大です。</p>
@@ -239,7 +237,8 @@ export const Register = memo(() => {
                     onChange={inputInform}
                     placeholder="パスワード"
                     className={
-                      errMsgToggle && (!password || password.length < 6)
+                      (errMsgToggle && (!password || password.length < 6)) ||
+                      password.length === 32
                         ? errorBorderMsg.showed
                         : errorBorderMsg.base
                     }

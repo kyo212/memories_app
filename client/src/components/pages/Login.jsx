@@ -113,8 +113,9 @@ export const Login = memo(() => {
                 autoFocus
                 placeholder="メールアドレス"
                 className={[
-                  (errMsgToggle && !email) ||
-                  (errMsgToggle && errMsgText === "userIsNotFound")
+                  (errMsgToggle &&
+                    (!email || errMsgText === "userIsNotFound")) ||
+                  email.length === 40
                     ? errorBorderMsg.showed
                     : errorBorderMsg.base,
                 ]}
@@ -148,10 +149,11 @@ export const Login = memo(() => {
                 onChange={inputInform}
                 placeholder="パスワード"
                 className={[
-                  errMsgToggle &&
-                  (!password ||
-                    password.length < 6 ||
-                    errMsgText === "passwordFalse")
+                  (errMsgToggle &&
+                    (!password ||
+                      password.length < 6 ||
+                      errMsgText === "passwordFalse")) ||
+                  password.length === 32
                     ? errorBorderMsg.showed
                     : errorBorderMsg.base,
                 ]}
