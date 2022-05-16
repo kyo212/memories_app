@@ -244,7 +244,7 @@ export const MenuOpenModal = ({
             </button>
             {showMenu && (
               <div className="flex h-14 w-full items-center justify-between border-t pt-5">
-                <HeaderLogoutBtn />
+                <HeaderLogoutBtn menuModalToggle={menuModalToggle} />
                 <button className="mx-4 text-sm text-red-600">
                   アカウントを削除
                 </button>

@@ -1,7 +1,8 @@
+import { memo } from "react";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
 
-export const HeaderLogoutBtn = () => {
+export const HeaderLogoutBtn = memo(({ menuModalToggle }) => {
   const navigate = useNavigate();
 
   const logout = () => {
@@ -13,6 +14,7 @@ export const HeaderLogoutBtn = () => {
         }
       }
     );
+    menuModalToggle();
   };
 
   return (
@@ -23,4 +25,4 @@ export const HeaderLogoutBtn = () => {
       ログアウト
     </button>
   );
-};
+});
