@@ -58,7 +58,7 @@ app.use(
 app.post("/register", async (req, res) => {
   const { username, email, password } = req.body;
   if (!username || !email || !password) {
-    res.json({ result: false, msg: "入力してください。" });
+    res.json({ result: false, msg: "pleaseEnter" });
   } else {
     const sqlSelect = "SELECT * FROM users WHERE username = ? OR email = ?";
     const sqlInsert =
@@ -104,7 +104,7 @@ app.post("/loginState", (req, res) => {
   } else {
     res.json({
       loggedIn: false,
-      message: "セッションがタイムアウトしました。もう一度ログインしてください",
+      message: "sessionTimeOut",
     });
   }
 });
