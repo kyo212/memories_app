@@ -253,6 +253,7 @@ export const Book = memo(() => {
     const id = e.target.id;
     const value = e.target.value;
     const num = countGrapheme(value);
+    setCountNumber({ id, num });
 
     if (id === "editTitle" && num < 25) {
       setBookContentEditTitle(value);
@@ -509,15 +510,23 @@ export const Book = memo(() => {
                                   value={bookContentEditTitle}
                                   onChange={editInform}
                                   placeholder={title}
-                                  className={`${errorBorderMsg.base} focus:border-sky-600`}
+                                  className={`${[
+                                    errMsgToggle ||
+                                    (countNumber.id === "editTitle" &&
+                                      countNumber.num === 25)
+                                      ? errorBorderMsg.showed
+                                      : errorBorderMsg.base,
+                                  ]}`}
                                 />
-                                {bookContentEditTitle.length === 25 && (
-                                  <p className="absolute text-sm text-red-600">
-                                    文字数が最大です。
-                                  </p>
-                                )}
+                                {countNumber.id === "editTitle" &&
+                                  countNumber.num === 25 && (
+                                    <p className="absolute text-sm text-red-600">
+                                      文字数が最大です。
+                                    </p>
+                                  )}
                                 <p className="absolute right-0 top-full text-sm text-slate-500">
-                                  {bookContentEditTitle.length}/25
+                                  {countNumber.id === "editTitle" &&
+                                    `${countNumber.num}/25`}
                                 </p>
                               </div>
                             ) : (
@@ -533,15 +542,22 @@ export const Book = memo(() => {
                                   value={bookContentEditDesc}
                                   onChange={editInform}
                                   placeholder={description}
-                                  className={`${errorBorderMsg.base} outline-none focus:border-sky-600`}
+                                  className={`${[
+                                    errMsgToggle ||(countNumber.id === "editDesc" &&
+                                    countNumber.num === 60)
+                                      ? errorBorderMsg.showed
+                                      : errorBorderMsg.base,
+                                  ]} outline-none`}
                                 />
-                                {bookContentEditDesc.length === 60 && (
-                                  <p className="absolute text-sm text-red-600">
-                                    文字数が最大です。
-                                  </p>
-                                )}
+                                {countNumber.id === "editDesc" &&
+                                  countNumber.num === 60 && (
+                                    <p className="absolute text-sm text-red-600">
+                                      文字数が最大です。
+                                    </p>
+                                  )}
                                 <p className="absolute right-0 top-full text-sm text-slate-500">
-                                  {bookContentEditDesc.length}/60
+                                  {countNumber.id === "editDesc" &&
+                                    `${countNumber.num}/60`}
                                 </p>
                                 <button
                                   onClick={() => editConfirm(pageId)}

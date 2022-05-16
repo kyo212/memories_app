@@ -313,6 +313,10 @@ app.put("/put", async (req, res) => {
   }
 });
 
-
+app.post("/forgotPassword", async (req, res) => {
+  const { email } = req.body;
+  res.json({ email });
+});
+app.post("/resetPassword", (req, res) => {});
 
 app.listen(PORT);
