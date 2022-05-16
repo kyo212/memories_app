@@ -130,7 +130,7 @@ export const Login = memo(() => {
                     <p className="text-red-600">
                       メールアドレスまたはユーザー名を入力してください。
                     </p>
-                  ) : errMsgToggle && errMsgText !== "passwordFalse" ? (
+                  ) : errMsgToggle && errMsgText === "userIsNotFound" ? (
                     <p className="text-red-600">ユーザーが見つかりません。</p>
                   ) : (
                     countNumber.id === "email" &&

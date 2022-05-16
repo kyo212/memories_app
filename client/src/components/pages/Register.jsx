@@ -88,9 +88,9 @@ export const Register = memo(() => {
       email,
       password,
     }).then((response) => {
-      const { msg } = response.data;
+      const { msg, result } = response.data;
+      !result && setErrMsgToggle(true);
       setErrMsgText(msg);
-      setErrMsgToggle(true);
       Axios.post(`http://${process.env.REACT_APP_PUBLIC_IP}/isUserAuth`).then(
         (response) => {
           const { auth } = response.data;
@@ -246,9 +246,7 @@ export const Register = memo(() => {
                     }
                   />
                   <div className="flex justify-between">
-                    {errMsgToggle &&
-                    countNumber.id === "password" &&
-                    countNumber.num < 6 ? (
+                    {errMsgToggle && password.length < 6 ? (
                       <p className="text-sm text-red-600">
                         6文字以上入力してください。
                       </p>
