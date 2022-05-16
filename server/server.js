@@ -18,6 +18,7 @@ const PORT = process.env.PORT;
 const db = require("./db/db").db;
 const { verifyJWT } = require("./middleware/verifyJWT");
 const { generateUploadURL } = require("./s3/s3");
+const { truncateSync } = require("fs");
 
 app.use(
   "/static",
@@ -75,16 +76,16 @@ app.post("/register", async (req, res) => {
             console.log(err);
           });
         });
-        res.json({ result: true, msg: "新規登録が完了しました。" });
+        res.json({ result: truncateSync});
       } else if (result[0].username === username) {
         res.json({
           result: false,
-          msg: "このユーザー名は既に使用されています。",
+          msg: "alreadyUsername",
         });
       } else if (result[0].email === email) {
         res.json({
           result: false,
-          msg: "このメールアドレスは既に使用されています。",
+          msg: "alreadyEmail",
         });
       }
     });
@@ -93,7 +94,7 @@ app.post("/register", async (req, res) => {
 
 // jwt検証
 app.post("/isUserAuth", verifyJWT, (req, res) => {
-  res.json({ auth: true, msg: "トークンは有効です" });
+  res.json({ auth: true });
 });
 
 app.post("/loginState", (req, res) => {
@@ -156,12 +157,12 @@ app.post("/login", async (req, res) => {
             result: result,
           });
         } else {
-          res.json({ result: false, msg: "パスワードが間違っています。" });
+          res.json({ result: false, msg: "passwordFalse" });
         }
       });
     } else {
       // resultが[]の場合、メールアドレスが見つからなかった事になる。
-      res.json({ result: false, msg: "ユーザーが見つかりません。" });
+      res.json({ result: false, msg: "userIsNotFound" });
     }
   });
 });

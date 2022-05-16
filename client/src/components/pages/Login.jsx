@@ -114,7 +114,7 @@ export const Login = memo(() => {
                 placeholder="メールアドレス"
                 className={[
                   (errMsgToggle && !email) ||
-                  (errMsgToggle && errMsgText === "ユーザーが見つかりません。")
+                  (errMsgToggle && errMsgText === "userIsNotFound")
                     ? errorBorderMsg.showed
                     : errorBorderMsg.base,
                 ]}
@@ -125,9 +125,10 @@ export const Login = memo(() => {
                     <p className="text-red-600">
                       メールアドレスを入力してください。
                     </p>
-                  ) : errMsgToggle &&
-                    errMsgText !== "パスワードが間違っています。" ? (
-                    <p className="text-red-600">{errMsgText}</p>
+                  ) : errMsgToggle && errMsgText !== "passwordFalse" ? (
+                    <p className="text-red-600">
+                      このメールアドレスは既に使用されています。
+                    </p>
                   ) : (
                     email.length === 40 && (
                       <p className="text-sm text-red-600">文字数が最大です。</p>
@@ -150,7 +151,7 @@ export const Login = memo(() => {
                   errMsgToggle &&
                   (!password ||
                     password.length < 6 ||
-                    errMsgText === "パスワードが間違っています。")
+                    errMsgText === "passwordFalse")
                     ? errorBorderMsg.showed
                     : errorBorderMsg.base,
                 ]}
@@ -160,9 +161,10 @@ export const Login = memo(() => {
                   <p className="text-sm text-red-600">
                     6文字以上入力してください。
                   </p>
-                ) : errMsgToggle &&
-                  errMsgText === "パスワードが間違っています。" ? (
-                  <p className="text-sm text-red-600">{errMsgText}</p>
+                ) : errMsgToggle && errMsgText === "passwordFalse" ? (
+                  <p className="text-sm text-red-600">
+                    パスワードが間違っています。
+                  </p>
                 ) : password.length === 32 ? (
                   <p className="text-sm text-red-600">文字数が最大です。</p>
                 ) : (

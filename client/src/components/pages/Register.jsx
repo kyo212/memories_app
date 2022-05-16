@@ -164,7 +164,7 @@ export const Register = memo(() => {
                     className={
                       errMsgToggle &&
                       (!username ||
-                        errMsgText === "このユーザー名は既に使用されています。")
+                        errMsgText === "alreadyUsername")
                         ? // errMsgToggle + !email = 空欄の場合
                           // errMsgToggle + email = 重複時
                           errorBorderMsg.showed
@@ -177,8 +177,8 @@ export const Register = memo(() => {
                         <p>ユーザー名を入力してください。</p>
                       ) : errMsgToggle &&
                         errMsgText ===
-                          "このユーザー名は既に使用されています。" ? (
-                        <p>{errMsgText}</p>
+                          "alreadyUsername" ? (
+                        <p>このユーザー名は既に使用されています。</p>
                       ) : (
                         username.length === 12 && <p>文字数が最大です。</p>
                       )}
@@ -200,7 +200,7 @@ export const Register = memo(() => {
                       (errMsgToggle &&
                         (!email ||
                           errMsgText ===
-                            "このメールアドレスは既に使用されています。")) ||
+                            "alreadyEmail")) ||
                       (errMsgToggle &&
                         (email.indexOf("@") === -1 ||
                           email.indexOf(".") === -1))
@@ -220,8 +220,8 @@ export const Register = memo(() => {
                         <p>メールアドレスを入力してください。</p>
                       ) : errMsgToggle &&
                         errMsgText ===
-                          "このメールアドレスは既に使用されています。" ? (
-                        <p>{errMsgText}</p>
+                          "alreadyEmail" ? (
+                        <p>このメールアドレスは既に使用されています。</p>
                       ) : (
                         email.length === 40 && <p>文字数が最大です。</p>
                       )}
