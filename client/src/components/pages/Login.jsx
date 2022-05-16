@@ -130,7 +130,7 @@ export const Login = memo(() => {
                     </p>
                   ) : errMsgToggle && errMsgText !== "passwordFalse" ? (
                     <p className="text-red-600">
-                      このメールアドレスは既に使用されています。
+                      ユーザーが見つかりません。
                     </p>
                   ) : (
                     countNumber.id === "email" &&
