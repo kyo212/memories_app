@@ -6,7 +6,6 @@ import { useSegment } from "../custom/useSegment";
 import { useStyle } from "../custom/useStyle";
 // コンポーネント
 import { HeaderRegBtn } from "../atoms/button/HeaderRegBtn";
-import { Footer } from "../organisms/Footer";
 import { Header } from "../organisms/Header";
 // アイコン
 import { BsFillEyeFill, BsFillEyeSlashFill } from "react-icons/bs";
@@ -24,6 +23,7 @@ export const Login = memo(() => {
   // 情報
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [countNumber, setCountNumber] = useState({ id: "", num: 0 });
   // メッセージ
   const [errMsgText, setErrMsgText] = useState("");
   const [errMsgToggle, setErrMsgToggle] = useState(false);
@@ -70,9 +70,10 @@ export const Login = memo(() => {
     const id = e.target.id;
     const value = e.target.value;
     const num = countGrapheme(value);
-    if (id === "email" && num <= 40) {
+    setCountNumber({ id, num });
+    if (id === "email" && num < 40) {
       setEmail(value);
-    } else if (id === "password" && num <= 32) {
+    } else if (id === "password" && num < 32) {
       // バリデーション
       if (value.match(/^[\x20-\x7e]*$/)) {
         const newValue = value.split(" ").join("");
@@ -82,6 +83,7 @@ export const Login = memo(() => {
     setErrMsgToggle(false); // エラーを解除
   };
 
+  console.log(countNumber.num);
   const toggleIcon = () => setPasswordShow(!passwordShow);
 
   return (
@@ -115,7 +117,7 @@ export const Login = memo(() => {
                 className={[
                   (errMsgToggle &&
                     (!email || errMsgText === "userIsNotFound")) ||
-                  email.length === 40
+                  (countNumber.id === "email" && countNumber.num === 40)
                     ? errorBorderMsg.showed
                     : errorBorderMsg.base,
                 ]}
@@ -131,13 +133,14 @@ export const Login = memo(() => {
                       このメールアドレスは既に使用されています。
                     </p>
                   ) : (
-                    email.length === 40 && (
+                    countNumber.id === "email" &&
+                    countNumber.num === 40 && (
                       <p className="text-sm text-red-600">文字数が最大です。</p>
                     )
                   )}
                 </div>
                 <p className="absolute right-0 top-0 text-slate-500">
-                  {email.length}/40
+                  {countNumber.id === "email" && `${countNumber.num}/40`}
                 </p>
               </div>
             </div>
@@ -153,7 +156,7 @@ export const Login = memo(() => {
                     (!password ||
                       password.length < 6 ||
                       errMsgText === "passwordFalse")) ||
-                  password.length === 32
+                  (countNumber.id === "password" && countNumber.num === 32)
                     ? errorBorderMsg.showed
                     : errorBorderMsg.base,
                 ]}
@@ -167,7 +170,7 @@ export const Login = memo(() => {
                   <p className="text-sm text-red-600">
                     パスワードが間違っています。
                   </p>
-                ) : password.length === 32 ? (
+                ) : countNumber.id === "password" && countNumber.num === 32 ? (
                   <p className="text-sm text-red-600">文字数が最大です。</p>
                 ) : (
                   <p className="text-[12px] text-slate-500">
@@ -175,7 +178,7 @@ export const Login = memo(() => {
                   </p>
                 )}
                 <p className="ml-2 text-sm text-slate-500">
-                  {password.length}/32
+                  {countNumber.id === "password" && `${countNumber.num}/32`}
                 </p>
               </div>
               <span

@@ -24,6 +24,7 @@ export const Register = memo(() => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [countNumber, setCountNumber] = useState({ id: "", num: 0 });
   // メッセージ
   const [errMsgText, setErrMsgText] = useState("");
   const [errMsgToggle, setErrMsgToggle] = useState(false);
@@ -55,8 +56,6 @@ export const Register = memo(() => {
   }, []);
 
   const register = async () => {
-    console.log(email.indexOf("@") > -1);
-
     if (
       (username || email || password) &&
       password.length >= 6 &&
@@ -105,9 +104,10 @@ export const Register = memo(() => {
     const id = e.target.id;
     const value = e.target.value;
     const num = countGrapheme(value);
-    if (id === "email" && num <= 40) {
+    setCountNumber({ id, num });
+    if (id === "email" && num < 40) {
       setEmail(value);
-    } else if (id === "password" && num <= 32) {
+    } else if (id === "password" && num < 32) {
       if (value.match(/^[\x20-\x7e]*$/)) {
         // \x20-\x7e - すべてのASCII(アスキー)文字に一致する正規表現
         // 半角英数字と記号のみ 半角カナ文字NG
@@ -116,7 +116,7 @@ export const Register = memo(() => {
         // join - 引数未指定の場合は連結後、コンマで区切られる。引数が""の場合は連結後の区切り文字がなくなる。"-"の場合はハイフンで区切られる。
         setPassword(newValue);
       }
-    } else if (id === "username" && num <= 12) {
+    } else if (id === "username" && num < 12) {
       setUsername(value);
     }
     setErrMsgToggle(false);
@@ -171,7 +171,7 @@ export const Register = memo(() => {
                     className={
                       (errMsgToggle &&
                         (!username || errMsgText === "alreadyUsername")) ||
-                      username.length === 12
+                      (countNumber.id === "username" && countNumber.num === 12)
                         ? errorBorderMsg.showed
                         : errorBorderMsg.base
                     }
@@ -183,11 +183,12 @@ export const Register = memo(() => {
                       ) : errMsgToggle && errMsgText === "alreadyUsername" ? (
                         <p>このユーザー名は既に使用されています。</p>
                       ) : (
-                        username.length === 12 && <p>文字数が最大です。</p>
+                        countNumber.id === "username" &&
+                        countNumber.num === 12 && <p>文字数が最大です。</p>
                       )}
                     </div>
                     <p className="absolute right-0 top-0 text-sm text-slate-500">
-                      {username.length}/12
+                      {countNumber.id === "username" && `${countNumber.num}/12`}
                     </p>
                   </div>
                 </div>
@@ -205,7 +206,7 @@ export const Register = memo(() => {
                           errMsgText === "alreadyEmail" ||
                           email.indexOf("@") === -1 ||
                           email.indexOf(".") === -1)) ||
-                      email.length === 40
+                      (countNumber.id === "email" && countNumber.num === 40)
                         ? errorBorderMsg.showed
                         : errorBorderMsg.base
                     }
@@ -221,11 +222,12 @@ export const Register = memo(() => {
                       ) : errMsgToggle && errMsgText === "alreadyEmail" ? (
                         <p>このメールアドレスは既に使用されています。</p>
                       ) : (
-                        email.length === 40 && <p>文字数が最大です。</p>
+                        countNumber.id === "email" &&
+                        countNumber.num === 40 && <p>文字数が最大です。</p>
                       )}
                     </div>
                     <p className="absolute right-0 top-0 text-sm text-slate-500">
-                      {email.length}/40
+                      {countNumber.id === "email" && `${countNumber.num}/40`}
                     </p>
                   </div>
                 </div>
@@ -238,17 +240,20 @@ export const Register = memo(() => {
                     placeholder="パスワード"
                     className={
                       (errMsgToggle && (!password || password.length < 6)) ||
-                      password.length === 32
+                      (countNumber.id === "password" && countNumber.num === 32)
                         ? errorBorderMsg.showed
                         : errorBorderMsg.base
                     }
                   />
                   <div className="flex justify-between">
-                    {errMsgToggle && password.length < 6 ? (
+                    {errMsgToggle &&
+                    countNumber.id === "password" &&
+                    countNumber.num < 6 ? (
                       <p className="text-sm text-red-600">
                         6文字以上入力してください。
                       </p>
-                    ) : password.length === 32 ? (
+                    ) : countNumber.id === "password" &&
+                      countNumber.num === 32 ? (
                       <p className="text-sm text-red-600">文字数が最大です。</p>
                     ) : (
                       <p className="text-[12px] text-slate-500">
@@ -256,7 +261,7 @@ export const Register = memo(() => {
                       </p>
                     )}
                     <p className="ml-2 text-sm text-slate-500">
-                      {password.length}/32
+                      {countNumber.id === "password" && `${countNumber.num}/32`}
                     </p>
                   </div>
                   <span
