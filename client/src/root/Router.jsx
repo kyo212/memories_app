@@ -11,7 +11,7 @@ import { Session } from "./Session";
 import { PublicBooks } from "../components/pages/PublicBooks";
 import { Book } from "../components/pages/Book";
 import { Help } from "../components/pages/Help";
-import { ChangePassword } from "../components/pages/ChangePassword";
+import { ForgotPassword } from "../components/pages/ForgotPassword";
 
 export const Router = memo(() => {
   return (
@@ -24,7 +24,7 @@ export const Router = memo(() => {
         <Route path="/mybooks" element={<MyBooks />} />
         <Route path="/public" element={<PublicBooks />} />
         <Route path="/help" element={<Help />} />
-        <Route path="/change-password" element={<ChangePassword />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/public/book" element={<Book />} />
         <Route path="/mybooks/book" element={<Book />} />
 
