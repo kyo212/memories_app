@@ -193,9 +193,9 @@ export const Login = memo(() => {
               </span>
             </div>
           </form>
-          <a href="/password-change" className="text-sm text-blue-800">
+          <button onClick={()=>{navigate("/change-password")}} className="text-sm text-blue-800">
             パスワードを忘れた場合
-          </a>
+          </button>
           <button
             onClick={login}
             className={
