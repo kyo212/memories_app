@@ -1,6 +1,6 @@
 import { memo, useState, useEffect, useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import Axios from "axios";
+import axios from "axios";
 // スライダー
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Mousewheel } from "swiper";
@@ -102,15 +102,14 @@ export const Book = memo(() => {
   // 本のidを元に本の内容を取得
   useEffect(() => {
     const getItems = async () => {
-      await Axios.post(
-        `http://${process.env.REACT_APP_PUBLIC_IP}/getBookContent`,
-        {
+      await axios
+        .post(`http://${process.env.REACT_APP_PUBLIC_IP}/getBookContent`, {
           bookId: location.state.bookId,
-        }
-      ).then((response) => {
-        const { result } = response.data;
-        setBookContents(result);
-      });
+        })
+        .then((response) => {
+          const { result } = response.data;
+          setBookContents(result);
+        });
     };
     getItems();
   }, [update]);
@@ -120,8 +119,9 @@ export const Book = memo(() => {
       setErrMsgToggle(true);
     } else {
       // awsのバケットURLを取得
-      await Axios.post(`http://${process.env.REACT_APP_PUBLIC_IP}/s3Url`).then(
-        (response) => {
+      await axios
+        .post(`http://${process.env.REACT_APP_PUBLIC_IP}/s3Url`)
+        .then((response) => {
           const { url } = response.data;
 
           // 入力した情報をDBに追加
@@ -138,30 +138,29 @@ export const Book = memo(() => {
               type === "mediaOnly" ||
               (type === "mediaAndText" && bookContentTitle && bookContentDesc)
             ) {
-              await Axios.post(
-                `http://${process.env.REACT_APP_PUBLIC_IP}/insert`,
-                {
+              await axios
+                .post(`http://${process.env.REACT_APP_PUBLIC_IP}/insert`, {
                   bookId, // デフォルト
                   username, // デフォルト
                   bookImage, // 任意追加 nullを許可
                   bookVideo, // 任意追加 nullを許可
                   bookContentTitle, // 必須追加
                   bookContentDesc, // 必須追加
-                }
-              ).then((response) => {
-                const { result, err } = response.data;
-                console.log({ result, err });
-                // 初期化
-                setImageUrl("");
-                setVideoUrl("");
-                setImageFile("");
-                setVideoFile("");
-                setBookContentTitle("");
-                setBookContentDesc("");
-                setAddPageModal(false);
-                // アップデート
-                setTimeout(() => setUpdate(!update), 1000);
-              });
+                })
+                .then((response) => {
+                  const { result, err } = response.data;
+                  console.log({ result, err });
+                  // 初期化
+                  setImageUrl("");
+                  setVideoUrl("");
+                  setImageFile("");
+                  setVideoFile("");
+                  setBookContentTitle("");
+                  setBookContentDesc("");
+                  setAddPageModal(false);
+                  // アップデート
+                  setTimeout(() => setUpdate(!update), 1000);
+                });
             }
           };
 
@@ -183,19 +182,18 @@ export const Book = memo(() => {
           } else if (videoFile) {
             insert("", bookMedia);
           }
-        }
-      );
+        });
     }
   };
 
   const deleteItem = async (id) => {
-    await Axios.delete(
-      `http://${process.env.REACT_APP_PUBLIC_IP}/deletePage/${id}`
-    ).then(() => {
-      // DBから値を消してもstateには残っているため最後だけ初期化する
-      // bookItems.length === 1 && setBookItems([]);
-      setUpdate(!update);
-    });
+    await axios
+      .delete(`http://${process.env.REACT_APP_PUBLIC_IP}/deletePage/${id}`)
+      .then(() => {
+        // DBから値を消してもstateには残っているため最後だけ初期化する
+        // bookItems.length === 1 && setBookItems([]);
+        setUpdate(!update);
+      });
     setConfirmWindowOpen(false);
   };
 
@@ -265,16 +263,18 @@ export const Book = memo(() => {
 
   const editConfirm = async (id) => {
     if (bookContentEditTitle || bookContentEditDesc) {
-      await Axios.put(`http://${process.env.REACT_APP_PUBLIC_IP}/put`, {
-        id,
-        title: bookContentEditTitle,
-        description: bookContentEditDesc,
-        type: "editText",
-      }).then((response) => {
-        const { result, err } = response.data;
-        console.log({ result, err });
-        setEdit(false);
-      });
+      await axios
+        .put(`http://${process.env.REACT_APP_PUBLIC_IP}/put`, {
+          id,
+          title: bookContentEditTitle,
+          description: bookContentEditDesc,
+          type: "editText",
+        })
+        .then((response) => {
+          const { result, err } = response.data;
+          console.log({ result, err });
+          setEdit(false);
+        });
       setUpdate(!update);
     }
     setEdit(false);
@@ -543,8 +543,9 @@ export const Book = memo(() => {
                                   onChange={editInform}
                                   placeholder={description}
                                   className={`${[
-                                    errMsgToggle ||(countNumber.id === "editDesc" &&
-                                    countNumber.num === 60)
+                                    errMsgToggle ||
+                                    (countNumber.id === "editDesc" &&
+                                      countNumber.num === 60)
                                       ? errorBorderMsg.showed
                                       : errorBorderMsg.base,
                                   ]} outline-none`}

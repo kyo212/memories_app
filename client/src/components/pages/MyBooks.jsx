@@ -1,6 +1,6 @@
 import { memo, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Axios from "axios";
+import axios from "axios";
 // コンポーネント
 import { Content } from "./Content";
 
@@ -15,17 +15,17 @@ export const MyBooks = memo(() => {
   useEffect(() => {
     // ログイン状態を取得
     const getAuth = async () => {
-      await Axios.post(
-        `http://${process.env.REACT_APP_PUBLIC_IP}/loginState`
-      ).then((response) => {
-        const { loggedIn } = response.data;
-        if (!loggedIn) {
-          // ログイン中でない時、"/session"に遷移させる
-          // navigate("/session");
-        } else {
-          setIsAuth(loggedIn);
-        }
-      });
+      await axios
+        .post(`http://${process.env.REACT_APP_PUBLIC_IP}/loginState`)
+        .then((response) => {
+          const { loggedIn } = response.data;
+          if (!loggedIn) {
+            // ログイン中でない時、"/session"に遷移させる
+            // navigate("/session");
+          } else {
+            setIsAuth(loggedIn);
+          }
+        });
     };
     getAuth();
   }, []);

@@ -1,6 +1,6 @@
 import { memo, useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import Axios from "axios";
+import axios from "axios";
 
 // アイコン
 import { BsFillEyeFill } from "react-icons/bs";
@@ -45,12 +45,12 @@ export const Register = memo(() => {
   // セッション情報によってルートを制限する
   useEffect(() => {
     const getLoginState = async () => {
-      await Axios.post(
-        `http://${process.env.REACT_APP_PUBLIC_IP}/loginState`
-      ).then((response) => {
-        const { loggedIn } = response.data;
-        loggedIn ? navigate(`/mybooks`) : navigate("/register");
-      });
+      await axios
+        .post(`http://${process.env.REACT_APP_PUBLIC_IP}/loginState`)
+        .then((response) => {
+          const { loggedIn } = response.data;
+          loggedIn ? navigate(`/mybooks`) : navigate("/register");
+        });
     };
     getLoginState();
   }, []);
@@ -62,42 +62,46 @@ export const Register = memo(() => {
       email.indexOf("@") > -1 &&
       email.indexOf(".") > -1
     ) {
-      await Axios.post(`http://${process.env.REACT_APP_PUBLIC_IP}/register`, {
-        username,
-        email,
-        password,
-      }).then((response) => {
-        const { result, msg } = response.data;
-        if (!result) {
-          // emailまたはpasswordが空の場合,emailが既に存在している場合
-          setErrMsgText(msg);
-          setErrMsgToggle(true);
-        } else {
-          // 新規登録に成功後、自動ログインする。
-          setLoading(true);
-          setTimeout(() => login(), 1000);
-        }
-      });
+      await axios
+        .post(`http://${process.env.REACT_APP_PUBLIC_IP}/register`, {
+          username,
+          email,
+          password,
+        })
+        .then((response) => {
+          const { result, msg } = response.data;
+          if (!result) {
+            // emailまたはpasswordが空の場合,emailが既に存在している場合
+            setErrMsgText(msg);
+            setErrMsgToggle(true);
+          } else {
+            // 新規登録に成功後、自動ログインする。
+            setLoading(true);
+            setTimeout(() => login(), 1000);
+          }
+        });
     } else {
       setErrMsgToggle(true);
     }
   };
 
   const login = async () => {
-    await Axios.post(`http://${process.env.REACT_APP_PUBLIC_IP}/login`, {
-      email,
-      password,
-    }).then((response) => {
-      const { msg, result } = response.data;
-      !result && setErrMsgToggle(true);
-      setErrMsgText(msg);
-      Axios.post(`http://${process.env.REACT_APP_PUBLIC_IP}/isUserAuth`).then(
-        (response) => {
-          const { auth } = response.data;
-          auth && navigate(`/mybooks`);
-        }
-      );
-    });
+    await axios
+      .post(`http://${process.env.REACT_APP_PUBLIC_IP}/login`, {
+        email,
+        password,
+      })
+      .then((response) => {
+        const { msg, result } = response.data;
+        !result && setErrMsgToggle(true);
+        setErrMsgText(msg);
+        axios
+          .post(`http://${process.env.REACT_APP_PUBLIC_IP}/isUserAuth`)
+          .then((response) => {
+            const { auth } = response.data;
+            auth && navigate(`/mybooks`);
+          });
+      });
   };
 
   const inputInform = (e) => {

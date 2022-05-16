@@ -1,6 +1,6 @@
 import { memo, useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import Axios from "axios";
+import axios from "axios";
 // カスタムフック
 import { useSegment } from "../custom/useSegment";
 import { useStyle } from "../custom/useStyle";
@@ -38,12 +38,12 @@ export const Login = memo(() => {
   useEffect(() => {
     // セッション情報によってルートを制限する
     const getLoginState = async () => {
-      await Axios.post(
-        `http://${process.env.REACT_APP_PUBLIC_IP}/loginState`
-      ).then((response) => {
-        const { loggedIn } = response.data;
-        loggedIn ? navigate(`/mybooks`) : navigate("/login");
-      });
+      await axios
+        .post(`http://${process.env.REACT_APP_PUBLIC_IP}/loginState`)
+        .then((response) => {
+          const { loggedIn } = response.data;
+          loggedIn ? navigate(`/mybooks`) : navigate("/login");
+        });
     };
     getLoginState();
   }, []);
@@ -51,21 +51,23 @@ export const Login = memo(() => {
   // Memo : registerのlogin関数と共通化
   const login = async () => {
     // ログイン認証の関数
-    await Axios.post(`http://${process.env.REACT_APP_PUBLIC_IP}/login`, {
-      username,
-      email,
-      password,
-    }).then((response) => {
-      const { msg, result } = response.data;
-      !result && setErrMsgToggle(true);
-      setErrMsgText(msg);
-      Axios.post(`http://${process.env.REACT_APP_PUBLIC_IP}/isUserAuth`).then(
-        (response) => {
-          const { auth } = response.data;
-          auth && navigate(`/mybooks`);
-        }
-      );
-    });
+    await axios
+      .post(`http://${process.env.REACT_APP_PUBLIC_IP}/login`, {
+        username,
+        email,
+        password,
+      })
+      .then((response) => {
+        const { msg, result } = response.data;
+        !result && setErrMsgToggle(true);
+        setErrMsgText(msg);
+        axios
+          .post(`http://${process.env.REACT_APP_PUBLIC_IP}/isUserAuth`)
+          .then((response) => {
+            const { auth } = response.data;
+            auth && navigate(`/mybooks`);
+          });
+      });
   };
 
   const inputInform = (e) => {
@@ -193,7 +195,12 @@ export const Login = memo(() => {
               </span>
             </div>
           </form>
-          <button onClick={()=>{navigate("/forgot-password")}} className="text-sm text-blue-800">
+          <button
+            onClick={() => {
+              navigate("/forgot-password");
+            }}
+            className="text-sm text-blue-800"
+          >
             パスワードを忘れた場合
           </button>
           <button

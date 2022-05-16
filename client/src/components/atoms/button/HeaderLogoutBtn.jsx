@@ -1,19 +1,19 @@
 import { memo } from "react";
 import { useNavigate } from "react-router-dom";
-import Axios from "axios";
+import axios from "axios";
 
 export const HeaderLogoutBtn = memo(({ menuModalToggle }) => {
   const navigate = useNavigate();
 
   const logout = () => {
-    Axios.post(`http://${process.env.REACT_APP_PUBLIC_IP}/logout`).then(
-      (response) => {
+    axios
+      .post(`http://${process.env.REACT_APP_PUBLIC_IP}/logout`)
+      .then((response) => {
         const { loggedIn } = response.data;
         if (!loggedIn) {
           navigate("/");
         }
-      }
-    );
+      });
     menuModalToggle();
   };
 

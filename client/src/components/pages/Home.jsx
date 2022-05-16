@@ -1,6 +1,6 @@
 import { memo, useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import Axios from "axios";
+import axios from "axios";
 import homeImage1 from "../../images/home_image1.png";
 import homeImage3 from "../../images/home_image3.png";
 import homeImage4 from "../../images/home_image4.png";
@@ -34,12 +34,12 @@ export const Home = memo(() => {
 
   useEffect(() => {
     const getLoginState = () => {
-      Axios.post(`http://${process.env.REACT_APP_PUBLIC_IP}/loginState`).then(
-        (response) => {
+      axios
+        .post(`http://${process.env.REACT_APP_PUBLIC_IP}/loginState`)
+        .then((response) => {
           const { loggedIn } = response.data;
           loggedIn ? navigate(`/mybooks`) : navigate("/");
-        }
-      );
+        });
     };
     getLoginState();
   }, []);
