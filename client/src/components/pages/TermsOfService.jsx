@@ -4,14 +4,9 @@ import { CloseBtn } from "../atoms/button/CloseBtn";
 export const TermsOfService = memo(({ onClickToggle }) => {
   return (
     <>
-      <div
-        onClick={onClickToggle}
-        className="absolute z-50 h-screen w-screen bg-black bg-opacity-70"
-      />
-      <div className="absolute top-1/2 left-1/2 z-50 h-screen w-screen -translate-x-1/2 -translate-y-1/2 transform space-y-4 overflow-scroll border-2 bg-white px-10 py-12 leading-8 lg:h-[80%] lg:w-[80%]">
-        <div className="lg:hidden">
-          <CloseBtn onClickClose={onClickToggle} />
-        </div>
+      <div className="relative" />
+      <div className="absolute z-50 h-screen w-screen space-y-4 overflow-scroll border-2 bg-white px-10 py-12 leading-8">
+        <CloseBtn onClickClose={onClickToggle} />
         <h1 className="text-4xl font-bold">利用規約</h1>
         <p>
           この利用規約（以下，「本規約」といいます。）は，このウェブサイト上で提供するサービス（以下，「本サービス」といいます。）の利用条件を定めるものです。登録ユーザーの皆さま（以下，「ユーザー」といいます。）には，本規約に従って，本サービスをご利用いただきます。
