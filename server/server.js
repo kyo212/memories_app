@@ -9,7 +9,7 @@ const bcrypt = require("bcrypt");
 require("dotenv").config();
 
 const jwt = require("jsonwebtoken");
-const token_secret = require("crypto").randomBytes(64).toString("hex");
+// const token_secret = require("crypto").randomBytes(64).toString("hex");
 
 const app = express();
 
@@ -18,7 +18,7 @@ const PORT = process.env.PORT;
 const db = require("./db/db").db;
 const { verifyJWT } = require("./middleware/verifyJWT");
 const { generateUploadURL } = require("./s3/s3");
-const { truncateSync } = require("fs");
+// const { truncateSync } = require("fs");
 
 app.use(
   "/static",
@@ -32,6 +32,7 @@ app.get("*", (req, res) => {
 });
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
 app.use(
   cors({
     origin: [`http://${process.env.PUBLIC_IP}:3000`],
@@ -49,7 +50,19 @@ app.use(
     saveUninitialized: false,
     cookie: {
       httpOnly: true,
-      maxAge: 1000 * 60 * 60, // 1hour
+      maxAge: 1000 * 60 * 60, // 1h
+    },
+  })
+);
+app.use(
+  session({
+    key: "resetPassword",
+    secret: "subscribe",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      httpOnly: true,
+      maxAge: 900, // 15m
     },
   })
 );
@@ -59,17 +72,18 @@ app.post("/register", async (req, res) => {
   const { username, email, password } = req.body;
 
   const sqlSelect = "SELECT * FROM users WHERE username = ? OR email = ?";
-  const sqlInsert = "INSERT INTO users (username,email,password) VALUE (?,?,?)";
+  const sqlInsert =
+    "INSERT INTO users (userId,username,email,password) VALUE (?,?,?,?)";
   await db.query(sqlSelect, [username, email], (err, result) => {
     if (err) {
       console.log(err);
     }
     if (!result.length > 0) {
       // データが返ってこない（同じメールアドレスがない）場合はパスワードをハッシュ化する。
+      const userId = require("crypto").randomBytes(16).toString("hex");
       const saltRounds = 10;
       bcrypt.hash(password, saltRounds, (err, hash) => {
-        console.log(hash);
-        db.query(sqlInsert, [username, email, hash], (err, result) => {
+        db.query(sqlInsert, [userId, username, email, hash], (err, result) => {
           console.log(err);
         });
       });
@@ -312,11 +326,5 @@ app.put("/put", async (req, res) => {
     );
   }
 });
-
-app.post("/forgotPassword", async (req, res) => {
-  const { email } = req.body;
-  res.json({ email });
-});
-app.post("/resetPassword", (req, res) => {});
 
 app.listen(PORT);

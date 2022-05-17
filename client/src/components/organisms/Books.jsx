@@ -145,10 +145,8 @@ export const Books = memo(
                               onClick={() => favoriteBtnToggle(item)}
                               className={`${bookOpenTextStyle}`}
                             >
-                              <span>おきにいり</span>
-                              <span className="ml-2 text-sky-800">
-                                <BsBookmark />
-                              </span>
+                              おきにいり
+                              <BsBookmark className="ml-2 text-sky-800" />
                             </button>
                             <button
                               onClick={() => shareBtnToggle(item)}
@@ -159,18 +157,15 @@ export const Books = memo(
                               ) : (
                                 <span>共有する</span>
                               )}
-                              <span className="ml-2 text-sky-800">
-                                <BsShare />
-                              </span>
+
+                              <BsShare className="ml-2 text-sky-800" />
                             </button>
                             <button
                               onClick={() => deleteItemToggle(item)}
                               className={`${bookOpenTextStyle}`}
                             >
-                              <span>すてる</span>
-                              <span className="ml-2 text-sky-800">
-                                <BsTrash />
-                              </span>
+                              すてる
+                              <BsTrash className="ml-2 text-sky-800" />
                             </button>
                           </>
                         )}
