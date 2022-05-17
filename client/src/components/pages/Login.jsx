@@ -196,11 +196,13 @@ export const Login = memo(() => {
             </div>
           </form>
           <button
+            disabled
             onClick={() => {
               navigate("/forgot-password");
             }}
-            className="text-sm text-blue-800"
+            className="text-sm text-slate-500 cursor-not-allowed"
           >
+            {/* text-blue-800 */}
             パスワードを忘れた場合
           </button>
           <button

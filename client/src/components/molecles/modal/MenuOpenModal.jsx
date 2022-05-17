@@ -125,7 +125,9 @@ export const MenuOpenModal = ({
                 <span className="text-md font-thin">でログイン中</span>
               </p>
               {showMenu && (
-                <button className="text-blue-600">ユーザー名を変更</button>
+                <button className=" cursor-not-allowed text-blue-800">
+                  ユーザー名を変更
+                </button>
               )}
             </div>
 
@@ -245,7 +247,7 @@ export const MenuOpenModal = ({
             {showMenu && (
               <div className="flex h-14 w-full items-center justify-between border-t pt-5">
                 <HeaderLogoutBtn menuModalToggle={menuModalToggle} />
-                <button className="mx-4 text-sm text-red-600">
+                <button className="mx-4 cursor-not-allowed text-sm text-red-600">
                   アカウントを削除
                 </button>
               </div>
