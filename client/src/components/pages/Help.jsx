@@ -37,15 +37,17 @@ export const Help = memo(() => {
       <div className="relative flex h-screen w-screen bg-white">
         {previewWindow && (
           <>
+            <div className="fixed z-50 h-screen w-screen bg-black bg-opacity-80" />
             <div
               onClick={() => setPreviewWindow(false)}
-              className="fixed z-50 h-screen w-screen bg-black bg-opacity-80"
-            />
-            <img
-              src={previewImageSrc}
-              alt="プレビュー画像"
-              className="fixed left-1/2 top-1/2  z-50 h-[80%] w-auto -translate-x-1/2 -translate-y-1/2 transform md:h-screen"
-            />
+              className="cursor-zoom-out"
+            >
+              <img
+                src={previewImageSrc}
+                alt="プレビュー画像"
+                className="fixed left-1/2 top-1/2  z-50 h-[80%] w-auto -translate-x-1/2 -translate-y-1/2 transform md:h-screen"
+              />
+            </div>
           </>
         )}
         <div className="w-full space-y-4 bg-white leading-8">
@@ -82,7 +84,7 @@ export const Help = memo(() => {
                         <img
                           src={helpImage1}
                           alt="追加の使い方ガイド"
-                          className="w-72 cursor-pointer border border-slate-300"
+                          className="w-72 cursor-zoom-in border border-slate-300"
                         />
                       </div>
                     </div>
@@ -106,7 +108,7 @@ export const Help = memo(() => {
                         <img
                           src={helpImage2}
                           alt="追加の使い方ガイド"
-                          className="w-72 cursor-pointer border border-slate-300"
+                          className="w-72 cursor-zoom-in border border-slate-300"
                         />
                       </div>
                     </div>
@@ -130,7 +132,7 @@ export const Help = memo(() => {
                         <img
                           src={helpImage3}
                           alt="追加の使い方ガイド"
-                          className="w-72 cursor-pointer border border-slate-300"
+                          className="w-72 cursor-zoom-in border border-slate-300"
                         />
                       </div>
                     </div>
@@ -164,7 +166,7 @@ export const Help = memo(() => {
                         <img
                           src={helpImage5}
                           alt="フォトブックの使い方ガイド"
-                          className="w-72 cursor-pointer border border-slate-300"
+                          className="w-72 cursor-zoom-in border border-slate-300"
                         />
                       </div>
                     </div>
@@ -183,7 +185,7 @@ export const Help = memo(() => {
                         <img
                           src={helpImage4}
                           alt="フォトブックの使い方ガイド"
-                          className="w-72 cursor-pointer border border-slate-300"
+                          className="w-72 cursor-zoom-in border border-slate-300"
                         />
                       </div>
                     </div>
@@ -202,7 +204,7 @@ export const Help = memo(() => {
                         <img
                           src={helpImage6}
                           alt="フォトブックの使い方ガイド"
-                          className="w-72 cursor-pointer border border-slate-300"
+                          className="w-72 cursor-zoom-in border border-slate-300"
                         />
                       </div>
                     </div>
