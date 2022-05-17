@@ -8,10 +8,9 @@ import { useStyle } from "../custom/useStyle";
 import { HeaderRegBtn } from "../atoms/button/HeaderRegBtn";
 import { Header } from "../organisms/Header";
 import { CountNumber } from "../atoms/CountNumber";
-// アイコン
-import { BsFillEyeFill, BsFillEyeSlashFill } from "react-icons/bs";
 // コンテキスト
 import { Context } from "../../App";
+import { PasswordSecretBtn } from "../atoms/button/PasswordSecretBtn";
 
 // ------------------------------------------
 // ログイン画面のコンポーネント
@@ -20,7 +19,7 @@ import { Context } from "../../App";
 export const Login = memo(() => {
   const navigate = useNavigate();
   // Toggle
-  const [passwordShow, setPasswordShow] = useState(false);
+  const [passwordSecret, setPasswordSecret] = useState(false);
   // 情報
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -89,7 +88,7 @@ export const Login = memo(() => {
     setErrMsgToggle(false); // エラーを解除
   };
 
-  const toggleIcon = () => setPasswordShow(!passwordShow);
+  const toggleIcon = () => setPasswordSecret(!passwordSecret);
 
   return (
     <>
@@ -152,7 +151,7 @@ export const Login = memo(() => {
             <div className="relative">
               <input
                 id="password"
-                type={passwordShow ? "text" : "password"}
+                type={passwordSecret ? "text" : "password"}
                 value={password}
                 onChange={inputInform}
                 placeholder="パスワード"
@@ -190,16 +189,10 @@ export const Login = memo(() => {
                   formId="password"
                 />
               </div>
-              <span
-                onClick={toggleIcon}
-                className="absolute right-2 top-2 text-2xl text-slate-600"
-              >
-                {passwordShow ? (
-                  <BsFillEyeFill />
-                ) : (
-                  <BsFillEyeSlashFill className="text-slate-400" />
-                )}
-              </span>
+              <PasswordSecretBtn
+                toggleIcon={toggleIcon}
+                passwordSecret={passwordSecret}
+              />
             </div>
           </form>
           <button

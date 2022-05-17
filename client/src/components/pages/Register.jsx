@@ -1,10 +1,6 @@
 import { memo, useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
-// アイコン
-import { BsFillEyeFill } from "react-icons/bs";
-import { BsFillEyeSlashFill } from "react-icons/bs";
 // コンポーネント
 import { HeaderLoginBtn } from "../atoms/button/HeaderLoginBtn";
 import { Header } from "../organisms/Header";
@@ -12,6 +8,7 @@ import { Loading } from "../atoms/style/Loading";
 import { TermsOfService } from "./TermsOfService";
 import { Browser } from "./Browser";
 import { CountNumber } from "../atoms/CountNumber";
+import { PasswordSecretBtn } from "../atoms/button/PasswordSecretBtn";
 // カスタムフック
 import { useSegment } from "../custom/useSegment";
 import { useStyle } from "../custom/useStyle";
@@ -31,7 +28,7 @@ export const Register = memo(() => {
   const [errMsgToggle, setErrMsgToggle] = useState(false);
   // Toggle
   const [loading, setLoading] = useState(false);
-  const [passwordShow, setPasswordShow] = useState(false);
+  const [passwordSecret, setPasswordSecret] = useState(false);
   const [checkBoxFirst, setCheckBoxFirst] = useState(false);
   const [checkBoxSecond, setCheckBoxSecond] = useState(false);
   const [termsOfServiceModal, setTermsOfServiceModal] = useState(false);
@@ -141,6 +138,8 @@ export const Register = memo(() => {
     }
   };
 
+  const toggleIcon = () => setPasswordSecret(!passwordSecret);
+
   return (
     <>
       {loading ? (
@@ -243,7 +242,7 @@ export const Register = memo(() => {
                 <div className="relative">
                   <input
                     id="password"
-                    type={passwordShow ? "text" : "password"}
+                    type={passwordSecret ? "text" : "password"}
                     value={password}
                     onChange={inputInform}
                     placeholder="パスワード"
@@ -275,16 +274,10 @@ export const Register = memo(() => {
                       formId="password"
                     />
                   </div>
-                  <span
-                    onClick={() => setPasswordShow(!passwordShow)}
-                    className="absolute right-2 top-2 text-2xl text-slate-600"
-                  >
-                    {passwordShow ? (
-                      <BsFillEyeFill />
-                    ) : (
-                      <BsFillEyeSlashFill className="text-slate-400" />
-                    )}
-                  </span>
+                  <PasswordSecretBtn
+                    toggleIcon={toggleIcon}
+                    passwordSecret={passwordSecret}
+                  />
                 </div>
               </form>
               <div className="w-72 space-y-2 bg-slate-200 p-4 text-sm text-slate-800">
