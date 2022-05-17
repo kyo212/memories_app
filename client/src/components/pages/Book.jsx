@@ -85,7 +85,7 @@ export const Book = memo(() => {
 
   // スタイル共通化
   const iconStyle =
-    "fixed text-lg lg:bottom-5 bottom-10 text-slate-500 hover:text-slate-800";
+    "fixed text-lg bottom-10 text-slate-500 hover:text-slate-800";
   const confirmWindowStyle =
     "flex h-40 w-[360px] transform flex-col items-center justify-center space-y-4 rounded-lg border-2 border-gray-200 bg-white py-6 px-6 text-gray-700 transition-all duration-700 md:w-[580px]";
 
