@@ -7,6 +7,7 @@ import { useStyle } from "../custom/useStyle";
 // コンポーネント
 import { HeaderRegBtn } from "../atoms/button/HeaderRegBtn";
 import { Header } from "../organisms/Header";
+import { CountNumber } from "../atoms/CountNumber";
 // アイコン
 import { BsFillEyeFill, BsFillEyeSlashFill } from "react-icons/bs";
 // コンテキスト
@@ -141,9 +142,11 @@ export const Login = memo(() => {
                     )
                   )}
                 </div>
-                <p className="absolute right-0 top-0 text-slate-500">
-                  {countNumber.id === "email" && `${countNumber.num}/40`}
-                </p>
+                <CountNumber
+                  countNumber={countNumber}
+                  max="40"
+                  formId="email"
+                />
               </div>
             </div>
             <div className="relative">
@@ -163,7 +166,7 @@ export const Login = memo(() => {
                     : errorBorderMsg.base,
                 ]}
               />
-              <div className="flex justify-between">
+              <div className="relative flex justify-between">
                 {errMsgToggle && password.length < 6 ? (
                   <p className="text-sm text-red-600">
                     6文字以上入力してください。
@@ -175,13 +178,17 @@ export const Login = memo(() => {
                 ) : countNumber.id === "password" && countNumber.num === 32 ? (
                   <p className="text-sm text-red-600">文字数が最大です。</p>
                 ) : (
-                  <p className="text-[12px] text-slate-500">
-                    6文字以上32文字以内、半角英数字のみ、スペースなし
+                  <p className="text-left text-[12px] text-slate-500">
+                    6文字以上32文字以内、半角英数字のみ
+                    <br />
+                    スペースなし
                   </p>
                 )}
-                <p className="ml-2 text-sm text-slate-500">
-                  {countNumber.id === "password" && `${countNumber.num}/32`}
-                </p>
+                <CountNumber
+                  countNumber={countNumber}
+                  max="32"
+                  formId="password"
+                />
               </div>
               <span
                 onClick={toggleIcon}
@@ -200,16 +207,13 @@ export const Login = memo(() => {
             onClick={() => {
               navigate("/forgot-password");
             }}
-            className="text-sm text-slate-500 cursor-not-allowed"
+            className="cursor-not-allowed text-sm text-blue-800"
           >
-            {/* text-blue-800 */}
             パスワードを忘れた場合
           </button>
           <button
             onClick={login}
-            className={
-              "mt-6 mb-4 rounded-md bg-sky-600 p-2 px-4 font-bold text-white shadow-md active:bg-sky-900"
-            }
+            className="mt-6 mb-4 rounded-md bg-sky-600 p-2 px-4 font-bold text-white shadow-md active:bg-sky-900"
           >
             はじめる
           </button>

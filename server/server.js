@@ -54,20 +54,7 @@ app.use(
     },
   })
 );
-app.use(
-  session({
-    key: "resetPassword",
-    secret: "subscribe",
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-      httpOnly: true,
-      maxAge: 900, // 15m
-    },
-  })
-);
 
-// routes
 app.post("/register", async (req, res) => {
   const { username, email, password } = req.body;
 
@@ -143,20 +130,17 @@ app.post("/login", async (req, res) => {
         if (response) {
           // メールアドレスとパスワードの認証が完了している状態
 
-          // トークンの生成 ↓-------------------------------------------------
           const id = result[0].userId; // DBからuserIdを取得して格納
           // jwt.signで3つの情報(payload,secret,options)をbase64エンコードする
           const token = jwt.sign({ id }, process.env.SECRET_KEY, {
             expiresIn: 300, // 単位（秒）
           });
-          // 応答ヘッダーのクッキーにトークンを格納
+          // クッキーにトークンを格納
           res.cookie("token", token, {
             httpOnly: true,
-            secure: true, // httpsプロトコル上のリクエストのみ受け付ける。httpには送信しない
+            secure: true, // httpsのリクエストのみ受け付ける。
             maxAge: 10000,
           });
-
-          // トークンの生成 ↑-------------------------------------------------
 
           // sessionにユーザー情報を格納
           req.session.user = result;

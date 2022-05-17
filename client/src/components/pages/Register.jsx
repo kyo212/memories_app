@@ -11,6 +11,7 @@ import { Header } from "../organisms/Header";
 import { Loading } from "../atoms/style/Loading";
 import { TermsOfService } from "./TermsOfService";
 import { Browser } from "./Browser";
+import { CountNumber } from "../atoms/CountNumber";
 // カスタムフック
 import { useSegment } from "../custom/useSegment";
 import { useStyle } from "../custom/useStyle";
@@ -191,9 +192,11 @@ export const Register = memo(() => {
                         countNumber.num === 12 && <p>文字数が最大です。</p>
                       )}
                     </div>
-                    <p className="absolute right-0 top-0 text-sm text-slate-500">
-                      {countNumber.id === "username" && `${countNumber.num}/12`}
-                    </p>
+                    <CountNumber
+                      countNumber={countNumber}
+                      max="12"
+                      formId="username"
+                    />
                   </div>
                 </div>
                 <div>
@@ -230,9 +233,11 @@ export const Register = memo(() => {
                         countNumber.num === 40 && <p>文字数が最大です。</p>
                       )}
                     </div>
-                    <p className="absolute right-0 top-0 text-sm text-slate-500">
-                      {countNumber.id === "email" && `${countNumber.num}/40`}
-                    </p>
+                    <CountNumber
+                      countNumber={countNumber}
+                      max="40"
+                      formId="email"
+                    />
                   </div>
                 </div>
                 <div className="relative">
@@ -249,7 +254,7 @@ export const Register = memo(() => {
                         : errorBorderMsg.base
                     }
                   />
-                  <div className="flex justify-between">
+                  <div className="relative flex justify-between">
                     {errMsgToggle && password.length < 6 ? (
                       <p className="text-sm text-red-600">
                         6文字以上入力してください。
@@ -258,13 +263,17 @@ export const Register = memo(() => {
                       countNumber.num === 32 ? (
                       <p className="text-sm text-red-600">文字数が最大です。</p>
                     ) : (
-                      <p className="text-[12px] text-slate-500">
-                        6文字以上32文字以内、半角英数字のみ、スペースなし
+                      <p className="text-left text-[12px] text-slate-500">
+                        6文字以上32文字以内、半角英数字のみ
+                        <br />
+                        スペースなし
                       </p>
                     )}
-                    <p className="ml-2 text-sm text-slate-500">
-                      {countNumber.id === "password" && `${countNumber.num}/32`}
-                    </p>
+                    <CountNumber
+                      countNumber={countNumber}
+                      max="32"
+                      formId="password"
+                    />
                   </div>
                   <span
                     onClick={() => setPasswordShow(!passwordShow)}
