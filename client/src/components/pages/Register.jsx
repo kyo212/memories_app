@@ -44,7 +44,7 @@ export const Register = memo(() => {
   useEffect(() => {
     const getLoginState = async () => {
       await axios
-        .post(`http://${process.env.REACT_APP_PUBLIC_IP}/loginState`)
+        .post(`https://${process.env.REACT_APP_PUBLIC_IP}/loginState`)
         .then((response) => {
           const { loggedIn } = response.data;
           loggedIn ? navigate(`/mybooks`) : navigate("/register");
@@ -61,7 +61,7 @@ export const Register = memo(() => {
       email.indexOf(".") > -1
     ) {
       await axios
-        .post(`http://${process.env.REACT_APP_PUBLIC_IP}/register`, {
+        .post(`https://${process.env.REACT_APP_PUBLIC_IP}/register`, {
           username,
           email,
           password,
@@ -85,7 +85,7 @@ export const Register = memo(() => {
 
   const login = async () => {
     await axios
-      .post(`http://${process.env.REACT_APP_PUBLIC_IP}/login`, {
+      .post(`https://${process.env.REACT_APP_PUBLIC_IP}/login`, {
         email,
         password,
       })
@@ -94,7 +94,7 @@ export const Register = memo(() => {
         !result && setErrMsgToggle(true);
         setErrMsgText(msg);
         axios
-          .post(`http://${process.env.REACT_APP_PUBLIC_IP}/isUserAuth`)
+          .post(`https://${process.env.REACT_APP_PUBLIC_IP}/isUserAuth`)
           .then((response) => {
             const { auth } = response.data;
             auth && navigate(`/mybooks`);

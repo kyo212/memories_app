@@ -39,7 +39,7 @@ export const Login = memo(() => {
     // セッション情報によってルートを制限する
     const getLoginState = async () => {
       await axios
-        .post(`http://${process.env.REACT_APP_PUBLIC_IP}/loginState`)
+        .post(`https://${process.env.REACT_APP_PUBLIC_IP}/loginState`)
         .then((response) => {
           const { loggedIn } = response.data;
           loggedIn ? navigate(`/mybooks`) : navigate("/login");
@@ -52,7 +52,7 @@ export const Login = memo(() => {
   const login = async () => {
     // ログイン認証の関数
     await axios
-      .post(`http://${process.env.REACT_APP_PUBLIC_IP}/login`, {
+      .post(`https://${process.env.REACT_APP_PUBLIC_IP}/login`, {
         username,
         email,
         password,
@@ -62,7 +62,7 @@ export const Login = memo(() => {
         !result && setErrMsgToggle(true);
         setErrMsgText(msg);
         axios
-          .post(`http://${process.env.REACT_APP_PUBLIC_IP}/isUserAuth`)
+          .post(`https://${process.env.REACT_APP_PUBLIC_IP}/isUserAuth`)
           .then((response) => {
             const { auth } = response.data;
             auth && navigate(`/mybooks`);

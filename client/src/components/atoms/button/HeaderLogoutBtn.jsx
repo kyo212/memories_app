@@ -7,7 +7,7 @@ export const HeaderLogoutBtn = memo(({ menuModalToggle }) => {
 
   const logout = () => {
     axios
-      .post(`http://${process.env.REACT_APP_PUBLIC_IP}/logout`)
+      .post(`https://${process.env.REACT_APP_PUBLIC_IP}/logout`)
       .then((response) => {
         const { loggedIn } = response.data;
         if (!loggedIn) {

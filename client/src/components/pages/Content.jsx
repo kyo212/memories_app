@@ -38,7 +38,7 @@ export const Content = memo(() => {
   const [bookItems, setBookItems] = useState([]);
   const [bookTitle, setBookTitle] = useState("");
   const [category, setCategory] = useState("diary");
-  const [loginUser, setLoginUser] = useState(""); // ログイン中のemail
+  const [loginUser, setLoginUser] = useState("");
   const [deleteInform, setDeleteInform] = useState({});
   const [searchText, setSearchText] = useState("");
   // Toggle
@@ -76,7 +76,7 @@ export const Content = memo(() => {
     // ユーザー名をセッションから取得
     const getUsername = () => {
       axios
-        .post(`http://${process.env.REACT_APP_PUBLIC_IP}/loginState`)
+        .post(`https://${process.env.REACT_APP_PUBLIC_IP}/loginState`)
         .then((response) => {
           const { user } = response.data;
           console.log({ user, user_0: user[0].username });
@@ -90,7 +90,7 @@ export const Content = memo(() => {
   useEffect(() => {
     const getItems = async () => {
       await axios
-        .post(`http://${process.env.REACT_APP_PUBLIC_IP}/getItems`, {
+        .post(`https://${process.env.REACT_APP_PUBLIC_IP}/getItems`, {
           username: loginUser,
         })
         .then((response) => {
@@ -126,7 +126,7 @@ export const Content = memo(() => {
   const insertItem = async () => {
     // awsのバケットURLを取得
     await axios
-      .post(`http://${process.env.REACT_APP_PUBLIC_IP}/s3Url`)
+      .post(`https://${process.env.REACT_APP_PUBLIC_IP}/s3Url`)
       .then((response) => {
         const { url } = response.data;
         // awsのURLにput
@@ -143,7 +143,7 @@ export const Content = memo(() => {
           if (imageFile !== "" && bookTitle !== "") {
             // 入力した情報をDBに追加
             await axios
-              .post(`http://${process.env.REACT_APP_PUBLIC_IP}/insert`, {
+              .post(`https://${process.env.REACT_APP_PUBLIC_IP}/insert`, {
                 username: loginUser,
                 bookTitle,
                 coverImage,
@@ -177,7 +177,7 @@ export const Content = memo(() => {
 
   const deleteItem = async (id) => {
     await axios
-      .delete(`http://${process.env.REACT_APP_PUBLIC_IP}/delete/${id}`)
+      .delete(`https://${process.env.REACT_APP_PUBLIC_IP}/delete/${id}`)
       .then((response) => {
         // DBから値を消してもstateには残っているため最後だけ初期化する
         bookItems.length === 1 && setBookItems([]);
@@ -187,7 +187,7 @@ export const Content = memo(() => {
   };
 
   const favoriteState = async (id, num) => {
-    await axios.put(`http://${process.env.REACT_APP_PUBLIC_IP}/put`, {
+    await axios.put(`https://${process.env.REACT_APP_PUBLIC_IP}/put`, {
       id,
       num: Number(num),
       type: "favorite",
@@ -198,7 +198,7 @@ export const Content = memo(() => {
   const shareState = async (id) => {
     const { bookId, shareId } = id;
 
-    await axios.put(`http://${process.env.REACT_APP_PUBLIC_IP}/put`, {
+    await axios.put(`https://${process.env.REACT_APP_PUBLIC_IP}/put`, {
       id: bookId,
       num: Number(shareId),
       type: "share",

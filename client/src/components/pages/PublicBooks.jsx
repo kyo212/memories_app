@@ -44,7 +44,7 @@ export const PublicBooks = memo(() => {
     // ユーザー名をセッションから取得
     const getUsername = () => {
       axios
-        .post(`http://${process.env.REACT_APP_PUBLIC_IP}/loginState`)
+        .post(`https://${process.env.REACT_APP_PUBLIC_IP}/loginState`)
         .then((response) => {
           const { user } = response.data;
           console.log({ user, user_0: user[0].username });
@@ -57,7 +57,7 @@ export const PublicBooks = memo(() => {
   useEffect(() => {
     const getPublicItems = async () => {
       await axios
-        .post(`http://${process.env.REACT_APP_PUBLIC_IP}/getItems`, {
+        .post(`https://${process.env.REACT_APP_PUBLIC_IP}/getItems`, {
           shareId: 1,
         })
         .then((response) => {

@@ -101,7 +101,7 @@ export const Book = memo(() => {
   useEffect(() => {
     const getItems = async () => {
       await axios
-        .post(`http://${process.env.REACT_APP_PUBLIC_IP}/getBookContent`, {
+        .post(`https://${process.env.REACT_APP_PUBLIC_IP}/getBookContent`, {
           bookId: location.state.bookId,
         })
         .then((response) => {
@@ -118,7 +118,7 @@ export const Book = memo(() => {
     } else {
       // awsのバケットURLを取得
       await axios
-        .post(`http://${process.env.REACT_APP_PUBLIC_IP}/s3Url`)
+        .post(`https://${process.env.REACT_APP_PUBLIC_IP}/s3Url`)
         .then((response) => {
           const { url } = response.data;
 
@@ -137,7 +137,7 @@ export const Book = memo(() => {
               (type === "mediaAndText" && bookContentTitle && bookContentDesc)
             ) {
               await axios
-                .post(`http://${process.env.REACT_APP_PUBLIC_IP}/insert`, {
+                .post(`https://${process.env.REACT_APP_PUBLIC_IP}/insert`, {
                   bookId, // デフォルト
                   username, // デフォルト
                   bookImage, // 任意追加 nullを許可
@@ -186,7 +186,7 @@ export const Book = memo(() => {
 
   const deleteItem = async (id) => {
     await axios
-      .delete(`http://${process.env.REACT_APP_PUBLIC_IP}/deletePage/${id}`)
+      .delete(`https://${process.env.REACT_APP_PUBLIC_IP}/deletePage/${id}`)
       .then(() => {
         // DBから値を消してもstateには残っているため最後だけ初期化する
         // bookItems.length === 1 && setBookItems([]);
@@ -262,7 +262,7 @@ export const Book = memo(() => {
   const editConfirm = async (id) => {
     if (bookContentEditTitle || bookContentEditDesc) {
       await axios
-        .put(`http://${process.env.REACT_APP_PUBLIC_IP}/put`, {
+        .put(`https://${process.env.REACT_APP_PUBLIC_IP}/put`, {
           id,
           title: bookContentEditTitle,
           description: bookContentEditDesc,
@@ -305,7 +305,6 @@ export const Book = memo(() => {
           </div>
         ) : (
           <div
-            id="bookMain"
             className={`${fontChange} flex h-screen w-screen snap-x snap-mandatory overflow-scroll`}
           >
             <Swiper
@@ -730,9 +729,7 @@ export const Book = memo(() => {
                           onClick={typeChangeToggle}
                           className="mt-2 flex items-center space-x-2 text-sm text-sky-800"
                         >
-                          <span className="text-lg">
-                            <BsArrowRepeat />
-                          </span>
+                          <BsArrowRepeat className="text-lg" />
                           画像か動画だけを追加
                         </button>
                         <button

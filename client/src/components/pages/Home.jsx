@@ -35,7 +35,7 @@ export const Home = memo(() => {
   useEffect(() => {
     const getLoginState = () => {
       axios
-        .post(`http://${process.env.REACT_APP_PUBLIC_IP}/loginState`)
+        .post(`https://${process.env.REACT_APP_PUBLIC_IP}/loginState`)
         .then((response) => {
           const { loggedIn } = response.data;
           loggedIn ? navigate(`/mybooks`) : navigate("/");
