@@ -79,7 +79,6 @@ export const Content = memo(() => {
         .post(`https://${process.env.REACT_APP_PUBLIC_IP}/loginState`)
         .then((response) => {
           const { user } = response.data;
-          console.log({ user, user_0: user[0].username });
           setLoginUser(user[0].username); // セッションに格納されているユーザー情報
         });
     };

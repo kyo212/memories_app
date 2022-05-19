@@ -34,6 +34,7 @@ export const Browser = memo(({ onClickToggle }) => {
         </h2>
         <h3 className="text-xl font-bold">ブラウザ</h3>
         <ul className="ml-8 mb-10 list-disc">
+          <li>Google Chrome</li>
           <li>FireFox</li>
           <li>Edge</li>
           <li>Safari</li>
