@@ -11,8 +11,8 @@ export const BookBottomMenu = memo(
         className={`${[
           bottomMenu && "-translate-x-full",
         ]} fixed bottom-0 z-50 h-10 ${
-          !publicBookMenu && "w-[70px]"
-        } w-[109px] transform transition-all duration-100`}
+          !publicBookMenu ? "w-[70px]" : "w-[109px]"
+        } transform transition-all duration-100`}
       >
         <button
           onClick={toMybooks}
@@ -35,8 +35,8 @@ export const BookBottomMenu = memo(
             setBottomMenu(!bottomMenu);
           }}
           className={`${[bottomMenu && "lg:opacity-30"]} fixed ${
-            !publicBookMenu && "left-[64px]"
-          } bottom-2 left-[108px] z-50 rounded-r-xl bg-white py-[10px] px-2 transition-all duration-1000`}
+            !publicBookMenu ? "left-[64px]" : "left-[108px]"
+          } bottom-2  z-50 rounded-r-xl bg-white py-[10px] px-2 transition-all duration-1000`}
         >
           <BsChevronDoubleLeft
             className={`${[
