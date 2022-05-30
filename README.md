@@ -20,17 +20,21 @@
 
 # 使用技術
 
-> フロントエンド
+__フロントエンド__
 - React(create-react-app) 17.0.2
 - TailwindCSS 3.0.23
-> バックエンド
+
+__バックエンド__
 - Express 4.17.3
-> DB
+
+__DB__
 - MySQL 2.18.1
 - MySQL Workbench
-> Webサーバ
+
+__Webサーバ__
 - Nginx
-> インフラ
+
+__インフラ__
 - AWS
   - S3(画像管理)
   - ACM(SSL証明書)
@@ -39,13 +43,17 @@
   - ALB
   - EC2
   - RDS
-> 統合開発環境
+  
+__統合開発環境__
 - VSCode
-> バージョン管理
+
+__バージョン管理__
 - git
-> リモートリポジトリ
+
+__リモートリポジトリ__
 - Github
-> 素材
+
+__素材__
 
 【Loose Drawing】
 https://loosedrawing.com/
