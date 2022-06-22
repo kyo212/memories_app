@@ -21,14 +21,14 @@
 # 使用技術
 
 __フロントエンド__
-- React(create-react-app) 17.0.2
-- TailwindCSS 3.0.23
+- React(create-react-app) v17
+- TailwindCSS v3
 
 __バックエンド__
-- Express 4.17.3
+- Express v4
 
 __DB__
-- MySQL 2.18.1
+- MySQL v2
 - MySQL Workbench
 
 __Webサーバ__
@@ -40,7 +40,7 @@ __インフラ__
   - ACM(SSL証明書)
   - ElasticIP
   - Route 53
-  - ALB
+  - ALB(httpsに通信にリダイレクト)
   - EC2
   - RDS
   
@@ -48,7 +48,7 @@ __統合開発環境__
 - VSCode
 
 __バージョン管理__
-- git
+- Git
 
 __リモートリポジトリ__
 - Github
@@ -71,7 +71,7 @@ https://unsplash.com/
 ![構成図 drawio](https://user-images.githubusercontent.com/91656115/169469410-f9161690-ba35-4aa1-8641-d90d40d2ffd0.png)
 
 
-# 機能、非機能一覧
+# 機能
 
 - 認証
   - 新規登録(bcrypt)
@@ -106,10 +106,9 @@ https://unsplash.com/
   - 国旗などの絵文字の文字数ををlengthで見ると2~4文字になりますが、Intl.Segmenterを使って厳密にカウントし、どんな絵文字でも1つにつき"1"とカウントされるようにしました。
 
 ## UI/UX
-- 本の表面をCSSで再現
-- お気に入り状態を赤いリボンで表現
-- 入力時・エラー時の色
-- メインとなるフォトブック以外は極力隠す
+- フォトブックに近いデザインやアニメーション
+- お気に入り状態をアニメーション付きの赤いリボンで表現
+- メインとなるフォトブック以外のヘッダーやメニューなどは最小化できるようにする
   - フォトブックをメインに楽しんで欲しいため、ヘッダーやメニューなどを極力目立たないように隠すことができるようにしました。
 
 
